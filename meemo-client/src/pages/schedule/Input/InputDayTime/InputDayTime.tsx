@@ -4,8 +4,8 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { daysData } from "../../../../lib/data/scheduleData";
-import { ISchedule } from "../../../../lib/types/scheduleTypes";
+import { daysData } from "../../../../data/scheduleData";
+import { ISchedule } from "../../../../types/scheduleTypes";
 import InputDayList from "./InputDayList";
 import InputTimeList from "./InputTimeList";
 import style from "../InputBoxStyle.module.scss";

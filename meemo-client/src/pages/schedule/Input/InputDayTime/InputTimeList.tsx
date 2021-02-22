@@ -1,5 +1,5 @@
-import { hourData, minData } from "../../../../lib/data/scheduleData";
-import { ISchedule } from "../../../../lib/types/scheduleTypes";
+import { hourData, minData } from "../../../../data/scheduleData";
+import { ISchedule } from "../../../../types/scheduleTypes";
 import style from "../InputBoxStyle.module.scss";
 
 interface Props {

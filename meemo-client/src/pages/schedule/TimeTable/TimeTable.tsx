@@ -1,4 +1,4 @@
-import { daysData, hourData } from "../../../lib/data/scheduleData";
+import { daysData, hourData } from "../../../data/scheduleData";
 import TimeTableGrid from "./TimeTableGrid";
 import style from "./TimeTableStyle.module.scss";
 

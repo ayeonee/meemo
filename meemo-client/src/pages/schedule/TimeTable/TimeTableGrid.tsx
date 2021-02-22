@@ -1,4 +1,4 @@
-import { allTimeData } from "../../../lib/data/scheduleData";
+import { allTimeData } from "../../../data/scheduleData";
 import style from "./TimeTableStyle.module.scss";
 
 const TimeLineGrid: React.FC = () => {

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
-import useConfirm from "../../../lib/hooks/useConfirm";
-import { daysData, colorCode } from "../../../lib/data/scheduleData";
-import { ISchedule } from "../../../lib/types/scheduleTypes";
+import useConfirm from "../../../hooks/useConfirm";
+import { daysData, colorCode } from "../../../data/scheduleData";
+import { ISchedule } from "../../../types/scheduleTypes";
 import style from "./ScheduleStyle.module.scss";
 
 interface Props {

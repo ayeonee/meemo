@@ -1,5 +1,5 @@
 import React from "react";
-import { AllData } from "../../../lib/types/scheduleTypes";
+import { AllData } from "../../../types/scheduleTypes";
 import ScheduleItem from "./ScheduleItem";
 import style from "./ScheduleStyle.module.scss";
 

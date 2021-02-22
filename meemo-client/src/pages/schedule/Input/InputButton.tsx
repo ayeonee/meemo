@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { DataProps } from "../../../lib/types/scheduleTypes";
+import { DataProps } from "../../../types/scheduleTypes";
 import InputBox from "./InputBox";
 import style from "./InputButtonStyle.module.scss";
 

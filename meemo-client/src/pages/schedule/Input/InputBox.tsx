@@ -4,7 +4,7 @@ import {
   Schedule,
   IData,
   IInput,
-} from "../../../lib/types/scheduleTypes";
+} from "../../../types/scheduleTypes";
 import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
 import style from "./InputBoxStyle.module.scss";
