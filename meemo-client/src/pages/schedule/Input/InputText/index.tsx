@@ -1,4 +1,4 @@
-import { IInput } from "../../../../lib/types/scheduleTypes";
+import { IInput } from "../../../../types/scheduleTypes";
 import style from "../InputBoxStyle.module.scss";
 
 interface Props {

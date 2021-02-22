@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { AllData, IData } from "../../lib/types/scheduleTypes";
+import { AllData, IData } from "../../types/scheduleTypes";
 import InputButton from "./Input/InputButton";
 import ScheduleList from "./Schedule/ScheduleList";
 import TimeTable from "./TimeTable/TimeTable";
