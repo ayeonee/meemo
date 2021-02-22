@@ -1,0 +1,228 @@
+@import "../../../lib/styles/util.module.scss";
+
+.input_wrapper {
+  @include flex_col;
+
+  z-index: 1000;
+  width: 400px;
+  height: fit-content;
+  min-height: 200px;
+  position: fixed;
+  bottom: 115px;
+  left: 50%;
+  margin-left: -220px;
+  padding: 20px 20px 80px 20px;
+  background-color: white;
+  border-style: none;
+  border-radius: 10px;
+  box-shadow: 1px 2px 7px 0.2px rgba(10, 10, 10, 0.151);
+
+  h3 {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+    top: 14px;
+  }
+
+  ol,
+  select,
+  input {
+    margin: 5px 0 5px 0;
+  }
+
+  .close_button {
+    position: absolute;
+    right: 20px;
+    top: 14px;
+    color: rgb(145, 145, 145);
+    font-size: 25px;
+    font-weight: 300;
+    border-style: none;
+    background-color: transparent;
+    height: fit-content;
+    width: fit-content;
+    cursor: pointer;
+
+    &:active:focus {
+      outline: none;
+    }
+  }
+
+  .input_wrapper_sub {
+    @include flex_row;
+    padding: 20px 20px 30px 20px;
+
+    .input_title {
+      @include flex_col;
+      padding: 0 25px 0 8px;
+
+      h3 {
+        margin: 8px 0 8px 0;
+      }
+    }
+
+    .input_body {
+      @include flex_col;
+
+      .input_content {
+        border-radius: 20px;
+        border: $gray_border;
+        padding: 5px 10px 5px 10px;
+        font-size: 12px;
+        font-weight: 300;
+
+        &:focus {
+          outline: none;
+        }
+        &:focus::placeholder {
+          color: transparent;
+        }
+      }
+
+      .day_check_wrapper {
+        @include flex_row;
+        list-style: none;
+
+        .day_check {
+          background-color: $gray;
+          color: rgba(10, 10, 10, 0.438);
+        }
+
+        .day_check_true {
+          background-color: $point_color;
+          color: white;
+        }
+
+        .day_check,
+        .day_check_true {
+          font-size: 12px;
+          font-weight: 400;
+          width: 25px;
+          height: 23px;
+          padding-top: 2px;
+          margin: 1px;
+          text-align: center;
+          border-radius: 50%;
+          cursor: pointer;
+
+          &:hover {
+            color: white;
+            background-color: $point_color;
+          }
+
+          &:active {
+            transform: scale(0.97);
+          }
+        }
+      }
+
+      .select_wrapper {
+        @include flex_row;
+        margin-bottom: 10px;
+
+        select {
+          height: 30px;
+          color: rgb(5, 5, 5);
+          font-size: 12px;
+          font-weight: 400;
+          margin: 5px 2px 0 2px;
+          padding: 2px;
+          border: 1px solid rgba(48, 48, 48, 0.418);
+          border-radius: 3px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      .daytime_delete {
+        position: relative;
+        top: 11px;
+        left: 202px;
+        width: fit-content;
+        height: 5px;
+        text-align: right;
+        color: rgb(82, 172, 157);
+        font-size: 12px;
+        font-weight: 500;
+        border-style: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        &:hover {
+          color: rgb(102, 197, 181);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .input_box_button {
+    @include flex_col;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -45px;
+    padding-top: 10px;
+    width: 90px;
+    height: 40px;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 0 0.5px 2px 0.5px rgba(10, 10, 10, 0.178);
+    color: white;
+    background-color: $point_color;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(101, 194, 180);
+    }
+    &:active {
+      box-shadow: 0 0.2px 1px 0.2px rgba(10, 10, 10, 0.178);
+      transform: scale(0.98);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .add_new_daytime {
+    position: absolute;
+    bottom: 95px;
+    left: 50%;
+    margin-left: -6px;
+
+    color: rgb(173, 169, 169);
+    font-size: 25px;
+    font-weight: 300;
+    border-style: none;
+    background-color: transparent;
+    height: 12px;
+    width: 12px;
+    cursor: pointer;
+
+    &:hover {
+      color: rgb(199, 199, 199);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

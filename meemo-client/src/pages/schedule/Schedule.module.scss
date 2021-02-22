@@ -1,0 +1,76 @@
+@import "../../lib/styles/util.module.scss";
+
+.schedule {
+  @mixin default {
+    padding: 0;
+    margin: 0;
+  }
+
+  .time_line_wrapper {
+    @include default;
+    margin: 20px auto;
+    width: fit-content;
+  }
+
+  .table_wrapper {
+    @include flex_col;
+    position: static;
+    background-color: white;
+    width: fit-content;
+    text-align: center;
+
+    .table_header {
+      border: $gray_border;
+      border-right: none;
+      border-spacing: 0;
+      color: rgb(70, 70, 70);
+      font-size: 14px;
+      font-weight: 400;
+      tr {
+        height: 40px;
+        background-color: rgba(153, 153, 153, 0.329);
+      }
+      th {
+        width: 80px;
+        border-right: $gray_border;
+      }
+
+      .day {
+        border-right: $gray_border;
+        width: 95px;
+        margin: 0;
+      }
+    }
+
+    .table_body {
+      width: fit-content;
+      border-spacing: 0;
+
+      .times {
+        .time {
+          @include align_center;
+          color: rgb(70, 70, 70);
+          font-size: 14px;
+          font-weight: 400;
+          width: 80px;
+          height: 71px;
+          display: flex;
+          border: $gray_border;
+          border-top: none;
+        }
+      }
+
+      .cols {
+        .grids {
+          .grid {
+            width: 95px;
+            height: 35px;
+            border: $gray_border;
+            border-left: none;
+            border-top: none;
+          }
+        }
+      }
+    }
+  }
+}
