@@ -1,0 +1,75 @@
+@import "../../styles/util.module.scss";
+
+@mixin login_box {
+  display: flex;
+  width: 70vw;
+  height: 70vh;
+  margin: 8% auto;
+  border-radius: 5px;
+}
+
+.login_wrapper {
+  @include login_box;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 2px 20px 3px rgba(66, 66, 66, 0.123);
+
+  .login_box {
+    @include flex_col;
+    width: 100%;
+
+    .input_wrapper,
+    .button_wrapper,
+    .social {
+      @include flex_col;
+      width: 300px;
+    }
+  }
+
+  .login_background {
+    @include login_box;
+    position: absolute;
+    z-index: -99;
+    background-image: url("../../img/login-bg.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+
+    .logo {
+      position: absolute;
+      left: 7%;
+      top: 6%;
+
+      width: 150px;
+    }
+
+    .header_sentence {
+      color: white;
+      position: absolute;
+      right: 7%;
+      top: 6%;
+
+      height: fit-content;
+      text-align: right;
+      h3,
+      h4 {
+        margin: 0;
+        padding-right: 2px;
+      }
+      h4 {
+        font-size: 18px;
+        font-weight: 400;
+      }
+      h3 {
+        font-size: 22px;
+        font-weight: 600;
+      }
+    }
+
+    .bg_img {
+      position: absolute;
+      top: 18%;
+      right: 7%;
+      height: 70%;
+    }
+  }
+}
