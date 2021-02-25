@@ -49,6 +49,9 @@ const LoginPage: React.FC<Props> = () => {
           />
         </div>
       </div>
+      <div className={style.bg_side}>
+        <p>Copyright ⓒ2021 ME:EMO. All rights reserved.</p>
+      </div>
     </div>
   );
 };
