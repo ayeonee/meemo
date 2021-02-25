@@ -1,3 +1,5 @@
+@import "./util.module.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -8,11 +10,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  background-color: rgb(235, 235, 235);
+}
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+  padding: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-html {
-  background-color: #ffffff;
 }

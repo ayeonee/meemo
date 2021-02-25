@@ -5,7 +5,7 @@ import ScheduleList from "./Schedule/ScheduleList";
 import TimeTable from "./TimeTable/TimeTable";
 import style from "./Schedule.module.scss";
 
-const Schedule: React.FC = () => {
+const SchedulePage: React.FC = () => {
   const [allData, setAllData] = useState<AllData>([]);
   const nextId = useRef<number>(1);
 
@@ -53,4 +53,4 @@ const Schedule: React.FC = () => {
   );
 };
 
-export default Schedule;
+export default SchedulePage;
