@@ -6,42 +6,65 @@
   margin: 8% auto;
   border-radius: 5px;
 }
-.login_page {
+.auth_page {
   width: 100vw;
   height: 100%;
 
-  .login_wrapper {
+  .auth_box_wrapper {
     @include login_box;
     height: 70vh;
     align-items: center;
     box-shadow: 1px 2px 25px 2px rgba(44, 44, 44, 0.185);
 
-    .login_box {
+    button {
+      font-size: 16px;
+      font-weight: 500;
+      border-style: none;
+      border-radius: 23px;
+      height: 46px;
+      margin-top: 10px;
+      cursor: pointer;
+
+      &:hover {
+        transform: translate(0px, -1px);
+      }
+      &:active {
+        transform: scale(0.98);
+        box-shadow: none;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .auth_box {
       @include flex_col;
       align-items: center;
       position: relative;
-      top: 50px;
-      left: 7%;
+      top: 18px;
+      left: 7.5%;
       width: 300px;
       height: 400px;
 
       .input_wrapper {
+        width: 100%;
+
         .animated_div {
           position: relative;
           margin-bottom: 10px;
 
-          .animated_label,
-          .animated_label_false {
+          .animated_label {
             position: absolute;
             left: 2px;
             top: -10px;
             width: 100%;
             height: fit-content;
             opacity: 0.5;
-            transition: 0.2s ease all;
+            transition: 0.1s ease all;
             user-select: none;
             font-size: 18px;
             font-weight: 300;
+            color: transparent;
             margin: 1.8vh 0 5px 0;
             padding-bottom: 2px;
             cursor: text;
@@ -79,8 +102,7 @@
               border-color: transparent;
               outline: none;
 
-              ~ .animated_label,
-              ~ .animated_label_false {
+              ~ .animated_label {
                 opacity: 1;
                 color: $green_grade_5;
                 font-size: 15px;
@@ -96,15 +118,77 @@
                 }
               }
             }
+
+            &:focus::placeholder {
+              color: transparent;
+            }
+          }
+        }
+
+        .button_wrapper {
+          @include flex_col;
+          margin-top: 20px;
+
+          .login_btn,
+          .register_btn {
+            border: none;
+            color: white;
+            background-color: $green_grade_4;
+
+            &:hover {
+              box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.116);
+            }
           }
         }
       }
     }
 
-    .button_wrapper,
+    .division {
+      @include flex_row;
+      align-items: center;
+      width: 100%;
+      height: fit-content;
+
+      padding: 20px 0px 10px 0px;
+
+      p {
+        font-size: 15px;
+        font-weight: 300;
+        text-align: center;
+        padding: 0 10px 0 10px;
+        color: rgb(121, 121, 121);
+      }
+
+      .border {
+        display: flex;
+        flex: 1;
+        border-bottom: 1px solid $gray;
+      }
+    }
+
     .social {
       @include flex_col;
-      width: 300px;
+      width: 100%;
+
+      .google_login,
+      .kakao_login {
+        //임시
+
+        font-weight: 400;
+        color: rgb(56, 56, 56);
+        border: 1px solid $gray;
+
+        &:hover {
+          box-shadow: 0px 2px 3px rgba(44, 44, 44, 0.11);
+        }
+      }
+
+      .google_login {
+        background-color: white;
+      }
+      .kakao_login {
+        background-color: yellow;
+      }
     }
   }
 

@@ -12,9 +12,9 @@ interface Props {}
 const AuthPage: React.FC<Props> = () => {
   return (
     <Router>
-      <div className={style.login_page}>
-        <div className={style.login_wrapper}>
-          <div className={style.login_box}>
+      <div className={style.auth_page}>
+        <div className={style.auth_box_wrapper}>
+          <div className={style.auth_box}>
             <AuthNav />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
