@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import AuthPage from "./pages/auth/AuthPage";
+import AuthPage from "./pages/auth";
 import PostListPage from "./pages/doc/PostListPage";
 import PostPage from "./pages/doc/PostPage";
 import WritePage from "./pages/doc/WritePage";
