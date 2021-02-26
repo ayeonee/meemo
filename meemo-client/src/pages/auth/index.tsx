@@ -20,7 +20,7 @@ const AuthPage: React.FC<Props> = () => {
             <Route path="/register" component={Register} />
           </div>
 
-          <div className={style.login_background}>
+          <div className={style.auth_background}>
             <div className={style.header_sentence}>
               <h4>나만의 온라인 스케쥴러</h4>
               <h3>미-모</h3>
