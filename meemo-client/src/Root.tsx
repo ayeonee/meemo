@@ -1,19 +1,17 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import AuthPage from "./pages/auth";
-import PostListPage from "./pages/doc/PostListPage";
-import PostPage from "./pages/doc/PostPage";
-import WritePage from "./pages/doc/WritePage";
 import SchedulePage from "./pages/schedule";
+import NoteList from "./pages/doc/components/NoteList";
+import Editor from "./pages/doc/components/Editor";
 
 const Root: React.FC = () => {
   return (
     <>
       <Route component={AuthPage} path="/login" />
       <Route component={SchedulePage} path={["/@:username", "/"]} exact />
-      <Route component={WritePage} path="/write" />
-      <Route component={PostListPage} path="/@:username/postlist" />
-      <Route component={PostPage} path="/@:username/:postId" />
+      <Route component={NoteList} path="/notelist" />
+      <Route component={Editor} path="/editor" />
     </>
   );
 };

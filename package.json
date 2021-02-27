@@ -1,0 +1,22 @@
+{
+  "name": "songazi_project",
+  "version": "1.0.0",
+  "description": "<br/>",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cd meemo-server && nodemon server\" \"cd meemo-client && npm start\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayeonee/SongAZi_Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ayeonee/SongAZi_Project/issues"
+  },
+  "homepage": "https://github.com/ayeonee/SongAZi_Project#readme"
+}
