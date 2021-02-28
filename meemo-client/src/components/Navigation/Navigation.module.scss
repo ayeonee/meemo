@@ -1,0 +1,48 @@
+@import "../../styles/util.module.scss";
+
+.nav_wrapper {
+  width: 100vw;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0px 2px 3px rgba(44, 44, 44, 0.137);
+
+  .nav_inside {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 92vw;
+
+    .nav_items {
+      @include flex_row;
+      align-items: center;
+      width: fit-content;
+
+      .logo {
+        height: 50px;
+      }
+
+      .nav_menus {
+        margin-left: 4vw;
+
+        .nav_menu {
+          padding: 4px;
+          margin: 0 2.3vw 0 2.3vw;
+          font-size: 18px;
+          font-weight: 400;
+          text-decoration: none;
+          color: rgb(56, 56, 56);
+
+          &:hover {
+            color: rgb(110, 110, 110);
+          }
+        }
+      }
+    }
+
+    .logout_btn {
+    }
+  }
+}
