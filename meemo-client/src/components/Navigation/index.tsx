@@ -7,7 +7,7 @@ import style from "./Navigation.module.scss";
 interface Props {}
 
 const Navigation: React.FC<Props> = () => {
-  const username = "이지원"; //임시
+  const username = "User Name"; //임시
   const [menuColor, setMenuColor] = useState<
     {
       name: string;
@@ -41,7 +41,11 @@ const Navigation: React.FC<Props> = () => {
           </Link>
           <div className={style.nav_menus}>
             {menuColor.map((data) => (
-              <NavItem data={data} handleNavColor={handleNavColor} />
+              <NavItem
+                data={data}
+                handleNavColor={handleNavColor}
+                key={data.menuId}
+              />
             ))}
           </div>
         </div>

@@ -1,7 +1,7 @@
 const useConfirm = (
   message: string = "",
   onConfirm: Function,
-  onCancel?: any
+  onCancel: Function
 ) => {
   if (onConfirm && typeof onConfirm !== "function") {
     return;

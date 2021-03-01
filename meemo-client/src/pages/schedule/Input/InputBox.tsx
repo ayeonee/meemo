@@ -202,7 +202,7 @@ const InputBox: React.FC<ModalType & DataProps> = ({
           <div className={style.input_wrapper_sub}>
             <div className={style.input_title}>
               <h3>일정</h3>
-              <h3>추가 정보</h3>
+              <h3>세부 사항</h3>
               <h3>날짜/시간</h3>
             </div>
 

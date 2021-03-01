@@ -93,7 +93,7 @@
         }
 
         .day_check_true {
-          background-color: $point_color;
+          background-color: $green_grade_4;
           color: white;
         }
 
@@ -111,7 +111,7 @@
 
           &:hover {
             color: white;
-            background-color: $point_color;
+            background-color: $green_grade_4;
           }
 
           &:active {
@@ -147,7 +147,7 @@
         width: fit-content;
         height: 5px;
         text-align: right;
-        color: rgb(82, 172, 157);
+        color: $green_grade_5;
         font-size: 12px;
         font-weight: 500;
         border-style: none;
@@ -182,15 +182,16 @@
     border-radius: 5px;
     box-shadow: 0 0.5px 2px 0.5px rgba(10, 10, 10, 0.178);
     color: white;
-    background-color: $point_color;
+    background-color: $green_grade_4;
     align-items: center;
     cursor: pointer;
 
     &:hover {
-      background-color: rgb(101, 194, 180);
+      transform: translate(0, -1px);
+      box-shadow: 0 1px 3px 0.5px rgba(10, 10, 10, 0.144);
     }
     &:active {
-      box-shadow: 0 0.2px 1px 0.2px rgba(10, 10, 10, 0.178);
+      box-shadow: none;
       transform: scale(0.98);
     }
     &:focus {
