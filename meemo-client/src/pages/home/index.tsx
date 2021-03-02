@@ -4,7 +4,8 @@ import Navigation from "../../components/Navigation";
 import SchedulePage from "../schedule";
 import TodoPage from "../todo";
 import CalenderPage from "../calender";
-import PostListPage from "../doc/PostListPage";
+import NoteList from "../doc/components/NoteList";
+import Editor from "../doc/components/Editor";
 
 interface Props {}
 
@@ -14,7 +15,8 @@ const Home: React.FC<Props> = () => {
       <Navigation />
       <Route component={SchedulePage} path={"/schedule"} />
       <Route component={TodoPage} path="/todo" />
-      <Route component={PostListPage} path="/postlist" />
+      <Route component={NoteList} path="/notelist" />
+      <Route component={Editor} path="/editor" />
       <Route component={CalenderPage} path="/calender" />
     </Router>
   );
