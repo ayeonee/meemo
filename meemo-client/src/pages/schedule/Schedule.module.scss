@@ -1,15 +1,14 @@
 @import "../../styles/util.module.scss";
 
 .schedule {
-  @mixin default {
-    padding: 0;
-    margin: 0;
-  }
+  display: flex;
+  justify-content: center;
 
   .time_line_wrapper {
-    @include default;
-    margin: 20px auto;
     width: fit-content;
+    height: fit-content;
+
+    margin: 12vh 0 3vh 0;
   }
 
   .table_wrapper {

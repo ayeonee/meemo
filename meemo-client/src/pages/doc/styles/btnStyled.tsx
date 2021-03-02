@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // find way to use spread operator or as such to simplify code
-export const EditButton = styled.button`
+export const EditButton: any = styled.button`
   position: fixed;
   right: 12vw;
   bottom: 10vh;
@@ -28,7 +28,7 @@ export const EditButton = styled.button`
   }
 `;
 
-export const DarkButton = styled.button`
+export const DarkButton: any = styled.button`
   position: fixed;
   right: 5vw;
   bottom: 10vh;

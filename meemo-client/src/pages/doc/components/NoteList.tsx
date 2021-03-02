@@ -31,8 +31,8 @@ const NoteDiv = styled.div`
   height: 100%;
 `;
 
-const Note = styled.div`
-  ${(p) =>
+const Note: any = styled.div`
+  ${(p: any) =>
     p.isSelected === p.id
       ? `border: dotted 2px black;`
       : `border: solid 2px black;`}
@@ -45,13 +45,13 @@ const Note = styled.div`
 
 const removeMd = require("remove-markdown");
 
-const setTitle = (str) => {
+const setTitle = (str: string) => {
   const rep = str.replace(/\\n|\\/g, "");
   const rem = removeMd(rep);
   return rem;
 };
 
-const setTime = (utcTime) => {
+const setTime = (utcTime: any) => {
   const localTime = new Date(utcTime).toLocaleString();
   return localTime;
 };
@@ -73,7 +73,7 @@ export default function NoteList() {
           cancelToken: source.token,
         });
         console.log("Got the notes!");
-        setNotes(res.data.map((note) => note));
+        setNotes(res.data.map((note: any) => note));
       } catch (err) {
         if (axios.isCancel(err)) {
           console.log("Caught a cancel.");
@@ -90,7 +90,7 @@ export default function NoteList() {
     };
   }, [update]);
 
-  const onSelect = (notes) => {
+  const onSelect = (notes: any) => {
     selectedNote === notes._id
       ? history.push({
           pathname: "/editor",
@@ -117,7 +117,7 @@ export default function NoteList() {
       .then(() => setSelectedNote(""));
   };
 
-  const deleteNote = (id) => {
+  const deleteNote = (id: any) => {
     axios
       .delete("http://localhost:5000/notes/" + id)
       .then(() => setUpdate(!update))
@@ -140,7 +140,7 @@ export default function NoteList() {
       </IconDiv>
       <NoteDiv>
         {/* note list needs to be fixed */}
-        {notes.map((note) => (
+        {notes.map((note: any) => (
           <Note
             key={note._id}
             id={note._id}

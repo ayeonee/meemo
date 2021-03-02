@@ -42,7 +42,8 @@ const ScheduleItem: React.FC<Props & ISchedule> = ({
 
   const confirmDelete = useConfirm(
     "해당시간표를 삭제하시겠습니까?",
-    onClickDelButton
+    onClickDelButton,
+    () => null
   );
 
   return (

@@ -6,17 +6,19 @@
   background-color: white;
   width: fit-content;
   text-align: center;
+  box-shadow: 0px 0px 15px 1px rgba(102, 102, 102, 0.295);
 
   .table_header {
     border: $gray_border;
     border-right: none;
     border-spacing: 0;
-    color: rgb(70, 70, 70);
-    font-size: 14px;
+    color: rgb(32, 32, 32);
+    font-size: 17px;
     font-weight: 400;
+
     tr {
       height: 40px;
-      background-color: rgba(153, 153, 153, 0.329);
+      background-color: $green_grade_2;
     }
     th {
       width: 80px;
@@ -37,7 +39,7 @@
     .times {
       .time {
         @include align_center;
-        color: rgb(70, 70, 70);
+        color: rgb(27, 27, 27);
         font-size: 14px;
         font-weight: 400;
         width: 80px;

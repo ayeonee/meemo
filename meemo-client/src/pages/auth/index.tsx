@@ -16,7 +16,7 @@ const AuthPage: React.FC<Props> = () => {
         <div className={style.auth_box_wrapper}>
           <div className={style.auth_box}>
             <AuthNav />
-            <Route path="/login" component={Login} />
+            <Route path="/" component={Login} exact />
             <Route path="/register" component={Register} />
           </div>
 

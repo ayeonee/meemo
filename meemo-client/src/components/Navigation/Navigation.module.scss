@@ -1,0 +1,99 @@
+@import "../../styles/util.module.scss";
+
+.nav_wrapper {
+  width: 100vw;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0px 2px 3px rgba(44, 44, 44, 0.137);
+  z-index: 100;
+  position: fixed;
+  top: 0;
+
+  .nav_inside {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 92vw;
+
+    .nav_items {
+      @include flex_row;
+      align-items: center;
+      width: fit-content;
+
+      .logo {
+        margin-top: 6px;
+        height: 50px;
+        cursor: pointer;
+      }
+
+      .nav_menus {
+        margin-left: 4vw;
+
+        .nav_menu,
+        .nav_menu_checked {
+          padding: 3px 4px 0 4px;
+          margin: 12px 2.3vw 0 2.3vw;
+          font-size: 18px;
+          text-decoration: none;
+          text-align: center;
+          font-weight: 400;
+        }
+        .nav_menu_checked {
+          color: $green_grade_5;
+          border-bottom: 4px solid $green_grade_4;
+          padding-bottom: 12px;
+        }
+
+        .nav_menu {
+          color: rgb(87, 87, 87);
+          padding-bottom: 3px;
+
+          &:hover {
+            color: rgb(138, 138, 138);
+          }
+        }
+      }
+    }
+
+    .user_menu {
+      @include flex_row;
+      align-items: center;
+
+      .nav_username {
+        margin-right: 30px;
+        font-size: 17px;
+        font-weight: 400;
+      }
+
+      .logout_btn {
+        width: 90px;
+        height: 40px;
+        margin-top: 2px;
+        font-size: 15px;
+        font-weight: 400;
+        color: white;
+        border-style: none;
+        border-radius: 20px;
+        background-color: $green_grade_4;
+        cursor: pointer;
+
+        &:hover {
+          transform: translate(0, -0.5px);
+          box-shadow: 0px 2px 3px rgba(44, 44, 44, 0.137);
+        }
+
+        &:active {
+          box-shadow: none;
+          transform: scale(0.98);
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

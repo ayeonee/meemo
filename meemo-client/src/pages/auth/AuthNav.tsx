@@ -21,7 +21,7 @@ const AuthNav: React.FC<Props> = () => {
   return (
     <div className={style.auth_nav_wrapper}>
       <Link
-        to="/login"
+        to="/"
         className={loginTxt ? style.nav_text_true : style.nav_text_false}
         onClick={onChangeTxtColor}
       >

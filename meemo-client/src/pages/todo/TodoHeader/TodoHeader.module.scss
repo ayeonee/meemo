@@ -1,0 +1,49 @@
+@import "../../../styles/util.module.scss";
+
+.todo_header_wrapper {
+  @include flex_row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: $green_grade_4;
+  color: white;
+  margin-top: 30px;
+  padding: 10px 0 10px 0;
+
+  .todo_header_front {
+    @include flex_row;
+
+    .todo_title {
+      margin-left: 14px;
+      font-size: 28px;
+      font-weight: 300;
+    }
+
+    .todo_count {
+      margin: 15px 14px 0 14px;
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+
+  .todo_reset {
+    width: fit-content;
+    height: fit-content;
+    padding: 3px 3px 0 3px;
+    color: white;
+    font-size: 13px;
+    font-weight: 400;
+    border-style: none;
+    background-color: transparent;
+    margin: 11px 9px 0 0;
+    cursor: pointer;
+
+    &:hover {
+      transform: translate(0, -1px);
+    }
+
+    &:active {
+      transform: none;
+    }
+  }
+}
