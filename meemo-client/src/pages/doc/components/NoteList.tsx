@@ -1,47 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import style from "../styles/NoteList.module.scss";
 import axios from "axios";
 import { IconButton } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
-
-const NoteContainer = styled.div`
-  margin: 10vh auto;
-  padding: 10px;
-
-  width: 50vw;
-  height: 800px;
-  background-color: skyblue;
-`;
-
-const IconDiv = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  width: 100%;
-`;
-
-const NoteDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
-
-  width: 100%;
-  height: 100%;
-`;
-
-const Note: any = styled.div`
-  ${(p: any) =>
-    p.isSelected === p.id
-      ? `border: dotted 2px black;`
-      : `border: solid 2px black;`}
-
-  margin: 10px;
-
-  width: 30%;
-  height: 25%;
-`;
 
 const removeMd = require("remove-markdown");
 
@@ -129,23 +91,23 @@ export default function NoteList() {
   };
 
   return (
-    <NoteContainer>
-      <IconDiv>
+    <div className={style.noteContainer}>
+      <div className={style.iconDiv}>
         <IconButton onClick={() => deleteNote(selectedNote)}>
           <Delete />
         </IconButton>
         <IconButton onClick={addNote}>
           <Add />
         </IconButton>
-      </IconDiv>
-      <NoteDiv>
+      </div>
+      <div className={style.noteDiv}>
         {/* note list needs to be fixed */}
         {notes.map((note: any) => (
-          <Note
+          <div
+            className={style.notes}
             key={note._id}
             id={note._id}
             onClick={() => onSelect(note)}
-            isSelected={isSelected}
           >
             {setTitle(note.body)}
             <br />
@@ -157,9 +119,9 @@ export default function NoteList() {
             <br />
             last updated: <br />
             {setTime(note.updatedAt)}
-          </Note>
+          </div>
         ))}
-      </NoteDiv>
-    </NoteContainer>
+      </div>
+    </div>
   );
 }

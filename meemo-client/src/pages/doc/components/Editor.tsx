@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import RMDEditor from "rich-markdown-editor";
+import style from "../styles/Editor.module.scss";
 
 // import { useEdit, useDark } from "../contexts/ToolContext";
 
@@ -99,7 +100,7 @@ const Editor: React.FC<Props> = () => {
   // if (body) body.style.backgroundColor = dark ? "#181A1B" : "#FFF";
 
   return (
-    <div className="editor">
+    <div className={style.editor}>
       {/* need thorough study of each prop, such as image upload */}
       <RMDEditor
         id="example"
