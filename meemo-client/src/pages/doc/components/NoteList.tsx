@@ -91,36 +91,40 @@ export default function NoteList() {
   };
 
   return (
-    <div className={style.noteContainer}>
-      <div className={style.iconDiv}>
-        <IconButton onClick={() => deleteNote(selectedNote)}>
-          <Delete />
-        </IconButton>
-        <IconButton onClick={addNote}>
-          <Add />
-        </IconButton>
-      </div>
-      <div className={style.noteDiv}>
-        {/* note list needs to be fixed */}
-        {notes.map((note: any) => (
-          <div
-            className={style.notes}
-            key={note._id}
-            id={note._id}
-            onClick={() => onSelect(note)}
-          >
-            {setTitle(note.body)}
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            last updated: <br />
-            {setTime(note.updatedAt)}
-          </div>
-        ))}
+    <div className={style.noteList}>
+      <div className={style.folderContainer}></div>
+      <div className={style.noteContainer}>
+        <div className={style.iconDiv}>
+          <IconButton onClick={() => deleteNote(selectedNote)}>
+            <Delete />
+          </IconButton>
+          <IconButton onClick={addNote}>
+            <Add />
+          </IconButton>
+        </div>
+        <div className={style.noteDiv}>
+          {/* note list needs to be fixed */}
+          {notes.map((note: any) => (
+            <div
+              className={style.notes}
+              key={note._id}
+              id={note._id}
+              onClick={() => onSelect(note)}
+            >
+              {setTitle(note.body)}
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              last updated: <br />
+              {setTime(note.updatedAt)}
+            </div>
+          ))}
+          <div className={style.notes} onClick={addNote}></div>
+        </div>
       </div>
     </div>
   );
