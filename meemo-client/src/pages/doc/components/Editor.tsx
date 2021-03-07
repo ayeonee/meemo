@@ -50,7 +50,7 @@ const Editor: React.FC<Props> = () => {
     const loadNotes = async () => {
       try {
         const res = await axios.get(
-          "https://localhost:443/notes/" + history.location.state.id,
+          "https://meemo.kr/api/notes/" + history.location.state.id,
           {
             cancelToken: source.token,
           }
@@ -81,7 +81,7 @@ const Editor: React.FC<Props> = () => {
     try {
       axios
         .post(
-          "https://localhost:443/notes/update/" + history.location.state.id,
+          "https://meemo.kr/api/notes/update/" + history.location.state.id,
           body,
           {
             cancelToken: source.token,

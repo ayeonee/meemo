@@ -31,7 +31,7 @@ export default function NoteList() {
 
     const loadNotes = async () => {
       try {
-        const res = await axios.get("https://localhost:443/notes", {
+        const res = await axios.get("https://meemo.kr/api/notes", {
           cancelToken: source.token,
         });
         console.log("Got the notes!");
@@ -73,7 +73,7 @@ export default function NoteList() {
     };
 
     axios
-      .post("https://localhost:443/notes/create", note)
+      .post("https://meemo.kr/api/notes/create", note)
       .then(() => setUpdate(!update))
       .then(() => console.log("New note added!"))
       .then(() => setSelectedNote(""));
@@ -81,7 +81,7 @@ export default function NoteList() {
 
   const deleteNote = (id: any) => {
     axios
-      .delete("https://localhost:443/notes/" + id)
+      .delete("https://meemo.kr/api/notes/" + id)
       .then(() => setUpdate(!update))
       .then(() => console.log("Note deleted."))
       .then(() => setSelectedNote(""))
