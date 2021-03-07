@@ -7,7 +7,7 @@ import { Add, Delete } from "@material-ui/icons";
 
 const removeMd = require("remove-markdown");
 
-const setTitle = (str: string) => {
+const onlyAlp = (str: string) => {
   const rep = str.replace(/\\n|\\/g, "");
   const rem = removeMd(rep);
   return rem;
@@ -31,7 +31,7 @@ export default function NoteList() {
 
     const loadNotes = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/notes", {
+        const res = await axios.get("https://localhost:443/notes", {
           cancelToken: source.token,
         });
         console.log("Got the notes!");
@@ -69,11 +69,12 @@ export default function NoteList() {
 
   const addNote = () => {
     const note = {
-      body: "# New Note!",
+      title: "set set title",
+      body: "this is the body",
     };
 
     axios
-      .post("http://localhost:5000/notes/create", note)
+      .post("https://localhost:443/notes/create", note)
       .then(() => setUpdate(!update))
       .then(() => console.log("New note added!"))
       .then(() => setSelectedNote(""));
@@ -81,7 +82,7 @@ export default function NoteList() {
 
   const deleteNote = (id: any) => {
     axios
-      .delete("http://localhost:5000/notes/" + id)
+      .delete("https://localhost:443/notes/" + id)
       .then(() => setUpdate(!update))
       .then(() => console.log("Note deleted."))
       .then(() => setSelectedNote(""))
@@ -94,7 +95,7 @@ export default function NoteList() {
     <div className={style.noteList}>
       <div className={style.folderContainer}></div>
       <div className={style.noteContainer}>
-        <div className={style.iconDiv}>
+        <div className={style.deprecatedIconDiv}>
           <IconButton onClick={() => deleteNote(selectedNote)}>
             <Delete />
           </IconButton>
@@ -111,19 +112,15 @@ export default function NoteList() {
               id={note._id}
               onClick={() => onSelect(note)}
             >
-              {setTitle(note.body)}
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              last updated: <br />
-              {setTime(note.updatedAt)}
+              <div className={style.iconDiv}></div>
+              <div className={style.titleDiv}>
+                <p>{note.title}</p>
+              </div>
+              <div className={style.timeDiv}>
+                <small>최근 수정: {setTime(note.updatedAt)}</small>
+              </div>
             </div>
           ))}
-          <div className={style.notes} onClick={addNote}></div>
         </div>
       </div>
     </div>

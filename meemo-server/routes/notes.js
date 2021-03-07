@@ -8,9 +8,10 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/create").post((req, res) => {
+  const title = req.body.title;
   const body = req.body.body;
 
-  const newNote = new Note({ body });
+  const newNote = new Note({ title, body });
 
   newNote
     .save()
