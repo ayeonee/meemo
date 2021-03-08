@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { withRouter, useHistory } from "react-router-dom";
 import { loginUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
+import GLogin from "./SocialLogin/GLogin";
+import KLogin from "./SocialLogin/KLogin";
 
 function Login() {
   const [UserId, setUserId] = useState<string>("");
@@ -79,8 +81,8 @@ function Login() {
       </div>
 
       <div className={style.social}>
-        <button className={style.google_login}>구글 로그인(임시)</button>
-        <button className={style.kakao_login}>카카오 로그인(임시)</button>
+        <GLogin/>
+        <KLogin/>
       </div>
     </>
   );
