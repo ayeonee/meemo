@@ -81,7 +81,7 @@ const Editor: React.FC<Props> = () => {
     try {
       axios
         .post(
-          "https://localhost:443/notes/update/" + history.location.state.id,
+          "http://localhost:5000/notes/update/" + history.location.state.id,
           body,
           {
             cancelToken: source.token,

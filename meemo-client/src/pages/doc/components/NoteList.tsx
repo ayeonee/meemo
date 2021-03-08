@@ -5,6 +5,8 @@ import axios from "axios";
 import { IconButton } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
 
+import Tools from "./Menu";
+
 const removeMd = require("remove-markdown");
 
 const onlyAlp = (str: string) => {
@@ -31,7 +33,7 @@ export default function NoteList() {
 
     const loadNotes = async () => {
       try {
-        const res = await axios.get("https://localhost:443/notes", {
+        const res = await axios.get("http://localhost:5000/notes", {
           cancelToken: source.token,
         });
         console.log("Got the notes!");
@@ -74,7 +76,7 @@ export default function NoteList() {
     };
 
     axios
-      .post("https://localhost:443/notes/create", note)
+      .post("http://localhost:5000/notes/create", note)
       .then(() => setUpdate(!update))
       .then(() => console.log("New note added!"))
       .then(() => setSelectedNote(""));
@@ -82,7 +84,7 @@ export default function NoteList() {
 
   const deleteNote = (id: any) => {
     axios
-      .delete("https://localhost:443/notes/" + id)
+      .delete("http://localhost:5000/notes/" + id)
       .then(() => setUpdate(!update))
       .then(() => console.log("Note deleted."))
       .then(() => setSelectedNote(""))
@@ -96,12 +98,7 @@ export default function NoteList() {
       <div className={style.folderContainer}></div>
       <div className={style.noteContainer}>
         <div className={style.deprecatedIconDiv}>
-          <IconButton onClick={() => deleteNote(selectedNote)}>
-            <Delete />
-          </IconButton>
-          <IconButton onClick={addNote}>
-            <Add />
-          </IconButton>
+          <Tools />
         </div>
         <div className={style.noteDiv}>
           {/* note list needs to be fixed */}
