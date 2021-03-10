@@ -1,22 +1,18 @@
+@import "../../../styles/util.module.scss";
+
 .noteList {
-  width: 1000px;
+  width: 900px;
+  height: 100%;
 
   margin: 0 auto;
   margin-top: 150px;
-
-  .folderContainer {
-    background-color: plum;
-
-    width: 100%;
-    height: 180px;
-  }
 
   .noteContainer {
     margin: 0 auto;
 
     width: 100%;
-    height: 800px;
-    background-color: skyblue;
+    height: 100%;
+    // background-color: skyblue;
 
     .noteDiv {
       display: flex;
@@ -26,40 +22,170 @@
 
       width: 100%;
       .notes {
-        border: solid 2px black;
-        margin: 10px 23px;
+        border: solid 2px $green_grade_2;
+        border-radius: 10px;
+        margin: 10px 13px;
 
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
 
-        width: 45%;
+        width: 420px;
         height: 50px;
 
         .iconDiv {
           height: 100%;
           width: 50px;
+
+          .noteIcon {
+            color: $green_grade_5;
+
+            width: 30px;
+            height: 30px;
+
+            margin-top: 10px;
+            margin-left: 10px;
+          }
         }
 
         .titleDiv {
           margin: auto;
           margin-left: 1%;
-          margin-top: 12px;
+          margin-top: 13px;
           p {
-            font-size: 18px;
+            font-size: 17px;
           }
         }
         .timeDiv {
-          margin: auto;
-          margin-top: 13px;
-          margin-left: 120px;
+          align-self: flex-end;
+          margin-right: 5px;
+          margin-bottom: 17px;
 
           small {
-            font-size: 10px;
+            font-size: 7px;
             color: black;
           }
         }
       }
+      .notes:focus {
+        outline: none;
+      }
+      .notesSelected {
+        background-color: $green_grade_3;
+        border: solid 2px $green_grade_2;
+        border-radius: 10px;
+        margin: 10px 13px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        width: 420px;
+        height: 50px;
+
+        .iconDiv {
+          height: 100%;
+          width: 50px;
+
+          .noteIcon {
+            color: white;
+
+            width: 30px;
+            height: 30px;
+
+            margin-top: 10px;
+            margin-left: 10px;
+          }
+        }
+
+        .titleDiv {
+          margin: auto;
+          margin-left: 1%;
+          margin-top: 13px;
+          p {
+            color: white;
+            font-size: 17px;
+          }
+        }
+        .timeDiv {
+          align-self: flex-end;
+          margin-right: 5px;
+          margin-bottom: 17px;
+
+          small {
+            color: white;
+            font-size: 7px;
+          }
+        }
+      }
+      .notesSelected:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .toolDiv {
+    // background-color: fuchsia;
+
+    position: fixed;
+    left: 50%;
+    bottom: 50px;
+
+    margin-left: -200px;
+
+    height: 50px;
+    width: 400px;
+
+    display: flex;
+
+    .addBtn {
+      background-color: $green_grade_4;
+      color: white;
+
+      height: 50px;
+      width: 100px;
+      border-radius: 100px;
+
+      margin-left: 150px;
+
+      border: none;
+      cursor: pointer;
+      outline: none;
+
+      box-shadow: 0px 5px 10px -5px slategray;
+
+      transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+    }
+    .addBtn:hover {
+      box-shadow: 0px 2px 12px 0px slategray;
+    }
+    .addBtn:active {
+      background-color: $green_grade_5;
+    }
+
+    .deleteBtn {
+      background-color: $green_grade_4;
+      color: white;
+
+      height: 50px;
+      width: 100px;
+      border-radius: 100px;
+
+      margin-left: 20px;
+
+      border: none;
+      cursor: pointer;
+      outline: none;
+
+      box-shadow: 0px 5px 10px -5px slategray;
+
+      transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+    }
+    .deleteBtn:hover {
+      box-shadow: 0px 2px 12px 0px slategray;
+    }
+    .deleteBtn:active {
+      background-color: $green_grade_5;
     }
   }
 }

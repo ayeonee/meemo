@@ -2,14 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import style from "../styles/NoteList.module.scss";
 import axios from "axios";
-import { IconButton } from "@material-ui/core";
-import { Add, Delete } from "@material-ui/icons";
-
-import Tools from "./Menu";
+import { ClickAwayListener } from "@material-ui/core";
+import { Add, Delete, Notes } from "@material-ui/icons";
 
 const removeMd = require("remove-markdown");
 
-const onlyAlp = (str: string) => {
+const onlyLet = (str: string) => {
   const rep = str.replace(/\\n|\\/g, "");
   const rem = removeMd(rep);
   return rem;
@@ -93,23 +91,35 @@ export default function NoteList() {
       });
   };
 
+  // listen to clicks outside of the div and release select
+  const tabIndex: any = "-1";
+
+  const handleClickAway = () => {
+    // fixed not being able to delete with setTimeout; but what if delete call takes time??
+    setTimeout(function () {
+      setSelectedNote("");
+    }, 100);
+  };
+
   return (
     <div className={style.noteList}>
-      <div className={style.folderContainer}></div>
       <div className={style.noteContainer}>
-        <div className={style.deprecatedIconDiv}>
-          <Tools />
-        </div>
         <div className={style.noteDiv}>
-          {/* note list needs to be fixed */}
           {notes.map((note: any) => (
             <div
-              className={style.notes}
+              className={
+                // select lets go upon delete, fix that?
+                selectedNote === note._id ? style.notesSelected : style.notes
+              }
               key={note._id}
               id={note._id}
               onClick={() => onSelect(note)}
+              tabIndex={tabIndex}
+              onBlur={handleClickAway}
             >
-              <div className={style.iconDiv}></div>
+              <div className={style.iconDiv}>
+                <Notes className={style.noteIcon} />
+              </div>
               <div className={style.titleDiv}>
                 <p>{note.title}</p>
               </div>
@@ -119,6 +129,17 @@ export default function NoteList() {
             </div>
           ))}
         </div>
+      </div>
+      <div className={style.toolDiv}>
+        <button className={style.addBtn} onClick={addNote}>
+          <Add />
+        </button>
+        <button
+          className={style.deleteBtn}
+          onClick={() => deleteNote(selectedNote)}
+        >
+          <Delete />
+        </button>
       </div>
     </div>
   );
