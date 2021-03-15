@@ -9,7 +9,7 @@ interface Props {
   handleToggle: Function;
 }
 
-const InputDayList: React.FC<Props> = ({ data, handleToggle }) => {
+function InputDayList({ data, handleToggle }: Props) {
   const { name, id, checked } = data;
 
   const handleOnOff = () => {
@@ -25,6 +25,6 @@ const InputDayList: React.FC<Props> = ({ data, handleToggle }) => {
       {name}
     </li>
   );
-};
+}
 
 export default InputDayList;

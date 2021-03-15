@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useTodoDispatch } from "../TodosContext";
 import style from "./InputTodo.module.scss";
 
-const InputTodo: React.FC = () => {
+function InputTodo() {
   const [input, setInput] = useState<string>("");
   const dispatch = useTodoDispatch();
 
@@ -33,6 +33,6 @@ const InputTodo: React.FC = () => {
       <button className={style.todo_input_button}>추가</button>
     </form>
   );
-};
+}
 
 export default InputTodo;

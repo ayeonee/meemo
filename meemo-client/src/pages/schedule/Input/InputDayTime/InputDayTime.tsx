@@ -5,7 +5,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { daysData } from "../../../../data/scheduleData";
-import { ISchedule } from "../../../../types/scheduleTypes";
+import { Schedule } from "../../../../types/scheduleTypes";
 import InputDayList from "./InputDayList";
 import InputTimeList from "./InputTimeList";
 import style from "../InputBoxStyle.module.scss";
@@ -14,7 +14,7 @@ interface Props {
   index: number;
   onChangeTime: Function;
   removeDayTime: Function;
-  schedule: ISchedule;
+  schedule: Schedule;
   ref: any;
 }
 

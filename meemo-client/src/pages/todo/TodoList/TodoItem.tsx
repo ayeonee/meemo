@@ -6,7 +6,7 @@ interface Props {
   todo: Todo;
 }
 
-const TodoItem: React.FC<Props> = ({ todo }) => {
+function TodoItem({ todo }: Props) {
   const dispatch = useTodoDispatch();
 
   const onRemoveItem = useCallback(() => {
@@ -33,6 +33,6 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
       </p>
     </li>
   );
-};
+}
 
 export default React.memo(TodoItem);

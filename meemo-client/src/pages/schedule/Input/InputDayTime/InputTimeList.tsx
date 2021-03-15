@@ -1,13 +1,13 @@
 import { hourData, minData } from "../../../../data/scheduleData";
-import { ISchedule } from "../../../../types/scheduleTypes";
+import { Schedule } from "../../../../types/scheduleTypes";
 import style from "../InputBoxStyle.module.scss";
 
 interface Props {
   handleChange: React.ChangeEventHandler;
-  schedule: ISchedule;
+  schedule: Schedule;
 }
 
-const InputTimeList: React.FC<Props> = ({ handleChange, schedule }) => {
+function InputTimeList({ handleChange, schedule }: Props) {
   const { startHour, startMin, endHour, endMin } = schedule;
   return (
     <div className={style.select_wrapper}>
@@ -44,6 +44,6 @@ const InputTimeList: React.FC<Props> = ({ handleChange, schedule }) => {
       </select>
     </div>
   );
-};
+}
 
 export default InputTimeList;

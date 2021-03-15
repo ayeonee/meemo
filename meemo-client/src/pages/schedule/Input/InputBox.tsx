@@ -1,9 +1,9 @@
 import { useState, useCallback, useRef } from "react";
 import {
   DataProps,
-  Schedule,
-  IData,
-  IInput,
+  ScheduleArray,
+  Data,
+  Input,
 } from "../../../types/scheduleTypes";
 import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
@@ -14,21 +14,21 @@ interface ModalType {
   closeModal: Function;
 }
 
-const InputBox: React.FC<ModalType & DataProps> = ({
+function InputBox({
   modalState,
   closeModal,
   addData,
   allData,
-}) => {
+}: ModalType & DataProps) {
   const nextIndex = useRef<number>(2);
   const checkTimeCorrect = useRef<boolean>(false);
   const checkOverlap = useRef<boolean>(false);
   const resetDays = useRef<any>();
-  const [input, setInput] = useState<IInput>({
+  const [input, setInput] = useState<Input>({
     name: "",
     place: "",
   });
-  const [schedule, setSchedule] = useState<Schedule>([
+  const [schedule, setSchedule] = useState<ScheduleArray>([
     {
       index: 1,
       date: 1,
@@ -87,7 +87,7 @@ const InputBox: React.FC<ModalType & DataProps> = ({
     [input]
   );
 
-  const compareStates = useCallback((elem: IData, schedule: Schedule) => {
+  const compareStates = useCallback((elem: Data, schedule: ScheduleArray) => {
     elem.schedule.forEach((elem) => {
       const { date, startHour, startMin, endHour, endMin } = elem;
 
@@ -114,7 +114,7 @@ const InputBox: React.FC<ModalType & DataProps> = ({
     });
   }, []);
 
-  const compareAllData = (schedule: Schedule) => {
+  const compareAllData = (schedule: ScheduleArray) => {
     allData.forEach((elem) => {
       compareStates(elem, schedule);
     });
@@ -233,6 +233,6 @@ const InputBox: React.FC<ModalType & DataProps> = ({
       ) : null}
     </>
   );
-};
+}
 
 export default InputBox;

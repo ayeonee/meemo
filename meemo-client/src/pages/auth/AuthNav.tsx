@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./AuthNav.module.scss";
 
-interface Props {}
-
-const AuthNav: React.FC<Props> = () => {
+function AuthNav() {
   const [loginTxt, setLoginTxt] = useState<boolean>(true);
   const [registerTxt, setRegisterText] = useState<boolean>(false);
 
@@ -36,6 +34,6 @@ const AuthNav: React.FC<Props> = () => {
       </Link>
     </div>
   );
-};
+}
 
 export default AuthNav;

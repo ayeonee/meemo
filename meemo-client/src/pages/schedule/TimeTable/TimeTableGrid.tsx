@@ -1,7 +1,7 @@
 import { allTimeData } from "../../../data/scheduleData";
 import style from "./TimeTableStyle.module.scss";
 
-const TimeLineGrid: React.FC = () => {
+function TimeLineGrid() {
   return (
     <td>
       <div className={style.cols}>
@@ -13,6 +13,6 @@ const TimeLineGrid: React.FC = () => {
       </div>
     </td>
   );
-};
+}
 
 export default TimeLineGrid;

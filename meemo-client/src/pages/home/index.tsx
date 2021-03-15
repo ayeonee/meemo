@@ -7,9 +7,7 @@ import CalenderPage from "../calender";
 import NoteList from "../doc/components/NoteList";
 import Editor from "../doc/components/Editor";
 
-interface Props {}
-
-const Home: React.FC<Props> = () => {
+function Home() {
   return (
     <Router>
       <Navigation />
@@ -20,6 +18,6 @@ const Home: React.FC<Props> = () => {
       <Route component={CalenderPage} path="/calender" />
     </Router>
   );
-};
+}
 
 export default Home;

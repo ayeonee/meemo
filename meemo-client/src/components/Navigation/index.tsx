@@ -4,10 +4,8 @@ import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
 import style from "./Navigation.module.scss";
 
-interface Props {}
-
-const Navigation: React.FC<Props> = () => {
-  const username = "User Name"; //임시
+function Navigation() {
+  const username = "User Name";
   const [menuColor, setMenuColor] = useState<
     {
       name: string;
@@ -56,6 +54,6 @@ const Navigation: React.FC<Props> = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Navigation;

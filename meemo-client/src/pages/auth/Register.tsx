@@ -1,9 +1,7 @@
 import React from "react";
 import style from "./Auth.module.scss";
 
-interface Props {}
-
-const Register: React.FC<Props> = () => {
+function Register() {
   return (
     <form className={style.input_wrapper}>
       <div className={style.animated_div}>
@@ -18,12 +16,20 @@ const Register: React.FC<Props> = () => {
         <input type="password" name="password" placeholder="Password" />
         <label className={style.animated_label}>Password</label>
       </div>
+      <div className={style.animated_div}>
+        <input
+          type="password"
+          name="passwordConfirm"
+          placeholder="Password Confirm"
+        />
+        <label className={style.animated_label}>Password Confirm</label>
+      </div>
 
       <div className={style.button_wrapper}>
         <button className={style.register_btn}>회원가입</button>
       </div>
     </form>
   );
-};
+}
 
 export default Register;
