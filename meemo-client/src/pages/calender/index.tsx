@@ -1,9 +1,7 @@
 import React from "react";
 
-interface Props {}
-
-const CalenderPage: React.FC<Props> = () => {
+function CalenderPage() {
   return <div> 캘린더 </div>;
-};
+}
 
 export default CalenderPage;

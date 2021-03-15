@@ -4,7 +4,7 @@ import { useTodoState, useTodoDispatch } from "../TodosContext";
 
 import style from "./TodoHeader.module.scss";
 
-const TodoHeader: React.FC = () => {
+function TodoHeader() {
   const todos = useTodoState();
   const dispatch = useTodoDispatch();
   const [checkedTodo, setCheckedTodo] = useState(todos);
@@ -36,6 +36,6 @@ const TodoHeader: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default TodoHeader;

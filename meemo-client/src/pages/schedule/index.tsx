@@ -1,15 +1,15 @@
 import { useCallback, useRef, useState } from "react";
-import { AllData, IData } from "../../types/scheduleTypes";
+import { AllData, Data } from "../../types/scheduleTypes";
 import InputButton from "./Input/InputButton";
 import ScheduleList from "./Schedule/ScheduleList";
 import TimeTable from "./TimeTable/TimeTable";
 import style from "./Schedule.module.scss";
 
-const SchedulePage: React.FC = () => {
+function SchedulePage() {
   const [allData, setAllData] = useState<AllData>([]);
   const nextId = useRef<number>(1);
 
-  const addData = useCallback((elem: IData) => {
+  const addData = useCallback((elem: Data) => {
     setAllData((allData) =>
       allData.concat({
         ...elem,
@@ -51,6 +51,6 @@ const SchedulePage: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SchedulePage;

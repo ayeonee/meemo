@@ -3,7 +3,7 @@ import TodoItem from "./TodoItem";
 import { useTodoState } from "../TodosContext";
 import style from "./TodoList.module.scss";
 
-const TodoList: React.FC = () => {
+function TodoList() {
   const todos = useTodoState();
   return (
     <ul className={style.list_wrapper}>
@@ -12,6 +12,6 @@ const TodoList: React.FC = () => {
       ))}
     </ul>
   );
-};
+}
 
 export default React.memo(TodoList);

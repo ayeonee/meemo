@@ -1,12 +1,12 @@
-import { IInput } from "../../../../types/scheduleTypes";
+import { Input } from "../../../../types/scheduleTypes";
 import style from "../InputBoxStyle.module.scss";
 
 interface Props {
-  input: IInput;
+  input: Input;
   onChangeTxt: React.ChangeEventHandler;
 }
 
-const InputText: React.FC<Props> = ({ input, onChangeTxt }) => {
+function InputText({ input, onChangeTxt }: Props) {
   return (
     <>
       <input
@@ -27,6 +27,6 @@ const InputText: React.FC<Props> = ({ input, onChangeTxt }) => {
       />
     </>
   );
-};
+}
 
 export default InputText;

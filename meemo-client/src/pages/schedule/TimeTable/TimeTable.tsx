@@ -2,7 +2,7 @@ import { daysData, hourData } from "../../../data/scheduleData";
 import TimeTableGrid from "./TimeTableGrid";
 import style from "./TimeTableStyle.module.scss";
 
-const TimeLine: React.FC = () => {
+function TimeLine() {
   return (
     <div className={style.table_wrapper}>
       <table className={style.table_header}>
@@ -37,6 +37,6 @@ const TimeLine: React.FC = () => {
       </table>
     </div>
   );
-};
+}
 
 export default TimeLine;

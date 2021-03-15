@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import style from "./Navigation.module.scss";
 
-interface Props {
+interface NavProps {
   data: {
     name: string;
     menuId: number;
@@ -13,7 +13,7 @@ interface Props {
   handleNavColor: Function;
 }
 
-const NavItem: React.FC<Props> = ({ data, handleNavColor }) => {
+function NavItem({ data, handleNavColor }: NavProps) {
   const { name, menuId, state, address } = data;
 
   const handleOnOff = () => {
@@ -28,6 +28,6 @@ const NavItem: React.FC<Props> = ({ data, handleNavColor }) => {
       {name}
     </Link>
   );
-};
+}
 
 export default NavItem;

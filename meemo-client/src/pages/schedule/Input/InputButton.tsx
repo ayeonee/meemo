@@ -3,7 +3,7 @@ import { DataProps } from "../../../types/scheduleTypes";
 import InputBox from "./InputBox";
 import style from "./InputButtonStyle.module.scss";
 
-const InputButton: React.FC<DataProps> = ({ addData, allData }) => {
+function InputButton({ addData, allData }: DataProps) {
   const [modalState, setModalState] = useState<boolean>(false);
 
   const openModal = () => {
@@ -27,6 +27,6 @@ const InputButton: React.FC<DataProps> = ({ addData, allData }) => {
       />
     </>
   );
-};
+}
 
 export default InputButton;

@@ -5,9 +5,7 @@ import TodoList from "./TodoList";
 import { TodoContextProvider } from "./TodosContext";
 import style from "./TodoPage.module.scss";
 
-interface Props {}
-
-const TodoPage: React.FC<Props> = () => {
+function TodoPage() {
   return (
     <TodoContextProvider>
       <div className={style.todo_page_wrapper}>
@@ -19,6 +17,6 @@ const TodoPage: React.FC<Props> = () => {
       </div>
     </TodoContextProvider>
   );
-};
+}
 
 export default TodoPage;

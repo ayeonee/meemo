@@ -7,9 +7,7 @@ import logo from "../../img/logo.svg";
 import loginImg from "../../img/login-img.svg";
 import style from "./Auth.module.scss";
 
-interface Props {}
-
-const AuthPage: React.FC<Props> = () => {
+function AuthPage() {
   return (
     <Router>
       <div className={style.auth_page}>
@@ -39,6 +37,6 @@ const AuthPage: React.FC<Props> = () => {
       </div>
     </Router>
   );
-};
+}
 
 export default AuthPage;

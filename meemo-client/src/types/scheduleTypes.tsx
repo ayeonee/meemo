@@ -1,9 +1,9 @@
-export type IInput = {
+export type Input = {
   name: string;
   place: string;
 };
 
-export type ISchedule = {
+export type Schedule = {
   index: number;
   date: number;
   startHour: number;
@@ -12,16 +12,16 @@ export type ISchedule = {
   endMin: number;
 };
 
-export type Schedule = Array<ISchedule>;
+export type ScheduleArray = Array<Schedule>;
 
-export type IData = {
+export type Data = {
   id: number;
   name: string;
   place: string;
-  schedule: Schedule;
+  schedule: ScheduleArray;
 };
 
-export type AllData = IData[];
+export type AllData = Data[];
 
 export type DataProps = {
   addData: Function;

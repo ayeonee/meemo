@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { daysData, colorCode } from "../../../data/scheduleData";
-import { ISchedule } from "../../../types/scheduleTypes";
+import { Schedule } from "../../../types/scheduleTypes";
 import style from "./ScheduleStyle.module.scss";
 
 interface Props {
@@ -12,14 +12,14 @@ interface Props {
   removeData: Function;
 }
 
-const ScheduleItem: React.FC<Props & ISchedule> = ({
+function ScheduleItem({
   id,
   name,
   place,
   index,
   removeData,
   ...scheduleItem
-}) => {
+}: Props & Schedule) {
   const [delButtonState, setDelButtonState] = useState<boolean>(false);
   const { date, startHour, startMin, endHour, endMin } = scheduleItem;
   const datePosition = 84 + 96 * (date - 1);
@@ -81,6 +81,6 @@ const ScheduleItem: React.FC<Props & ISchedule> = ({
       </div>
     </div>
   );
-};
+}
 
 export default React.memo(ScheduleItem);

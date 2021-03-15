@@ -1,9 +1,7 @@
 import React from "react";
 import style from "./Auth.module.scss";
 
-interface Props {}
-
-const Login: React.FC<Props> = () => {
+function Login() {
   return (
     <>
       <form className={style.input_wrapper}>
@@ -33,6 +31,6 @@ const Login: React.FC<Props> = () => {
       </div>
     </>
   );
-};
+}
 
 export default Login;

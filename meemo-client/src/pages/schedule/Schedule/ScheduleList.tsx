@@ -8,7 +8,7 @@ interface Props {
   removeData: Function;
 }
 
-const ScheduleList: React.FC<Props> = ({ allData, removeData }) => {
+function ScheduleList({ allData, removeData }: Props) {
   return (
     <div className={style.schedule_list}>
       {allData.map((item) =>
@@ -25,6 +25,6 @@ const ScheduleList: React.FC<Props> = ({ allData, removeData }) => {
       )}
     </div>
   );
-};
+}
 
 export default React.memo(ScheduleList);
