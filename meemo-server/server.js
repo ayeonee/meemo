@@ -11,9 +11,10 @@ const { auth } = require("./middleware/auth");
 
 require("dotenv").config();
 
-app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
 
 mongoose
   .connect(config.mongoURI, {
@@ -70,15 +71,17 @@ app.post("/api/users/login", (req, res) => {
     }
 
     user.comparePassword(req.body.password, (err, isMatch) => {
-      if (!isMatch)
+      if (!isMatch) {
         return res.json({
           loginSuccess: false,
           message: "비밀번호가 틀렸습니다.",
         });
+      }
 
       user.generateToken((err, user) => {
-        if (err) return res.status(400).send(err);
-
+        if (err) {
+          return res.status(400).send(err);
+        }
         res
           .cookie("x_auth", user.token)
           .status(200)
@@ -93,12 +96,9 @@ app.get("/api/users/auth", auth, (req, res) => {
   res.status(200).json({
     //유저 정보를 json 형태로 전달
     _id: req.user._id,
-    isAdmin: req.user.role === 0 ? false : true,
-    isAuth: true,
     userId: req.user.userId,
     name: req.user.name,
-    role: req.user.role,
-    image: req.user.image,
+    isAuth: true,
   });
 });
 
@@ -109,4 +109,10 @@ app.get("/api/users/logout", auth, (res, req) => {
       success: true,
     });
   });
+});
+
+const port = 5000;
+
+app.listen(port, () => {
+  console.log(`listening on port ${port}`);
 });

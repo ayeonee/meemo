@@ -1,18 +1,12 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
 const jwt = require("jsonwebtoken");
+const saltRounds = 10;
 
 const userSchema = mongoose.Schema({
   name: { type: String, maxlength: 50 },
   userId: { type: String, maxlength: 50, unique: 1 },
   password: { type: String, maxlength: 100 },
-  role: {
-    type: Number,
-    default: 0,
-    // 0이 아니면 admin
-  },
-  image: String,
   token: {
     type: String,
   },
@@ -51,8 +45,8 @@ userSchema.methods.comparePassword = function (plainPassword, callback) {
 
 userSchema.methods.generateToken = function (callback) {
   //토큰생성
-  const user = this;
-  const token = jwt.sign(user._id.toHexString(), "secretToken");
+  var user = this;
+  var token = jwt.sign(user._id.toHexString(), "secretToken");
 
   user.token = token;
   user.save(function (err, user) {

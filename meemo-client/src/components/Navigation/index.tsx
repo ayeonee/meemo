@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
 import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
 import style from "./Navigation.module.scss";
 
 function Navigation() {
+  const history = useHistory();
   const username = "User Name";
   const [menuColor, setMenuColor] = useState<
     {
@@ -30,6 +32,16 @@ function Navigation() {
     );
   };
 
+  const onClickLogout = () => {
+    axios.get("/api/users/logout").then((res) => {
+      if (res.data.success) {
+        history.push("/login");
+      } else {
+        alert("failed");
+      }
+    });
+  };
+
   return (
     <div className={style.nav_wrapper}>
       <div className={style.nav_inside}>
@@ -49,7 +61,9 @@ function Navigation() {
         </div>
         <div className={style.user_menu}>
           <p className={style.nav_username}>{username}님</p>
-          <button className={style.logout_btn}>로그아웃</button>
+          <button className={style.logout_btn} onClick={onClickLogout}>
+            로그아웃
+          </button>
         </div>
       </div>
     </div>

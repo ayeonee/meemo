@@ -1,14 +1,17 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AuthPage from "./pages/auth";
 import Home from "./pages/home";
+import Auth from "./hoc/auth";
 
 function Root() {
   return (
-    <>
-      <Route component={AuthPage} path="/" exact />
-      <Route component={Home} path="/schedule" />
-    </>
+    <Router>
+      <Switch>
+        <Route component={Auth(AuthPage, false)} path="/" exact />
+        <Route component={Auth(Home, null)} path="/schedule" />
+      </Switch>
+    </Router>
   );
 }
 

@@ -1,21 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { withRouter, useHistory } from "react-router-dom";
+import { loginUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
 
 function Login() {
+  const [UserId, setUserId] = useState("");
+  const [Password, setPassword] = useState("");
+  const history = useHistory();
+  const dispatch: any = useDispatch();
+
+  const onUserIdHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserId(e.currentTarget.value);
+  };
+
+  const onPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value);
+  };
+
+  const onSubmitHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const body = {
+      userId: UserId,
+      password: Password,
+    };
+
+    dispatch(loginUser(body))
+      .then((res: any) => {
+        if (res.payload.loginSuccess) {
+          history.push("/schedule");
+        } else {
+          alert(res.payload.message);
+        }
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
-      <form className={style.input_wrapper}>
+      <form className={style.input_wrapper} onSubmit={onSubmitHandler}>
         <div className={style.animated_div}>
-          <input type="text" name="user" placeholder="User ID" />
+          <input
+            type="text"
+            name="user"
+            placeholder="User ID"
+            value={UserId}
+            onChange={onUserIdHandler}
+          />
           <label className={style.animated_label}>User ID</label>
         </div>
         <div className={style.animated_div}>
-          <input type="password" name="password" placeholder="Password" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={Password}
+            onChange={onPasswordHandler}
+          />
           <label className={style.animated_label}>Password</label>
         </div>
 
         <div className={style.button_wrapper}>
-          <button className={style.login_btn}>로그인</button>
+          <button className={style.login_btn} type="submit">
+            로그인
+          </button>
         </div>
       </form>
 
@@ -33,4 +84,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withRouter(Login);
