@@ -5,10 +5,10 @@ import { loginUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
 
 function Login() {
-  const [UserId, setUserId] = useState("");
-  const [Password, setPassword] = useState("");
+  const [UserId, setUserId] = useState<string>("");
+  const [Password, setPassword] = useState<string>("");
   const history = useHistory();
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch<any>();
 
   const onUserIdHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(e.currentTarget.value);
@@ -29,7 +29,9 @@ function Login() {
     dispatch(loginUser(body))
       .then((res: any) => {
         if (res.payload.loginSuccess) {
-          history.push("/schedule");
+          history.push({
+            pathname: "/schedule",
+          });
         } else {
           alert(res.payload.message);
         }

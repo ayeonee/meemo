@@ -5,12 +5,11 @@ import { registerUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
 
 function Register() {
-  const [UserId, setUserId] = useState("");
-  const [Name, setName] = useState("");
-  const [Password, setPassword] = useState("");
-  const [ConfirmPassword, setConfirmPassword] = useState("");
-
-  const dispatch: any = useDispatch();
+  const [UserId, setUserId] = useState<string>("");
+  const [Name, setName] = useState<string>("");
+  const [Password, setPassword] = useState<string>("");
+  const [ConfirmPassword, setConfirmPassword] = useState<string>("");
+  const dispatch = useDispatch<any>();
   const history = useHistory();
 
   const onUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +62,7 @@ function Register() {
       <div className={style.animated_div}>
         <input
           type="text"
-          name="user"
+          name="userId"
           placeholder="User ID"
           value={UserId}
           onChange={onUserId}

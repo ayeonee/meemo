@@ -9,7 +9,7 @@ function Root() {
     <Router>
       <Switch>
         <Route component={Auth(AuthPage, false)} path="/" exact />
-        <Route component={Auth(Home, null)} path="/schedule" />
+        <Route component={Auth(Home, null)} path="/schedule" exact />
       </Switch>
     </Router>
   );
