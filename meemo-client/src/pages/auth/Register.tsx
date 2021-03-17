@@ -1,47 +1,56 @@
 import React, { useState } from "react";
-import { withRouter, useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
 
+interface RegisterTypes {
+  name: string;
+  userId: string;
+  password: string;
+  confirmPassword: string;
+}
+
 function Register() {
-  const [UserId, setUserId] = useState<string>("");
-  const [Name, setName] = useState<string>("");
-  const [Password, setPassword] = useState<string>("");
-  const [ConfirmPassword, setConfirmPassword] = useState<string>("");
+  const [registerInput, setRegisterInput] = useState<RegisterTypes>({
+    name: "",
+    userId: "",
+    password: "",
+    confirmPassword: "",
+  });
   const dispatch = useDispatch<any>();
-  const history = useHistory();
 
-  const onUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(e.currentTarget.value);
-  };
-
-  const onName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.currentTarget.value);
-  };
-
-  const onPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value);
-  };
-
-  const onConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(e.currentTarget.value);
+  const onChangeRegisterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setRegisterInput({
+      ...registerInput,
+      [name]: value,
+    });
   };
 
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (Password === ConfirmPassword) {
+    const { name, userId, password, confirmPassword } = registerInput;
+
+    if (password === confirmPassword) {
       let body = {
-        userId: UserId,
-        name: Name,
-        password: Password,
+        userId: userId,
+        name: name,
+        password: password,
       };
 
       dispatch(registerUser(body))
         .then((res: any) => {
+          console.log(res, "register");
+
           alert("회원가입이 완료되었습니다.");
-          history.push("/");
+          setRegisterInput({
+            name: "",
+            userId: "",
+            password: "",
+            confirmPassword: "",
+          });
         })
         .catch((err: any) => console.log(err));
     } else alert("비밀번호가 다릅니다.");
@@ -54,8 +63,8 @@ function Register() {
           type="text"
           name="name"
           placeholder="User Name"
-          value={Name}
-          onChange={onName}
+          value={registerInput.name}
+          onChange={onChangeRegisterInput}
         />
         <label className={style.animated_label}>User Name</label>
       </div>
@@ -64,8 +73,8 @@ function Register() {
           type="text"
           name="userId"
           placeholder="User ID"
-          value={UserId}
-          onChange={onUserId}
+          value={registerInput.userId}
+          onChange={onChangeRegisterInput}
         />
         <label className={style.animated_label}>User ID</label>
       </div>
@@ -74,8 +83,8 @@ function Register() {
           type="password"
           name="password"
           placeholder="Password"
-          value={Password}
-          onChange={onPassword}
+          value={registerInput.password}
+          onChange={onChangeRegisterInput}
         />
         <label className={style.animated_label}>Password</label>
       </div>
@@ -84,8 +93,8 @@ function Register() {
           type="password"
           name="confirmPassword"
           placeholder="Confirm Password"
-          value={ConfirmPassword}
-          onChange={onConfirmPassword}
+          value={registerInput.confirmPassword}
+          onChange={onChangeRegisterInput}
         />
         <label className={style.animated_label}>Confirm Password</label>
       </div>

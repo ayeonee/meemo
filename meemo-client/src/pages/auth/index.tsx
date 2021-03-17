@@ -10,8 +10,9 @@ function AuthPage() {
   const [loginTxt, setLoginTxt] = useState<boolean>(true);
   const [registerTxt, setRegisterText] = useState<boolean>(false);
 
-  const onClickMenu = useCallback((e: any) => {
-    if (e.target.innerText === "Login") {
+  const onClickMenu = useCallback((e: React.MouseEvent) => {
+    const text = (e.target as HTMLElement).innerText;
+    if (text === "Login") {
       setLoginTxt(true);
       setRegisterText(false);
     } else {

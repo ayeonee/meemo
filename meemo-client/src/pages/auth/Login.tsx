@@ -4,30 +4,39 @@ import { withRouter, useHistory } from "react-router-dom";
 import { loginUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
 
+interface LoginTypes {
+  userId: string;
+  password: string;
+}
+
 function Login() {
-  const [UserId, setUserId] = useState<string>("");
-  const [Password, setPassword] = useState<string>("");
+  const [loginInput, setLoginInput] = useState<LoginTypes>({
+    userId: "",
+    password: "",
+  });
   const history = useHistory();
   const dispatch = useDispatch<any>();
 
-  const onUserIdHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(e.currentTarget.value);
-  };
-
-  const onPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value);
+  const onChangeLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginInput({
+      ...loginInput,
+      [name]: value,
+    });
   };
 
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
     const body = {
-      userId: UserId,
-      password: Password,
+      userId: loginInput.userId,
+      password: loginInput.password,
     };
 
     dispatch(loginUser(body))
       .then((res: any) => {
+        console.log(res, "login");
+
         if (res.payload.loginSuccess) {
           history.push({
             pathname: "/schedule",
@@ -47,10 +56,10 @@ function Login() {
         <div className={style.animated_div}>
           <input
             type="text"
-            name="user"
+            name="userId"
             placeholder="User ID"
-            value={UserId}
-            onChange={onUserIdHandler}
+            value={loginInput.userId}
+            onChange={onChangeLoginInput}
           />
           <label className={style.animated_label}>User ID</label>
         </div>
@@ -59,8 +68,8 @@ function Login() {
             type="password"
             name="password"
             placeholder="Password"
-            value={Password}
-            onChange={onPasswordHandler}
+            value={loginInput.password}
+            onChange={onChangeLoginInput}
           />
           <label className={style.animated_label}>Password</label>
         </div>

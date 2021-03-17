@@ -1,7 +1,11 @@
 import { REGISTER_USER, LOGIN_USER, AUTH_USER } from "./types";
 import axios from "axios";
 
-export const registerUser = (dataToSubmit: any) => {
+export const registerUser = (dataToSubmit: {
+  userId: string;
+  name: string;
+  password: string;
+}) => {
   const request = axios
     .post("http://localhost:5000/api/users/register", dataToSubmit)
     .then((res) => res.data);
@@ -12,7 +16,10 @@ export const registerUser = (dataToSubmit: any) => {
   };
 };
 
-export const loginUser = (dataToSubmit: any) => {
+export const loginUser = (dataToSubmit: {
+  userId: string;
+  password: string;
+}) => {
   const request = axios
     .post("http://localhost:5000/api/users/login", dataToSubmit)
     .then((res) => res.data);
@@ -23,9 +30,9 @@ export const loginUser = (dataToSubmit: any) => {
   };
 };
 
-export const authUser = (dataToSubmit?: any) => {
+export const authUser = () => {
   const request = axios
-    .get("http://localhost:5000/api/users/auth", dataToSubmit)
+    .get("http://localhost:5000/api/users/auth")
     .then((res) => res.data);
 
   return {

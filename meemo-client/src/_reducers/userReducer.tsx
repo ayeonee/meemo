@@ -4,13 +4,16 @@ import {
   LOGOUT_USER,
   AUTH_USER,
 } from "../_actions/types";
+import { ResponseTypes } from "../types/authTypes";
 
-const userReducer = (state = {}, action: any) => {
+const userReducer = (state = {}, action: ResponseTypes) => {
   switch (action.type) {
     case REGISTER_USER:
+      console.log(action.payload);
       return { ...state, register: action.payload };
 
     case LOGIN_USER:
+      console.log(action.payload);
       return { ...state, loginSuccess: action.payload };
 
     case LOGOUT_USER:
