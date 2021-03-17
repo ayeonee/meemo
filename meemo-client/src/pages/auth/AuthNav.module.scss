@@ -8,11 +8,13 @@
   height: 35px;
   margin-bottom: 40px;
 
-  a {
+  li {
+    list-style: none;
     text-decoration: none;
     font-size: 18px;
     font-weight: 600;
     padding: 0 10px 0 10px;
+    cursor: pointer;
   }
 
   .nav_text_true {

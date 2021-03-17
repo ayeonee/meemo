@@ -30,11 +30,6 @@ const notesRouter = require("./routes/notes");
 
 app.use("/notes", notesRouter);
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
-
 // probably dont need
 // https
 //   .createServer(
@@ -111,8 +106,7 @@ app.get("/api/users/logout", auth, (res, req) => {
   });
 });
 
-const port = 5000;
-
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+  console.log(`Server is running on port: ${port}`);
 });
