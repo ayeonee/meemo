@@ -1,37 +1,29 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { MouseEventHandler } from "react";
 import style from "./AuthNav.module.scss";
 
-function AuthNav() {
-  const [loginTxt, setLoginTxt] = useState<boolean>(true);
-  const [registerTxt, setRegisterText] = useState<boolean>(false);
+interface Props {
+  loginTxt: boolean;
+  registerTxt: boolean;
+  onClickMenu: MouseEventHandler;
+}
 
-  const onChangeTxtColor = () => {
-    if (loginTxt && !registerTxt) {
-      setLoginTxt(false);
-      setRegisterText(true);
-    } else {
-      setLoginTxt(true);
-      setRegisterText(false);
-    }
-  };
-
+function AuthNav({ loginTxt, registerTxt, onClickMenu }: Props) {
   return (
     <div className={style.auth_nav_wrapper}>
-      <Link
-        to="/"
+      <li
         className={loginTxt ? style.nav_text_true : style.nav_text_false}
-        onClick={onChangeTxtColor}
+        onClick={onClickMenu}
+        value="login"
       >
         Login
-      </Link>
-      <Link
-        to="/register"
+      </li>
+      <li
         className={registerTxt ? style.nav_text_true : style.nav_text_false}
-        onClick={onChangeTxtColor}
+        onClick={onClickMenu}
+        value="register"
       >
         Register
-      </Link>
+      </li>
     </div>
   );
 }
