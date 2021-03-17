@@ -40,8 +40,8 @@ function Register() {
 
       dispatch(registerUser(body))
         .then((res: any) => {
-          alert("done");
-          history.push("/login");
+          alert("회원가입이 완료되었습니다.");
+          history.push("/");
         })
         .catch((err: any) => console.log(err));
     } else alert("비밀번호가 다릅니다.");
