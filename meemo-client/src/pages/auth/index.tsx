@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import AuthNav from "./AuthNav";
 import Login from "./Login";
 import Register from "./Register";
@@ -10,7 +10,7 @@ function AuthPage() {
   const [loginTxt, setLoginTxt] = useState<boolean>(true);
   const [registerTxt, setRegisterText] = useState<boolean>(false);
 
-  const onClickMenu = (e: any) => {
+  const onClickMenu = useCallback((e: any) => {
     if (e.target.innerText === "Login") {
       setLoginTxt(true);
       setRegisterText(false);
@@ -18,7 +18,7 @@ function AuthPage() {
       setLoginTxt(false);
       setRegisterText(true);
     }
-  };
+  }, []);
 
   return (
     <div className={style.auth_page}>
