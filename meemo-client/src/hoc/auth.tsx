@@ -19,7 +19,7 @@ function Auth(Component: any, option: null | false | true) {
         if (!res.payload.isAuth) {
           //로그인 하지 않은상태
           if (option === true) {
-            history.push("/login");
+            history.push("/");
           }
         } else {
           // 로그인 한 상태
