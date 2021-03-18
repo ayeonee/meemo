@@ -1,6 +1,10 @@
 import {useState, useEffect} from 'react';
 import style from "../Auth.module.scss";
 import GoogleLogin from 'react-google-login';
+import { useDispatch } from "react-redux";
+import { gLoginUser } from "../../../_actions/userAction";
+import { useHistory } from "react-router-dom";
+
 
 interface IUser{
   userId : string,
@@ -10,6 +14,8 @@ interface IUser{
 }
 
 function GLogin(){
+  const history = useHistory();
+  const dispatch = useDispatch<any>();
 
   const [userInfo, setUserInfo]=useState<IUser>({
     userId : "",
@@ -32,12 +38,29 @@ function GLogin(){
 
   console.log(userInfo);
 
+  const submitLogin = (userInfo : IUser) => {
+    dispatch(gLoginUser(userInfo))
+      .then((res: any) => {
+        if (res.payload.loginSuccess) {
+          history.push({
+            pathname: "/schedule",
+          });
+        } else {
+          alert(res.payload.message);
+        }
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
   useEffect(()=>{
     if(userInfo!.userId){
       window.localStorage.setItem('userId',userInfo!.userId);
       window.localStorage.setItem('userName',userInfo!.userName);
       window.localStorage.setItem('provider',userInfo!.provider);
       window.localStorage.setItem('accessToken',userInfo!.accessToken);
+      submitLogin(userInfo);
     }
   },[userInfo])
 

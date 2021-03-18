@@ -1,4 +1,4 @@
-import { REGISTER_USER, LOGIN_USER, AUTH_USER } from "./types";
+import { REGISTER_USER, LOGIN_USER, AUTH_USER, GLOGIN_USER } from "./types";
 import axios from "axios";
 
 export const registerUser = (dataToSubmit: any) => {
@@ -30,6 +30,18 @@ export const authUser = (dataToSubmit?: any) => {
 
   return {
     type: AUTH_USER,
+    payload: request,
+  };
+};
+
+//SocialLogin
+export const gLoginUser = (dataToSubmit?: any) => {
+  const request = axios
+    .post("http://localhost:5000/api/users/google", dataToSubmit)
+    .then((res) => res.data);
+
+  return {
+    type: GLOGIN_USER,
     payload: request,
   };
 };
