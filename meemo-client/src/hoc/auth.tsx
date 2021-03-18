@@ -14,7 +14,6 @@ function Auth(Component: any, option: null | false | true) {
 
     useEffect(() => {
       dispatch(authUser()).then((res: ResponseTypes) => {
-        console.log(res, "hoc-auth");
         if (!res.payload.isAuth) {
           //로그인 하지 않은상태
           if (option === true) {

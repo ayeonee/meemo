@@ -77,22 +77,23 @@ app.post("/api/users/login", (req, res) => {
         if (err) {
           return res.status(400).send(err);
         }
-        res
-          .cookie("x_auth", user.token)
-          .status(200)
-          .json({ loginSuccess: true, userId: user._id });
+
+        // res
+        //   .cookie("meemo_auth", user.token)
+        //   .status(200)
+        //   .json({ loginSuccess: true, userId: user._id });
       });
     });
   });
 });
 
-app.get("/api/users/auth", auth, (req, res) => {
+app.get("/api/users/auth", auth, function (req, res) {
   //미들웨어를 거친 후 실행됨
   res.status(200).json({
     //유저 정보를 json 형태로 전달
     _id: req.user._id,
-    userId: req.user.userId,
     name: req.user.name,
+    userId: req.user.userId,
     isAuth: true,
   });
 });

@@ -42,8 +42,6 @@ function Register() {
 
       dispatch(registerUser(body))
         .then((res: any) => {
-          console.log(res, "register");
-
           alert("회원가입이 완료되었습니다.");
           setRegisterInput({
             name: "",

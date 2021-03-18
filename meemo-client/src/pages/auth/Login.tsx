@@ -35,8 +35,6 @@ function Login() {
 
     dispatch(loginUser(body))
       .then((res: any) => {
-        console.log(res, "login");
-
         if (res.payload.loginSuccess) {
           history.push({
             pathname: "/schedule",
