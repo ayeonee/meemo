@@ -8,6 +8,10 @@ const fs = require("fs");
 const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
+<<<<<<< HEAD
+=======
+const {OAuth2Client} = require("google-auth-library");
+>>>>>>> 6b9a830... create google login server
 
 require("dotenv").config();
 
@@ -22,11 +26,21 @@ mongoose
     useCreateIndex: true,
     useUnifiedTopology: true,
     useUnifiedTopology: true,
+<<<<<<< HEAD
     useFindAndModify: false,
+=======
+>>>>>>> 6b9a830... create google login server
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
+<<<<<<< HEAD
+=======
+const notesRouter = require("./routes/notes");
+
+app.use("/notes", notesRouter);
+
+>>>>>>> 6b9a830... create google login server
 // probably dont need
 // https
 //   .createServer(
@@ -103,12 +117,29 @@ app.get("/api/users/logout", auth, (res, req) => {
   });
 });
 
+<<<<<<< HEAD
 const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");
 const foldersRouter = require("./routes/folders");
 
 app.use("/api/notes", notesRouter);
 app.use("/api/folders", foldersRouter);
+=======
+/////////Google Login/////////
+const client=new OAuth2Client(process.env.CLIENT_ID);
+app.post("/api/users/auth/google", async (req, res)=>{
+  const {googleUser}=req.body;
+    const ticket=await client.verifyIdToken({
+      idToken : googleUser.accessToken,
+      audience : process.env.CLIENT_ID
+    });
+    const {name}=ticket.getUserId();
+})
+
+
+
+const port = process.env.PORT || 5000;
+>>>>>>> 6b9a830... create google login server
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
