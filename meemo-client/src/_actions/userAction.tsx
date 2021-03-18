@@ -1,4 +1,4 @@
-import { REGISTER_USER, LOGIN_USER, AUTH_USER } from "./types";
+import { REGISTER_USER, LOGIN_USER, AUTH_USER, SET_COOKIE } from "./types";
 import axios from "axios";
 
 export const registerUser = (dataToSubmit: {
@@ -26,6 +26,17 @@ export const loginUser = (dataToSubmit: {
 
   return {
     type: LOGIN_USER,
+    payload: request,
+  };
+};
+
+export const setTokenInCookie = () => {
+  const request = axios
+    .get("http://localhost:5000/api/users/cookie")
+    .then((res) => res.data);
+
+  return {
+    type: SET_COOKIE,
     payload: request,
   };
 };
