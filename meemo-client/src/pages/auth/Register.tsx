@@ -54,7 +54,7 @@ function Register() {
 
       dispatch(setTokenInCookie())
         .then((res: any) => {
-          document.cookie = "meemo-auth" + "=" + res.token + ";path=/";
+          document.cookie = `meemo-auth=${res.token}`;
         })
         .catch((err: any) => console.log(err));
     } else alert("비밀번호가 다릅니다.");

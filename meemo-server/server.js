@@ -8,8 +8,7 @@ const fs = require("fs");
 const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
-let TOKEN, USER_ID;
-
+let TOKEN, USER_ID, ID, NAME;
 require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
@@ -79,22 +78,19 @@ app.post("/api/users/login", (req, res) => {
           return res.status(400).send(err);
         }
 
-        TOKEN = user.token;
-        USER_ID = user._id;
-        // res
-        //   .cookie("meemo_auth", user.token)
-        //   .status(200)
-        //   .json({ loginSuccess: true, userId: user._id });
+        res.status(200).json({ loginSuccess: true, userId: user._id });
       });
     });
   });
 });
 
-app.get("/api/users/cookie", (req, res) => {
+app.post("/api/users/cookie", (req, res) => {
   res.status(200).json({
     token: TOKEN,
     loginSuccess: true,
+    _id: ID,
     userId: USER_ID,
+    name: NAME,
   });
 });
 
