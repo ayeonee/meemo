@@ -37,6 +37,7 @@ function GLogin(){
       window.localStorage.setItem('userId',userInfo!.userId);
       window.localStorage.setItem('userName',userInfo!.userName);
       window.localStorage.setItem('provider',userInfo!.provider);
+      window.localStorage.setItem('accessToken',userInfo!.accessToken);
     }
   },[userInfo])
 

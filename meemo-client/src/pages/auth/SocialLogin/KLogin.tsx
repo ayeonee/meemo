@@ -36,6 +36,7 @@ function KLogin(){
     if(userInfo!.userId){
       window.localStorage.setItem('userId',userInfo!.userId);
       window.localStorage.setItem('userName',userInfo!.userName);
+      window.localStorage.setItem('accessToken',userInfo!.accessToken);
       window.localStorage.setItem('provider',userInfo!.provider);
     }
   },[userInfo])
