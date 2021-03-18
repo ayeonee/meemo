@@ -8,6 +8,7 @@ const fs = require("fs");
 const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
+let TOKEN, USER_ID;
 
 require("dotenv").config();
 
@@ -78,6 +79,8 @@ app.post("/api/users/login", (req, res) => {
           return res.status(400).send(err);
         }
 
+        TOKEN = user.token;
+        USER_ID = user._id;
         // res
         //   .cookie("meemo_auth", user.token)
         //   .status(200)
@@ -87,7 +90,15 @@ app.post("/api/users/login", (req, res) => {
   });
 });
 
-app.get("/api/users/auth", auth, function (req, res) {
+app.get("/api/users/cookie", (req, res) => {
+  res.status(200).json({
+    token: TOKEN,
+    loginSuccess: true,
+    userId: USER_ID,
+  });
+});
+
+app.get("/api/users/auth", auth, (req, res) => {
   //미들웨어를 거친 후 실행됨
   res.status(200).json({
     //유저 정보를 json 형태로 전달
