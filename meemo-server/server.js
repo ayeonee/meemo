@@ -31,11 +31,15 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
+<<<<<<< HEAD
     useUnifiedTopology: true,
 <<<<<<< HEAD
     useFindAndModify: false,
 =======
 >>>>>>> 6b9a830... create google login server
+=======
+    useFindAndModify : false,
+>>>>>>> 9a56d46... success connect to DB
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
@@ -135,21 +139,26 @@ app.use("/api/folders", foldersRouter);
 const client=new OAuth2Client(process.env.GOOGLE_ID);
 app.post("/api/users/auth/google", async (req, res)=>{
   const token  = req.body.tokenId;
-    const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: process.env.GOOGLE_ID
-    });
-    const payload=ticket.getPayload();
-    const userId=payload['sub'];
-    const name=payload['name'];
-    SocialUser.findOneAndUpdate({
-      name : name,
-      userId : userId
-    },{upsert : true} )
-  return res.json({
-    token : name,
-    message : "login success"
-  })
+  const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_ID
+  });
+  const payload=ticket.getPayload();
+  const userId=payload['sub'];
+  const name=payload['name'];
+
+  SocialUser.findOneAndUpdate({userId : userId},{
+    name : name,
+    userId : userId
+  },{upsert : true}, function(err, doc) {
+    if (err) return res.send(500, {error: err});
+    return res.json({message : 'Succesfully saved.'});
+});
+
+  // return res.json({
+  //   token : name,
+  //   message : "login success"
+  // })
   // res.status(200)
   //     .json({ loginSuccess: true, userId: user._id });
 })
