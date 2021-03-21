@@ -9,9 +9,15 @@ const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 const {OAuth2Client} = require("google-auth-library");
 >>>>>>> 6b9a830... create google login server
+=======
+
+const {OAuth2Client} = require("google-auth-library");
+const { SocialUser } = require("./models/SocialUser");
+>>>>>>> b90c401... tested token data passed
 
 require("dotenv").config();
 
@@ -126,14 +132,25 @@ app.use("/api/notes", notesRouter);
 app.use("/api/folders", foldersRouter);
 =======
 /////////Google Login/////////
-const client=new OAuth2Client(process.env.CLIENT_ID);
+const client=new OAuth2Client(process.env.GOOGLE_ID);
 app.post("/api/users/auth/google", async (req, res)=>{
-  const {googleUser}=req.body;
-    const ticket=await client.verifyIdToken({
-      idToken : googleUser.accessToken,
-      audience : process.env.CLIENT_ID
-    });
-    const {name}=ticket.getUserId();
+  const token  = req.body.accessToken;
+  //   const ticket = await client.verifyIdToken({
+  //       idToken: token,
+  //       audience: process.env.CLIENT_ID
+  //   });
+  //   const { name, email, picture } = ticket.getPayload();
+  // const user = await SocialUser.upsert({ 
+  //       where: { email: email },
+  //       update: { name, picture },
+  //       create: { name, email, picture }
+  //   })
+  return res.json({
+    token : token,
+    message : "login success"
+  })
+  // res.status(200)
+  //     .json({ loginSuccess: true, userId: user._id });
 })
 
 
