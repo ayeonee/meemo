@@ -134,19 +134,20 @@ app.use("/api/folders", foldersRouter);
 /////////Google Login/////////
 const client=new OAuth2Client(process.env.GOOGLE_ID);
 app.post("/api/users/auth/google", async (req, res)=>{
-  const token  = req.body.accessToken;
-  //   const ticket = await client.verifyIdToken({
-  //       idToken: token,
-  //       audience: process.env.CLIENT_ID
-  //   });
-  //   const { name, email, picture } = ticket.getPayload();
-  // const user = await SocialUser.upsert({ 
-  //       where: { email: email },
-  //       update: { name, picture },
-  //       create: { name, email, picture }
-  //   })
+  const token  = req.body.tokenId;
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: process.env.GOOGLE_ID
+    });
+    const payload=ticket.getPayload();
+    const userId=payload['sub'];
+    const name=payload['name'];
+    SocialUser.findOneAndUpdate({
+      name : name,
+      userId : userId
+    },{upsert : true} )
   return res.json({
-    token : token,
+    token : name,
     message : "login success"
   })
   // res.status(200)
