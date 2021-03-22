@@ -37,7 +37,7 @@ export const authUser = (dataToSubmit?: any) => {
 //SocialLogin
 export const gLoginUser = (dataToSubmit?: any) => {
   const request = axios
-    .post("http://localhost:5000/api/users/google", dataToSubmit)
+    .post("http://localhost:5000/api/users/auth/google", dataToSubmit)
     .then((res) => res.data);
 
   return {

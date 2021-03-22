@@ -30,8 +30,6 @@ function KLogin(){
     console.log("success kakao login");
   }
 
-  console.log(userInfo);
-
   useEffect(()=>{
     if(userInfo!.userId){
       window.localStorage.setItem('userId',userInfo!.userId);
