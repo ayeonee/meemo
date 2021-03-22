@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registerUser, setTokenInCookie } from "../../_actions/userAction";
+import { registerUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
 
 interface RegisterTypes {
@@ -49,12 +49,6 @@ function Register() {
             password: "",
             confirmPassword: "",
           });
-        })
-        .catch((err: any) => console.log(err));
-
-      dispatch(setTokenInCookie())
-        .then((res: any) => {
-          document.cookie = `meemo-auth=${res.token}`;
         })
         .catch((err: any) => console.log(err));
     } else alert("비밀번호가 다릅니다.");

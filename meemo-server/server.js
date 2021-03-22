@@ -8,7 +8,6 @@ const fs = require("fs");
 const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
-let TOKEN, USER_ID, ID, NAME;
 require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
+//몽구스 연결
 mongoose
   .connect(config.mongoURI, {
     useNewUrlParser: true,
@@ -26,8 +26,8 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
+//노트 라우팅
 const notesRouter = require("./routes/notes");
-
 app.use("/notes", notesRouter);
 
 // probably dont need
@@ -77,20 +77,15 @@ app.post("/api/users/login", (req, res) => {
         if (err) {
           return res.status(400).send(err);
         }
-
-        res.status(200).json({ loginSuccess: true, userId: user._id });
+        res.status(200).json({
+          loginSuccess: true,
+          userId: user._id,
+          token: user.token,
+          name: user.name,
+          isAuth: true,
+        });
       });
     });
-  });
-});
-
-app.post("/api/users/cookie", (req, res) => {
-  res.status(200).json({
-    token: TOKEN,
-    loginSuccess: true,
-    _id: ID,
-    userId: USER_ID,
-    name: NAME,
   });
 });
 

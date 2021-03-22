@@ -10,11 +10,14 @@ function AuthPage() {
   const [loginTxt, setLoginTxt] = useState<boolean>(true);
   const [registerTxt, setRegisterText] = useState<boolean>(false);
 
+  const value = document.cookie.match("(^|;) ?meemo_auth=([^;]*)(;|$)");
+
   const onClickMenu = useCallback((e: React.MouseEvent) => {
     const text = (e.target as HTMLElement).innerText;
     if (text === "Login") {
       setLoginTxt(true);
       setRegisterText(false);
+      console.log(() => value);
     } else {
       setLoginTxt(false);
       setRegisterText(true);

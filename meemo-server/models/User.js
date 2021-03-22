@@ -7,12 +7,7 @@ const userSchema = mongoose.Schema({
   name: { type: String, maxlength: 50 },
   userId: { type: String, maxlength: 50, unique: 1 },
   password: { type: String, maxlength: 100 },
-  token: {
-    type: String,
-  },
-  tokenExp: {
-    type: Number,
-  },
+  token: { type: String },
 });
 
 userSchema.pre("save", function (next) {
