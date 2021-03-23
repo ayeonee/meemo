@@ -30,7 +30,7 @@ function InputTodo() {
         value={input}
         onChange={onChangeInput}
       />
-      <button className={style.todo_input_button}>추가</button>
+      <button className={style.todo_input_button}>+</button>
     </form>
   );
 }

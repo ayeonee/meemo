@@ -45,10 +45,10 @@ function Navigation() {
   return (
     <div className={style.nav_wrapper}>
       <div className={style.nav_inside}>
+        <Link to="/schedule">
+          <img className={style.logo} src={`${logo}`} alt="logo" />
+        </Link>
         <div className={style.nav_items}>
-          <Link to="/schedule">
-            <img className={style.logo} src={`${logo}`} alt="logo" />
-          </Link>
           <div className={style.nav_menus}>
             {menuColor.map((data) => (
               <NavItem
