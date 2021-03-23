@@ -36,7 +36,7 @@ function Login() {
     dispatch(loginUser(body))
       .then((res: any) => {
         if (res.payload.loginSuccess) {
-          document.cookie = `meemo_auth=${res.payload.token}`;
+          // document.cookie = `meemo_auth=${res.payload.token}`;
 
           history.push({
             pathname: "/schedule",

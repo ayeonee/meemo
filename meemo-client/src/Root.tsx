@@ -1,9 +1,8 @@
-import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AuthPage from "./pages/auth";
 import Todo from "./pages/todo";
 import Home from "./pages/home";
-import Auth from "./hoc/auth";
+// import Auth from "./hoc/auth";
 
 function Root() {
   // hoc rule
@@ -13,9 +12,9 @@ function Root() {
   return (
     <Router>
       <Switch>
-        <Route component={Auth(AuthPage, false)} path="/" exact />
-        <Route component={Auth(Home, true)} path="/schedule" exact />
-        <Route component={Auth(Todo, true)} path="/todo" exact />
+        <Route component={AuthPage} path="/" exact />
+        <Route component={Home} path="/schedule" exact />
+        <Route component={Todo} path="/todo" exact />
       </Switch>
     </Router>
   );
