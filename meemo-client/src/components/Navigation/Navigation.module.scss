@@ -43,8 +43,8 @@
         }
         .nav_menu_checked {
           color: $green_grade_5;
-          border-bottom: 4px solid $green_grade_4;
-          padding-bottom: 12px;
+          border-bottom: 6px solid $green_grade_4;
+          padding-bottom: 24px;
         }
 
         .nav_menu {
@@ -74,10 +74,8 @@
         margin-top: 2px;
         font-size: 15px;
         font-weight: 400;
-        color: white;
+        color: black;
         border-style: none;
-        border-radius: 20px;
-        background-color: $green_grade_4;
         cursor: pointer;
 
         &:hover {
