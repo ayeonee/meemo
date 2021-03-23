@@ -1,43 +1,31 @@
-import {useState, useEffect} from 'react';
 import style from "../Auth.module.scss";
 import KakaoLogin from 'react-kakao-login';
-
-interface IUser{
-  userId : string,
-  userName : string,
-  provider : string,
-  accessToken : string
-}
+import { useDispatch } from "react-redux";
+import { kLoginUser } from "../../../_actions/userAction";
+import { useHistory } from "react-router-dom";
 
 function KLogin(){
+  const history = useHistory();
+  const dispatch = useDispatch<any>();
 
-  const [userInfo, setUserInfo]=useState<IUser>({
-    userId : "",
-    userName : "",
-    provider : "",
-    accessToken : ""
-  });
-
-  const responseKakao = (response : any) => {
-    setUserInfo(
-      {
-        userId : response.profile.id,
-        userName : response.profile.properties.nickname,
-        provider : "kakao",
-        accessToken : response.response.access_token
+  const submitLogin = (response : any) => {
+   const body ={
+     tokenId : response.response.accessToken
+   }
+   dispatch(kLoginUser(body))
+    .then((res: any) => {
+      if (res.payload.loginSuccess) {
+        history.push({
+          pathname: "/schedule",
+        });
+      } else {
+        alert(res.payload.message);
       }
-    );
-    console.log("success kakao login");
+    })
+    .catch((err: any) => {
+      console.log(err);
+    });
   }
-
-  useEffect(()=>{
-    if(userInfo!.userId){
-      window.localStorage.setItem('userId',userInfo!.userId);
-      window.localStorage.setItem('userName',userInfo!.userName);
-      window.localStorage.setItem('accessToken',userInfo!.accessToken);
-      window.localStorage.setItem('provider',userInfo!.provider);
-    }
-  },[userInfo])
 
   const responseFail=()=>{
     console.error();
@@ -52,7 +40,7 @@ function KLogin(){
                 <span className={style.KakaoText}>카카오로 로그인하기</span>
                 </button>
             )}
-            onSuccess={responseKakao}
+            onSuccess={submitLogin}
             onFail={responseFail}
         />
       </>

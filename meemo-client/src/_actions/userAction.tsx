@@ -1,4 +1,4 @@
-import { REGISTER_USER, LOGIN_USER, AUTH_USER, GLOGIN_USER } from "./types";
+import { REGISTER_USER, LOGIN_USER, AUTH_USER, GLOGIN_USER, KLOGIN_USER } from "./types";
 import axios from "axios";
 
 export const registerUser = (dataToSubmit: any) => {
@@ -42,6 +42,17 @@ export const gLoginUser = (dataToSubmit?: any) => {
 
   return {
     type: GLOGIN_USER,
+    payload: request,
+  };
+};
+
+export const kLoginUser = (dataToSubmit?: any) => {
+  const request = axios
+    .post("http://localhost:5000/api/users/auth/kakao", dataToSubmit)
+    .then((res) => res.data);
+
+  return {
+    type: KLOGIN_USER,
     payload: request,
   };
 };

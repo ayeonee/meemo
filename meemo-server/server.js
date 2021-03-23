@@ -154,15 +154,22 @@ app.post("/api/users/auth/google", async (req, res)=>{
     if (err) return res.send(500, {error: err});
     return res.json({loginSuccess : true, userId : userId, message : "실패"});
 });
-
-  // return res.json({
-  //   token : name,
-  //   message : "login success"
-  // })
-  // res.status(200)
-  //     .json({ loginSuccess: true, userId: user._id });
 })
 
+/////////Kakao Login/////////
+app.post("/api/users/auth/kakao", (req, res)=>{
+  const token = req.body;
+  const name=token.userName;
+  const userId=token.userId;
+
+  SocialUser.findOneAndUpdate({userId : userId},{
+    name : name,
+    userId : userId
+  },{upsert : true}, function(err, doc) {
+    if (err) return res.send(500, {error: err});
+    return res.json({loginSuccess : true, userId : userId, message : "실패"});
+  });
+})
 
 
 const port = process.env.PORT || 5000;
