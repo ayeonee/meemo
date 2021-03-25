@@ -53,7 +53,7 @@ function ScheduleItem({
         left: `${datePosition}px`,
         top: `${timeStart}px`,
         height: `${timeHeight}px`,
-        backgroundColor: `#${colorCode[color]}`,
+        borderColor: `#${colorCode[color]}`,
       }}
       onMouseOver={showDelButton}
       onMouseOut={showDelButton}

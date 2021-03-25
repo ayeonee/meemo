@@ -11,12 +11,15 @@
     @include flex_col;
     @include align_center;
     font-size: 12px;
+    font-weight: 500;
     position: absolute;
-    width: 83px;
+    width: 79px;
     margin: 2px 2px 0 2px;
     padding: 2px;
+    border-left: 4px solid;
     border-radius: 5px;
-    box-shadow: 0 1px 2px 1px rgba(10, 10, 10, 0.233);
+    background-color: white;
+    box-shadow: 1px 1px 2px 1px rgba(10, 10, 10, 0.221);
 
     .item_delete_button {
       @include flex_col;
@@ -27,7 +30,6 @@
       font-size: 12px;
       justify-content: center;
       background: transparent;
-
       p {
         cursor: pointer;
 
