@@ -27,9 +27,6 @@ function GLogin(){
       });
   }
 
-  const responseFail=()=>{
-    console.error();
-  }
   return (
       <>
         <GoogleLogin
@@ -41,7 +38,7 @@ function GLogin(){
             </button>
           )}
           onSuccess={submitLogin}
-          onFailure={responseFail}
+          onFailure={console.error}
         />
       </>
     );

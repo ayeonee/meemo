@@ -10,7 +10,9 @@ function KLogin(){
 
   const submitLogin = (response : any) => {
    const body ={
-     tokenId : response.response.accessToken
+     tokenId : response.response.accessToken,
+     userId : response.profile.id,
+     userName : response.profile.properties.nickname
    }
    dispatch(kLoginUser(body))
     .then((res: any) => {
@@ -27,9 +29,6 @@ function KLogin(){
     });
   }
 
-  const responseFail=()=>{
-    console.error();
-  }
   return (
       <>
         <KakaoLogin
@@ -41,7 +40,7 @@ function KLogin(){
                 </button>
             )}
             onSuccess={submitLogin}
-            onFail={responseFail}
+            onFail={console.error}
         />
       </>
     );

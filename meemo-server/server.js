@@ -152,7 +152,7 @@ app.post("/api/users/auth/google", async (req, res)=>{
     userId : userId
   },{upsert : true}, function(err, doc) {
     if (err) return res.send(500, {error: err});
-    return res.json({loginSuccess : true, userId : userId, message : "실패"});
+    return res.json({loginSuccess : true, userId : userId, message : "로그인 성공"});
 });
 })
 
@@ -167,7 +167,7 @@ app.post("/api/users/auth/kakao", (req, res)=>{
     userId : userId
   },{upsert : true}, function(err, doc) {
     if (err) return res.send(500, {error: err});
-    return res.json({loginSuccess : true, userId : userId, message : "실패"});
+    return res.json({loginSuccess : true, userId : userId, message : "로그인 성공"});
   });
 })
 
