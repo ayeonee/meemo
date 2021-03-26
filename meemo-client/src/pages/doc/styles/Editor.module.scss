@@ -1,5 +1,9 @@
-.editor {
-  margin-top: 80px;
-  margin-left: 20vw;
-  margin-right: 20vw;
+.wrapper {
+  margin-top: 90px;
+  .editor {
+    margin-left: 20vw;
+    margin-right: 20vw;
+
+    margin-top: 5px;
+  }
 }

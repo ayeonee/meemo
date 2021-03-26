@@ -4,8 +4,7 @@ import Navigation from "../../components/Navigation";
 import SchedulePage from "../schedule";
 import TodoPage from "../todo";
 import CalenderPage from "../calender";
-import NoteList from "../doc/components/NoteList";
-import Editor from "../doc/components/Editor";
+import Folders from "../doc/components/Folders";
 
 function Home() {
   return (
@@ -13,8 +12,7 @@ function Home() {
       <Navigation />
       <Route component={SchedulePage} path={"/schedule"} />
       <Route component={TodoPage} path="/todo" />
-      <Route component={NoteList} path="/notelist" />
-      <Route component={Editor} path="/editor" />
+      <Route component={Folders} path="/folders" />
       <Route component={CalenderPage} path="/calender" />
     </Router>
   );

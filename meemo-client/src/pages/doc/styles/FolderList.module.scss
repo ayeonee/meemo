@@ -1,145 +1,123 @@
 @import "../../../styles/util.module.scss";
 
-.noteList {
+.folderList {
   width: 900px;
   height: 100%;
 
   margin: 0 auto;
   margin-top: 90px;
 
-  .noteContainer {
+  .folderContainer {
     margin: 0 auto;
 
     width: 100%;
     height: 100%;
     // background-color: skyblue;
 
-    .noteDiv {
+    .folderDiv {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: flex-start;
 
       width: 100%;
-      .notes {
+      .folders {
         border: solid 2px $green_grade_2;
         border-radius: 10px;
         margin: 10px 13px;
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: flex-start;
 
-        width: 420px;
-        height: 50px;
+        width: 150px;
+        height: 150px;
 
         .iconDiv {
-          height: 100%;
-          width: 50px;
+          height: 60px;
+          width: 60px;
+
+          margin: 20px auto;
+
+          // background-color: chocolate;
 
           pointer-events: none;
-          .noteIcon {
+          .folderIcon {
             color: $green_grade_5;
 
-            width: 30px;
-            height: 30px;
-
-            margin-top: 10px;
-            margin-left: 10px;
+            width: 100%;
+            height: 100%;
 
             pointer-events: none;
           }
         }
 
         .titleDiv {
-          margin: auto;
-          margin-left: 1%;
-          margin-top: 13px;
+          width: 100%;
+          height: 60px;
+          text-align: center;
+
+          // background-color: antiquewhite;
 
           pointer-events: none;
           p {
-            font-size: 17px;
-
-            pointer-events: none;
-          }
-        }
-        .timeDiv {
-          align-self: flex-end;
-          margin-right: 5px;
-          margin-bottom: 17px;
-
-          pointer-events: none;
-          small {
-            font-size: 7px;
-            color: black;
+            margin: 10px 15px;
+            font-size: 13px;
 
             pointer-events: none;
           }
         }
       }
-      .notes:focus {
+      .folders:focus {
         outline: none;
       }
-      .notesSelected {
+      .foldersSelected {
         background-color: $green_grade_3;
         border: solid 2px $green_grade_2;
         border-radius: 10px;
         margin: 10px 13px;
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: flex-start;
 
-        width: 420px;
-        height: 50px;
+        width: 150px;
+        height: 150px;
 
         .iconDiv {
+          height: 60px;
+          width: 60px;
+
+          margin: 20px auto;
+
           pointer-events: none;
-
-          height: 100%;
-          width: 50px;
-
-          .noteIcon {
+          .folderIcon {
             color: white;
 
-            width: 30px;
-            height: 30px;
-
-            margin-top: 10px;
-            margin-left: 10px;
+            width: 100%;
+            height: 100%;
 
             pointer-events: none;
           }
         }
 
         .titleDiv {
-          margin: auto;
-          margin-left: 1%;
-          margin-top: 13px;
+          width: 100%;
+          height: 60px;
+          text-align: center;
 
           pointer-events: none;
           p {
             color: white;
-            font-size: 17px;
 
-            pointer-events: none;
-          }
-        }
-        .timeDiv {
-          align-self: flex-end;
-          margin-right: 5px;
-          margin-bottom: 17px;
-
-          pointer-events: none;
-          small {
-            color: white;
-            font-size: 7px;
+            margin: 10px 15px;
+            font-size: 13px;
 
             pointer-events: none;
           }
         }
       }
-      .notesSelected:focus {
+      .foldersSelected:focus {
         outline: none;
       }
     }
