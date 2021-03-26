@@ -52,7 +52,7 @@ export default function NoteList() {
 
     const loadNotes = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/notes", {
+        const res = await axios.get("https://meemo.kr/api/notes", {
           cancelToken: source.token,
         });
         console.log("Got the notes!");
@@ -100,7 +100,7 @@ export default function NoteList() {
 
   const getTitle = async (id: string) => {
     try {
-      const res = await axios.get("http://localhost:5000/notes/" + id);
+      const res = await axios.get("https://meemo.kr/api/notes/" + id);
       setNoteTitle(res.data.title);
     } catch (err) {
       throw err;
@@ -116,7 +116,7 @@ export default function NoteList() {
         parentId: `${parentId}`,
       };
       axios
-        .post("http://localhost:5000/notes/create", note)
+        .post("https://meemo.kr/api/notes/create", note)
         .then(() => setUpdate(!update))
         .then(() => console.log("New note added!"))
         .then(() => setShowPopup(!showPopup))
@@ -128,7 +128,7 @@ export default function NoteList() {
 
   const deleteNote = (id: any) => {
     axios
-      .delete("http://localhost:5000/notes/" + id)
+      .delete("https://meemo.kr/api/notes/" + id)
       .then(() => console.log("Note deleted."))
       .then(() => setShowDelModal(!showDelModal))
       .then(() => setDelBtn(false))
@@ -147,7 +147,7 @@ export default function NoteList() {
       };
 
       axios
-        .put("http://localhost:5000/notes/" + id, title)
+        .put("https://meemo.kr/api/notes/" + id, title)
         .then(() => console.log("Note Renamed"))
         .then(() => setUpdate(!update))
         .then(() => setShowPopup(false))

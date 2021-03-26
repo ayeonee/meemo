@@ -46,34 +46,34 @@ const Editor: React.FC<Props> = () => {
   // const edit = useEdit();
   // const dark = useDark();
 
-  useEffect(() => {
-    let source = axios.CancelToken.source();
+  // useEffect(() => {
+  //   let source = axios.CancelToken.source();
 
-    const loadNotes = async () => {
-      try {
-        const res = await axios.get(
-          "https://meemo.kr/api/notes/" + history.location.state.id,
-          {
-            cancelToken: source.token,
-          }
-        );
-        console.log("Got the note!");
-        setValue(res.data.body);
-      } catch (err) {
-        if (axios.isCancel(err)) {
-          console.log("Caught a cancel.");
-        } else {
-          throw err;
-        }
-      }
-    };
-    loadNotes();
+  //   const loadNotes = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         "https://meemo.kr/api/notes/" + history.location.state.id,
+  //         {
+  //           cancelToken: source.token,
+  //         }
+  //       );
+  //       console.log("Got the note!");
+  //       setValue(res.data.body);
+  //     } catch (err) {
+  //       if (axios.isCancel(err)) {
+  //         console.log("Caught a cancel.");
+  //       } else {
+  //         throw err;
+  //       }
+  //     }
+  //   };
+  //   loadNotes();
 
-    return () => {
-      console.log("Unmounting Editor.");
-      source.cancel();
-    };
-  }, [value]);
+  //   return () => {
+  //     console.log("Unmounting Editor.");
+  //     source.cancel();
+  //   };
+  // }, [value]);
 
   //title update uses put; editor body uses post + update.
   //to fix, add another prop in popup to get the body from the editor and feed in put.
@@ -85,7 +85,7 @@ const Editor: React.FC<Props> = () => {
     try {
       axios
         .post(
-          "http://localhost:5000/notes/update/" + history.location.state.id,
+          "https://meemo.kr/api/notes/update/" + history.location.state.id,
           noteInfo,
           {
             cancelToken: source.token,

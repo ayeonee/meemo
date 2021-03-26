@@ -32,7 +32,7 @@ export default function FolderList() {
 
     const loadFolders = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/folders", {
+        const res = await axios.get("https://meemo.kr/api/folders", {
           cancelToken: source.token,
         });
         console.log("Got the folders!");
@@ -66,7 +66,7 @@ export default function FolderList() {
 
   const getTitle = async (id: string) => {
     try {
-      const res = await axios.get("http://localhost:5000/folders/" + id);
+      const res = await axios.get("https://meemo.kr/api/folders/" + id);
       setFolderTitle(res.data.title);
     } catch (err) {
       throw err;
@@ -76,7 +76,7 @@ export default function FolderList() {
   const getChildren = async (id: string) => {
     let temp: any[] = [];
     try {
-      const res = await axios.get("http://localhost:5000/notes");
+      const res = await axios.get("https://meemo.kr/api/notes");
       res.data.map((note: any) => {
         if (note.parentId === id) {
           temp.push(note);
@@ -94,7 +94,7 @@ export default function FolderList() {
         title: `${t}`,
       };
       axios
-        .post("http://localhost:5000/folders/create", folder)
+        .post("https://meemo.kr/api/folders/create", folder)
         .then(() => setUpdate(!update))
         .then(() => console.log("New folder added!"))
         .then(() => setShowPopup(!showPopup))
@@ -107,21 +107,21 @@ export default function FolderList() {
   const deleteFolder = async (id: string) => {
     let temp: any[] = [];
     try {
-      const res = await axios.get("http://localhost:5000/notes");
+      const res = await axios.get("https://meemo.kr/api/notes");
       res.data.map((note: any) => {
         if (note.parentId === id) {
           temp.push(note);
         }
       });
       temp.map((note) => {
-        axios.delete("http://localhost:5000/notes/" + note._id);
+        axios.delete("https://meemo.kr/api/notes/" + note._id);
       });
     } catch (err) {
       throw err;
     }
     try {
       axios
-        .delete("http://localhost:5000/folders/" + id)
+        .delete("https://meemo.kr/api/folders/" + id)
         .then(() => console.log("Folder deleted."))
         .then(() => setUpdate(!update))
         .then(() => setDelBtn(false))
@@ -141,7 +141,7 @@ export default function FolderList() {
       };
 
       axios
-        .put("http://localhost:5000/folders/" + id, title)
+        .put("https://meemo.kr/api/folders/" + id, title)
         .then(() => console.log("Folder Renamed"))
         .then(() => setUpdate(!update))
         .then(() => setShowPopup(false))

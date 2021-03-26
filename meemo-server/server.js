@@ -22,6 +22,7 @@ mongoose
     useCreateIndex: true,
     useUnifiedTopology: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
@@ -82,14 +83,6 @@ app.post("/api/users/login", (req, res) => {
   });
 });
 
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
-
 app.get("/api/users/auth", auth, (req, res) => {
   //미들웨어를 거친 후 실행됨
   res.status(200).json({
@@ -114,8 +107,8 @@ const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");
 const foldersRouter = require("./routes/folders");
 
-app.use("/notes", notesRouter);
-app.use("/folders", foldersRouter);
+app.use("/api/notes", notesRouter);
+app.use("/api/folders", foldersRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
