@@ -15,6 +15,7 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 const connection = mongoose.connection;
@@ -23,8 +24,10 @@ connection.once("open", () => {
 });
 
 const notesRouter = require("./routes/notes");
+const foldersRouter = require("./routes/folders");
 
 app.use("/notes", notesRouter);
+app.use("/folders", foldersRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

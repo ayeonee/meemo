@@ -1,54 +1,52 @@
 const router = require("express").Router();
-let Note = require("../models/note.model");
+let Folder = require("../models/folder.model");
 
 router.route("/").get((req, res) => {
-  Note.find()
-    .then((notes) => res.json(notes))
+  Folder.find()
+    .then((folders) => res.json(folders))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/create").post((req, res) => {
   const title = req.body.title;
-  const body = req.body.body;
-  const parentId = req.body.parentId;
 
-  const newNote = new Note({ title, body, parentId });
+  const newFolder = new Folder({ title });
 
-  newNote
+  newFolder
     .save()
-    .then(() => res.json("New Note Created!"))
+    .then(() => res.json("New Folder Created!"))
     .catch((err) => res.status(400).json("Error" + err));
 });
 
 router.route("/:id").get((req, res) => {
-  Note.findById(req.params.id)
-    .then((note) => res.json(note))
+  Folder.findById(req.params.id)
+    .then((folder) => res.json(folder))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/:id").put((req, res) => {
-  Note.findOneAndUpdate({ _id: req.params.id }, { title: req.body.title })
-    .then(() => res.json("Note Updated!"))
+  Folder.findOneAndUpdate({ _id: req.params.id }, { title: req.body.title })
+    .then(() => res.json("Folder Updated!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// using put instead of post + update
+// might want to use put instead of post/update
 router.route("/update/:id").post((req, res) => {
-  Note.findById(req.params.id)
-    .then((note) => {
-      note.body = req.body.body;
+  Folder.findById(req.params.id)
+    .then((folder) => {
+      folder.title = req.body.title;
 
-      note
+      folder
         .save()
-        .then(() => res.json("Note Updated!"))
+        .then(() => res.json("Folder Updated!"))
         .catch((err) => res.status(400).json("Error: " + err));
     })
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/:id").delete((req, res) => {
-  Note.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Note deleted."))
+  Folder.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Folder deleted."))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 

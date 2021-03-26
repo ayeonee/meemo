@@ -5,7 +5,7 @@
   height: 100%;
 
   margin: 0 auto;
-  margin-top: 150px;
+  margin-top: 90px;
 
   .noteContainer {
     margin: 0 auto;
@@ -37,6 +37,7 @@
           height: 100%;
           width: 50px;
 
+          pointer-events: none;
           .noteIcon {
             color: $green_grade_5;
 
@@ -45,6 +46,8 @@
 
             margin-top: 10px;
             margin-left: 10px;
+
+            pointer-events: none;
           }
         }
 
@@ -52,8 +55,12 @@
           margin: auto;
           margin-left: 1%;
           margin-top: 13px;
+
+          pointer-events: none;
           p {
             font-size: 17px;
+
+            pointer-events: none;
           }
         }
         .timeDiv {
@@ -61,9 +68,12 @@
           margin-right: 5px;
           margin-bottom: 17px;
 
+          pointer-events: none;
           small {
             font-size: 7px;
             color: black;
+
+            pointer-events: none;
           }
         }
       }
@@ -84,6 +94,8 @@
         height: 50px;
 
         .iconDiv {
+          pointer-events: none;
+
           height: 100%;
           width: 50px;
 
@@ -95,6 +107,8 @@
 
             margin-top: 10px;
             margin-left: 10px;
+
+            pointer-events: none;
           }
         }
 
@@ -102,9 +116,13 @@
           margin: auto;
           margin-left: 1%;
           margin-top: 13px;
+
+          pointer-events: none;
           p {
             color: white;
             font-size: 17px;
+
+            pointer-events: none;
           }
         }
         .timeDiv {
@@ -112,9 +130,12 @@
           margin-right: 5px;
           margin-bottom: 17px;
 
+          pointer-events: none;
           small {
             color: white;
             font-size: 7px;
+
+            pointer-events: none;
           }
         }
       }
@@ -137,6 +158,38 @@
     width: 400px;
 
     display: flex;
+    justify-content: space-evenly;
+
+    .hideRenameBtn {
+      display: none;
+    }
+
+    .renameBtn {
+      background-color: $green_grade_4;
+      color: white;
+
+      height: 50px;
+      width: 100px;
+      border-radius: 100px;
+
+      border: none;
+      cursor: pointer;
+      outline: none;
+
+      box-shadow: 0px 5px 10px -5px slategray;
+
+      transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+
+      .renameIcon {
+        pointer-events: none;
+      }
+    }
+    .renameBtn:hover {
+      box-shadow: 0px 2px 12px 0px slategray;
+    }
+    .renameBtn:active {
+      background-color: $green_grade_5;
+    }
 
     .addBtn {
       background-color: $green_grade_4;
@@ -146,7 +199,7 @@
       width: 100px;
       border-radius: 100px;
 
-      margin-left: 150px;
+      // margin-left: 150px;
 
       border: none;
       cursor: pointer;
@@ -155,12 +208,20 @@
       box-shadow: 0px 5px 10px -5px slategray;
 
       transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+
+      .addIcon {
+        pointer-events: none;
+      }
     }
     .addBtn:hover {
       box-shadow: 0px 2px 12px 0px slategray;
     }
     .addBtn:active {
       background-color: $green_grade_5;
+    }
+
+    .hideDelBtn {
+      display: none;
     }
 
     .deleteBtn {
@@ -171,8 +232,6 @@
       width: 100px;
       border-radius: 100px;
 
-      margin-left: 20px;
-
       border: none;
       cursor: pointer;
       outline: none;
@@ -180,6 +239,10 @@
       box-shadow: 0px 5px 10px -5px slategray;
 
       transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+
+      .deleteIcon {
+        pointer-events: none;
+      }
     }
     .deleteBtn:hover {
       box-shadow: 0px 2px 12px 0px slategray;

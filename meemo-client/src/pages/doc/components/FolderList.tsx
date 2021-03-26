@@ -1,101 +1,266 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
-import style from "../styles/NoteList.module.scss";
+import { useState, useEffect } from "react";
+import { useRouteMatch, useHistory } from "react-router-dom";
+import style from "../styles/FolderList.module.scss";
 import axios from "axios";
-import { IconButton } from "@material-ui/core";
-import { Add, Delete } from "@material-ui/icons";
+import { Add, Delete, FolderOpen, Create } from "@material-ui/icons";
+
+import Popup from "./Popup";
+import RouteShow from "./RouteShow";
+import LoaderSpinner from "./LoaderSpinner";
+import DeleteModal from "./DeleteModal";
 
 export default function FolderList() {
-  // const [notes, setNotes] = useState([]);
-  // const [selectedNote, setSelectedNote] = useState("");
-  // const [isSelected, setIsSelected] = useState("");
-  // const [update, setUpdate] = useState(false);
-  // let history = useHistory();
-  // let wrapperRef = useRef(new Array());
+  const [folders, setFolders] = useState([]);
+  const [selectedFolder, setSelectedFolder] = useState("");
+  const [delBtn, setDelBtn] = useState(false);
+  const [update, setUpdate] = useState(false);
 
-  // useEffect(() => {
-  //   let source = axios.CancelToken.source();
+  const [folderTitle, setFolderTitle] = useState("");
+  const [folderChildren, setFolderChildren]: any = useState([]);
+  const [popupType, setPopupType] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [showDelModal, setShowDelModal] = useState(false);
 
-  //   const loadNotes = async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:5000/notes", {
-  //         cancelToken: source.token,
-  //       });
-  //       console.log("Got the notes!");
-  //       setNotes(res.data.map((note: any) => note));
-  //     } catch (err) {
-  //       if (axios.isCancel(err)) {
-  //         console.log("Caught a cancel.");
-  //       } else {
-  //         throw err;
-  //       }
-  //     }
-  //   };
-  //   loadNotes();
+  const [isLoading, setIsLoading] = useState(true);
 
-  //   return () => {
-  //     console.log("Unmounting NoteList.");
-  //     source.cancel();
-  //   };
-  // }, [update]);
+  let { url } = useRouteMatch();
 
-  // const onSelect = (notes: any) => {
-  //   selectedNote === notes._id
-  //     ? history.push({
-  //         pathname: "/editor",
-  //         state: {
-  //           id: notes._id,
-  //           body: notes.body,
-  //           updatedAt: notes.updatedAt,
-  //         },
-  //       })
-  //     : setSelectedNote(notes._id);
-  //   setIsSelected(notes._id);
-  //   console.log(`note ${notes._id} selected!`);
-  // };
+  let history = useHistory();
 
-  // const addNote = () => {
-  //   const note = {
-  //     title: "set set title",
-  //     body: "this is the body",
-  //   };
+  useEffect(() => {
+    let source = axios.CancelToken.source();
 
-  //   axios
-  //     .post("http://localhost:5000/notes/create", note)
-  //     .then(() => setUpdate(!update))
-  //     .then(() => console.log("New note added!"))
-  //     .then(() => setSelectedNote(""));
-  // };
+    const loadFolders = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/folders", {
+          cancelToken: source.token,
+        });
+        console.log("Got the folders!");
+        setFolders(res.data.map((folder: any) => folder));
+        setIsLoading(false);
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          console.log("Caught a cancel.");
+        } else {
+          throw err;
+        }
+      }
+    };
+    loadFolders();
 
-  // const deleteNote = (id: any) => {
-  //   axios
-  //     .delete("http://localhost:5000/notes/" + id)
-  //     .then(() => setUpdate(!update))
-  //     .then(() => console.log("Note deleted."))
-  //     .then(() => setSelectedNote(""))
-  //     .catch(() => {
-  //       console.log("no note selected");
-  //     });
-  // };
+    return () => {
+      console.log("Unmounting FolderList.");
+      clearTimeout();
+      source.cancel();
+    };
+  }, [update]);
+
+  document.onclick = (event: any) => {
+    setTimeout(() => {
+      if (event.target.id !== "noDeselect") {
+        setDelBtn(false);
+        setSelectedFolder("");
+      }
+    }, 100);
+  };
+
+  const getTitle = async (id: string) => {
+    try {
+      const res = await axios.get("http://localhost:5000/folders/" + id);
+      setFolderTitle(res.data.title);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const getChildren = async (id: string) => {
+    let temp: any[] = [];
+    try {
+      const res = await axios.get("http://localhost:5000/notes");
+      res.data.map((note: any) => {
+        if (note.parentId === id) {
+          temp.push(note);
+        }
+      });
+      setFolderChildren(temp.map((note: any) => note.title));
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const addFolder = async (t: string) => {
+    try {
+      const folder = {
+        title: `${t}`,
+      };
+      axios
+        .post("http://localhost:5000/folders/create", folder)
+        .then(() => setUpdate(!update))
+        .then(() => console.log("New folder added!"))
+        .then(() => setShowPopup(!showPopup))
+        .then(() => setSelectedFolder(""));
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const deleteFolder = async (id: string) => {
+    let temp: any[] = [];
+    try {
+      const res = await axios.get("http://localhost:5000/notes");
+      res.data.map((note: any) => {
+        if (note.parentId === id) {
+          temp.push(note);
+        }
+      });
+      temp.map((note) => {
+        axios.delete("http://localhost:5000/notes/" + note._id);
+      });
+    } catch (err) {
+      throw err;
+    }
+    try {
+      axios
+        .delete("http://localhost:5000/folders/" + id)
+        .then(() => console.log("Folder deleted."))
+        .then(() => setUpdate(!update))
+        .then(() => setDelBtn(false))
+        .then(() => setShowDelModal(!showDelModal))
+        .catch(() => {
+          console.log("no folder selected");
+        });
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const updateFolder = async (id: string, t: string) => {
+    try {
+      const title = await {
+        title: `${t}`,
+      };
+
+      axios
+        .put("http://localhost:5000/folders/" + id, title)
+        .then(() => console.log("Folder Renamed"))
+        .then(() => setUpdate(!update))
+        .then(() => setShowPopup(false))
+        .then(() => setSelectedFolder(""))
+        .catch((err) => console.log(`error: ${err}`));
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const onSelect = (folder: any) => {
+    selectedFolder === folder._id
+      ? history.push({
+          pathname: `${url}/${folder.title}`,
+          state: {
+            folderTitle: folder.title,
+            folderId: folder._id,
+          },
+        })
+      : setSelectedFolder(folder._id);
+    setSelectedFolder(folder._id);
+    getTitle(folder._id);
+    getChildren(folder._id);
+    setDelBtn(true);
+    console.log(`folder ${folder._id} selected!`);
+  };
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
+  const toggleDelModal = () => {
+    setShowDelModal(!showDelModal);
+  };
 
   return (
     <div className={style.folderList}>
-      <div className={style.folderContainer}>
-        <div className={style.folderDiv}>
-          <div className={style.folders}>
-            <div className={style.iconDiv}></div>
-            <div className={style.titleDiv}></div>
+      <RouteShow type="" folderId="" folderTitle={folderTitle} noteTitle="" />
+      {isLoading ? (
+        <LoaderSpinner />
+      ) : (
+        <>
+          <div className={style.folderContainer}>
+            <div className={style.folderDiv}>
+              {folders.map((folder: any) => (
+                <div
+                  key={folder._id}
+                  id={`noDeselect`}
+                  className={
+                    selectedFolder === folder._id
+                      ? style.foldersSelected
+                      : style.folders
+                  }
+                  onClick={() => onSelect(folder)}
+                >
+                  <div className={style.iconDiv}>
+                    <FolderOpen className={style.folderIcon} />
+                  </div>
+                  <div className={style.titleDiv}>
+                    <p>{folder.title}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
-      <div className={style.toolDiv}>
-        <button className={style.addBtn}>
-          <Add />
-        </button>
-        <button className={style.deleteBtn}>
-          <Delete />
-        </button>
-      </div>
+
+          <div className={style.toolDiv}>
+            <button
+              className={delBtn ? style.renameBtn : style.hideRenameBtn}
+              id={`noDeselect`}
+              onClick={() => {
+                setPopupType("rename");
+                setShowPopup(!showPopup);
+              }}
+            >
+              <Create className={style.renameIcon} />
+            </button>
+            <button
+              className={style.addBtn}
+              id={`noDeselect`}
+              onClick={() => {
+                setPopupType("folderlist");
+                setShowPopup(!showPopup);
+              }}
+            >
+              <Add className={style.addIcon} />
+            </button>
+            <button
+              className={delBtn ? style.deleteBtn : style.hideDelBtn}
+              id={`noDeselect`}
+              onClick={() => {
+                setShowDelModal(!showDelModal);
+              }}
+            >
+              <Delete className={style.deleteIcon} />
+            </button>
+          </div>
+        </>
+      )}
+      {showPopup ? (
+        <Popup
+          prevTitle={folderTitle}
+          selectedId={selectedFolder}
+          component={popupType}
+          togglePopup={togglePopup}
+          getTitle={addFolder}
+          getRename={updateFolder}
+        />
+      ) : null}
+      {showDelModal ? (
+        <DeleteModal
+          type="folderlist"
+          childTitles={folderChildren}
+          selectedTitle={folderTitle}
+          selectedId={selectedFolder}
+          delete={deleteFolder}
+          toggleDelModal={toggleDelModal}
+        />
+      ) : null}
     </div>
   );
 }

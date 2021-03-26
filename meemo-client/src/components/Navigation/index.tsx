@@ -18,7 +18,7 @@ const Navigation: React.FC<Props> = () => {
   >([
     { name: "To-Do List", menuId: 1, state: false, address: "todo" },
     { name: "Schedule", menuId: 2, state: true, address: "schedule" },
-    { name: "Note List", menuId: 3, state: false, address: "notelist" },
+    { name: "Folders", menuId: 3, state: false, address: "folders" },
     { name: "Calender", menuId: 4, state: false, address: "calender" },
   ]);
 
