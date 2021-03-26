@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import debounce from "lodash/debounce";
-import RMDEditor from "rich-markdown-editor";
+import RMDEditor from "../../../lib/rich-markdown-editor";
 import style from "../styles/Editor.module.scss";
 
 // import { useEdit, useDark } from "../contexts/ToolContext";
