@@ -52,7 +52,7 @@ export default function NoteList() {
 
     const loadNotes = async () => {
       try {
-        const res = await axios.get("https://meemo.kr/api/notes", {
+        const res = await axios.get("http://localhost:5000/notes", {
           cancelToken: source.token,
         });
         console.log("Got the notes!");
@@ -130,9 +130,9 @@ export default function NoteList() {
     axios
       .delete("http://localhost:5000/notes/" + id)
       .then(() => console.log("Note deleted."))
-      .then(() => setUpdate(!update))
-      .then(() => setDelBtn(false))
       .then(() => setShowDelModal(!showDelModal))
+      .then(() => setDelBtn(false))
+      .then(() => setUpdate(!update))
       .catch(() => {
         console.log("no note selected");
       });

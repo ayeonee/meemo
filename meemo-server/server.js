@@ -26,10 +26,6 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-const notesRouter = require("./routes/notes");
-
-app.use("/notes", notesRouter);
-
 // probably dont need
 // https
 //   .createServer(
@@ -84,6 +80,7 @@ app.post("/api/users/login", (req, res) => {
       });
     });
   });
+});
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
