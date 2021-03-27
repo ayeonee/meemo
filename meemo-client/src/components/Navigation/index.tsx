@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
 import style from "./Navigation.module.scss";
 
-function Navigation() {
+function Navigation(): JSX.Element {
   const history = useHistory();
   const username = "User Name";
   const [menuColor, setMenuColor] = useState<

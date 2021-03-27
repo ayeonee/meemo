@@ -1,0 +1,61 @@
+$point_color: rgb(93, 185, 170);
+$green_grade_1: #cceae4;
+$green_grade_2: #a8dad0;
+$green_grade_3: #88cdbf;
+$green_grade_4: #6cbea7;
+$green_grade_5: #52a58e;
+
+$gray: rgba(36, 36, 36, 0.24);
+$gray_border: 1px solid $gray;
+
+@mixin flex_col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex_row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin align_center {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin mobile {
+  @media (min-width: 335px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: 335px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 991px) {
+    @content;
+  }
+}
+
+@mixin mdDesktop {
+  @media (min-width: 992px) and (max-width: 1199px) {
+    @content;
+  }
+}
+
+@mixin lgDesktop {
+  @media (min-width: 1200px) and (max-width: 1699px) {
+    @content;
+  }
+}
+
+// - max(1700) - default
+// - lg(1699≥ && ≥1200) -데스크탑lg
+// - md (1199≥ &&  ≥992) -데스크탑md
+// - sm (991≥ && ≥768) -태블릿
+// - xs (767≥ && ≥335) - 모바일

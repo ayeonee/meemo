@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AuthPage from "./pages/auth";
-import Todo from "./pages/todo";
 import Home from "./pages/home";
 // import Auth from "./hoc/auth";
 
@@ -14,7 +13,6 @@ function Root() {
       <Switch>
         <Route component={AuthPage} path="/" exact />
         <Route component={Home} path="/schedule" exact />
-        <Route component={Todo} path="/todo" exact />
       </Switch>
     </Router>
   );

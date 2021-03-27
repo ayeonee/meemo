@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navigation from "../../components/Navigation";
 import SchedulePage from "../schedule";
 import TodoPage from "../todo";
@@ -11,11 +10,13 @@ function Home() {
   return (
     <Router>
       <Navigation />
-      <Route component={SchedulePage} path={"/schedule"} />
-      <Route component={TodoPage} path="/todo" />
-      <Route component={NoteList} path="/notelist" />
-      <Route component={Editor} path="/editor" />
-      <Route component={CalenderPage} path="/calender" />
+      <Switch>
+        <Route component={SchedulePage} path={"/schedule"} />
+        <Route component={TodoPage} path="/todo" />
+        <Route component={NoteList} path="/notelist" />
+        <Route component={Editor} path="/editor" />
+        <Route component={CalenderPage} path="/calender" />
+      </Switch>
     </Router>
   );
 }

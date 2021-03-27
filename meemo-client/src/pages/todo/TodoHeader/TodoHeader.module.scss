@@ -1,4 +1,4 @@
-@import "../../../styles/util.module.scss";
+@import "../../../styles/_variables.module.scss";
 
 .todo_header_wrapper {
   @include flex_row;
