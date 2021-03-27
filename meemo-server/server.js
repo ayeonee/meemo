@@ -9,6 +9,9 @@ const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
 
+const {OAuth2Client} = require("google-auth-library");
+const { SocialUser } = require("./models/SocialUser");
+
 require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
@@ -21,8 +24,7 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
+    useFindAndModify : false,
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
@@ -102,6 +104,52 @@ app.get("/api/users/logout", auth, (res, req) => {
     });
   });
 });
+
+/////////Google Login/////////
+const client=new OAuth2Client(process.env.GOOGLE_ID);
+app.post("/api/users/auth/google", async (req, res)=>{
+  const token  = req.body.tokenId;
+  const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_ID
+  });
+  const payload=ticket.getPayload();
+  const userId=payload['sub'];
+  const name=payload['name'];
+
+  SocialUser.findOneAndUpdate({userId : userId},{
+    name : name,
+    userId : userId
+  },{upsert : true, new : true},  function(err, doc) {
+    if (err) return res.send(500, {error: err});
+    return res.status(200).send({
+      _id : doc._id,
+      userId : doc.userId,
+      name : doc.name,
+      isAuth : true
+    });
+});
+})
+
+/////////Kakao Login/////////
+app.post("/api/users/auth/kakao", (req, res)=>{
+  const token = req.body;
+  const name=token.userName;
+  const userId=token.userId;
+
+  SocialUser.findOneAndUpdate({userId : userId},{
+    name : name,
+    userId : userId
+  },{upsert : true}, function(err, doc) {
+    if (err) return res.send(500, {error: err});
+    return res.status(200).send({
+      _id : doc._id,
+      userId : doc.userId,
+      name : doc.name,
+      isAuth : true
+    });
+  });
+})
 
 const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");

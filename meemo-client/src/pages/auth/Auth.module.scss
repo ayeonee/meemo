@@ -170,10 +170,8 @@
       @include flex_col;
       width: 100%;
 
-      .google_login,
-      .kakao_login {
-        //임시
-
+      .GoogleBtn,
+      .KakaoBtn {
         font-weight: 400;
         color: rgb(56, 56, 56);
         border: 1px solid $gray;
@@ -182,13 +180,57 @@
           box-shadow: 0px 2px 3px rgba(44, 44, 44, 0.11);
         }
       }
+      .GoogleBtn{
+        display: inline-block;
+        margin : 5px;
+        background: white;
+        white-space: nowrap;
+      };
 
-      .google_login {
-        background-color: white;
-      }
-      .kakao_login {
-        background-color: yellow;
-      }
+      .GoogleIcon{
+        background: url('./LogoImg/g-logo.png') transparent 5px 50% no-repeat;
+        background-size : 60%;
+        display: inline-block;
+        vertical-align: middle;
+        width: 42px;
+        height: 42px;
+      };
+
+      .GoogleText{
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 30px;
+        font-size: 14px;
+        font-weight: bold;
+      };
+
+      .KakaoBtn {
+        display: inline-block;
+        margin : 5px;
+        background: #FEE500;
+        white-space: nowrap;
+        &:hover {
+          cursor : pointer;
+          box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.2);
+        }
+      };
+
+      .KakaoIcon{
+        background: url('./LogoImg/k-logo.png') transparent 5px 50% no-repeat;
+        background-size : 60%;
+        display: inline-block;
+        vertical-align: middle;
+        width: 42px;
+        height: 42px;
+      };
+
+      .KakaoText{
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 22px;
+        font-size: 14px;
+        font-weight: bold;
+      };
     }
   }
 

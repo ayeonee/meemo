@@ -3,6 +3,8 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   AUTH_USER,
+  KLOGIN_USER,
+  GLOGIN_USER
 } from "../_actions/types";
 
 const userReducer = (state = {}, action: any) => {
@@ -17,6 +19,12 @@ const userReducer = (state = {}, action: any) => {
       return { ...state, success: action.payload };
 
     case AUTH_USER:
+      return { ...state, userData: action.payload };
+
+    case GLOGIN_USER:
+      return { ...state, userData: action.payload };
+
+    case KLOGIN_USER:
       return { ...state, userData: action.payload };
 
     default:
