@@ -8,16 +8,9 @@ const fs = require("fs");
 const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-const {OAuth2Client} = require("google-auth-library");
->>>>>>> 6b9a830... create google login server
-=======
 
 const {OAuth2Client} = require("google-auth-library");
 const { SocialUser } = require("./models/SocialUser");
->>>>>>> b90c401... tested token data passed
 
 require("dotenv").config();
 
@@ -31,26 +24,11 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-<<<<<<< HEAD
-    useUnifiedTopology: true,
-<<<<<<< HEAD
-    useFindAndModify: false,
-=======
->>>>>>> 6b9a830... create google login server
-=======
     useFindAndModify : false,
->>>>>>> 9a56d46... success connect to DB
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-<<<<<<< HEAD
-=======
-const notesRouter = require("./routes/notes");
-
-app.use("/notes", notesRouter);
-
->>>>>>> 6b9a830... create google login server
 // probably dont need
 // https
 //   .createServer(
@@ -127,14 +105,6 @@ app.get("/api/users/logout", auth, (res, req) => {
   });
 });
 
-<<<<<<< HEAD
-const port = process.env.PORT || 5000;
-const notesRouter = require("./routes/notes");
-const foldersRouter = require("./routes/folders");
-
-app.use("/api/notes", notesRouter);
-app.use("/api/folders", foldersRouter);
-=======
 /////////Google Login/////////
 const client=new OAuth2Client(process.env.GOOGLE_ID);
 app.post("/api/users/auth/google", async (req, res)=>{
@@ -181,9 +151,12 @@ app.post("/api/users/auth/kakao", (req, res)=>{
   });
 })
 
-
 const port = process.env.PORT || 5000;
->>>>>>> 6b9a830... create google login server
+const notesRouter = require("./routes/notes");
+const foldersRouter = require("./routes/folders");
+
+app.use("/api/notes", notesRouter);
+app.use("/api/folders", foldersRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
