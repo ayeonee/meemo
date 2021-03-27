@@ -18,7 +18,7 @@ function KLogin(){
     .then((res: any) => {
       if (res.payload.isAuth) {
         history.push({
-          pathname: "/schedule",
+          pathname: "/schedule"
         });
       } else {
         alert(res.payload.isAuth);
