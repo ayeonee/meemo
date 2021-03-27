@@ -1,7 +1,7 @@
 @import "../../styles/_variables.module.scss";
 
 .nav_wrapper {
-  width: 100vw;
+  width: $fullWidth;
   height: 80px;
   @include flex_row;
   align-items: center;

@@ -3,7 +3,6 @@ import AuthNav from "./AuthNav";
 import Login from "./Login";
 import Register from "./Register";
 import logo from "../../img/logo.svg";
-import loginImg from "../../img/login-img.svg";
 import style from "./Auth.module.scss";
 
 function AuthPage() {
@@ -39,14 +38,11 @@ function AuthPage() {
             <h3>미-모</h3>
           </div>
           <img className={style.logo} src={`${logo}`} alt="logo" />
-          <img
-            className={style.bg_img}
-            alt="background illustration"
-            src={`${loginImg}`}
-          />
+          <div className={style.bg_img}></div>
         </div>
       </div>
       <div className={style.bg_side}>
+        <div className={style.bg_logo}></div>
         <p>Copyright ⓒ2021 ME:EMO. All rights reserved.</p>
       </div>
     </div>

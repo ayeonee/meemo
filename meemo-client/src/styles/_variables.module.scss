@@ -8,6 +8,9 @@ $green_grade_5: #52a58e;
 $gray: rgba(36, 36, 36, 0.24);
 $gray_border: 1px solid $gray;
 
+$fullHeight: 100vh;
+$fullWidth: 100vw;
+
 @mixin flex_col {
   display: flex;
   flex-direction: column;
@@ -24,14 +27,14 @@ $gray_border: 1px solid $gray;
   justify-content: center;
 }
 
-@mixin mobile {
-  @media (min-width: 335px) and (max-width: 767px) {
+@mixin min {
+  @media (max-width: 476px) {
     @content;
   }
 }
 
 @mixin mobile {
-  @media (min-width: 335px) and (max-width: 767px) {
+  @media (min-width: 477px) and (max-width: 767px) {
     @content;
   }
 }
@@ -43,13 +46,19 @@ $gray_border: 1px solid $gray;
 }
 
 @mixin mdDesktop {
-  @media (min-width: 992px) and (max-width: 1199px) {
+  @media (min-width: 992px) and (max-width: 1200px) {
     @content;
   }
 }
 
 @mixin lgDesktop {
-  @media (min-width: 1200px) and (max-width: 1699px) {
+  @media (min-width: 1199px) and (max-width: 1599px) {
+    @content;
+  }
+}
+
+@mixin max {
+  @media (min-width: 1600px) {
     @content;
   }
 }
