@@ -14,12 +14,12 @@ function GLogin(){
     }
     dispatch(gLoginUser(body))
       .then((res: any) => {
-        if (res.payload.loginSuccess) {
+        if (res.payload.isAuth) {
           history.push({
             pathname: "/schedule",
           });
         } else {
-          alert(res.payload.message);
+          alert(res.payload.isAuth);
         }
       })
       .catch((err: any) => {

@@ -150,9 +150,14 @@ app.post("/api/users/auth/google", async (req, res)=>{
   SocialUser.findOneAndUpdate({userId : userId},{
     name : name,
     userId : userId
-  },{upsert : true}, function(err, doc) {
+  },{upsert : true, new : true},  function(err, doc) {
     if (err) return res.send(500, {error: err});
-    return res.json({loginSuccess : true, userId : userId, message : "로그인 성공"});
+    return res.status(200).send({
+      _id : doc._id,
+      userId : doc.userId,
+      name : doc.name,
+      isAuth : true
+    });
 });
 })
 
@@ -167,7 +172,12 @@ app.post("/api/users/auth/kakao", (req, res)=>{
     userId : userId
   },{upsert : true}, function(err, doc) {
     if (err) return res.send(500, {error: err});
-    return res.json({loginSuccess : true, userId : userId, message : "로그인 성공"});
+    return res.status(200).send({
+      _id : doc._id,
+      userId : doc.userId,
+      name : doc.name,
+      isAuth : true
+    });
   });
 })
 
