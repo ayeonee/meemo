@@ -2,7 +2,11 @@
 
 .auth_page {
   width: $fullWidth;
-  height: 100%;
+  height: $fullHeight;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   .auth_box_wrapper {
     display: flex;
@@ -263,7 +267,6 @@
 
 @include max {
   .auth_box_wrapper {
-    margin: 5% auto;
     width: 70vw;
     height: 650px;
 
@@ -274,7 +277,6 @@
   }
 
   .auth_background {
-    margin: 5% auto;
     width: 70vw;
     height: 650px;
     background-image: url("../../img/login-bg.svg");
@@ -311,7 +313,6 @@
 
 @include lgDesktop {
   .auth_box_wrapper {
-    margin: 5% auto;
     width: 70vw;
     height: 650px;
 
@@ -322,7 +323,6 @@
   }
 
   .auth_background {
-    margin: 5% auto;
     width: 70vw;
     height: 650px;
     background-image: url("../../img/login-bg-lg.svg");
@@ -349,6 +349,7 @@
   .bg_side {
     width: 40vw;
     height: 100%;
+    overflow: hidden;
     background-color: $green_grade_5;
 
     p {
@@ -359,7 +360,6 @@
 
 @include mdDesktop {
   .auth_box_wrapper {
-    margin: 7% auto;
     width: 450px;
     height: 600px;
     justify-content: center;
@@ -370,7 +370,6 @@
   }
 
   .auth_background {
-    margin: 7% auto;
     width: 450px;
     height: 600px;
 
@@ -408,7 +407,6 @@
 
 @include tablet {
   .auth_box_wrapper {
-    margin: 10% auto;
     width: 450px;
     height: 600px;
     justify-content: center;
@@ -419,7 +417,6 @@
   }
 
   .auth_background {
-    margin: 10% auto;
     width: 450px;
     height: 600px;
 
@@ -457,7 +454,6 @@
 
 @include mobile {
   .auth_box_wrapper {
-    margin: 23% auto;
     width: 430px;
     height: 580px;
     justify-content: center;
@@ -468,7 +464,6 @@
   }
 
   .auth_background {
-    margin: 23% auto;
     width: 430px;
     height: 580px;
 
@@ -506,7 +501,6 @@
 
 @include min {
   .auth_box_wrapper {
-    margin: 90px auto;
     width: 400px;
     height: 580px;
     justify-content: center;
@@ -517,7 +511,6 @@
   }
 
   .auth_background {
-    margin: 90px auto;
     width: 400px;
     height: 580px;
 
