@@ -46,19 +46,31 @@ $fullWidth: 100vw;
 }
 
 @mixin mdDesktop {
-  @media (min-width: 992px) and (max-width: 1200px) {
+  @media (min-width: 992px) and (max-width: 1199px) {
     @content;
   }
 }
 
 @mixin lgDesktop {
-  @media (min-width: 1199px) and (max-width: 1599px) {
+  @media (min-width: 1200px) and (max-width: 1599px) {
     @content;
   }
 }
 
 @mixin max {
   @media (min-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin under1100 {
+  @media (max-width: 1099px) {
+    @content;
+  }
+}
+
+@mixin over1100 {
+  @media (min-width: 1100px) {
     @content;
   }
 }

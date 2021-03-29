@@ -8,6 +8,7 @@ import style from "./Navigation.module.scss";
 function Navigation(): JSX.Element {
   const history = useHistory();
   const username = "User Name";
+  const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {
       name: string;
@@ -42,13 +43,32 @@ function Navigation(): JSX.Element {
     });
   };
 
+  const onClickBurger = () => {
+    media ? setMedia(false) : setMedia(true);
+  };
+
   return (
     <div className={style.nav_wrapper}>
-      <div className={style.nav_inside}>
+      <nav className={style.nav_inside}>
+        <div
+          className={media ? style.burger_menu : style.burger_toggle}
+          onClick={onClickBurger}
+        >
+          <div className={style.burger_line1}></div>
+          <div className={style.burger_line2}></div>
+          <div className={style.burger_line3}></div>
+        </div>
+
         <Link to="/schedule">
-          <img className={style.logo} src={`${logo}`} alt="logo" />
+          <img
+            className={style.logo}
+            src={`${logo}`}
+            alt="logo"
+            onClick={() => handleNavColor(2)}
+          />
         </Link>
-        <div className={style.nav_items}>
+
+        <div className={media ? style.nav_items_off : style.nav_items_on}>
           <div className={style.nav_menus}>
             {menuColor.map((data) => (
               <NavItem
@@ -59,13 +79,14 @@ function Navigation(): JSX.Element {
             ))}
           </div>
         </div>
+
         <div className={style.user_menu}>
           <p className={style.nav_username}>{username}님</p>
           <button className={style.logout_btn} onClick={onClickLogout}>
             로그아웃
           </button>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }
