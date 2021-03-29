@@ -7,12 +7,7 @@ const userSchema = mongoose.Schema({
   name: { type: String, maxlength: 50 },
   userId: { type: String, maxlength: 50, unique: 1 },
   password: { type: String, maxlength: 100 },
-  token: {
-    type: String,
-  },
-  tokenExp: {
-    type: Number,
-  },
+  token: { type: String },
 });
 
 userSchema.pre("save", function (next) {
@@ -35,35 +30,35 @@ userSchema.pre("save", function (next) {
   }
 });
 
-userSchema.methods.comparePassword = function (plainPassword, callback) {
+userSchema.methods.comparePassword = function (plainPassword, cb) {
   //패스워드 비교
   bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
-    if (err) return callback(err);
-    callback(null, isMatch);
+    if (err) return cb(err);
+    cb(null, isMatch);
   });
 };
 
-userSchema.methods.generateToken = function (callback) {
+userSchema.methods.generateToken = function (cb) {
   //토큰생성
-  var user = this;
-  var token = jwt.sign(user._id.toHexString(), "secretToken");
+  const user = this;
+  const token = jwt.sign(user._id.toHexString(), "secretToken");
 
   user.token = token;
   user.save(function (err, user) {
-    if (err) return callback(err);
-    callback(null, user);
+    if (err) return cb(err);
+    cb(null, user);
   });
 };
 
-userSchema.statics.findByToken = function (token, callback) {
+userSchema.statics.findByToken = function (token, cb) {
   //토큰 복호화
   const user = this;
 
   jwt.verify(token, "secretToken", function (err, decoded) {
     //decoded = user id
     user.findOne({ _id: decoded, token: token }, function (err, user) {
-      if (err) return callback(err);
-      callback(null, user);
+      if (err) return cb(err);
+      cb(null, user);
     });
   });
 };

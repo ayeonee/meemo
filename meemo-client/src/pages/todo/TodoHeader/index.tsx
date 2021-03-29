@@ -4,7 +4,7 @@ import { useTodoState, useTodoDispatch } from "../TodosContext";
 
 import style from "./TodoHeader.module.scss";
 
-function TodoHeader() {
+function TodoHeader(): JSX.Element {
   const todos = useTodoState();
   const dispatch = useTodoDispatch();
   const [checkedTodo, setCheckedTodo] = useState(todos);

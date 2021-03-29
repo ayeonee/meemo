@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useTodoDispatch } from "../TodosContext";
 import style from "./InputTodo.module.scss";
 
-function InputTodo() {
+function InputTodo(): JSX.Element {
   const [input, setInput] = useState<string>("");
   const dispatch = useTodoDispatch();
 
@@ -30,7 +30,7 @@ function InputTodo() {
         value={input}
         onChange={onChangeInput}
       />
-      <button className={style.todo_input_button}>추가</button>
+      <button className={style.todo_input_button}>+</button>
     </form>
   );
 }

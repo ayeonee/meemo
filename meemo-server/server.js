@@ -9,7 +9,7 @@ const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
 
-const {OAuth2Client} = require("google-auth-library");
+const { OAuth2Client } = require("google-auth-library");
 const { SocialUser } = require("./models/SocialUser");
 
 require("dotenv").config();
@@ -19,12 +19,13 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
+//몽구스 연결
 mongoose
   .connect(config.mongoURI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-    useFindAndModify : false,
+    useFindAndModify: false,
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
@@ -76,10 +77,13 @@ app.post("/api/users/login", (req, res) => {
         if (err) {
           return res.status(400).send(err);
         }
-        res
-          .cookie("x_auth", user.token)
-          .status(200)
-          .json({ loginSuccess: true, userId: user._id });
+        res.status(200).json({
+          loginSuccess: true,
+          userId: user._id,
+          token: user.token,
+          name: user.name,
+          isAuth: true,
+        });
       });
     });
   });
@@ -90,8 +94,8 @@ app.get("/api/users/auth", auth, (req, res) => {
   res.status(200).json({
     //유저 정보를 json 형태로 전달
     _id: req.user._id,
-    userId: req.user.userId,
     name: req.user.name,
+    userId: req.user.userId,
     isAuth: true,
   });
 });
@@ -106,50 +110,60 @@ app.get("/api/users/logout", auth, (res, req) => {
 });
 
 /////////Google Login/////////
-const client=new OAuth2Client(process.env.GOOGLE_ID);
-app.post("/api/users/auth/google", async (req, res)=>{
-  const token  = req.body.tokenId;
+const client = new OAuth2Client(process.env.GOOGLE_ID);
+app.post("/api/users/auth/google", async (req, res) => {
+  const token = req.body.tokenId;
   const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.GOOGLE_ID
+    idToken: token,
+    audience: process.env.GOOGLE_ID,
   });
-  const payload=ticket.getPayload();
-  const userId=payload['sub'];
-  const name=payload['name'];
+  const payload = ticket.getPayload();
+  const userId = payload["sub"];
+  const name = payload["name"];
 
-  SocialUser.findOneAndUpdate({userId : userId},{
-    name : name,
-    userId : userId
-  },{upsert : true, new : true},  function(err, doc) {
-    if (err) return res.send(500, {error: err});
-    return res.status(200).send({
-      _id : doc._id,
-      userId : doc.userId,
-      name : doc.name,
-      isAuth : true
-    });
+  SocialUser.findOneAndUpdate(
+    { userId: userId },
+    {
+      name: name,
+      userId: userId,
+    },
+    { upsert: true, new: true },
+    function (err, doc) {
+      if (err) return res.send(500, { error: err });
+      return res.status(200).send({
+        _id: doc._id,
+        userId: doc.userId,
+        name: doc.name,
+        isAuth: true,
+      });
+    }
+  );
 });
-})
 
 /////////Kakao Login/////////
-app.post("/api/users/auth/kakao", (req, res)=>{
+app.post("/api/users/auth/kakao", (req, res) => {
   const token = req.body;
-  const name=token.userName;
-  const userId=token.userId;
+  const name = token.userName;
+  const userId = token.userId;
 
-  SocialUser.findOneAndUpdate({userId : userId},{
-    name : name,
-    userId : userId
-  },{upsert : true}, function(err, doc) {
-    if (err) return res.send(500, {error: err});
-    return res.status(200).send({
-      _id : doc._id,
-      userId : doc.userId,
-      name : doc.name,
-      isAuth : true
-    });
-  });
-})
+  SocialUser.findOneAndUpdate(
+    { userId: userId },
+    {
+      name: name,
+      userId: userId,
+    },
+    { upsert: true },
+    function (err, doc) {
+      if (err) return res.send(500, { error: err });
+      return res.status(200).send({
+        _id: doc._id,
+        userId: doc.userId,
+        name: doc.name,
+        isAuth: true,
+      });
+    }
+  );
+});
 
 const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");

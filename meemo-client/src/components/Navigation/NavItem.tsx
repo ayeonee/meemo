@@ -13,7 +13,7 @@ interface NavProps {
   handleNavColor: Function;
 }
 
-function NavItem({ data, handleNavColor }: NavProps) {
+function NavItem({ data, handleNavColor }: NavProps): JSX.Element {
   const { name, menuId, state, address } = data;
 
   const handleOnOff = () => {

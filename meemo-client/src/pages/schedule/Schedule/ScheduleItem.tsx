@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
-import { daysData, colorCode } from "../../../data/scheduleData";
+import { daysData, colorCode } from "../../../_data/scheduleData";
 import { Schedule } from "../../../types/scheduleTypes";
 import style from "./ScheduleStyle.module.scss";
 
@@ -22,10 +22,10 @@ function ScheduleItem({
 }: Props & Schedule) {
   const [delButtonState, setDelButtonState] = useState<boolean>(false);
   const { date, startHour, startMin, endHour, endMin } = scheduleItem;
-  const datePosition = 84 + 96 * (date - 1);
+  const datePosition = 82 + 96 * (date - 1);
   const scheduleTime = (endHour - startHour) * 60 + (endMin - startMin);
-  const timeStart = 43 + 72 * (startHour - 8) + startMin * 1.2;
-  const timeHeight = scheduleTime * 1.2 - 12;
+  const timeStart = 40 + 72 * (startHour - 8) + startMin * 1.2;
+  const timeHeight = scheduleTime * 1.2 - 5;
   const color = id % 6;
 
   const showDelButton = useCallback(() => {
@@ -53,7 +53,7 @@ function ScheduleItem({
         left: `${datePosition}px`,
         top: `${timeStart}px`,
         height: `${timeHeight}px`,
-        backgroundColor: `#${colorCode[color]}`,
+        borderColor: `#${colorCode[color]}`,
       }}
       onMouseOver={showDelButton}
       onMouseOut={showDelButton}
@@ -67,10 +67,15 @@ function ScheduleItem({
         <p onClick={confirmDelete}>×</p>
       </div>
       <div style={{ lineHeight: `${timeHeight < 34 ? "12px" : "1.0"}` }}>
-        <div style={{ fontSize: `${timeHeight < 34 ? 11 : 12}px` }}>
-          {name.length > 7 ? `${name.slice(0, 6)}...` : name}
+        <div
+          style={{ fontSize: `${timeHeight < 34 ? 11 : 15}px` }}
+          className={style.item_name}
+        >
+          {name}
         </div>
-        <div>{timeHeight >= 54 ? place : null}</div>
+        <div className={style.item_place}>
+          {timeHeight >= 54 ? place : null}
+        </div>
         <div>{timeHeight >= 70 ? `${daysData[date - 1].name}요일` : null}</div>
         <div style={{ fontSize: `${timeHeight < 34 ? 11 : 12}px` }}>
           {startHour < 10 ? `0${startHour}` : startHour}:

@@ -1,4 +1,4 @@
-import { hourData, minData } from "../../../../data/scheduleData";
+import { hourData, minData } from "../../../../_data/scheduleData";
 import { Schedule } from "../../../../types/scheduleTypes";
 import style from "../InputBoxStyle.module.scss";
 

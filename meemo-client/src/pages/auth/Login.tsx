@@ -6,31 +6,40 @@ import style from "./Auth.module.scss";
 import GLogin from "./SocialLogin/GLogin";
 import KLogin from "./SocialLogin/KLogin";
 
-function Login() {
-  const [UserId, setUserId] = useState<string>("");
-  const [Password, setPassword] = useState<string>("");
+interface LoginTypes {
+  userId: string;
+  password: string;
+}
+
+function Login(): JSX.Element {
+  const [loginInput, setLoginInput] = useState<LoginTypes>({
+    userId: "",
+    password: "",
+  });
   const history = useHistory();
   const dispatch = useDispatch<any>();
 
-  const onUserIdHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(e.currentTarget.value);
-  };
-
-  const onPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value);
+  const onChangeLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginInput({
+      ...loginInput,
+      [name]: value,
+    });
   };
 
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
     const body = {
-      userId: UserId,
-      password: Password,
+      userId: loginInput.userId,
+      password: loginInput.password,
     };
 
     dispatch(loginUser(body))
       .then((res: any) => {
         if (res.payload.loginSuccess) {
+          // document.cookie = `meemo_auth=${res.payload.token}`;
+
           history.push({
             pathname: "/schedule",
           });
@@ -49,10 +58,10 @@ function Login() {
         <div className={style.animated_div}>
           <input
             type="text"
-            name="user"
+            name="userId"
             placeholder="User ID"
-            value={UserId}
-            onChange={onUserIdHandler}
+            value={loginInput.userId}
+            onChange={onChangeLoginInput}
           />
           <label className={style.animated_label}>User ID</label>
         </div>
@@ -61,8 +70,8 @@ function Login() {
             type="password"
             name="password"
             placeholder="Password"
-            value={Password}
-            onChange={onPasswordHandler}
+            value={loginInput.password}
+            onChange={onChangeLoginInput}
           />
           <label className={style.animated_label}>Password</label>
         </div>
@@ -81,8 +90,8 @@ function Login() {
       </div>
 
       <div className={style.social}>
-        <GLogin/>
-        <KLogin/>
+        <GLogin />
+        <KLogin />
       </div>
     </>
   );

@@ -21,7 +21,7 @@ export type Data = {
   schedule: ScheduleArray;
 };
 
-export type AllData = Data[];
+export type AllData = Array<Data>;
 
 export type DataProps = {
   addData: Function;

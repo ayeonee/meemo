@@ -5,7 +5,7 @@ import ScheduleList from "./Schedule/ScheduleList";
 import TimeTable from "./TimeTable/TimeTable";
 import style from "./Schedule.module.scss";
 
-function SchedulePage() {
+function SchedulePage(): JSX.Element {
   const [allData, setAllData] = useState<AllData>([]);
   const nextId = useRef<number>(1);
 

@@ -1,4 +1,4 @@
-@import "../../../styles/util.module.scss";
+@import "../../../styles/_variables.module.scss";
 .schedule_list {
   margin: 0;
   padding: 0;
@@ -11,12 +11,26 @@
     @include flex_col;
     @include align_center;
     font-size: 12px;
+    font-weight: 500;
     position: absolute;
-    width: 83px;
-    margin: 2px 2px 0 2px;
+    width: 87px;
+    margin: 2px 0 2px 0;
     padding: 2px;
-    border-radius: 5px;
-    box-shadow: 0 1px 2px 1px rgba(10, 10, 10, 0.233);
+    border-left: 4px solid;
+    background-color: white;
+
+    .item_name {
+      width: 77px;
+      word-break: break-all;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .item_place {
+      width: 77px;
+      word-break: break-all;
+      margin-bottom: 4px;
+    }
 
     .item_delete_button {
       @include flex_col;
@@ -27,7 +41,6 @@
       font-size: 12px;
       justify-content: center;
       background: transparent;
-
       p {
         cursor: pointer;
 

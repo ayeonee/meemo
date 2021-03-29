@@ -1,4 +1,4 @@
-@import "../../../styles/util.module.scss";
+@import "../../../styles/_variables.module.scss";
 
 .table_wrapper {
   @include flex_col;
@@ -6,19 +6,18 @@
   background-color: white;
   width: fit-content;
   text-align: center;
-  box-shadow: 0px 0px 15px 1px rgba(102, 102, 102, 0.295);
 
   .table_header {
     border: $gray_border;
     border-right: none;
     border-spacing: 0;
-    color: rgb(32, 32, 32);
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 400;
+    color: white;
 
     tr {
       height: 40px;
-      background-color: $green_grade_2;
+      background-color: $green_grade_4;
     }
     th {
       width: 80px;

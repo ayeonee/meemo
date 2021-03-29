@@ -1,4 +1,4 @@
-@import "../../../styles/util.module.scss";
+@import "../../../styles/_variables.module.scss";
 
 .todo_header_wrapper {
   @include flex_row;
@@ -7,7 +7,6 @@
   width: 100%;
   background-color: $green_grade_4;
   color: white;
-  margin-top: 30px;
   padding: 10px 0 10px 0;
 
   .todo_header_front {

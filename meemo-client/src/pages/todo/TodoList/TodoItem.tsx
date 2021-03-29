@@ -6,7 +6,7 @@ interface Props {
   todo: Todo;
 }
 
-function TodoItem({ todo }: Props) {
+function TodoItem({ todo }: Props): JSX.Element {
   const dispatch = useTodoDispatch();
 
   const onRemoveItem = useCallback(() => {

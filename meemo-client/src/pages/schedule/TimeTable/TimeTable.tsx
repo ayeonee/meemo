@@ -1,8 +1,8 @@
-import { daysData, hourData } from "../../../data/scheduleData";
+import { daysData, hourData } from "../../../_data/scheduleData";
 import TimeTableGrid from "./TimeTableGrid";
 import style from "./TimeTableStyle.module.scss";
 
-function TimeLine() {
+function TimeLine(): JSX.Element {
   return (
     <div className={style.table_wrapper}>
       <table className={style.table_header}>

@@ -5,7 +5,7 @@ import TodoList from "./TodoList";
 import { TodoContextProvider } from "./TodosContext";
 import style from "./TodoPage.module.scss";
 
-function TodoPage() {
+function TodoPage(): JSX.Element {
   return (
     <TodoContextProvider>
       <div className={style.todo_page_wrapper}>

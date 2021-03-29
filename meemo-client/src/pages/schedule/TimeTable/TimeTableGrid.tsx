@@ -1,7 +1,7 @@
-import { allTimeData } from "../../../data/scheduleData";
+import { allTimeData } from "../../../_data/scheduleData";
 import style from "./TimeTableStyle.module.scss";
 
-function TimeLineGrid() {
+function TimeLineGrid(): JSX.Element {
   return (
     <td>
       <div className={style.cols}>
