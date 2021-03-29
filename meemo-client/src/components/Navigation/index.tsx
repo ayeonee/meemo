@@ -51,7 +51,7 @@ function Navigation(): JSX.Element {
     <div className={style.nav_wrapper}>
       <nav className={style.nav_inside}>
         <div
-          className={media ? style.burger_menu : style.burger_toggle}
+          className={media ? style.burger_toggle : style.burger_menu}
           onClick={onClickBurger}
         >
           <div className={style.burger_line1}></div>
@@ -68,7 +68,7 @@ function Navigation(): JSX.Element {
           />
         </Link>
 
-        <div className={media ? style.nav_items_off : style.nav_items_on}>
+        <div className={media ? style.nav_items_on : style.nav_items_off}>
           <div className={style.nav_menus}>
             {menuColor.map((data) => (
               <NavItem
