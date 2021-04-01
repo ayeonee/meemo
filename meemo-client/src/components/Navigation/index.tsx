@@ -36,7 +36,7 @@ function Navigation(): JSX.Element {
   const onClickLogout = () => {
     axios.get("/api/users/logout").then((res) => {
       if (res.data.success) {
-        history.push("/login");
+        history.push("/");
       } else {
         alert("failed");
       }
