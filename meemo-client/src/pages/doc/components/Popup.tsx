@@ -37,16 +37,20 @@ export default function Popup(props: toggle) {
 
   // tried to link keyboard keys such as Enter and ESC to the onClicks;
 
-  // useEffect(() => {
-  //   const listener = (event: any) => {
-  //     if (event.code === "Enter" || event.code === "NumpadEnter") {
-  //     }
-  //   };
-  //   document.addEventListener("keydown", listener);
-  //   return () => {
-  //     document.removeEventListener("keydown", listener);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const listener = (event: any) => {
+      if (event.which === 13) {
+        handleSubmit(inputVal, props.selectedId);
+      }
+      if (event.which === 27) {
+        props.togglePopup();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  });
 
   return (
     <div className={style.wrapper} id={`noDeselect`}>
