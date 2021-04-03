@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 
 import NoteList from "./NoteList";
 
-interface props {
+type RouteShowProps = {
   type: string;
   folderTitle: string;
   folderId: string;
   noteTitle: string;
-}
+};
 
-export default function RouteShow(props: props) {
+export default function RouteShow(props: RouteShowProps) {
+  const { type, folderTitle, folderId, noteTitle } = props;
+
   const linkStyle = {
     textDecoration: "none",
     color: "black",
@@ -21,24 +23,24 @@ export default function RouteShow(props: props) {
     <div className={style.wrapper}>
       <div className={style.route}>
         <Link to="/folders" style={linkStyle}>{`모든 폴더`}</Link>
-        {props.type === "notelist" ? (
-          <span>&nbsp;&nbsp;»&nbsp;&nbsp;{props.folderTitle}</span>
+        {type === "notelist" ? (
+          <span>&nbsp;&nbsp;»&nbsp;&nbsp;{folderTitle}</span>
         ) : null}
-        {props.type === "editor" ? (
+        {type === "editor" ? (
           <>
             <Link
               to={{
-                pathname: `/folders/${props.folderTitle}`,
+                pathname: `/folders/${folderTitle}`,
                 state: {
-                  folderTitle: props.folderTitle,
-                  folderId: props.folderId,
+                  folderTitle: folderTitle,
+                  folderId: folderId,
                 },
               }}
               style={linkStyle}
             >
-              &nbsp;&nbsp;»&nbsp;&nbsp;{props.folderTitle}
+              &nbsp;&nbsp;»&nbsp;&nbsp;{folderTitle}
             </Link>
-            <span>&nbsp;&nbsp;»&nbsp;&nbsp;{props.noteTitle}</span>
+            <span>&nbsp;&nbsp;»&nbsp;&nbsp;{noteTitle}</span>
           </>
         ) : null}
       </div>

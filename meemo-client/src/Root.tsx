@@ -11,8 +11,10 @@ function Root(): JSX.Element {
   return (
     <Router>
       <Switch>
-        <Route component={Auth(AuthPage, false)} path="/" exact />
-        <Route component={Auth(Home, true)} path="/schedule" exact />
+        <Route component={AuthPage} path="/" exact />
+        <Route component={Home} path="/schedule" exact />
+        {/* <Route component={Auth(AuthPage, false)} path="/" exact />
+        <Route component={Auth(Home, true)} path="/schedule" exact /> */}
       </Switch>
     </Router>
   );

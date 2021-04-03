@@ -1,14 +1,17 @@
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTodoDispatch } from "../TodosContext";
 import style from "./InputTodo.module.scss";
 
-function InputTodo(): JSX.Element {
+export default function InputTodo(): JSX.Element {
   const [input, setInput] = useState<string>("");
   const dispatch = useTodoDispatch();
 
-  const onChangeInput = useCallback((e: any) => {
-    setInput(e.target.value);
-  }, []);
+  const onChangeInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInput(e.target.value);
+    },
+    []
+  );
 
   const addTodoData = useCallback(
     (e: React.FormEvent) => {
@@ -34,5 +37,3 @@ function InputTodo(): JSX.Element {
     </form>
   );
 }
-
-export default InputTodo;

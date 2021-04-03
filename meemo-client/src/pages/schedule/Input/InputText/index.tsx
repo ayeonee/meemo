@@ -1,12 +1,12 @@
 import { Input } from "../../../../types/scheduleTypes";
 import style from "../InputBoxStyle.module.scss";
 
-interface Props {
+type InputTextProps = {
   input: Input;
   onChangeTxt: React.ChangeEventHandler;
-}
+};
 
-function InputText({ input, onChangeTxt }: Props) {
+function InputText({ input, onChangeTxt }: InputTextProps): JSX.Element {
   return (
     <>
       <input

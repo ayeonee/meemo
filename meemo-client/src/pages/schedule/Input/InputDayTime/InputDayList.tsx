@@ -1,15 +1,18 @@
 import style from "../InputBoxStyle.module.scss";
 
-interface Props {
+type InputDayListProps = {
   data: {
     id: number;
     name: string;
     checked: boolean;
   };
   handleToggle: Function;
-}
+};
 
-function InputDayList({ data, handleToggle }: Props) {
+export default function InputDayList({
+  data,
+  handleToggle,
+}: InputDayListProps): JSX.Element {
   const { name, id, checked } = data;
 
   const handleOnOff = () => {
@@ -26,5 +29,3 @@ function InputDayList({ data, handleToggle }: Props) {
     </li>
   );
 }
-
-export default InputDayList;

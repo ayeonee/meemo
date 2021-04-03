@@ -5,7 +5,7 @@ import TodoPage from "../todo";
 import CalenderPage from "../calender";
 import Folders from "../doc/components/Folders";
 
-function Home(): JSX.Element {
+export default function Home(): JSX.Element {
   return (
     <Router>
       <Navigation />
@@ -18,5 +18,3 @@ function Home(): JSX.Element {
     </Router>
   );
 }
-
-export default Home;

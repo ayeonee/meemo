@@ -2,7 +2,7 @@ import { CircularProgress } from "@material-ui/core";
 
 import style from "../styles/LoaderSpinner.module.scss";
 
-export default function LoaderSpinner() {
+export default function LoaderSpinner(): JSX.Element {
   return (
     <div className={style.wrapper}>
       <CircularProgress

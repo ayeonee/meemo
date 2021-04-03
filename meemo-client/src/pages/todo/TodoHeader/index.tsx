@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { useTodoState, useTodoDispatch } from "../TodosContext";
 
 import style from "./TodoHeader.module.scss";
 
-function TodoHeader(): JSX.Element {
+export default function TodoHeader(): JSX.Element {
   const todos = useTodoState();
   const dispatch = useTodoDispatch();
   const [checkedTodo, setCheckedTodo] = useState(todos);
@@ -37,5 +37,3 @@ function TodoHeader(): JSX.Element {
     </div>
   );
 }
-
-export default TodoHeader;

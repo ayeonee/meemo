@@ -1,30 +1,29 @@
 import { useState, useEffect } from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import style from "../styles/FolderList.module.scss";
 import axios from "axios";
 import { Add, Delete, FolderOpen, Create } from "@material-ui/icons";
+import style from "../styles/FolderList.module.scss";
 
 import Popup from "./Popup";
 import RouteShow from "./RouteShow";
 import LoaderSpinner from "./LoaderSpinner";
 import DeleteModal from "./DeleteModal";
 
-export default function FolderList() {
+export default function FolderList(): JSX.Element {
   const [folders, setFolders] = useState([]);
-  const [selectedFolder, setSelectedFolder] = useState("");
-  const [delBtn, setDelBtn] = useState(false);
-  const [update, setUpdate] = useState(false);
+  const [selectedFolder, setSelectedFolder] = useState<string>("");
+  const [delBtn, setDelBtn] = useState<boolean>(false);
+  const [update, setUpdate] = useState<boolean>(false);
 
-  const [folderTitle, setFolderTitle] = useState("");
+  const [folderTitle, setFolderTitle] = useState<string>("");
   const [folderChildren, setFolderChildren]: any = useState([]);
-  const [popupType, setPopupType] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const [showDelModal, setShowDelModal] = useState(false);
+  const [popupType, setPopupType] = useState<string>("");
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [showDelModal, setShowDelModal] = useState<boolean>(false);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   let { url } = useRouteMatch();
-
   let history = useHistory();
 
   useEffect(() => {

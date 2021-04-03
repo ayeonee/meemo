@@ -1,13 +1,17 @@
-import React, { MouseEventHandler } from "react";
+import { MouseEventHandler } from "react";
 import style from "./AuthNav.module.scss";
 
-interface Props {
+type AuthNavProps = {
   loginTxt: boolean;
   registerTxt: boolean;
   onClickMenu: MouseEventHandler;
-}
+};
 
-function AuthNav({ loginTxt, registerTxt, onClickMenu }: Props) {
+export default function AuthNav({
+  loginTxt,
+  registerTxt,
+  onClickMenu,
+}: AuthNavProps) {
   return (
     <div className={style.auth_nav_wrapper}>
       <li
@@ -27,5 +31,3 @@ function AuthNav({ loginTxt, registerTxt, onClickMenu }: Props) {
     </div>
   );
 }
-
-export default AuthNav;

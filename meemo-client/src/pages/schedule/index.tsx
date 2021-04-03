@@ -2,10 +2,10 @@ import { useCallback, useRef, useState } from "react";
 import { AllData, Data } from "../../types/scheduleTypes";
 import InputButton from "./Input/InputButton";
 import ScheduleList from "./Schedule/ScheduleList";
-import TimeTable from "./TimeTable/TimeTable";
+import TimeTable from "./TimeTable";
 import style from "./Schedule.module.scss";
 
-function SchedulePage(): JSX.Element {
+export default function SchedulePage(): JSX.Element {
   const [allData, setAllData] = useState<AllData>([]);
   const nextId = useRef<number>(1);
 
@@ -52,5 +52,3 @@ function SchedulePage(): JSX.Element {
     </div>
   );
 }
-
-export default SchedulePage;

@@ -1,10 +1,10 @@
-import style from "../Auth.module.scss";
 import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import { gLoginUser } from "../../../_actions/userAction";
 import { useHistory } from "react-router-dom";
+import style from "../Auth.module.scss";
 
-function GLogin(): JSX.Element {
+export default function GLogin(): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch<any>();
 
@@ -45,5 +45,3 @@ function GLogin(): JSX.Element {
     />
   );
 }
-
-export default GLogin;

@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
 
-interface RegisterTypes {
+type RegisterTypes = {
   name: string;
   userId: string;
   password: string;
   confirmPassword: string;
-}
+};
 
 function Register(): JSX.Element {
   const [registerInput, setRegisterInput] = useState<RegisterTypes>({

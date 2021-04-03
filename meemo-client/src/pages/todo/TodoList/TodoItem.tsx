@@ -2,11 +2,11 @@ import React, { useCallback } from "react";
 import { useTodoDispatch, Todo } from "../TodosContext";
 import style from "./TodoList.module.scss";
 
-interface Props {
+type TodoItemProps = {
   todo: Todo;
-}
+};
 
-function TodoItem({ todo }: Props): JSX.Element {
+function TodoItem({ todo }: TodoItemProps): JSX.Element {
   const dispatch = useTodoDispatch();
 
   const onRemoveItem = useCallback(() => {

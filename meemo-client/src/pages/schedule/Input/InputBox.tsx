@@ -9,17 +9,17 @@ import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
 import style from "./InputBoxStyle.module.scss";
 
-interface ModalType {
+type ModalTypes = {
   modalState: boolean;
   closeModal: Function;
-}
+};
 
-function InputBox({
+export default function InputBox({
   modalState,
   closeModal,
   addData,
   allData,
-}: ModalType & DataProps) {
+}: ModalTypes & DataProps): JSX.Element {
   const nextIndex = useRef<number>(2);
   const checkTimeCorrect = useRef<boolean>(false);
   const checkOverlap = useRef<boolean>(false);
@@ -234,5 +234,3 @@ function InputBox({
     </>
   );
 }
-
-export default InputBox;

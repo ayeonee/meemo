@@ -6,10 +6,10 @@ import style from "./Auth.module.scss";
 import GLogin from "./SocialLogin/GLogin";
 import KLogin from "./SocialLogin/KLogin";
 
-interface LoginTypes {
+type LoginTypes = {
   userId: string;
   password: string;
-}
+};
 
 function Login(): JSX.Element {
   const [loginInput, setLoginInput] = useState<LoginTypes>({
@@ -38,8 +38,6 @@ function Login(): JSX.Element {
     dispatch(loginUser(body))
       .then((res: any) => {
         if (res.payload.loginSuccess) {
-          // document.cookie = `meemo_auth=${res.payload.token}`;
-
           history.push({
             pathname: "/schedule",
           });

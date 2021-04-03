@@ -1,10 +1,10 @@
-import style from "../Auth.module.scss";
 import KakaoLogin from "react-kakao-login";
 import { useDispatch } from "react-redux";
 import { kLoginUser } from "../../../_actions/userAction";
 import { useHistory } from "react-router-dom";
+import style from "../Auth.module.scss";
 
-function KLogin(): JSX.Element {
+export default function KLogin(): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch<any>();
 
@@ -43,5 +43,3 @@ function KLogin(): JSX.Element {
     />
   );
 }
-
-export default KLogin;

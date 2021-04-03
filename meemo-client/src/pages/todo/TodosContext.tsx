@@ -5,18 +5,16 @@ export type Todo = {
   schedule: string;
   checked: boolean;
 };
-type TodoState = Array<Todo>;
-
-const TodoStateContext = createContext<TodoState | undefined>(undefined);
-
 type Action =
   | { type: "CREATE"; schedule: string }
   | { type: "TOGGLE"; id: number }
   | { type: "RESET" }
   | { type: "REMOVE"; id: number };
 
+type TodoState = Array<Todo>;
 type TodoDispatch = Dispatch<Action>;
 
+const TodoStateContext = createContext<TodoState | undefined>(undefined);
 const TodoDispatchContext = createContext<TodoDispatch | undefined>(undefined);
 
 const todoReducer = (state: TodoState, action: Action) => {

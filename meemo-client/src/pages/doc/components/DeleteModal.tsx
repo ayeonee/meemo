@@ -3,16 +3,23 @@ import React, { useState, useEffect } from "react";
 import { getGeneratedNameForNode } from "typescript";
 import style from "../styles/DeleteModal.module.scss";
 
-interface props {
+type DeleteModalProps = {
   type: string;
   childTitles: Array<string>;
   selectedTitle: string;
   selectedId: string;
-  delete: (id: any) => void;
+  delete: (id: string) => void;
   toggleDelModal: () => void;
-}
+};
 
-export default function DeleteModal(props: props) {
+export default function DeleteModal(props: DeleteModalProps): JSX.Element {
+  const {
+    type,
+    childTitles,
+    selectedTitle,
+    selectedId,
+    toggleDelModal,
+  } = props;
   // tried to link keyboard keys such as Enter and ESC to the onClicks;
 
   // useEffect(() => {
@@ -34,19 +41,18 @@ export default function DeleteModal(props: props) {
             <p id={`noDeselect`}>지우기</p>
           </div>
           <div className={style.targetDiv} id={`noDeselect`}>
-            {props.type === "notelist" ? (
+            {type === "notelist" ? (
               <p>
-                <b>{`${props.selectedTitle}`}</b> 이(가) 삭제됩니다
+                <b>{`${selectedTitle}`}</b> 이(가) 삭제됩니다
               </p>
             ) : (
               <>
                 <p>
-                  <b>{`${props.selectedTitle}`}</b> 와{" "}
-                  <b>{`${props.childTitles.length}`}</b> 개의 노트들이
-                  삭제됩니다
+                  <b>{`${selectedTitle}`}</b> 와{" "}
+                  <b>{`${childTitles.length}`}</b> 개의 노트들이 삭제됩니다
                 </p>
                 <div className={style.childTitleDiv}>
-                  {props.childTitles.map((title: string, i: number) => (
+                  {childTitles.map((title: string, i: number) => (
                     <b key={i}>{`${title}`}</b>
                   ))}
                 </div>
@@ -57,15 +63,11 @@ export default function DeleteModal(props: props) {
             <button
               className="submitBtn"
               id={`noDeselect`}
-              onClick={() => props.delete(props.selectedId)}
+              onClick={() => props.delete(selectedId)}
             >
               지우기
             </button>
-            <button
-              name="cancelBtn"
-              id={`noDeselect`}
-              onClick={props.toggleDelModal}
-            >
+            <button name="cancelBtn" id={`noDeselect`} onClick={toggleDelModal}>
               취소
             </button>
           </div>
