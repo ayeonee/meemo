@@ -1,7 +1,3 @@
-import React from "react";
-
-function CalenderPage() {
+export default function CalenderPage() {
   return <div> 캘린더 </div>;
 }
-
-export default CalenderPage;

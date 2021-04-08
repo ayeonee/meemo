@@ -1,4 +1,10 @@
-import { REGISTER_USER, LOGIN_USER, AUTH_USER, GLOGIN_USER, KLOGIN_USER } from "./types";
+import {
+  REGISTER_USER,
+  LOGIN_USER,
+  AUTH_USER,
+  GLOGIN_USER,
+  KLOGIN_USER,
+} from "./types";
 import axios from "axios";
 
 export const registerUser = (dataToSubmit: {
@@ -7,7 +13,7 @@ export const registerUser = (dataToSubmit: {
   password: string;
 }) => {
   const request = axios
-    .post("http://localhost:5000/api/users/register", dataToSubmit)
+    .post("https://meemo.kr/api/users/register", dataToSubmit)
     .then((res) => res.data);
 
   return {
@@ -21,7 +27,7 @@ export const loginUser = (dataToSubmit: {
   password: string;
 }) => {
   const request = axios
-    .post("http://localhost:5000/api/users/login", dataToSubmit)
+    .post("https://meemo.kr/api/users/login", dataToSubmit)
     .then((res) => res.data);
 
   return {
@@ -32,7 +38,7 @@ export const loginUser = (dataToSubmit: {
 
 export const authUser = () => {
   const request = axios
-    .get("http://localhost:5000/api/users/auth")
+    .get("https://meemo.kr/api/users/auth")
     .then((res) => res.data);
 
   return {
@@ -44,7 +50,7 @@ export const authUser = () => {
 //SocialLogin
 export const gLoginUser = (dataToSubmit?: any) => {
   const request = axios
-    .post("http://localhost:5000/api/users/auth/google", dataToSubmit)
+    .post("https://meemo.kr/api/users/auth/google", dataToSubmit)
     .then((res) => res.data);
 
   return {
@@ -55,7 +61,7 @@ export const gLoginUser = (dataToSubmit?: any) => {
 
 export const kLoginUser = (dataToSubmit?: any) => {
   const request = axios
-    .post("http://localhost:5000/api/users/auth/kakao", dataToSubmit)
+    .post("https://meemo.kr/api/users/auth/kakao", dataToSubmit)
     .then((res) => res.data);
 
   return {

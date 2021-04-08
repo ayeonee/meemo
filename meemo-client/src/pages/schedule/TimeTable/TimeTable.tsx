@@ -2,7 +2,7 @@ import { daysData, hourData } from "../../../_data/scheduleData";
 import TimeTableGrid from "./TimeTableGrid";
 import style from "./TimeTableStyle.module.scss";
 
-function TimeLine(): JSX.Element {
+export default function TimeLine(): JSX.Element {
   return (
     <div className={style.table_wrapper}>
       <table className={style.table_header}>
@@ -38,5 +38,3 @@ function TimeLine(): JSX.Element {
     </div>
   );
 }
-
-export default TimeLine;

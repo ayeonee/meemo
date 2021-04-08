@@ -4,13 +4,13 @@ import { daysData, colorCode } from "../../../_data/scheduleData";
 import { Schedule } from "../../../types/scheduleTypes";
 import style from "./ScheduleStyle.module.scss";
 
-interface Props {
+type ScheduleItemProps = {
   id: number;
   name: string;
   place: string;
   index: number;
   removeData: Function;
-}
+};
 
 function ScheduleItem({
   id,
@@ -19,7 +19,7 @@ function ScheduleItem({
   index,
   removeData,
   ...scheduleItem
-}: Props & Schedule) {
+}: ScheduleItemProps & Schedule): JSX.Element {
   const [delButtonState, setDelButtonState] = useState<boolean>(false);
   const { date, startHour, startMin, endHour, endMin } = scheduleItem;
   const datePosition = 82 + 96 * (date - 1);

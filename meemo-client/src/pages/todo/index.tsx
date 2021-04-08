@@ -1,11 +1,10 @@
-import React from "react";
 import TodoHeader from "./TodoHeader";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 import { TodoContextProvider } from "./TodosContext";
 import style from "./TodoPage.module.scss";
 
-function TodoPage(): JSX.Element {
+export default function TodoPage(): JSX.Element {
   return (
     <TodoContextProvider>
       <div className={style.todo_page_wrapper}>
@@ -18,5 +17,3 @@ function TodoPage(): JSX.Element {
     </TodoContextProvider>
   );
 }
-
-export default TodoPage;

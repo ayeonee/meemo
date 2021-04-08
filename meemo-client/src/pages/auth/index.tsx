@@ -5,7 +5,7 @@ import Register from "./Register";
 import logo from "../../img/logo.svg";
 import style from "./Auth.module.scss";
 
-function AuthPage(): JSX.Element {
+export default function AuthPage(): JSX.Element {
   const [loginTxt, setLoginTxt] = useState<boolean>(true);
   const [registerTxt, setRegisterText] = useState<boolean>(false);
 
@@ -48,5 +48,3 @@ function AuthPage(): JSX.Element {
     </div>
   );
 }
-
-export default AuthPage;

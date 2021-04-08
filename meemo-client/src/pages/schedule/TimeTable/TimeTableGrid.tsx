@@ -1,7 +1,7 @@
 import { allTimeData } from "../../../_data/scheduleData";
 import style from "./TimeTableStyle.module.scss";
 
-function TimeLineGrid(): JSX.Element {
+export default function TimeLineGrid(): JSX.Element {
   return (
     <td>
       <div className={style.cols}>
@@ -14,5 +14,3 @@ function TimeLineGrid(): JSX.Element {
     </td>
   );
 }
-
-export default TimeLineGrid;

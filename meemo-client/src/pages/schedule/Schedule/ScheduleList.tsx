@@ -3,12 +3,12 @@ import { AllData } from "../../../types/scheduleTypes";
 import ScheduleItem from "./ScheduleItem";
 import style from "./ScheduleStyle.module.scss";
 
-interface Props {
+type ScheduleListProps = {
   allData: AllData;
   removeData: Function;
-}
+};
 
-function ScheduleList({ allData, removeData }: Props): JSX.Element {
+function ScheduleList({ allData, removeData }: ScheduleListProps): JSX.Element {
   return (
     <div className={style.schedule_list}>
       {allData.map((item) =>
