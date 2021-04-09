@@ -43,8 +43,23 @@ export default function NoteList() {
 
   const parentId = history.location.state.folderId;
 
-  // 현재 folderlist에서 들어오는 history의 state와 editor의 routeShow에서 들어오는 state에서 문제가 있음.
-  // history 사용없이 값 넘겨주는 방법이나 RouteShow 자체를 다시 짜야함.
+  // if element doesnt have noDeselect as id, deselect upon click
+  useEffect(() => {
+    document.onclick = (event: any) => {
+      setTimeout(() => {
+        if (event.target.id !== "noDeselect") {
+          setDelBtn(false);
+          setSelectedNote("");
+        }
+      }, 100);
+    };
+    return () => {
+      clearTimeout();
+      setSelectedNote("");
+      setNoteTitle("");
+      setNotes([]);
+    };
+  }, []);
 
   useEffect(() => {
     let source = axios.CancelToken.source();
@@ -83,20 +98,9 @@ export default function NoteList() {
 
     return () => {
       console.log("Unmounting NoteList.");
-      clearTimeout();
       source.cancel();
     };
   }, [update]);
-
-  // if element doesnt have noDeselect as id, deselect upon click
-  document.onclick = (event: any) => {
-    setTimeout(() => {
-      if (event.target.id !== "noDeselect") {
-        setDelBtn(false);
-        setSelectedNote("");
-      }
-    }, 100);
-  };
 
   const getTitle = async (id: string) => {
     try {

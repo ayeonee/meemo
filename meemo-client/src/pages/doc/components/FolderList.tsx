@@ -27,6 +27,23 @@ export default function FolderList(): JSX.Element {
   let history = useHistory();
 
   useEffect(() => {
+    document.onclick = (event: any) => {
+      setTimeout(() => {
+        if (event.target.id !== "noDeselect") {
+          setDelBtn(false);
+          setSelectedFolder("");
+        }
+      }, 100);
+    };
+    return () => {
+      clearTimeout();
+      setSelectedFolder("");
+      setFolderTitle("");
+      setFolders([]);
+    };
+  }, []);
+
+  useEffect(() => {
     let source = axios.CancelToken.source();
 
     const loadFolders = async () => {
@@ -49,19 +66,9 @@ export default function FolderList(): JSX.Element {
 
     return () => {
       console.log("Unmounting FolderList.");
-      clearTimeout();
       source.cancel();
     };
   }, [update]);
-
-  document.onclick = (event: any) => {
-    setTimeout(() => {
-      if (event.target.id !== "noDeselect") {
-        setDelBtn(false);
-        setSelectedFolder("");
-      }
-    }, 100);
-  };
 
   const getTitle = async (id: string) => {
     try {

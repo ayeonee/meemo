@@ -166,9 +166,11 @@ app.post("/api/users/auth/kakao", (req, res) => {
 const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");
 const foldersRouter = require("./routes/folders");
+const storageRouter = require("./routes/storage");
 
-app.use("/api/notes", notesRouter);
-app.use("/api/folders", foldersRouter);
+app.use("/notes", notesRouter);
+app.use("/folders", foldersRouter);
+app.use("/s3", storageRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

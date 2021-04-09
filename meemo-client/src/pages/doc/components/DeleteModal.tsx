@@ -13,25 +13,20 @@ type DeleteModalProps = {
 };
 
 export default function DeleteModal(props: DeleteModalProps): JSX.Element {
-  const {
-    type,
-    childTitles,
-    selectedTitle,
-    selectedId,
-    toggleDelModal,
-  } = props;
-  // tried to link keyboard keys such as Enter and ESC to the onClicks;
-
-  // useEffect(() => {
-  //   const listener = (event: any) => {
-  //     if (event.code === "Enter" || event.code === "NumpadEnter") {
-  //     }
-  //   };
-  //   document.addEventListener("keydown", listener);
-  //   return () => {
-  //     document.removeEventListener("keydown", listener);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const listener = (event: any) => {
+      if (event.which === 13) {
+        props.delete(props.selectedId);
+      }
+      if (event.which === 27) {
+        props.toggleDelModal();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  });
 
   return (
     <div className={style.wrapper} id={`noDeselect`}>
@@ -41,18 +36,19 @@ export default function DeleteModal(props: DeleteModalProps): JSX.Element {
             <p id={`noDeselect`}>지우기</p>
           </div>
           <div className={style.targetDiv} id={`noDeselect`}>
-            {type === "notelist" ? (
+            {props.type === "notelist" ? (
               <p>
-                <b>{`${selectedTitle}`}</b> 이(가) 삭제됩니다
+                <b>{`${props.selectedTitle}`}</b> 이(가) 삭제됩니다
               </p>
             ) : (
               <>
                 <p>
-                  <b>{`${selectedTitle}`}</b> 와{" "}
-                  <b>{`${childTitles.length}`}</b> 개의 노트들이 삭제됩니다
+                  <b>{`${props.selectedTitle}`}</b> 와{" "}
+                  <b>{`${props.childTitles.length}`}</b> 개의 노트들이
+                  삭제됩니다
                 </p>
                 <div className={style.childTitleDiv}>
-                  {childTitles.map((title: string, i: number) => (
+                  {props.childTitles.map((title: string, i: number) => (
                     <b key={i}>{`${title}`}</b>
                   ))}
                 </div>
@@ -63,11 +59,15 @@ export default function DeleteModal(props: DeleteModalProps): JSX.Element {
             <button
               className="submitBtn"
               id={`noDeselect`}
-              onClick={() => props.delete(selectedId)}
+              onClick={() => props.delete(props.selectedId)}
             >
               지우기
             </button>
-            <button name="cancelBtn" id={`noDeselect`} onClick={toggleDelModal}>
+            <button
+              name="cancelBtn"
+              id={`noDeselect`}
+              onClick={props.toggleDelModal}
+            >
               취소
             </button>
           </div>
