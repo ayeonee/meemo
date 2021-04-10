@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { RootState } from "../../_reducers/index";
 import axios from "axios";
 import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
@@ -7,7 +9,6 @@ import style from "./Navigation.module.scss";
 
 function Navigation(): JSX.Element {
   const history = useHistory();
-  const username = "User Name";
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {
@@ -22,6 +23,10 @@ function Navigation(): JSX.Element {
     { name: "Folders", menuId: 3, state: false, address: "folders" },
     { name: "Calender", menuId: 4, state: false, address: "calender" },
   ]);
+
+  const userName = useSelector(
+    (state: RootState) => state.user.loginSuccess.name
+  );
 
   const handleNavColor = (menuId: number) => {
     setMenuColor(
@@ -81,7 +86,7 @@ function Navigation(): JSX.Element {
         </div>
 
         <div className={style.user_menu}>
-          <p className={style.nav_username}>{username}님</p>
+          <p className={style.nav_username}>{userName}님</p>
           <button className={style.logout_btn} onClick={onClickLogout}>
             로그아웃
           </button>

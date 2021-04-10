@@ -7,14 +7,21 @@ import {
 } from "./types";
 import axios from "axios";
 
+const BASE_URL = "https://meemo.kr/api";
+
 export const registerUser = (dataToSubmit: {
   userId: string;
   name: string;
   password: string;
 }) => {
-  const request = axios
-    .post("https://meemo.kr/api/users/register", dataToSubmit)
-    .then((res) => res.data);
+  const request = axios({
+    method: "POST",
+    baseURL: BASE_URL,
+    url: "/users/register",
+    data: dataToSubmit,
+  })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 
   return {
     type: REGISTER_USER,
@@ -26,9 +33,14 @@ export const loginUser = (dataToSubmit: {
   userId: string;
   password: string;
 }) => {
-  const request = axios
-    .post("https://meemo.kr/api/users/login", dataToSubmit)
-    .then((res) => res.data);
+  const request = axios({
+    method: "POST",
+    baseURL: BASE_URL,
+    url: "/users/login",
+    data: dataToSubmit,
+  })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 
   return {
     type: LOGIN_USER,
@@ -37,9 +49,13 @@ export const loginUser = (dataToSubmit: {
 };
 
 export const authUser = () => {
-  const request = axios
-    .get("https://meemo.kr/api/users/auth")
-    .then((res) => res.data);
+  const request = axios({
+    method: "GET",
+    baseURL: BASE_URL,
+    url: "/users/auth",
+  })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 
   return {
     type: AUTH_USER,

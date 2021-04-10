@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { withRouter, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { loginUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
 import GLogin from "./SocialLogin/GLogin";
@@ -95,4 +95,4 @@ function Login(): JSX.Element {
   );
 }
 
-export default withRouter(Login);
+export default Login;

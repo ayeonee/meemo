@@ -1,23 +1,52 @@
 import {
   REGISTER_USER,
   LOGIN_USER,
-  LOGOUT_USER,
   AUTH_USER,
   KLOGIN_USER,
-  GLOGIN_USER
+  GLOGIN_USER,
 } from "../_actions/types";
 import { ResponseTypes } from "../types/authTypes";
 
-const userReducer = (state = {}, action: ResponseTypes) => {
+type UserState = {
+  loginSuccess: {
+    loginSuccess: boolean;
+    userId: string;
+    name: string;
+  };
+  register: {
+    success: boolean;
+  };
+  userData: {
+    _id: string;
+    name: string;
+    userId: string;
+    isAuth: boolean;
+  };
+};
+
+const userReducer = (
+  state: UserState = {
+    register: { success: false },
+    loginSuccess: {
+      loginSuccess: false,
+      userId: "",
+      name: "",
+    },
+    userData: {
+      _id: "",
+      name: "",
+      userId: "",
+      isAuth: false,
+    },
+  },
+  action: ResponseTypes
+) => {
   switch (action.type) {
     case REGISTER_USER:
       return { ...state, register: action.payload };
 
     case LOGIN_USER:
       return { ...state, loginSuccess: action.payload };
-
-    case LOGOUT_USER:
-      return { ...state, success: action.payload };
 
     case AUTH_USER:
       return { ...state, userData: action.payload };
