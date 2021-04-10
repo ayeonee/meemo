@@ -79,7 +79,7 @@ app.post("/api/users/login", (req, res) => {
         }
         res.cookie("meemo_auth", user.token).status(200).json({
           loginSuccess: true,
-          userId: user._id,
+          _id: user._id,
           name: user.name,
         });
       });

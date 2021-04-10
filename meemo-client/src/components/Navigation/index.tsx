@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { RootState } from "../../_reducers/index";
 import axios from "axios";
 import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
+import removeLocalStorage from "../../hooks/removeLocalStorage";
 import style from "./Navigation.module.scss";
 
 function Navigation(): JSX.Element {
@@ -24,9 +23,7 @@ function Navigation(): JSX.Element {
     { name: "Calender", menuId: 4, state: false, address: "calender" },
   ]);
 
-  const userName = useSelector(
-    (state: RootState) => state.user.loginSuccess.name
-  );
+  const userName = localStorage.getItem("meemo-user-name");
 
   const handleNavColor = (menuId: number) => {
     setMenuColor(
@@ -41,6 +38,7 @@ function Navigation(): JSX.Element {
   const onClickLogout = () => {
     axios.get("/api/users/logout").then((res) => {
       if (res.data.success) {
+        removeLocalStorage();
         history.push("/");
       } else {
         alert("failed");

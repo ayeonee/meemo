@@ -38,6 +38,8 @@ function Login(): JSX.Element {
     dispatch(loginUser(body))
       .then((res: any) => {
         if (res.payload.loginSuccess) {
+          localStorage.setItem("meemo-user-name", res.payload.name);
+          localStorage.setItem("meemo-user-id", res.payload._id);
           history.push({
             pathname: "/schedule",
           });
