@@ -5,15 +5,9 @@ import debounce from "lodash/debounce";
 import RMDEditor from "rich-markdown-editor";
 import style from "../styles/Editor.module.scss";
 
-import RouteShow from "./RouteShow";
+import RouteShow from "../misc/RouteShow";
 
 import fs from "fs";
-
-// import { useEdit, useDark } from "../contexts/ToolContext";
-
-// interface Props {}
-
-// interface Youtube {}
 
 interface Props {}
 
@@ -31,42 +25,9 @@ const YoutubeEmbed: React.FC<any> = (props) => {
   );
 };
 
-const Editor: React.FC<Props> = () => {
+export default function Editor(): JSX.Element {
   let history = useHistory<any>();
   const [value, setValue] = useState<any>(history.location.state.body);
-
-  // read/edit, dark value api using useContext and custom hooks
-  // const edit = useEdit();
-  // const dark = useDark();
-
-  // useEffect(() => {
-  //   let source = axios.CancelToken.source();
-
-  //   const loadNotes = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         "https://meemo.kr/api/notes/" + history.location.state.id,
-  //         {
-  //           cancelToken: source.token,
-  //         }
-  //       );
-  //       console.log("Got the note!");
-  //       setValue(res.data.body);
-  //     } catch (err) {
-  //       if (axios.isCancel(err)) {
-  //         console.log("Caught a cancel.");
-  //       } else {
-  //         throw err;
-  //       }
-  //     }
-  //   };
-  //   loadNotes();
-
-  //   return () => {
-  //     console.log("Unmounting Editor.");
-  //     source.cancel();
-  //   };
-  // }, [value]);
 
   //title update uses put; editor body uses post + update.
   //to fix, add another prop in popup to get the body from the editor and feed in put.
@@ -92,9 +53,6 @@ const Editor: React.FC<Props> = () => {
       console.log(err, "\nOperation canceled by the user.");
     }
   }, 1000);
-
-  // const { body } = document;
-  // if (body) body.style.backgroundColor = dark ? "#181A1B" : "#FFF";
 
   return (
     <div className={style.wrapper}>
@@ -157,7 +115,6 @@ const Editor: React.FC<Props> = () => {
             const data = new FormData();
             data.append("imgFile", file);
 
-            // Delay to simulate time taken to upload
             return new Promise(async (resolve) => {
               const res = await axios.post(
                 "http://localhost:5000/s3/upload",
@@ -191,6 +148,4 @@ const Editor: React.FC<Props> = () => {
       </div>
     </div>
   );
-};
-
-export default Editor;
+}

@@ -4,10 +4,10 @@ import axios from "axios";
 import { Add, Delete, FolderOpen, Create } from "@material-ui/icons";
 import style from "../styles/FolderList.module.scss";
 
-import Popup from "./Popup";
-import RouteShow from "./RouteShow";
-import LoaderSpinner from "./LoaderSpinner";
-import DeleteModal from "./DeleteModal";
+import AddRenameModal from "../modals/AddRenameModal";
+import RouteShow from "../misc/RouteShow";
+import LoaderSpinner from "../misc/LoaderSpinner";
+import DeleteModal from "../modals/DeleteModal";
 
 export default function FolderList(): JSX.Element {
   const [folders, setFolders] = useState([]);
@@ -17,6 +17,7 @@ export default function FolderList(): JSX.Element {
 
   const [folderTitle, setFolderTitle] = useState<string>("");
   const [folderChildren, setFolderChildren]: any = useState([]);
+
   const [popupType, setPopupType] = useState<string>("");
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelModal, setShowDelModal] = useState<boolean>(false);
@@ -248,7 +249,7 @@ export default function FolderList(): JSX.Element {
         </>
       )}
       {showPopup ? (
-        <Popup
+        <AddRenameModal
           prevTitle={folderTitle}
           selectedId={selectedFolder}
           component={popupType}

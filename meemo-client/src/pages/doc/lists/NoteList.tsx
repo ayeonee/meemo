@@ -4,10 +4,10 @@ import style from "../styles/NoteList.module.scss";
 import axios from "axios";
 import { Add, Delete, Notes, Create } from "@material-ui/icons";
 
-import Popup from "./Popup";
-import RouteShow from "./RouteShow";
-import LoaderSpinner from "./LoaderSpinner";
-import DeleteModal from "./DeleteModal";
+import AddRenameModal from "../modals/AddRenameModal";
+import RouteShow from "../misc/RouteShow";
+import LoaderSpinner from "../misc/LoaderSpinner";
+import DeleteModal from "../modals/DeleteModal";
 
 const removeMd = require("remove-markdown");
 
@@ -30,6 +30,7 @@ export default function NoteList() {
   const [update, setUpdate] = useState(false);
 
   const [noteTitle, setNoteTitle] = useState("");
+
   const [popupType, setPopupType] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [showDelModal, setShowDelModal] = useState(false);
@@ -87,14 +88,6 @@ export default function NoteList() {
       }
     };
     loadNotes();
-
-    // const loadNotes = async () => {
-    //   childNotes.map(async (id: any) => {
-    //     let res = await axios.get("http://localhost:5000/notes/" + id);
-    //     test.push(res.data);
-    //   });
-    // };
-    // loadNotes();
 
     return () => {
       console.log("Unmounting NoteList.");
@@ -264,7 +257,7 @@ export default function NoteList() {
         </>
       )}
       {showPopup ? (
-        <Popup
+        <AddRenameModal
           prevTitle={noteTitle}
           selectedId={selectedNote}
           component={popupType}

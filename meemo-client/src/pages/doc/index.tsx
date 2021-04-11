@@ -1,7 +1,7 @@
 import { Switch, Route } from "react-router-dom";
-import FolderList from "./FolderList";
-import NoteList from "./NoteList";
-import Editor from "./Editor";
+import FolderList from "./lists/FolderList";
+import NoteList from "./lists/NoteList";
+import Editor from "./editor/Editor";
 
 export default function Folders(): JSX.Element {
   return (
