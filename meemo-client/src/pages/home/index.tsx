@@ -3,7 +3,7 @@ import Navigation from "../../components/Navigation";
 import SchedulePage from "../schedule";
 import TodoPage from "../todo";
 import CalenderPage from "../calender";
-import Folders from "../doc/components/Folders";
+import Folders from "../doc";
 
 export default function Home(): JSX.Element {
   return (

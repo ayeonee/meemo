@@ -2,7 +2,7 @@ import style from "../styles/RouteShow.module.scss";
 
 import { Link } from "react-router-dom";
 
-import NoteList from "./NoteList";
+import NoteList from "../lists/NoteList";
 
 type RouteShowProps = {
   type: string;
