@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { daysData, colorCode } from "../../../_data/scheduleData";
-import { Schedule } from "../../../types/scheduleTypes";
+import { Schedule } from "../../../_types/scheduleTypes";
 import style from "./ScheduleStyle.module.scss";
 
 type ScheduleItemProps = {
@@ -25,7 +25,7 @@ function ScheduleItem({
   const datePosition = 82 + 96 * (date - 1);
   const scheduleTime = (endHour - startHour) * 60 + (endMin - startMin);
   const timeStart = 40 + 72 * (startHour - 8) + startMin * 1.2;
-  const timeHeight = scheduleTime * 1.2 - 5;
+  const timeHeight = scheduleTime * 1.2 - 11;
   const color = id % 6;
 
   const showDelButton = useCallback(() => {

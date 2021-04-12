@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../_actions/userAction";
 import style from "./Auth.module.scss";
@@ -11,7 +10,18 @@ type RegisterTypes = {
   confirmPassword: string;
 };
 
-function Register(): JSX.Element {
+type RegisterProps = {
+  setLoginTxt: React.Dispatch<React.SetStateAction<boolean>>;
+  setRegisterText: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function Register({ ...props }: RegisterProps): JSX.Element {
+  const toggleMenu = () => {
+    const { setLoginTxt, setRegisterText } = props;
+
+    setLoginTxt(true);
+    setRegisterText(false);
+  };
   const [registerInput, setRegisterInput] = useState<RegisterTypes>({
     name: "",
     userId: "",
@@ -50,6 +60,7 @@ function Register(): JSX.Element {
             confirmPassword: "",
           });
         })
+        .then(() => toggleMenu())
         .catch((err: any) => console.log(err));
     } else alert("비밀번호가 다릅니다.");
   };
@@ -106,4 +117,4 @@ function Register(): JSX.Element {
   );
 }
 
-export default withRouter(Register);
+export default Register;

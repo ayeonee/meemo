@@ -29,7 +29,14 @@ export default function AuthPage(): JSX.Element {
             loginTxt={loginTxt}
             registerTxt={registerTxt}
           />
-          {loginTxt ? <Login /> : <Register />}
+          {loginTxt ? (
+            <Login />
+          ) : (
+            <Register
+              setLoginTxt={setLoginTxt}
+              setRegisterText={setRegisterText}
+            />
+          )}
         </div>
 
         <div className={style.auth_background}>

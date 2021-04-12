@@ -3,11 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
+import removeLocalStorage from "../../hooks/removeLocalStorage";
 import style from "./Navigation.module.scss";
 
 function Navigation(): JSX.Element {
   const history = useHistory();
-  const username = "User Name";
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {
@@ -20,8 +20,10 @@ function Navigation(): JSX.Element {
     { name: "To-Do List", menuId: 1, state: false, address: "todo" },
     { name: "Schedule", menuId: 2, state: true, address: "schedule" },
     { name: "Folders", menuId: 3, state: false, address: "folders" },
-    { name: "Calender", menuId: 4, state: false, address: "calender" },
+    { name: "Calendar", menuId: 4, state: false, address: "calendar" },
   ]);
+
+  const userName = localStorage.getItem("meemo-user-name");
 
   const handleNavColor = (menuId: number) => {
     setMenuColor(
@@ -36,7 +38,8 @@ function Navigation(): JSX.Element {
   const onClickLogout = () => {
     axios.get("/api/users/logout").then((res) => {
       if (res.data.success) {
-        history.push("/login");
+        removeLocalStorage();
+        history.push("/");
       } else {
         alert("failed");
       }
@@ -81,7 +84,7 @@ function Navigation(): JSX.Element {
         </div>
 
         <div className={style.user_menu}>
-          <p className={style.nav_username}>{username}님</p>
+          <p className={style.nav_username}>{userName}님</p>
           <button className={style.logout_btn} onClick={onClickLogout}>
             로그아웃
           </button>

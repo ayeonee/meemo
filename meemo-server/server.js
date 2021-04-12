@@ -19,7 +19,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-//몽구스 연결
 mongoose
   .connect(config.mongoURI, {
     useNewUrlParser: true,
@@ -79,7 +78,7 @@ app.post("/api/users/login", (req, res) => {
         }
         res.cookie("meemo_auth", user.token).status(200).json({
           loginSuccess: true,
-          userId: user._id,
+          _id: user._id,
           name: user.name,
         });
       });
@@ -98,7 +97,7 @@ app.get("/api/users/auth", auth, (req, res) => {
   });
 });
 
-app.get("/api/users/logout", auth, (res, req) => {
+app.get("/api/users/logout", auth, (req, res) => {
   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({
@@ -107,8 +106,8 @@ app.get("/api/users/logout", auth, (res, req) => {
   });
 });
 
-/////////Google Login/////////
 const client = new OAuth2Client(process.env.GOOGLE_ID);
+
 app.post("/api/users/auth/google", async (req, res) => {
   const token = req.body.tokenId;
   const ticket = await client.verifyIdToken({
@@ -126,19 +125,17 @@ app.post("/api/users/auth/google", async (req, res) => {
       userId: userId,
     },
     { upsert: true, new: true },
-    function (err, doc) {
-      if (err) return res.send(500, { error: err });
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
       return res.status(200).send({
         _id: doc._id,
-        userId: doc.userId,
+        loginSuccess: true,
         name: doc.name,
-        isAuth: true,
       });
     }
   );
 });
 
-/////////Kakao Login/////////
 app.post("/api/users/auth/kakao", (req, res) => {
   const token = req.body;
   const name = token.userName;
@@ -150,14 +147,13 @@ app.post("/api/users/auth/kakao", (req, res) => {
       name: name,
       userId: userId,
     },
-    { upsert: true },
-    function (err, doc) {
-      if (err) return res.send(500, { error: err });
+    { upsert: true, new: true },
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
       return res.status(200).send({
         _id: doc._id,
-        userId: doc.userId,
+        loginSuccess: true,
         name: doc.name,
-        isAuth: true,
       });
     }
   );
