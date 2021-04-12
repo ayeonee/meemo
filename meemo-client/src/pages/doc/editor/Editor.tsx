@@ -117,7 +117,7 @@ export default function Editor(): JSX.Element {
 
             return new Promise(async (resolve) => {
               const res = await axios.post(
-                "http://localhost:5000/api/s3/upload",
+                "https://meemo.kr/api/s3/upload/",
                 data
               );
               resolve(res.data);
