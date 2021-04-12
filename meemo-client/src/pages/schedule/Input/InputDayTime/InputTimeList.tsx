@@ -1,5 +1,5 @@
 import { hourData, minData } from "../../../../_data/scheduleData";
-import { Schedule } from "../../../../types/scheduleTypes";
+import { Schedule } from "../../../../_types/scheduleTypes";
 import style from "../InputBoxStyle.module.scss";
 
 type InputTimeListProps = {

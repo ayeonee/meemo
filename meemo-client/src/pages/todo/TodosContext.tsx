@@ -1,10 +1,6 @@
 import { Dispatch, createContext, useReducer, useContext } from "react";
+import { Todo } from "../../_types/todoTypes";
 
-export type Todo = {
-  id: number;
-  schedule: string;
-  checked: boolean;
-};
 type Action =
   | { type: "CREATE"; schedule: string }
   | { type: "TOGGLE"; id: number }

@@ -5,7 +5,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { daysData } from "../../../../_data/scheduleData";
-import { Schedule } from "../../../../types/scheduleTypes";
+import { Schedule } from "../../../../_types/scheduleTypes";
 import InputDayList from "./InputDayList";
 import InputTimeList from "./InputTimeList";
 import style from "../InputBoxStyle.module.scss";

@@ -4,7 +4,7 @@ import {
   ScheduleArray,
   Data,
   Input,
-} from "../../../types/scheduleTypes";
+} from "../../../_types/scheduleTypes";
 import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
 import style from "./InputBoxStyle.module.scss";

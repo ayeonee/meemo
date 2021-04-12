@@ -5,7 +5,7 @@ import {
   KLOGIN_USER,
   GLOGIN_USER,
 } from "../_actions/types";
-import { ResponseTypes } from "../types/authTypes";
+import { ResponseTypes } from "../_types/authTypes";
 
 type UserState = {
   loginSuccess: {

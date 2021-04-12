@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { authUser } from "../_actions/userAction";
-import { ResponseTypes } from "../types/authTypes";
+import { ResponseTypes } from "../_types/authTypes";
 import removeLocalStorage from "../hooks/removeLocalStorage";
 function Auth(Component: any, option: null | false | true) {
   // null => 아무나 출입가능

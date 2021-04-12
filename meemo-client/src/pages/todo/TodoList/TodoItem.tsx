@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
-import { useTodoDispatch, Todo } from "../TodosContext";
+import { useTodoDispatch } from "../TodosContext";
+import { Todo } from "../../../_types/todoTypes";
 import style from "./TodoList.module.scss";
 
 type TodoItemProps = {
