@@ -20,7 +20,7 @@ function Navigation(): JSX.Element {
     { name: "To-Do List", menuId: 1, state: false, address: "todo" },
     { name: "Schedule", menuId: 2, state: true, address: "schedule" },
     { name: "Folders", menuId: 3, state: false, address: "folders" },
-    { name: "Calender", menuId: 4, state: false, address: "calender" },
+    { name: "Calendar", menuId: 4, state: false, address: "calendar" },
   ]);
 
   const userName = localStorage.getItem("meemo-user-name");

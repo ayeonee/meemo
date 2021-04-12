@@ -52,10 +52,10 @@ const userReducer = (
       return { ...state, userData: action.payload };
 
     case GLOGIN_USER:
-      return { ...state, userData: action.payload };
+      return { ...state, loginSuccess: action.payload };
 
     case KLOGIN_USER:
-      return { ...state, userData: action.payload };
+      return { ...state, loginSuccess: action.payload };
 
     default:
       return state;
