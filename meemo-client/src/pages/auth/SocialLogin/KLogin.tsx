@@ -16,12 +16,14 @@ export default function KLogin(): JSX.Element {
     };
     dispatch(kLoginUser(body))
       .then((res: any) => {
-        if (res.payload.isAuth) {
+        if (res.payload.loginSuccess) {
+          localStorage.setItem("meemo-user-name", res.payload.name);
+          localStorage.setItem("meemo-user-id", res.payload._id);
           history.push({
             pathname: "/schedule",
           });
         } else {
-          alert(res.payload.isAuth);
+          alert(res.payload.loginSuccess);
         }
       })
       .catch((err: any) => {

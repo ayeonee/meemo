@@ -7,8 +7,8 @@ import {
 } from "./types";
 import axios from "axios";
 
-// const BASE_URL = "https://meemo.kr/api";
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://meemo.kr/api";
+// const BASE_URL = "http://localhost:5000/api";
 
 export const registerUser = (dataToSubmit: {
   userId: string;
@@ -64,11 +64,15 @@ export const authUser = () => {
   };
 };
 
-//SocialLogin
-export const gLoginUser = (dataToSubmit?: any) => {
-  const request = axios
-    .post("https://meemo.kr/api/users/auth/google", dataToSubmit)
-    .then((res) => res.data);
+export const gLoginUser = (dataToSubmit: { tokenId: string }) => {
+  const request = axios({
+    method: "POST",
+    baseURL: BASE_URL,
+    url: "/users/auth/google",
+    data: dataToSubmit,
+  })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 
   return {
     type: GLOGIN_USER,
@@ -76,10 +80,19 @@ export const gLoginUser = (dataToSubmit?: any) => {
   };
 };
 
-export const kLoginUser = (dataToSubmit?: any) => {
-  const request = axios
-    .post("https://meemo.kr/api/users/auth/kakao", dataToSubmit)
-    .then((res) => res.data);
+export const kLoginUser = (dataToSubmit: {
+  tokenId: string;
+  userId: string;
+  userName: string;
+}) => {
+  const request = axios({
+    method: "POST",
+    baseURL: BASE_URL,
+    url: "/users/auth/kakao",
+    data: dataToSubmit,
+  })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 
   return {
     type: KLOGIN_USER,
