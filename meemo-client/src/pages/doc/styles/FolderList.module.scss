@@ -1,53 +1,45 @@
 @import "../../../styles/_variables.module.scss";
 
 .folderList {
-  width: 900px;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 80vw;
   height: 100%;
-
-  margin: 0 auto;
   margin-top: 90px;
 
   .folderContainer {
     margin: 0 auto;
-
     width: 100%;
     height: 100%;
-    // background-color: skyblue;
 
     .folderDiv {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: flex-start;
-
       width: 100%;
+
       .folders {
         border: solid 2px $green_grade_2;
         border-radius: 10px;
         margin: 10px 13px;
-
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-
         width: 150px;
         height: 150px;
 
         .iconDiv {
           height: 60px;
           width: 60px;
-
           margin: 20px auto;
-
-          // background-color: chocolate;
 
           pointer-events: none;
           .folderIcon {
             color: $green_grade_5;
-
             width: 100%;
             height: 100%;
-
             pointer-events: none;
           }
         }
@@ -56,14 +48,11 @@
           width: 100%;
           height: 60px;
           text-align: center;
-
-          // background-color: antiquewhite;
-
           pointer-events: none;
+
           p {
             margin: 10px 15px;
             font-size: 13px;
-
             pointer-events: none;
           }
         }
@@ -71,32 +60,32 @@
       .folders:focus {
         outline: none;
       }
+
       .foldersSelected {
         background-color: $green_grade_3;
         border: solid 2px $green_grade_2;
         border-radius: 10px;
         margin: 10px 13px;
-
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-
         width: 150px;
         height: 150px;
+
+        &:focus {
+          outline: none;
+        }
 
         .iconDiv {
           height: 60px;
           width: 60px;
-
           margin: 20px auto;
-
           pointer-events: none;
+
           .folderIcon {
             color: white;
-
             width: 100%;
             height: 100%;
-
             pointer-events: none;
           }
         }
@@ -105,36 +94,26 @@
           width: 100%;
           height: 60px;
           text-align: center;
-
           pointer-events: none;
+
           p {
             color: white;
-
             margin: 10px 15px;
             font-size: 13px;
-
             pointer-events: none;
           }
         }
-      }
-      .foldersSelected:focus {
-        outline: none;
       }
     }
   }
 
   .toolDiv {
-    // background-color: fuchsia;
-
     position: fixed;
     left: 50%;
     bottom: 50px;
-
     margin-left: -200px;
-
     height: 50px;
     width: 400px;
-
     display: flex;
     justify-content: space-evenly;
 
@@ -145,57 +124,49 @@
     .renameBtn {
       background-color: $green_grade_4;
       color: white;
-
       height: 50px;
       width: 100px;
       border-radius: 100px;
-
       border: none;
       cursor: pointer;
       outline: none;
-
       box-shadow: 0px 5px 10px -5px slategray;
-
       transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+
+      &:hover {
+        box-shadow: 0px 2px 12px 0px slategray;
+      }
+      &:active {
+        background-color: $green_grade_5;
+      }
 
       .renameIcon {
         pointer-events: none;
       }
     }
-    .renameBtn:hover {
-      box-shadow: 0px 2px 12px 0px slategray;
-    }
-    .renameBtn:active {
-      background-color: $green_grade_5;
-    }
 
     .addBtn {
       background-color: $green_grade_4;
       color: white;
-
       height: 50px;
       width: 100px;
       border-radius: 100px;
-
-      // margin-left: 150px;
-
       border: none;
       cursor: pointer;
       outline: none;
-
       box-shadow: 0px 5px 10px -5px slategray;
-
       transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+
+      &:hover {
+        box-shadow: 0px 2px 12px 0px slategray;
+      }
+      &:active {
+        background-color: $green_grade_5;
+      }
 
       .addIcon {
         pointer-events: none;
       }
-    }
-    .addBtn:hover {
-      box-shadow: 0px 2px 12px 0px slategray;
-    }
-    .addBtn:active {
-      background-color: $green_grade_5;
     }
 
     .hideDelBtn {
@@ -205,28 +176,25 @@
     .deleteBtn {
       background-color: $green_grade_4;
       color: white;
-
       height: 50px;
       width: 100px;
       border-radius: 100px;
-
       border: none;
       cursor: pointer;
       outline: none;
-
       box-shadow: 0px 5px 10px -5px slategray;
-
       transition: box-shadow 0.3s ease-in-out, background-color 0.2s ease-in-out;
+
+      &:hover {
+        box-shadow: 0px 2px 12px 0px slategray;
+      }
+      &:active {
+        background-color: $green_grade_5;
+      }
 
       .deleteIcon {
         pointer-events: none;
       }
-    }
-    .deleteBtn:hover {
-      box-shadow: 0px 2px 12px 0px slategray;
-    }
-    .deleteBtn:active {
-      background-color: $green_grade_5;
     }
   }
 }
