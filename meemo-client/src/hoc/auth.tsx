@@ -21,7 +21,7 @@ function Auth(Component: any, option: null | false | true) {
 
           //로그인 하지 않은상태
           if (option === true) {
-            history.push("/");
+            document.location.href = "/";
           }
         } else {
           // 로그인 한 상태

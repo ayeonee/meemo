@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
@@ -7,7 +7,6 @@ import removeLocalStorage from "../../hooks/removeLocalStorage";
 import style from "./Navigation.module.scss";
 
 function Navigation(): JSX.Element {
-  const history = useHistory();
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {
