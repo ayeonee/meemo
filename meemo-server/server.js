@@ -8,9 +8,7 @@ const fs = require("fs");
 const app = express();
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
-
 const { OAuth2Client } = require("google-auth-library");
-const { SocialUser } = require("./models/SocialUser");
 
 require("dotenv").config();
 
@@ -118,7 +116,7 @@ app.post("/api/users/auth/google", async (req, res) => {
   const userId = payload["sub"];
   const name = payload["name"];
 
-  SocialUser.findOneAndUpdate(
+  User.findOneAndUpdate(
     { userId: userId },
     {
       name: name,
@@ -127,10 +125,16 @@ app.post("/api/users/auth/google", async (req, res) => {
     { upsert: true, new: true },
     (err, doc) => {
       if (err) return res.status(400).send(err);
-      return res.status(200).send({
-        _id: doc._id,
-        loginSuccess: true,
-        name: doc.name,
+
+      doc.generateToken((err, user) => {
+        if (err) {
+          return res.status(400).send(err);
+        }
+        res.cookie("meemo_auth", user.token).status(200).json({
+          loginSuccess: true,
+          _id: user._id,
+          name: user.name,
+        });
       });
     }
   );
@@ -141,7 +145,7 @@ app.post("/api/users/auth/kakao", (req, res) => {
   const name = token.userName;
   const userId = token.userId;
 
-  SocialUser.findOneAndUpdate(
+  User.findOneAndUpdate(
     { userId: userId },
     {
       name: name,
@@ -160,13 +164,13 @@ app.post("/api/users/auth/kakao", (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
-const notesRouter = require("./routes/notes");
-const foldersRouter = require("./routes/folders");
-const storageRouter = require("./routes/storage");
+// const notesRouter = require("./routes/notes");
+// const foldersRouter = require("./routes/folders");
+// const storageRouter = require("./routes/storage");
 
-app.use("/api/notes", notesRouter);
-app.use("/api/folders", foldersRouter);
-app.use("/api/s3", storageRouter);
+// app.use("/api/notes", notesRouter);
+// app.use("/api/folders", foldersRouter);
+// app.use("/api/s3", storageRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
