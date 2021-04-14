@@ -36,14 +36,16 @@ function Navigation(): JSX.Element {
   };
 
   const onClickLogout = () => {
-    axios.get("/api/users/logout").then((res) => {
-      if (res.data.success) {
-        removeLocalStorage();
-        history.push("/");
-      } else {
-        alert("failed");
-      }
-    });
+    axios
+      .get("/api/users/logout")
+      .then((res) => {
+        if (res.data.success) {
+          removeLocalStorage();
+        } else {
+          alert("failed");
+        }
+      })
+      .then(() => (document.location.href = "/"));
   };
 
   const onClickBurger = () => {

@@ -154,10 +154,16 @@ app.post("/api/users/auth/kakao", (req, res) => {
     { upsert: true, new: true },
     (err, doc) => {
       if (err) return res.status(400).send(err);
-      return res.status(200).send({
-        _id: doc._id,
-        loginSuccess: true,
-        name: doc.name,
+
+      doc.generateToken((err, user) => {
+        if (err) {
+          return res.status(400).send(err);
+        }
+        res.cookie("meemo_auth", user.token).status(200).json({
+          loginSuccess: true,
+          _id: user._id,
+          name: user.name,
+        });
       });
     }
   );
