@@ -1,11 +1,12 @@
 import style from './DashBoard.module.scss';
+import TodaySchedule from './todaySchedule';
 
 export default function DashBoardPage(): JSX.Element {
   return (
     <div className={style.dashboard_wrapper}>
       <div className={style.dashboard}>
         <div className={style.line_one}>
-          <p>오늘 일정</p>
+          <TodaySchedule />
           <p>최근 수정</p>
         </div>
         <div className={style.line_two}>

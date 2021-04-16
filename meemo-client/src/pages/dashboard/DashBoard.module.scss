@@ -26,3 +26,8 @@
     }
   }
 }
+
+.today_schedule {
+  @include flex_col;
+  align-items: center;
+}
