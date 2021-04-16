@@ -1,0 +1,28 @@
+@import '../../styles/_variables.module.scss';
+
+.dashboard_wrapper {
+  display: flex;
+  justify-content: center;
+
+  .dashboard {
+    @include flex_col;
+    align-items: center;
+
+    width: 70%;
+    min-height: 600px;
+    height: fit-content;
+    margin-top: 12vh;
+    padding: 10px 10px;
+
+    background-color: beige;
+    border-radius: 2px;
+
+    .line_one {
+      @include flex_row;
+    }
+
+    .line_two {
+      @include flex_row;
+    }
+  }
+}

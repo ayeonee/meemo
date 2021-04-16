@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import AuthPage from "./pages/auth";
-import Home from "./pages/home";
-import Auth from "./hoc/auth";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AuthPage from './pages/auth';
+import Home from './pages/home';
+import Auth from './hoc/auth';
 
 function Root(): JSX.Element {
   // hoc rule
@@ -14,7 +14,8 @@ function Root(): JSX.Element {
         {/* <Route component={AuthPage} path="/" exact />
         <Route component={Home} path="/schedule" exact /> */}
         <Route component={Auth(AuthPage, false)} path="/" exact />
-        <Route component={Auth(Home, true)} path="/schedule" exact />
+        <Route component={Auth(Home, null)} path="/schedule" exact />
+        {/*↑dashboard 테스트 용으로 null로 했음 디벨롭하기 전에 수정할것*/}
       </Switch>
     </Router>
   );
