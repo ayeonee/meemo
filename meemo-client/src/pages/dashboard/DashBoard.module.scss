@@ -1,0 +1,67 @@
+@import "../../styles/_variables.module.scss";
+
+.dashboard_wrapper {
+  display: flex;
+  justify-content: center;
+
+  .dashboard {
+    @include flex_col;
+    align-items: center;
+
+    width: 70%;
+    min-height: 630px;
+    height: fit-content;
+    margin-top: 12vh;
+    padding: 10px 10px;
+
+    background-color: $green_grade_1;
+    border-radius: 2px;
+
+    .line_one,
+    .line_two {
+      @include flex_row;
+      justify-content: space-evenly;
+      width: 100%;
+
+      .today_schedule {
+        @include flex_col;
+        align-items: center;
+        width: 30%;
+        height: 350px;
+        background-color: azure;
+        border-radius: 5px;
+
+        .title {
+          font-size: 28px;
+          font-weight: 500;
+          margin-top: 10%;
+          color: $green_grade_5;
+        }
+
+        .today_info {
+          font-size: 18px;
+          margin: 5% 0;
+        }
+
+        .schedule_wrapper {
+          width: 80%;
+          height: 60%;
+          background-color: $green_grade_2;
+          margin-top: auto;
+          margin-bottom: 10%;
+          border-radius: 5px;
+          display: flex;
+          @include align_center;
+        }
+
+        .schedule_list {
+          list-style: none;
+
+          li {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}

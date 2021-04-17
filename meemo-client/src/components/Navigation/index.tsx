@@ -20,6 +20,7 @@ function Navigation(): JSX.Element {
     { name: "Schedule", menuId: 2, state: true, address: "schedule" },
     { name: "Folders", menuId: 3, state: false, address: "folders" },
     { name: "Calendar", menuId: 4, state: false, address: "calendar" },
+    { name: "Dash Board", menuId: 5, state: false, address: "dashboard" },
   ]);
 
   const userName = localStorage.getItem("meemo-user-name");
@@ -27,9 +28,7 @@ function Navigation(): JSX.Element {
   const handleNavColor = (menuId: number) => {
     setMenuColor(
       menuColor.map((elem) =>
-        elem.menuId === menuId
-          ? { ...elem, state: true }
-          : { ...elem, state: false }
+        elem.menuId === menuId ? { ...elem, state: true } : { ...elem, state: false }
       )
     );
   };
@@ -54,10 +53,7 @@ function Navigation(): JSX.Element {
   return (
     <div className={style.nav_wrapper}>
       <nav className={style.nav_inside}>
-        <div
-          className={media ? style.burger_toggle : style.burger_menu}
-          onClick={onClickBurger}
-        >
+        <div className={media ? style.burger_toggle : style.burger_menu} onClick={onClickBurger}>
           <div className={style.burger_line1}></div>
           <div className={style.burger_line2}></div>
           <div className={style.burger_line3}></div>
@@ -75,11 +71,7 @@ function Navigation(): JSX.Element {
         <div className={media ? style.nav_items_on : style.nav_items_off}>
           <div className={style.nav_menus}>
             {menuColor.map((data) => (
-              <NavItem
-                data={data}
-                handleNavColor={handleNavColor}
-                key={data.menuId}
-              />
+              <NavItem data={data} handleNavColor={handleNavColor} key={data.menuId} />
             ))}
           </div>
         </div>
