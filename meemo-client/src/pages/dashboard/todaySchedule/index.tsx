@@ -1,10 +1,10 @@
 import style from '../DashBoard.module.scss';
 import { ScheduleData } from './scheduleData';
+import ShowScheduleInfo from './showScheduleInfo';
 
 type ScheduleInfo = {
   name: string;
   place: string;
-  date: number;
   startHour: number;
   startMin: number;
   endHour: number;
@@ -20,11 +20,10 @@ function TodaySchedule(): JSX.Element {
 
   ScheduleData.forEach((item) => {
     item.schedule.forEach((scheduleItem) => {
-      if (scheduleItem.date === today) {
+      if (scheduleItem.date === 2) {
         scheduleInfo.push({
           name: item.name,
           place: item.place,
-          date: today,
           startHour: scheduleItem.startHour,
           startMin: scheduleItem.startMin,
           endHour: scheduleItem.endHour,
@@ -36,7 +35,7 @@ function TodaySchedule(): JSX.Element {
 
   return (
     <div className={style.today_schedule}>
-      <h1>Today's Schedule</h1>
+      <h3>Today's Schedule</h3>
       <p>
         {today === 0
           ? '월'
@@ -53,7 +52,26 @@ function TodaySchedule(): JSX.Element {
           : '일'}
         요일
       </p>
-      <p>{scheduleInfo.length === 0 ? '오늘은 일정이 없습니다.' : `배열출력어케하누,,,`}</p>
+      <p>
+        {scheduleInfo.length === 0 ? (
+          '오늘은 일정이 없습니다.'
+        ) : (
+          <ul>
+            {scheduleInfo.map((item) => (
+              <li>
+                <ShowScheduleInfo
+                  name={item.name}
+                  place={item.place}
+                  startHour={item.startHour}
+                  startMin={item.startMin}
+                  endHour={item.endHour}
+                  endMin={item.endMin}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </p>
     </div>
   );
 }
