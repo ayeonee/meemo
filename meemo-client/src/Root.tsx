@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import AuthPage from './pages/auth';
-import Home from './pages/home';
-import Auth from './hoc/auth';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AuthPage from "./pages/auth";
+import Home from "./pages/home";
+import Auth from "./hoc/auth";
 
 function Root(): JSX.Element {
   // hoc rule

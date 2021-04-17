@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import NavItem from './NavItem';
-import logo from '../../img/logo.svg';
-import removeLocalStorage from '../../hooks/removeLocalStorage';
-import style from './Navigation.module.scss';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import NavItem from "./NavItem";
+import logo from "../../img/logo.svg";
+import removeLocalStorage from "../../hooks/removeLocalStorage";
+import style from "./Navigation.module.scss";
 
 function Navigation(): JSX.Element {
   const [media, setMedia] = useState<boolean>(false);
@@ -16,30 +16,34 @@ function Navigation(): JSX.Element {
       address: string;
     }[]
   >([
-    { name: 'To-Do List', menuId: 1, state: false, address: 'todo' },
-    { name: 'Schedule', menuId: 2, state: true, address: 'schedule' },
-    { name: 'Folders', menuId: 3, state: false, address: 'folders' },
-    { name: 'Calendar', menuId: 4, state: false, address: 'calendar' },
-    { name: 'Dash Board', menuId: 5, state: false, address: 'dashboard' },
+    { name: "To-Do List", menuId: 1, state: false, address: "todo" },
+    { name: "Schedule", menuId: 2, state: true, address: "schedule" },
+    { name: "Folders", menuId: 3, state: false, address: "folders" },
+    { name: "Calendar", menuId: 4, state: false, address: "calendar" },
+    { name: "Dash Board", menuId: 5, state: false, address: "dashboard" },
   ]);
 
-  const userName = localStorage.getItem('meemo-user-name');
+  const userName = localStorage.getItem("meemo-user-name");
 
   const handleNavColor = (menuId: number) => {
-    setMenuColor(menuColor.map((elem) => (elem.menuId === menuId ? { ...elem, state: true } : { ...elem, state: false })));
+    setMenuColor(
+      menuColor.map((elem) =>
+        elem.menuId === menuId ? { ...elem, state: true } : { ...elem, state: false }
+      )
+    );
   };
 
   const onClickLogout = () => {
     axios
-      .get('/api/users/logout')
+      .get("/api/users/logout")
       .then((res) => {
         if (res.data.success) {
           removeLocalStorage();
         } else {
-          alert('failed');
+          alert("failed");
         }
       })
-      .then(() => (document.location.href = '/'));
+      .then(() => (document.location.href = "/"));
   };
 
   const onClickBurger = () => {
@@ -56,7 +60,12 @@ function Navigation(): JSX.Element {
         </div>
 
         <Link to="/schedule">
-          <img className={style.logo} src={`${logo}`} alt="logo" onClick={() => handleNavColor(2)} />
+          <img
+            className={style.logo}
+            src={`${logo}`}
+            alt="logo"
+            onClick={() => handleNavColor(2)}
+          />
         </Link>
 
         <div className={media ? style.nav_items_on : style.nav_items_off}>
