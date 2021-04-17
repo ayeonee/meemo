@@ -1,5 +1,5 @@
-import style from './DashBoard.module.scss';
-import TodaySchedule from './todaySchedule';
+import style from "./DashBoard.module.scss";
+import TodaySchedule from "./todaySchedule";
 
 export default function DashBoardPage(): JSX.Element {
   return (

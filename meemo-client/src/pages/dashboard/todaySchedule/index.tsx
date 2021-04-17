@@ -1,6 +1,6 @@
-import style from '../DashBoard.module.scss';
-import { ScheduleData } from './scheduleData';
-import ShowScheduleInfo from './showScheduleInfo';
+import style from "../DashBoard.module.scss";
+import { ScheduleData } from "./scheduleData";
+import ShowScheduleInfo from "./showScheduleInfo";
 
 type ScheduleInfo = {
   name: string;
@@ -20,7 +20,7 @@ function TodaySchedule(): JSX.Element {
 
   ScheduleData.forEach((item) => {
     item.schedule.forEach((scheduleItem) => {
-      if (scheduleItem.date === 2) {
+      if (scheduleItem.date === today) {
         scheduleInfo.push({
           name: item.name,
           place: item.place,
@@ -35,28 +35,29 @@ function TodaySchedule(): JSX.Element {
 
   return (
     <div className={style.today_schedule}>
-      <h3>Today's Schedule</h3>
-      <p>
-        {today === 0
-          ? '월'
-          : today === 1
-          ? '화'
+      <div className={style.title}>Today's Schedule</div>
+      <div className={style.today_info}>
+        {date.getMonth() + 1}월 {date.getDate()}일{" "}
+        {today === 1
+          ? "월"
           : today === 2
-          ? '수'
+          ? "화"
           : today === 3
-          ? '목'
+          ? "수"
           : today === 4
-          ? '금'
+          ? "목"
           : today === 5
-          ? '토'
-          : '일'}
+          ? "금"
+          : today === 6
+          ? "토"
+          : "일"}
         요일
-      </p>
-      <p>
+      </div>
+      <div className={style.schedule_wrapper}>
         {scheduleInfo.length === 0 ? (
-          '오늘은 일정이 없습니다.'
+          <p>오늘은 일정이 없습니다.</p>
         ) : (
-          <ul>
+          <ul className={style.schedule_list}>
             {scheduleInfo.map((item) => (
               <li>
                 <ShowScheduleInfo
@@ -71,7 +72,7 @@ function TodaySchedule(): JSX.Element {
             ))}
           </ul>
         )}
-      </p>
+      </div>
     </div>
   );
 }
