@@ -12,7 +12,7 @@
     min-height: 630px;
     height: fit-content;
     margin-top: 12vh;
-    padding: 10px 10px;
+    padding: 15px 0;
 
     background-color: $green_grade_1;
     border-radius: 2px;
@@ -23,20 +23,20 @@
       justify-content: space-evenly;
       width: 100%;
 
+      .title {
+        font-size: 28px;
+        font-weight: 500;
+        margin-top: 20px;
+        color: $green_grade_5;
+      }
+
       .today_schedule {
         @include flex_col;
         align-items: center;
-        width: 30%;
+        width: 35%;
         height: 350px;
         background-color: azure;
         border-radius: 5px;
-
-        .title {
-          font-size: 28px;
-          font-weight: 500;
-          margin-top: 10%;
-          color: $green_grade_5;
-        }
 
         .today_info {
           font-size: 18px;
@@ -55,12 +55,17 @@
         }
 
         .schedule_list {
-          list-style: none;
-
-          li {
-            margin-bottom: 10px;
-          }
+          margin: 10px;
         }
+      }
+
+      .recent_modify {
+        @include flex_col;
+        align-items: center;
+        width: 60%;
+        height: 350px;
+        background-color: azure;
+        border-radius: 5px;
       }
     }
   }
