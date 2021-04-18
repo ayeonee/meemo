@@ -1,5 +1,6 @@
 import style from "./DashBoard.module.scss";
 import TodaySchedule from "./todaySchedule";
+import RecentModify from "./recentModify";
 
 export default function DashBoardPage(): JSX.Element {
   return (
@@ -7,7 +8,7 @@ export default function DashBoardPage(): JSX.Element {
       <div className={style.dashboard}>
         <div className={style.line_one}>
           <TodaySchedule />
-          <p>최근 수정</p>
+          <RecentModify />
         </div>
         <div className={style.line_two}>
           <p>해야 할 일</p>
