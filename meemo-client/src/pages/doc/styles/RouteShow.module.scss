@@ -1,13 +1,13 @@
 @import "../../../styles/_variables.module.scss";
 
 .wrapper {
-  width: 100vw;
+  width: 80%;
   height: 30px;
+  margin-top: 10px;
 
   .route {
-    padding: 7.5px 15px;
+    padding: 7px 7px 10px 7px;
     font-size: 12px;
-
     border-bottom: 1.5px solid $green_grade_4;
   }
 }
