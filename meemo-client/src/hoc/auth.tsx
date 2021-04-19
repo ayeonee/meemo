@@ -21,12 +21,12 @@ function Auth(Component: any, option: null | false | true) {
 
           //로그인 하지 않은상태
           if (option === true) {
-            document.location.href = "/";
+            document.location.href = "/auth";
           }
         } else {
           // 로그인 한 상태
           if (option === false) {
-            history.push("/schedule");
+            history.push("/dashboard");
           }
         }
       });
