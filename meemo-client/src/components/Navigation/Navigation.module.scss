@@ -1,5 +1,9 @@
 @import "../../styles/_variables.module.scss";
 
+.nav_hidden {
+  display: none;
+}
+
 .nav_wrapper {
   width: 100%;
   height: 80px;

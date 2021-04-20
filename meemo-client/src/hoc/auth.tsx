@@ -26,7 +26,7 @@ function Auth(Component: any, option: null | false | true) {
         } else {
           // 로그인 한 상태
           if (option === false) {
-            history.push("/dashboard");
+            history.push("/");
           }
         }
       });

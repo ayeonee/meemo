@@ -41,7 +41,7 @@ function Login(): JSX.Element {
           localStorage.setItem("meemo-user-name", res.payload.name);
           localStorage.setItem("meemo-user-id", res.payload._id);
           history.push({
-            pathname: "/schedule",
+            pathname: "/",
           });
         } else {
           alert(res.payload.message);

@@ -20,7 +20,7 @@ function NavItem({ data, handleNavColor }: NavProps): JSX.Element {
   };
   return (
     <Link
-      to={`/${address}`}
+      to={`${address}`}
       onClick={handleOnOff}
       className={state ? style.nav_menu_checked : style.nav_menu}
     >

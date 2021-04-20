@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
 import removeLocalStorage from "../../hooks/removeLocalStorage";
 import style from "./Navigation.module.scss";
 
-function Navigation(): JSX.Element {
+function Navigation({ location: { pathname } }: any): JSX.Element {
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {
@@ -16,11 +16,11 @@ function Navigation(): JSX.Element {
       address: string;
     }[]
   >([
-    { name: "Home", menuId: 0, state: true, address: "" },
-    { name: "To-Do List", menuId: 1, state: false, address: "todo" },
-    { name: "Schedule", menuId: 2, state: false, address: "schedule" },
-    { name: "Folders", menuId: 3, state: false, address: "folders" },
-    { name: "Calendar", menuId: 4, state: false, address: "calendar" },
+    { name: "Home", menuId: 0, state: true, address: "/" },
+    { name: "To-Do List", menuId: 1, state: false, address: "/todo" },
+    { name: "Schedule", menuId: 2, state: false, address: "/schedule" },
+    { name: "Folders", menuId: 3, state: false, address: "/folders" },
+    { name: "Calendar", menuId: 4, state: false, address: "/calendar" },
   ]);
 
   const userName = localStorage.getItem("meemo-user-name");
@@ -53,7 +53,9 @@ function Navigation(): JSX.Element {
   };
 
   return (
-    <div className={style.nav_wrapper}>
+    <div
+      className={pathname === "/auth" ? style.nav_hidden : style.nav_wrapper}
+    >
       <nav className={style.nav_inside}>
         <div
           className={media ? style.burger_toggle : style.burger_menu}
@@ -64,7 +66,7 @@ function Navigation(): JSX.Element {
           <div className={style.burger_line3}></div>
         </div>
 
-        <Link to="/schedule">
+        <Link to="/">
           <img
             className={style.logo}
             src={`${logo}`}
@@ -96,4 +98,4 @@ function Navigation(): JSX.Element {
   );
 }
 
-export default Navigation;
+export default withRouter(Navigation);
