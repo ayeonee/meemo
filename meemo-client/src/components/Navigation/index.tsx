@@ -16,11 +16,11 @@ function Navigation(): JSX.Element {
       address: string;
     }[]
   >([
+    { name: "Home", menuId: 0, state: true, address: "" },
     { name: "To-Do List", menuId: 1, state: false, address: "todo" },
-    { name: "Schedule", menuId: 2, state: true, address: "schedule" },
+    { name: "Schedule", menuId: 2, state: false, address: "schedule" },
     { name: "Folders", menuId: 3, state: false, address: "folders" },
     { name: "Calendar", menuId: 4, state: false, address: "calendar" },
-    { name: "Dash Board", menuId: 5, state: false, address: "dashboard" },
   ]);
 
   const userName = localStorage.getItem("meemo-user-name");
