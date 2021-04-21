@@ -1,5 +1,6 @@
 import style from "../DashBoard.module.scss";
 import { noteData } from "./noteData";
+import ShowNoteInfo from "./showNoteData";
 
 type NoteInfo = {
   _id: string;
@@ -38,15 +39,15 @@ function RecentModify(): JSX.Element {
     <div className={style.recent_modify}>
       <div className={style.title}>Recent Modified Note</div>
       <div className={style.note_wrapper}>
-        <div>
-          {noteItem.map((item) => (
-            <div className={style.schedule_list}>
-              <b>{item.title}</b>
-              <p>{item.body}</p>
-              <small>최근 수정: {new Date(item.updatedAt).toLocaleString()}</small>
-            </div>
-          ))}
-        </div>
+        {
+          <ul>
+            {noteItem.map((item) => (
+              <li>
+                <ShowNoteInfo title={item.title} body={item.body} updatedAt={item.updatedAt} />
+              </li>
+            ))}
+          </ul>
+        }
       </div>
     </div>
   );

@@ -70,6 +70,17 @@
         height: 350px;
         background-color: azure;
         border-radius: 5px;
+
+        .note_wrapper {
+          width: 80%;
+          height: 60%;
+          background-color: $green_grade_2;
+          margin-top: auto;
+          margin-bottom: 10%;
+          border-radius: 5px;
+          display: flex;
+          @include align_center;
+        }
       }
     }
   }
