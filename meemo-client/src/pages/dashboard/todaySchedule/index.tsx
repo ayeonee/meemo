@@ -2,6 +2,7 @@ import style from "../DashBoard.module.scss";
 import { ScheduleData } from "./scheduleData";
 
 type ScheduleInfo = {
+  id: number;
   name: string;
   place: string;
   startHour: number;
@@ -19,6 +20,7 @@ function TodaySchedule(): JSX.Element {
     item.schedule.forEach((scheduleItem) => {
       if (scheduleItem.date === today) {
         scheduleInfo.push({
+          id: item.id,
           name: item.name,
           place: item.place,
           startHour: scheduleItem.startHour,
@@ -56,7 +58,7 @@ function TodaySchedule(): JSX.Element {
         ) : (
           <div>
             {scheduleInfo.map((item) => (
-              <div className={style.schedule_list}>
+              <div className={style.schedule_list} key={item.id}>
                 <b>{item.name}</b>
                 <p>{item.place}</p>
                 <p>
