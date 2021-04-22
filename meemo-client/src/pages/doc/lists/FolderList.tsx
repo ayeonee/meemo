@@ -216,7 +216,7 @@ export default function FolderList(): JSX.Element {
           </div>
 
           <div className={style.toolDiv}>
-            <button
+            <div
               className={delBtn ? style.renameBtn : style.hideRenameBtn}
               id={`noDeselect`}
               onClick={() => {
@@ -225,8 +225,10 @@ export default function FolderList(): JSX.Element {
               }}
             >
               <Create className={style.renameIcon} />
-            </button>
-            <button
+              &nbsp; 수정 &nbsp;
+            </div>
+
+            <div
               className={style.addBtn}
               id={`noDeselect`}
               onClick={() => {
@@ -234,9 +236,9 @@ export default function FolderList(): JSX.Element {
                 setShowPopup(!showPopup);
               }}
             >
-              <Add className={style.addIcon} />
-            </button>
-            <button
+              + &nbsp; 폴더 추가 &nbsp;
+            </div>
+            <div
               className={delBtn ? style.deleteBtn : style.hideDelBtn}
               id={`noDeselect`}
               onClick={() => {
@@ -244,7 +246,8 @@ export default function FolderList(): JSX.Element {
               }}
             >
               <Delete className={style.deleteIcon} />
-            </button>
+              &nbsp; 삭제 &nbsp;
+            </div>
           </div>
         </>
       )}
