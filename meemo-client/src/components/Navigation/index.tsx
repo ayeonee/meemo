@@ -44,7 +44,7 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
           alert("failed");
         }
       })
-      .then(() => (document.location.href = "/"));
+      .then(() => (document.location.href = "/auth"));
   };
 
   const onClickBurger = () => {
