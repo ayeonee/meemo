@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import NavItem from "./NavItem";
@@ -7,28 +7,27 @@ import removeLocalStorage from "../../hooks/removeLocalStorage";
 import style from "./Navigation.module.scss";
 
 function Navigation({ location: { pathname } }: any): JSX.Element {
+  const userName = localStorage.getItem("meemo-user-name");
+
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {
       name: string;
-      menuId: number;
       state: boolean;
       address: string;
     }[]
   >([
-    { name: "Home", menuId: 0, state: true, address: "/" },
-    { name: "To-Do List", menuId: 1, state: false, address: "/todo" },
-    { name: "Schedule", menuId: 2, state: false, address: "/schedule" },
-    { name: "Folders", menuId: 3, state: false, address: "/folders" },
-    { name: "Calendar", menuId: 4, state: false, address: "/calendar" },
+    { name: "Home", state: true, address: "/" },
+    { name: "To-Do List", state: false, address: "/todo" },
+    { name: "Schedule", state: false, address: "/schedule" },
+    { name: "Folders", state: false, address: "/folders" },
+    { name: "Calendar", state: false, address: "/calendar" },
   ]);
 
-  const userName = localStorage.getItem("meemo-user-name");
-
-  const handleNavColor = (menuId: number) => {
+  const handleNavColor = (address: string) => {
     setMenuColor(
       menuColor.map((elem) =>
-        elem.menuId === menuId
+        elem.address === address
           ? { ...elem, state: true }
           : { ...elem, state: false }
       )
@@ -52,6 +51,10 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
     media ? setMedia(false) : setMedia(true);
   };
 
+  useEffect(() => {
+    handleNavColor(pathname);
+  }, [pathname]);
+
   return (
     <div
       className={pathname === "/auth" ? style.nav_hidden : style.nav_wrapper}
@@ -71,7 +74,7 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
             className={style.logo}
             src={`${logo}`}
             alt="logo"
-            onClick={() => handleNavColor(2)}
+            onClick={() => handleNavColor("/")}
           />
         </Link>
 
@@ -81,7 +84,8 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
               <NavItem
                 data={data}
                 handleNavColor={handleNavColor}
-                key={data.menuId}
+                key={data.address}
+                offNav={() => setMedia(false)}
               />
             ))}
           </div>

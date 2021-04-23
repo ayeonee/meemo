@@ -4,20 +4,22 @@ import style from "./Navigation.module.scss";
 interface NavProps {
   data: {
     name: string;
-    menuId: number;
     state: boolean;
     address: string;
   };
 
   handleNavColor: Function;
+  offNav: Function;
 }
 
-function NavItem({ data, handleNavColor }: NavProps): JSX.Element {
-  const { name, menuId, state, address } = data;
+function NavItem({ data, handleNavColor, offNav }: NavProps): JSX.Element {
+  const { name, state, address } = data;
 
   const handleOnOff = () => {
-    handleNavColor(menuId);
+    handleNavColor(address);
+    offNav();
   };
+
   return (
     <Link
       to={`${address}`}

@@ -22,7 +22,8 @@
       justify-content: flex-start;
       width: 100%;
 
-      .folders {
+      .folders,
+      .foldersSelected {
         border: solid 1px $green_grade_3;
         border-radius: 5px;
         margin: 5px;
@@ -32,7 +33,9 @@
         justify-content: center;
         width: 150px;
         height: 150px;
+      }
 
+      .folders {
         .iconDiv {
           height: 60px;
           width: 60px;
@@ -64,15 +67,6 @@
 
       .foldersSelected {
         background-color: $green_grade_3;
-        border: solid 1px $green_grade_3;
-        border-radius: 5px;
-        margin: 5px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 150px;
-        height: 150px;
 
         &:focus {
           outline: none;
@@ -168,4 +162,10 @@
       display: none;
     }
   }
+}
+
+@include over1100 {
+}
+
+@include under1100 {
 }
