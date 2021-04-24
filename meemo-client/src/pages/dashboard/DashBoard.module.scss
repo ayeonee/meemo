@@ -30,6 +30,8 @@
         color: $green_grade_5;
       }
 
+      /*today schedule style*/
+
       .today_schedule {
         @include flex_col;
         align-items: center;
@@ -63,6 +65,8 @@
         }
       }
 
+      /*recent modify style*/
+
       .recent_modify {
         @include flex_col;
         align-items: center;
@@ -72,14 +76,78 @@
         border-radius: 5px;
 
         .note_wrapper {
-          width: 80%;
-          height: 60%;
+          width: 85%;
+          height: 70%;
           background-color: $green_grade_2;
           margin-top: auto;
-          margin-bottom: 10%;
+          margin-bottom: 5%;
           border-radius: 5px;
-          display: flex;
-          @include align_center;
+          @include flex_col;
+          justify-content: space-evenly;
+
+          /*show note info style*/
+          .note_container {
+            display: flex;
+            justify-content: center;
+
+            .note_div {
+              display: flex;
+              background-color: azure;
+              border: solid 2px $green_grade_2;
+              border-radius: 10px;
+              width: 95%;
+              height: 50px;
+
+              .icon_div {
+                height: 100%;
+                width: 50px;
+                pointer-events: none;
+
+                .note_icon {
+                  color: $green_grade_5;
+
+                  width: 30px;
+                  height: 30px;
+
+                  margin-top: 10px;
+                  margin-left: 10px;
+
+                  pointer-events: none;
+                }
+              }
+
+              .title_div {
+                margin: auto;
+                margin-left: 1%;
+                pointer-events: none;
+                p {
+                  font-size: 17px;
+                  pointer-events: none;
+                }
+              }
+
+              .time_div {
+                margin-right: 5px;
+                display: flex;
+                align-items: center;
+
+                pointer-events: none;
+                small {
+                  font-size: 7px;
+                  color: black;
+
+                  pointer-events: none;
+                }
+              }
+
+              @media (max-width: 768px) {
+                .icon_div,
+                .time_div small {
+                  display: none;
+                }
+              }
+            }
+          }
         }
       }
     }

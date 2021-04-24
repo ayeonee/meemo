@@ -1,5 +1,5 @@
 import style from "../DashBoard.module.scss";
-import ShowNoteInfo from "./showNoteData";
+import { Notes } from "@material-ui/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -35,7 +35,7 @@ function RecentModify(): JSX.Element {
       parentId: item.parentId,
       createdAt: item.createdAt,
       //최근 업데이트 시간 비교 위해 변환
-      updatedAt: item.updatedAt.substr(0, 19).replace(/:|-|T/g, ""),
+      updatedAt: item.updatedAt.substr(0, 19).replace(/T/g, " "),
     });
   });
 
@@ -48,13 +48,27 @@ function RecentModify(): JSX.Element {
       <div className={style.title}>Recent Modified Note</div>
       <div className={style.note_wrapper}>
         {
-          <ul>
-            {noteItem.map((item, index) => (
-              <li>
-                <ShowNoteInfo title={item.title} body={item.body} updatedAt={item.updatedAt} />
-              </li>
-            ))}
-          </ul>
+          <>
+            {noteItem.map((item, index) => {
+              if (index < 4) {
+                return (
+                  <div className={style.note_container}>
+                    <div className={style.note_div}>
+                      <div className={style.icon_div}>
+                        <Notes className={style.note_icon} />
+                      </div>
+                      <div className={style.title_div}>
+                        <p>{item.title}</p>
+                      </div>
+                      <div className={style.time_div}>
+                        <small>최근 수정: {item.updatedAt}</small>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+          </>
         }
       </div>
     </div>
