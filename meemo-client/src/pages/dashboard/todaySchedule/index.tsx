@@ -1,8 +1,8 @@
 import style from "../DashBoard.module.scss";
 import { ScheduleData } from "./scheduleData";
-import ShowScheduleInfo from "./showScheduleInfo";
 
 type ScheduleInfo = {
+  id: number;
   name: string;
   place: string;
   startHour: number;
@@ -11,17 +11,16 @@ type ScheduleInfo = {
   endMin: number;
 };
 
-type ScheduleInfoArray = Array<ScheduleInfo>;
-
 function TodaySchedule(): JSX.Element {
   const date = new Date();
   const today = date.getDay(); //일:0~토:6
-  const scheduleInfo: ScheduleInfoArray = [];
+  const scheduleInfo: ScheduleInfo[] = [];
 
   ScheduleData.forEach((item) => {
     item.schedule.forEach((scheduleItem) => {
       if (scheduleItem.date === today) {
         scheduleInfo.push({
+          id: item.id,
           name: item.name,
           place: item.place,
           startHour: scheduleItem.startHour,
@@ -57,20 +56,17 @@ function TodaySchedule(): JSX.Element {
         {scheduleInfo.length === 0 ? (
           <p>오늘은 일정이 없습니다.</p>
         ) : (
-          <ul className={style.schedule_list}>
+          <div>
             {scheduleInfo.map((item) => (
-              <li>
-                <ShowScheduleInfo
-                  name={item.name}
-                  place={item.place}
-                  startHour={item.startHour}
-                  startMin={item.startMin}
-                  endHour={item.endHour}
-                  endMin={item.endMin}
-                />
-              </li>
+              <div className={style.schedule_list} key={item.id}>
+                <b>{item.name}</b>
+                <p>{item.place}</p>
+                <p>
+                  {item.startHour}:{item.startMin} ~ {item.endHour}:{item.endMin}
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>
