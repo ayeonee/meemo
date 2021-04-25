@@ -1,7 +1,8 @@
-import style from "../DashBoard.module.scss";
-import { Notes } from "@material-ui/icons";
 import { useState, useEffect } from "react";
+import style from "../DashBoard.module.scss";
 import axios from "axios";
+import moment from "moment";
+import { Notes } from "@material-ui/icons";
 
 type NoteInfo = {
   _id: string;
@@ -35,7 +36,7 @@ function RecentModify(): JSX.Element {
       parentId: item.parentId,
       createdAt: item.createdAt,
       //최근 업데이트 시간 비교 위해 변환
-      updatedAt: item.updatedAt.substr(0, 19).replace(/T/g, " "),
+      updatedAt: moment(item.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     });
   });
 

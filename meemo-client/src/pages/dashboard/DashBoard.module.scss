@@ -102,15 +102,15 @@
                 height: 100%;
                 width: 50px;
                 pointer-events: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
                 .note_icon {
                   color: $green_grade_5;
 
                   width: 30px;
                   height: 30px;
-
-                  margin-top: 10px;
-                  margin-left: 10px;
 
                   pointer-events: none;
                 }
