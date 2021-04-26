@@ -150,6 +150,28 @@
           }
         }
       }
+
+      /* To do List*/
+      .todo_list {
+        @include flex_col;
+        align-items: center;
+        width: 60%;
+        height: 350px;
+        background-color: azure;
+        border-radius: 5px;
+        margin-top: 2%;
+      }
+
+      /* User Graph */
+      .user_graph {
+        @include flex_col;
+        align-items: center;
+        width: 35%;
+        height: 350px;
+        background-color: azure;
+        border-radius: 5px;
+        margin-top: 2%;
+      }
     }
   }
 }
