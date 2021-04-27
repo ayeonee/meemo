@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import style from "../DashBoard.module.scss";
 import axios from "axios";
 import moment from "moment";
@@ -13,8 +14,18 @@ type NoteInfo = {
   updatedAt: string;
 };
 
+type FolderInfo = {
+  _id: string;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+};
+
 function RecentModify(): JSX.Element {
   const [notes, setNotes] = useState<NoteInfo[]>([]);
+  const [folders, setFolders] = useState<FolderInfo[]>([]);
+
+  const history = useHistory();
 
   async function getNoteData() {
     await axios.get("https://meemo.kr/api/notes").then((response) => {
@@ -22,8 +33,15 @@ function RecentModify(): JSX.Element {
     });
   }
 
+  async function getFolderData() {
+    await axios.get("https://meemo.kr/api/folders").then((response) => {
+      setFolders(response.data);
+    });
+  }
+
   useEffect(() => {
     getNoteData();
+    getFolderData();
   }, []);
 
   const noteItem: NoteInfo[] = [];
@@ -44,6 +62,17 @@ function RecentModify(): JSX.Element {
     return a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0;
   });
 
+  const onClick = (parentId: string, noteId: string) => {
+    for (let i = 0; i < folders.length; i++) {
+      if (folders[i]._id === parentId) {
+        history.push({
+          pathname: `folders/${folders[i].title}/${noteId}`,
+        });
+        break;
+      }
+    }
+  };
+
   return (
     <div className={style.recent_modify}>
       <div className={style.title}>Recent Modified Note</div>
@@ -54,7 +83,10 @@ function RecentModify(): JSX.Element {
               if (index < 4) {
                 return (
                   <div className={style.note_container}>
-                    <div className={style.note_div}>
+                    <div
+                      className={style.note_div}
+                      onClick={() => onClick(item.parentId, item._id)}
+                    >
                       <div className={style.icon_div}>
                         <Notes className={style.note_icon} />
                       </div>

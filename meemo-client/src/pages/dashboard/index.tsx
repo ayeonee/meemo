@@ -1,6 +1,8 @@
 import style from "./DashBoard.module.scss";
 import TodaySchedule from "./todaySchedule";
 import RecentModify from "./recentModify";
+import TodoList from "./todoList";
+import UserGraph from "./userGraph";
 
 export default function DashBoardPage(): JSX.Element {
   return (
@@ -11,8 +13,8 @@ export default function DashBoardPage(): JSX.Element {
           <RecentModify />
         </div>
         <div className={style.line_two}>
-          <p>해야 할 일</p>
-          <p>그래프</p>
+          <TodoList />
+          <UserGraph />
         </div>
       </div>
     </div>

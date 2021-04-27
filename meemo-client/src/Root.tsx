@@ -24,15 +24,13 @@ function Root(): JSX.Element {
         <Route component={Auth(SchedulePage, true)} path="/schedule" exact />
         <Route component={Auth(FolderPage, true)} path="/folders" exact />
         <Route component={Auth(CalendarPage, true)} path="/calendar" exact />
-
         {/* <Route component={Auth(AuthPage, null)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, null)} path="/" exact />
         <Route component={Auth(CalendarPage, null)} path="/calendar" exact />
         <Route component={Auth(SchedulePage, null)} path="/schedule" exact />
         <Route component={Auth(TodoPage, null)} path="/todo" exact />
-        <Route component={Auth(FolderPage, null)} path="/folders" exact /> 
-        // 로컬테스트때 사용
-        */}
+        <Route component={Auth(FolderPage, null)} path="/folders" exact />
+        // 로컬테스트때 사용 */}
       </Switch>
     </BrowserRouter>
   );
