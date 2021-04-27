@@ -160,6 +160,7 @@ export default function FolderList(): JSX.Element {
   };
 
   const onSelect = (folder: any) => {
+    console.log(url, folder.title);
     selectedFolder === folder._id
       ? history.push({
           pathname: `${url}/${folder.title}`,
