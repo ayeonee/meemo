@@ -1,14 +1,20 @@
 import { Dispatch, createContext, useReducer, useContext } from "react";
+import axios from "axios";
 import { Todo } from "../../_types/todoTypes";
 
-type Action =
-  | { type: "CREATE"; schedule: string }
-  | { type: "TOGGLE"; id: number }
-  | { type: "RESET" }
-  | { type: "REMOVE"; id: number };
+// const BASE_URL = "https://meemo.kr/api";
+const BASE_URL = "http://localhost:5000/api";
 
-type TodoState = Array<Todo>;
-type TodoDispatch = Dispatch<Action>;
+const saveTodo = (dataToSubmit: { userId: string | null; payload: Todo[] }) => {
+  axios({
+    method: "POST",
+    baseURL: BASE_URL,
+    url: "/save/todo",
+    data: dataToSubmit,
+  })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 const TodoStateContext = createContext<TodoState | undefined>(undefined);
 const TodoDispatchContext = createContext<TodoDispatch | undefined>(undefined);
@@ -17,10 +23,18 @@ const todoReducer = (state: TodoState, action: Action) => {
   switch (action.type) {
     case "CREATE":
       const nextId = Math.max(-1, ...state.map((elem) => elem.id)) + 1;
-      return [
+      const resultArray = [
         ...state,
         { id: nextId, schedule: action.schedule, checked: false },
       ];
+      const payloadData = {
+        userId: localStorage.getItem("meemo-user-id"),
+        payload: resultArray,
+      };
+
+      saveTodo(payloadData);
+
+      return resultArray;
 
     case "REMOVE":
       return state.filter((elem) => elem.id !== action.id);
@@ -65,3 +79,12 @@ export const useTodoDispatch = () => {
   if (!dispatch) throw new Error("TodoDispatchContext not found");
   return dispatch;
 };
+
+type Action =
+  | { type: "CREATE"; schedule: string }
+  | { type: "TOGGLE"; id: number }
+  | { type: "RESET" }
+  | { type: "REMOVE"; id: number };
+
+type TodoState = Array<Todo>;
+type TodoDispatch = Dispatch<Action>;

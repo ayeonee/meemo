@@ -7,6 +7,7 @@ const https = require("https");
 const fs = require("fs");
 const app = express();
 const { User } = require("./models/User");
+const { Todo } = require("./models/Todo");
 const { auth } = require("./middleware/auth");
 const { OAuth2Client } = require("google-auth-library");
 
@@ -40,13 +41,22 @@ mongoose
 //     console.log(`Server is running on port: ${443}`);
 //   });
 
-//////////////////////////////login server/////////////////////////////
-
 app.post("/api/users/register", (req, res) => {
   const user = new User(req.body);
 
   user.save((err, userInfo) => {
     if (err) return res.json({ success: false, err });
+    return res.status(200).json({
+      success: true,
+    });
+  });
+});
+
+app.post("/api/save/todo", (req, res) => {
+  const todo = new Todo(req.body);
+
+  todo.save((err, todo) => {
+    if (err) return res.json({ save: false, err });
     return res.status(200).json({
       success: true,
     });
@@ -172,11 +182,11 @@ app.post("/api/users/auth/kakao", (req, res) => {
 const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");
 const foldersRouter = require("./routes/folders");
-const storageRouter = require("./routes/storage");
+// const storageRouter = require("./routes/storage");
 
 app.use("/api/notes", notesRouter);
 app.use("/api/folders", foldersRouter);
-app.use("/api/s3", storageRouter);
+// app.use("/api/s3", storageRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
