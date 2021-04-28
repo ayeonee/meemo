@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouteMatch, useHistory } from "react-router-dom";
+import { useRouteMatch, useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import { Add, Delete, FolderOpen, Create } from "@material-ui/icons";
 import style from "../styles/FolderList.module.scss";
@@ -160,7 +160,6 @@ export default function FolderList(): JSX.Element {
   };
 
   const onSelect = (folder: any) => {
-    console.log(url, folder.title);
     selectedFolder === folder._id
       ? history.push({
           pathname: `${url}/${folder.title}`,
