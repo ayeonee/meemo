@@ -5,12 +5,15 @@ import { Todo } from "../../_types/todoTypes";
 // const BASE_URL = "https://meemo.kr/api";
 const BASE_URL = "http://localhost:5000/api";
 
-const saveTodo = (dataToSubmit: { userId: string | null; payload: Todo[] }) => {
+const saveTodo = (payloadData: Todo[] | null) => {
   axios({
     method: "POST",
     baseURL: BASE_URL,
     url: "/save/todo",
-    data: dataToSubmit,
+    data: {
+      userId: localStorage.getItem("meemo-user-id"),
+      payload: payloadData,
+    },
   })
     .then((res) => res.data)
     .catch((err) => console.log(err));
@@ -23,28 +26,30 @@ const todoReducer = (state: TodoState, action: Action) => {
   switch (action.type) {
     case "CREATE":
       const nextId = Math.max(-1, ...state.map((elem) => elem.id)) + 1;
-      const resultArray = [
+      const createArray = [
         ...state,
         { id: nextId, schedule: action.schedule, checked: false },
       ];
-      const payloadData = {
-        userId: localStorage.getItem("meemo-user-id"),
-        payload: resultArray,
-      };
 
-      saveTodo(payloadData);
-
-      return resultArray;
+      saveTodo(createArray);
+      return createArray;
 
     case "REMOVE":
-      return state.filter((elem) => elem.id !== action.id);
+      const removedArray = state.filter((elem) => elem.id !== action.id);
+
+      saveTodo(removedArray);
+      return removedArray;
 
     case "TOGGLE":
-      return state.map((elem) =>
+      const toggleArray = state.map((elem) =>
         elem.id === action.id ? { ...elem, checked: !elem.checked } : elem
       );
 
+      saveTodo(toggleArray);
+      return toggleArray;
+
     case "RESET":
+      saveTodo(null);
       return [];
 
     default:

@@ -52,17 +52,6 @@ app.post("/api/users/register", (req, res) => {
   });
 });
 
-app.post("/api/save/todo", (req, res) => {
-  const todo = new Todo(req.body);
-
-  todo.save((err, todo) => {
-    if (err) return res.json({ save: false, err });
-    return res.status(200).json({
-      success: true,
-    });
-  });
-});
-
 app.post("/api/users/login", (req, res) => {
   User.findOne({ userId: req.body.userId }, (err, user) => {
     if (!user) {
@@ -175,6 +164,30 @@ app.post("/api/users/auth/kakao", (req, res) => {
           name: user.name,
         });
       });
+    }
+  );
+});
+
+app.post("/api/save/todo", (req, res) => {
+  const todo = new Todo(req.body);
+
+  Todo.findOneAndUpdate(
+    { userId: req.body.userId },
+    { payload: req.body.payload },
+    (err, user) => {
+      if (!user) {
+        todo.save((err, todo) => {
+          if (err) return res.json({ save: false, err });
+
+          return res.status(200).json({
+            save: true,
+          });
+        });
+      } else {
+        return res.status(200).json({
+          update: true,
+        });
+      }
     }
   );
 });
