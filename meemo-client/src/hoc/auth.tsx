@@ -19,13 +19,11 @@ function Auth(Component: any, option: null | false | true) {
           //로컬에 남아있는 유저정보 삭제
           removeLocalStorage();
 
-          //로그인 하지 않은상태
-          if (option === false) {
+          if (option === true) {
             document.location.href = "/auth";
           }
         } else {
-          // 로그인 한 상태
-          if (option === true) {
+          if (option === false) {
             history.push("/");
           }
         }

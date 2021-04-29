@@ -7,8 +7,8 @@ import {
 } from "./types";
 import axios from "axios";
 
-// const BASE_URL = "https://meemo.kr/api";
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://meemo.kr/api";
+// const BASE_URL = "http://localhost:5000/api";
 
 export const registerUser = (dataToSubmit: {
   userId: string;
