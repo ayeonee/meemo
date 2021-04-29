@@ -20,12 +20,12 @@ function Auth(Component: any, option: null | false | true) {
           removeLocalStorage();
 
           //로그인 하지 않은상태
-          if (option === true) {
+          if (option === false) {
             document.location.href = "/auth";
           }
         } else {
           // 로그인 한 상태
-          if (option === false) {
+          if (option === true) {
             history.push("/");
           }
         }
