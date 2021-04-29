@@ -27,7 +27,7 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
   const handleNavColor = (address: string) => {
     setMenuColor(
       menuColor.map((elem) =>
-        elem.address === address
+        elem.address.substring(0, 5) === address.substring(0, 5)
           ? { ...elem, state: true }
           : { ...elem, state: false }
       )

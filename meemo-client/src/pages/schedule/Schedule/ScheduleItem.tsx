@@ -24,8 +24,8 @@ function ScheduleItem({
   const { date, startHour, startMin, endHour, endMin } = scheduleItem;
   const datePosition = 82 + 96 * (date - 1);
   const scheduleTime = (endHour - startHour) * 60 + (endMin - startMin);
-  const timeStart = 40 + 72 * (startHour - 8) + startMin * 1.2;
-  const timeHeight = scheduleTime * 1.2 - 11;
+  const timeStart = 39 + 72 * (startHour - 8) + startMin * 1.2;
+  const timeHeight = scheduleTime * 1.2 - 5;
   const color = id % 6;
 
   const showDelButton = useCallback(() => {
@@ -53,7 +53,7 @@ function ScheduleItem({
         left: `${datePosition}px`,
         top: `${timeStart}px`,
         height: `${timeHeight}px`,
-        borderColor: `#${colorCode[color]}`,
+        borderLeft: `4px solid #${colorCode[color]}`,
       }}
       onMouseOver={showDelButton}
       onMouseOut={showDelButton}
