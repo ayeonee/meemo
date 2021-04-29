@@ -192,6 +192,25 @@ app.post("/api/save/todo", (req, res) => {
   );
 });
 
+app.post("/api/get/todo", (req, res) => {
+  console.log(req);
+  Todo.findOne({ userId: req.body.userId }, (err, todoInfo) => {
+    if (!todoInfo) {
+      console.log("search fail");
+
+      return res.json({
+        find: false,
+        payload: [],
+      });
+    } else {
+      return res.status(200).json({
+        find: true,
+        payload: todoInfo.payload,
+      });
+    }
+  });
+});
+
 const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");
 const foldersRouter = require("./routes/folders");

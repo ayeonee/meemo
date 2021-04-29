@@ -52,6 +52,9 @@ const todoReducer = (state: TodoState, action: Action) => {
       saveTodo(null);
       return [];
 
+    case "MOUNT":
+      return action.todoData;
+
     default:
       throw new Error("Unhandled action");
   }
@@ -89,7 +92,8 @@ type Action =
   | { type: "CREATE"; schedule: string }
   | { type: "TOGGLE"; id: number }
   | { type: "RESET" }
-  | { type: "REMOVE"; id: number };
+  | { type: "REMOVE"; id: number }
+  | { type: "MOUNT"; todoData: Todo[] };
 
 type TodoState = Array<Todo>;
 type TodoDispatch = Dispatch<Action>;
