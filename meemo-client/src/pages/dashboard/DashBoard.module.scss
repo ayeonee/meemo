@@ -12,7 +12,7 @@
     min-height: 630px;
     height: fit-content;
     margin-top: 12vh;
-    padding: 10px 10px;
+    padding: 15px 0;
 
     background-color: $green_grade_1;
     border-radius: 2px;
@@ -23,20 +23,22 @@
       justify-content: space-evenly;
       width: 100%;
 
+      .title {
+        font-size: 28px;
+        font-weight: 500;
+        margin-top: 20px;
+        color: $green_grade_5;
+      }
+
+      /*today schedule style*/
+
       .today_schedule {
         @include flex_col;
         align-items: center;
-        width: 30%;
+        width: 35%;
         height: 350px;
         background-color: azure;
         border-radius: 5px;
-
-        .title {
-          font-size: 28px;
-          font-weight: 500;
-          margin-top: 10%;
-          color: $green_grade_5;
-        }
 
         .today_info {
           font-size: 18px;
@@ -55,12 +57,121 @@
         }
 
         .schedule_list {
-          list-style: none;
-
-          li {
-            margin-bottom: 10px;
+          margin: 10px;
+          b,
+          p {
+            margin: 3px 0;
           }
         }
+      }
+
+      /*recent modify style*/
+
+      .recent_modify {
+        @include flex_col;
+        align-items: center;
+        width: 60%;
+        height: 350px;
+        background-color: azure;
+        border-radius: 5px;
+
+        .note_wrapper {
+          width: 85%;
+          height: 70%;
+          background-color: $green_grade_2;
+          margin-top: auto;
+          margin-bottom: 5%;
+          border-radius: 5px;
+          @include flex_col;
+          justify-content: space-evenly;
+
+          /*show note info style*/
+          .note_container {
+            display: flex;
+            justify-content: center;
+
+            .note_div {
+              display: flex;
+              background-color: azure;
+              border: solid 2px $green_grade_2;
+              border-radius: 10px;
+              width: 95%;
+              height: 50px;
+              cursor: pointer;
+
+              .icon_div {
+                height: 100%;
+                width: 50px;
+                pointer-events: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .note_icon {
+                  color: $green_grade_5;
+
+                  width: 30px;
+                  height: 30px;
+
+                  pointer-events: none;
+                }
+              }
+
+              .title_div {
+                margin: auto;
+                margin-left: 1%;
+                pointer-events: none;
+                p {
+                  font-size: 17px;
+                  pointer-events: none;
+                }
+              }
+
+              .time_div {
+                margin-right: 5px;
+                display: flex;
+                align-items: center;
+
+                pointer-events: none;
+                small {
+                  font-size: 7px;
+                  color: black;
+
+                  pointer-events: none;
+                }
+              }
+
+              @media (max-width: 768px) {
+                .icon_div,
+                .time_div small {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      /* To do List*/
+      .todo_list {
+        @include flex_col;
+        align-items: center;
+        width: 60%;
+        height: 350px;
+        background-color: azure;
+        border-radius: 5px;
+        margin-top: 2%;
+      }
+
+      /* User Graph */
+      .user_graph {
+        @include flex_col;
+        align-items: center;
+        width: 35%;
+        height: 350px;
+        background-color: azure;
+        border-radius: 5px;
+        margin-top: 2%;
       }
     }
   }

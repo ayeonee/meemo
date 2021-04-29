@@ -11,8 +11,8 @@ function TodoList(): JSX.Element {
   const dispatch = useTodoDispatch();
   const [todoList, setTodoList] = useState<Todo[]>([]);
 
-  // const BASE_URL = "https://meemo.kr/api";
-  const BASE_URL = "http://localhost:5000/api";
+  const BASE_URL = "https://meemo.kr/api";
+  // const BASE_URL = "http://localhost:5000/api";
   const getTodo = async (userId: string | null) => {
     await axios({
       method: "POST",

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouteMatch, useHistory } from "react-router-dom";
+import { useRouteMatch, useHistory, useParams } from "react-router-dom";
 import style from "../styles/NoteList.module.scss";
 import axios from "axios";
 import { Add, Delete, Notes, Create } from "@material-ui/icons";
@@ -30,6 +30,7 @@ export default function NoteList() {
   const [update, setUpdate] = useState(false);
 
   const [noteTitle, setNoteTitle] = useState("");
+  const [parentId, setParentId] = useState("");
 
   const [popupType, setPopupType] = useState("");
   const [showPopup, setShowPopup] = useState(false);
@@ -38,11 +39,11 @@ export default function NoteList() {
   const [isLoading, setIsLoading] = useState(true);
 
   let { url } = useRouteMatch();
+  let { folderTitle }: any = useParams();
 
   // passing note information into Editor component
   let history = useHistory<any>();
-
-  const parentId = history.location.state.folderId;
+  let source = axios.CancelToken.source();
 
   // if element doesnt have noDeselect as id, deselect upon click
   useEffect(() => {
@@ -62,8 +63,26 @@ export default function NoteList() {
     };
   }, []);
 
+  const getParentId = async () => {
+    try {
+      const res = await axios.get("https://meemo.kr/api/folders", {
+        cancelToken: source.token,
+      });
+      res.data.forEach((folder: any) => {
+        if (folder.title === folderTitle) {
+          setParentId(folder._id);
+        }
+      });
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        console.log("Caught a cancel.");
+      } else {
+        throw err;
+      }
+    }
+  };
+
   useEffect(() => {
-    let source = axios.CancelToken.source();
     let temp: any[] = [];
 
     const loadNotes = async () => {
@@ -71,7 +90,6 @@ export default function NoteList() {
         const res = await axios.get("https://meemo.kr/api/notes", {
           cancelToken: source.token,
         });
-        console.log("Got the notes!");
         res.data.forEach((note: any) => {
           if (note.parentId === parentId) {
             temp.push(note);
@@ -87,11 +105,15 @@ export default function NoteList() {
         }
       }
     };
-    loadNotes();
+    getParentId()
+      .then(loadNotes)
+      .then(() => setUpdate(true))
+      .then(() => console.log("Got the notes!"));
 
     return () => {
       console.log("Unmounting NoteList.");
       source.cancel();
+      clearTimeout();
     };
   }, [update]);
 
@@ -160,8 +182,8 @@ export default function NoteList() {
       ? history.push({
           pathname: `${url}/${note._id}`,
           state: {
-            folderId: history.location.state.folderId,
-            folderTitle: history.location.state.folderTitle,
+            folderId: note.parentId,
+            folderTitle: folderTitle,
             id: note._id,
             title: note.title,
             body: note.body,
@@ -186,9 +208,9 @@ export default function NoteList() {
   return (
     <div className={style.noteList}>
       <RouteShow
-        folderId={parentId}
+        folderId={""}
         type="notelist"
-        folderTitle={history.location.state.folderTitle}
+        folderTitle={folderTitle}
         noteTitle=""
       />
       {isLoading ? (

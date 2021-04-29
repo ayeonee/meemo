@@ -2,8 +2,8 @@ import { Dispatch, createContext, useReducer, useContext } from "react";
 import axios from "axios";
 import { Todo } from "../../_types/todoTypes";
 
-// const BASE_URL = "https://meemo.kr/api";
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://meemo.kr/api";
+// const BASE_URL = "http://localhost:5000/api";
 
 const saveTodo = (payloadData: Todo[] | null) => {
   axios({
