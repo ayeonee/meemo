@@ -28,22 +28,29 @@ type CalendarModalProps = {
 export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const { toggleModal, selectInfo } = props;
 
-  const [title, setTitle] = useState<string>("");
-  const [allDay, setAllDay] = useState<boolean>(true);
+  const [title, setTitle] = useState<string>(selectInfo.title);
+  const [allDay, setAllDay] = useState<boolean>(selectInfo.allDay);
 
   const [startDate, setStartDate] = useState<string>(selectInfo.startStr);
   const [endDate, setEndDate] = useState<string>(selectInfo.endStr);
 
+  const [startTime, setStartTime] = useState<string>(selectInfo.startTime);
+  const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
+
   const [editorBody, setEditorBody] = useState<string>("");
 
   useEffect(() => {
-    console.log(selectInfo);
+    console.log(endDate);
   }, []);
 
   const submitApi = () => {
     const calApi = {
       title,
       allDay,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
       editorBody,
     };
     console.log(calApi);
@@ -89,13 +96,6 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
           </div>
           <div className={style.timeSetDiv}>
             <div className={style.checkboxDiv}>
-              {/* <p>종일</p>
-              <input
-                type="checkbox"
-                name="allDay"
-                checked={allDay}
-                onChange={(e: any) => setAllDay(e.target.checked)}
-              /> */}
               <FormControlLabel
                 control={
                   <Checkbox
@@ -117,12 +117,49 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                   label=""
                   type="date"
                   defaultValue={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
               </form>
+              {allDay ? null : (
+                <form className={style.container} noValidate>
+                  <TextField
+                    className={style.fromTimeSelector}
+                    id="fromTime"
+                    label=""
+                    type="time"
+                    defaultValue={startTime || "00:00"}
+                    onChange={(e) => setStartTime(e.target.value)}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      step: 300, // 5 min
+                    }}
+                  />
+                </form>
+              )}
               <p>&#8212;</p>
+              {allDay ? null : (
+                <form className={style.container} noValidate>
+                  <TextField
+                    className={style.toTimeSelector}
+                    id="toTime"
+                    label=""
+                    type="time"
+                    defaultValue={endTime || "00:00"}
+                    onChange={(e) => setEndTime(e.target.value)}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      step: 300, // 5 min
+                    }}
+                  />
+                </form>
+              )}
               <form className={style.container} noValidate>
                 <TextField
                   className={style.toDateSelector}
@@ -130,6 +167,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                   label=""
                   type="date"
                   defaultValue={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -143,6 +181,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               readOnly={false}
               readOnlyWriteCheckboxes
               value={editorBody}
+              placeholder={"일정에 대한 메모를 적어보세요..."}
               // defaultValue={"testing"}
               scrollTo={window.location.hash}
               handleDOMEvents={

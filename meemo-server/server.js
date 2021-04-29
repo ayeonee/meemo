@@ -163,10 +163,12 @@ const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");
 const foldersRouter = require("./routes/folders");
 const storageRouter = require("./routes/storage");
+const calendarRouter = require("./routes/calendar");
 
 app.use("/api/notes", notesRouter);
 app.use("/api/folders", foldersRouter);
 app.use("/api/s3", storageRouter);
+app.use("/api/calendar", calendarRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

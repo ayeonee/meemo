@@ -7,10 +7,13 @@ import FullCalendar, {
   formatDate,
   EventInput,
 } from "@fullcalendar/react";
+import axios from "axios";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
+
+import style from "./styles/CalendarApp.module.scss";
 
 import CalendarModal from "./modals/CalendarModal";
 
@@ -20,38 +23,61 @@ interface CalendarState {
 }
 
 let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
+
 const eventt: EventInput[] = [
   {
-    id: createEventId(),
     title: "DongHo",
     start: todayStr,
     end: "2021-04-28",
   },
   {
-    id: createEventId(),
     title: "Yes",
     start: todayStr + "T16:30:00",
   },
 ];
 
-function renderEventContent(eventContent: EventContentArg) {
-  return (
-    <>
-      <b>{eventContent.timeText}</b>
-      {eventContent.event.title}
-    </>
-  );
-}
+// function renderEventContent(eventContent: EventContentArg) {
+//   return (
+//     <>
+//       <b>{eventContent.timeText}</b>
+//       {eventContent.event.title}
+//     </>
+//   );
+// }
 
 export default function CalendarApp(): JSX.Element {
   const [currentEvents, setCurrentEvents]: any[] = useState([]);
+
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const [selectInfo, setSelectInfo] = useState({});
 
-  // useEffect(() => {
-  //   console.log(eventt);
-  // }, []);
+  useEffect(() => {
+    let source = axios.CancelToken.source();
+
+    const loadEvents = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/calendar", {
+          cancelToken: source.token,
+        });
+        console.log("Got the folders!");
+        setCurrentEvents(res.data.map((cal: any) => cal));
+        // setIsLoading(false);
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          console.log("Caught a cancel.");
+        } else {
+          throw err;
+        }
+      }
+    };
+    loadEvents();
+
+    return () => {
+      console.log("Unmounting Calendar");
+      source.cancel();
+    };
+  }, []);
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -59,8 +85,17 @@ export default function CalendarApp(): JSX.Element {
 
   const getSelectInfo = (selInfo: DateSelectArg) => {
     const info = {
-      startStr: selInfo.startStr,
-      endStr: selInfo.endStr,
+      allDay: selInfo.allDay,
+      startStr: selInfo.startStr.split("T")[0],
+      endStr: selInfo.endStr.split("T")[0],
+      startTime:
+        selInfo.startStr.split("T")[1] === undefined
+          ? "00:00"
+          : selInfo.startStr.split("T")[1].substring(0, 5),
+      endTime:
+        selInfo.endStr.split("T")[1] === undefined
+          ? "00:00"
+          : selInfo.endStr.split("T")[1].substring(0, 5),
     };
     setSelectInfo(info);
     setShowModal(!showModal);
@@ -84,13 +119,24 @@ export default function CalendarApp(): JSX.Element {
   // };
 
   const handleEventClick = (clickInfo: EventClickArg) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`
-      )
-    ) {
-      clickInfo.event.remove();
-    }
+    console.log(clickInfo.event);
+    const info = {
+      title: clickInfo.event.title,
+      body: "",
+      allDay: clickInfo.event.allDay,
+      startStr: clickInfo.event.startStr.split("T")[0],
+      endStr: clickInfo.event.endStr.split("T")[0],
+      startTime:
+        clickInfo.event.startStr.split("T")[1] === undefined
+          ? "00:00"
+          : clickInfo.event.startStr.split("T")[1].substring(0, 5),
+      endTime:
+        clickInfo.event.endStr.split("T")[1] === undefined
+          ? "00:00"
+          : clickInfo.event.endStr.split("T")[1].substring(0, 5),
+    };
+    setSelectInfo(info);
+    setShowModal(!showModal);
   };
 
   // const handleEvents = (events: EventApi[]) => {
@@ -98,11 +144,11 @@ export default function CalendarApp(): JSX.Element {
   // };
 
   return (
-    <div className="app">
+    <div className={style.wrapper}>
       {showModal ? (
         <CalendarModal toggleModal={toggleModal} selectInfo={selectInfo} />
       ) : null}
-      <div className="app-main">
+      <div className={style.calendarDiv}>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
@@ -116,11 +162,11 @@ export default function CalendarApp(): JSX.Element {
           selectMirror={true}
           dayMaxEvents={true}
           weekends={true}
-          events={eventt}
+          events={currentEvents}
           // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
           select={getSelectInfo}
           //  select(dateOrObj: DateInput | any, endDate?: DateInput): void;
-          eventContent={renderEventContent} // custom render function
+          // eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
           // eventsSet={handleEvents} // called after events are initialized/added/changed/removed
           /* you can update a remote database when these fire:
