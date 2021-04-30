@@ -19,8 +19,8 @@ export default function SchedulePage(): JSX.Element {
       baseURL: BASE_URL,
       url: "/save/schedule",
       data: {
-        // userId: localStorage.getItem("meemo-user-id"),
-        userId: "test",
+        userId: localStorage.getItem("meemo-user-id"),
+        // userId: "test",
         payload: payloadData,
       },
     })
@@ -44,8 +44,8 @@ export default function SchedulePage(): JSX.Element {
   };
 
   useEffect(() => {
-    // getSchedule(localStorage.getItem("meemo-user-id"));
-    getSchedule("test");
+    getSchedule(localStorage.getItem("meemo-user-id"));
+    // getSchedule("test");
   }, []);
 
   useEffect(() => {
