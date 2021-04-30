@@ -5,14 +5,13 @@ import { useTodoState } from "../TodosContext";
 import { useTodoDispatch } from "../TodosContext";
 import { Todo } from "../../../_types/todoTypes";
 import style from "./TodoList.module.scss";
+import { BASE_URL } from "../../../_data/urlData";
 
 function TodoList(): JSX.Element {
   const todos = useTodoState();
   const dispatch = useTodoDispatch();
   const [todoList, setTodoList] = useState<Todo[]>([]);
 
-  const BASE_URL = "https://meemo.kr/api";
-  // const BASE_URL = "http://localhost:5000/api";
   const getTodo = async (userId: string | null) => {
     await axios({
       method: "POST",

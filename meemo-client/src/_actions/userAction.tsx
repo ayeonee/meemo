@@ -6,9 +6,7 @@ import {
   KLOGIN_USER,
 } from "./types";
 import axios from "axios";
-
-const BASE_URL = "https://meemo.kr/api";
-// const BASE_URL = "http://localhost:5000/api";
+import { BASE_URL } from "../_data/urlData";
 
 export const registerUser = (dataToSubmit: {
   userId: string;

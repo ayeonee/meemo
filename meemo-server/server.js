@@ -8,8 +8,10 @@ const fs = require("fs");
 const app = express();
 const { User } = require("./models/User");
 const { Todo } = require("./models/Todo");
+const { Schedule } = require("./models/Schedule");
 const { auth } = require("./middleware/auth");
 const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(process.env.GOOGLE_ID);
 
 require("dotenv").config();
 
@@ -103,8 +105,6 @@ app.get("/api/users/logout", auth, (req, res) => {
   });
 });
 
-const client = new OAuth2Client(process.env.GOOGLE_ID);
-
 app.post("/api/users/auth/google", async (req, res) => {
   const token = req.body.tokenId;
   const ticket = await client.verifyIdToken({
@@ -193,11 +193,8 @@ app.post("/api/save/todo", (req, res) => {
 });
 
 app.post("/api/get/todo", (req, res) => {
-  console.log(req);
   Todo.findOne({ userId: req.body.userId }, (err, todoInfo) => {
     if (!todoInfo) {
-      console.log("search fail");
-
       return res.json({
         find: false,
         payload: [],
@@ -211,14 +208,56 @@ app.post("/api/get/todo", (req, res) => {
   });
 });
 
+app.post("/api/save/schedule", (req, res) => {
+  const schedule = new Schedule(req.body);
+
+  Schedule.findOneAndUpdate(
+    { userId: req.body.userId },
+    { payload: req.body.payload },
+    (err, user) => {
+      if (!user) {
+        schedule.save((err, schedule) => {
+          if (err) return res.json({ save: false, err });
+
+          return res.status(200).json({
+            save: true,
+          });
+        });
+      } else {
+        console.log("update: true", req.body.payload);
+
+        return res.status(200).json({
+          update: true,
+        });
+      }
+    }
+  );
+});
+
+app.post("/api/get/schedule", (req, res) => {
+  Schedule.findOne({ userId: req.body.userId }, (err, scheduleInfo) => {
+    if (!scheduleInfo) {
+      return res.json({
+        find: false,
+        payload: [],
+      });
+    } else {
+      return res.status(200).json({
+        find: true,
+        payload: scheduleInfo.payload,
+      });
+    }
+  });
+});
+
 const port = process.env.PORT || 5000;
 const notesRouter = require("./routes/notes");
 const foldersRouter = require("./routes/folders");
-const storageRouter = require("./routes/storage");
+// const storageRouter = require("./routes/storage");
 
 app.use("/api/notes", notesRouter);
 app.use("/api/folders", foldersRouter);
-app.use("/api/s3", storageRouter);
+// app.use("/api/s3", storageRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
