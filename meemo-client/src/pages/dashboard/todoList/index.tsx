@@ -27,6 +27,8 @@ function TodoList(): JSX.Element {
     getTodo(localStorage.getItem("meemo-user-id"));
   }, []);
 
+  console.log(todo);
+
   return (
     <div className={style.todo_list}>
       <div className={style.title}>To Do List</div>
