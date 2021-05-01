@@ -77,7 +77,7 @@ app.post("/api/users/login", (req, res) => {
         }
         res.cookie("meemo_auth", user.token).status(200).json({
           loginSuccess: true,
-          _id: user._id,
+          userId: user.userId,
           name: user.name,
         });
       });
@@ -170,6 +170,8 @@ app.post("/api/users/auth/kakao", (req, res) => {
 
 app.post("/api/save/todo", (req, res) => {
   const todo = new Todo(req.body);
+
+  console.log(req.body.userId);
 
   Todo.findOneAndUpdate(
     { userId: req.body.userId },
