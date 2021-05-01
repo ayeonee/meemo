@@ -3,7 +3,7 @@ import AuthNav from "./AuthNav";
 import Login from "./Login";
 import Register from "./Register";
 import logo from "../../img/logo.svg";
-import style from "./Auth.module.scss";
+import style from "./styles/Auth.module.scss";
 
 export default function AuthPage(): JSX.Element {
   const [loginTxt, setLoginTxt] = useState<boolean>(true);

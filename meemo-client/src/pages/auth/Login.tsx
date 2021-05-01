@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../../_userActions/userAction";
-import style from "./Auth.module.scss";
+import style from "./styles/Auth.module.scss";
 import GLogin from "./SocialLogin/GLogin";
 import KLogin from "./SocialLogin/KLogin";
 

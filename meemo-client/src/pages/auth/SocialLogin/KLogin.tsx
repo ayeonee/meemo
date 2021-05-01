@@ -2,7 +2,7 @@ import KakaoLogin from "react-kakao-login";
 import { useDispatch } from "react-redux";
 import { kLoginUser } from "../../../_userActions/userAction";
 import { useHistory } from "react-router-dom";
-import style from "../Auth.module.scss";
+import style from "../styles/Auth.module.scss";
 
 export default function KLogin(): JSX.Element {
   const history = useHistory();

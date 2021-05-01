@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AuthPage from "./pages/auth";
 import SchedulePage from "./pages/schedule";
@@ -9,18 +10,32 @@ import DashBoardPage from "./pages/dashboard";
 import Navigation from "./components/Navigation";
 import Auth from "./hoc/auth";
 import CalendarPage from "./pages/calendar";
+import UnkownPage from "./pages/unknown";
+
+// hoc rule
+// null => 아무나 출입가능
+// true => 로그인 한 유저만 출입가능
+// false => 로그인 한 유저는 출입 불가능
 
 function Root(): JSX.Element {
-  // hoc rule
-  // null => 아무나 출입가능
-  // true => 로그인 한 유저만 출입가능
-  // false => 로그인 한 유저는 출입 불가능
+  const [visible, setVisible] = useState<boolean>(false);
 
+  useEffect(() => {
+    const userInfo = localStorage.getItem("meemo-user-id");
+
+    if (userInfo) {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
+  }, []);
   return (
     <BrowserRouter>
-      <Navigation />
+      {!visible ? null : <Navigation />} {/*배포용*/}
+      <Navigation /> {/*테스트용*/}
       <Switch>
-        <Route component={Auth(AuthPage, false)} path="/auth" exact />
+        {/*배포용*/}
+        {/* <Route component={Auth(AuthPage, false)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, true)} path="/" exact />
         <Route component={Auth(TodoPage, true)} path="/todo" exact />
         <Route component={Auth(SchedulePage, true)} path="/schedule" exact />
@@ -35,9 +50,10 @@ function Root(): JSX.Element {
           component={Auth(Editor, true)}
           path="/folders/:folderTitle/:noteId"
           exact
-        />
+        /> */}
 
-        {/* <Route component={Auth(AuthPage, null)} path="/auth" exact />
+        {/*테스트용*/}
+        <Route component={Auth(AuthPage, null)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, null)} path="/" exact />
         <Route component={Auth(CalendarPage, null)} path="/calendar" exact />
         <Route component={Auth(SchedulePage, null)} path="/schedule" exact />
@@ -52,7 +68,8 @@ function Root(): JSX.Element {
           component={Auth(Editor, null)}
           path="/folders/:folderTitle/:noteId"
           exact
-        /> */}
+        />
+        <Route component={Auth(UnkownPage, null)} path="*" />
       </Switch>
     </BrowserRouter>
   );

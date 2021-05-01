@@ -1,6 +1,6 @@
 import { daysData, hourData } from "../../../_data/scheduleData";
 import TimeTableGrid from "./TimeTableGrid";
-import style from "./TimeTableStyle.module.scss";
+import style from "../styles/TimeTableStyle.module.scss";
 
 export default function TimeLine(): JSX.Element {
   return (

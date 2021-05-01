@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { useTodoState, useTodoDispatch } from "../TodosContext";
-import style from "./TodoHeader.module.scss";
+import style from "../styles/TodoHeader.module.scss";
 
 export default function TodoHeader(): JSX.Element {
   const todos = useTodoState();

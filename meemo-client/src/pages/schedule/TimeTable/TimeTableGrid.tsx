@@ -1,5 +1,5 @@
 import { allTimeData } from "../../../_data/scheduleData";
-import style from "./TimeTableStyle.module.scss";
+import style from "../styles/TimeTableStyle.module.scss";
 
 export default function TimeLineGrid(): JSX.Element {
   return (

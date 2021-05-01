@@ -4,7 +4,7 @@ import axios from "axios";
 import { useTodoState } from "../TodosContext";
 import { useTodoDispatch } from "../TodosContext";
 import { Todo } from "../../../_types/todoTypes";
-import style from "./TodoList.module.scss";
+import style from "../styles/TodoList.module.scss";
 import { BASE_URL } from "../../../_data/urlData";
 
 function TodoList(): JSX.Element {

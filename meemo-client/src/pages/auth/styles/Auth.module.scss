@@ -1,4 +1,4 @@
-@import "../../styles/_variables.module.scss";
+@import "../../../styles/_variables.module.scss";
 
 .auth_page {
   width: $fullWidth;
@@ -184,7 +184,7 @@
       }
 
       .GoogleIcon {
-        background: url("./LogoImg/g-logo.png") transparent 5px 50% no-repeat;
+        background: url("../LogoImg/g-logo.png") transparent 5px 50% no-repeat;
         background-size: 60%;
         vertical-align: middle;
         width: 42px;
@@ -198,7 +198,7 @@
       }
 
       .KakaoIcon {
-        background: url("./LogoImg/k-logo.png") transparent 5px 50% no-repeat;
+        background: url("../LogoImg/k-logo.png") transparent 5px 50% no-repeat;
         background-size: 60%;
         display: inline-block;
         vertical-align: middle;
@@ -279,7 +279,7 @@
   .auth_background {
     width: 70vw;
     height: 650px;
-    background-image: url("../../img/login-bg.svg");
+    background-image: url("../../../img/login-bg.svg");
     background-repeat: no-repeat;
     background-position: right;
 
@@ -294,7 +294,7 @@
       right: 7%;
       width: 50%;
       height: 70%;
-      background-image: url("../../img/login-img.svg");
+      background-image: url("../../../img/login-img.svg");
       background-repeat: no-repeat;
       background-position: right;
     }
@@ -325,7 +325,7 @@
   .auth_background {
     width: 70vw;
     height: 650px;
-    background-image: url("../../img/login-bg-lg.svg");
+    background-image: url("../../../img/login-bg-lg.svg");
     background-repeat: no-repeat;
     background-position: right;
 
@@ -340,7 +340,7 @@
       right: 3%;
       width: 50%;
       height: 60%;
-      background-image: url("../../img/login-img.svg");
+      background-image: url("../../../img/login-img.svg");
       background-repeat: no-repeat;
       background-position: right;
     }
@@ -385,7 +385,7 @@
   .bg_side {
     width: $fullWidth;
     height: 100%;
-    background-image: url("../../img/login-bg.svg");
+    background-image: url("../../../img/login-bg.svg");
     background-repeat: no-repeat;
     background-position: right;
 
@@ -396,7 +396,7 @@
       width: 150px;
       height: 60px;
       z-index: 100;
-      background-image: url("../../img/logo.svg");
+      background-image: url("../../../img/logo.svg");
       background-repeat: no-repeat;
     }
     p {
@@ -432,7 +432,7 @@
   .bg_side {
     width: $fullWidth;
     height: $fullHeight;
-    background-image: url("../../img/login-bg-tb.svg");
+    background-image: url("../../../img/login-bg-tb.svg");
     background-repeat: no-repeat;
     background-position: right;
 
@@ -443,7 +443,7 @@
       width: 150px;
       height: 60px;
       z-index: 100;
-      background-image: url("../../img/logo.svg");
+      background-image: url("../../../img/logo.svg");
       background-repeat: no-repeat;
     }
     p {
@@ -479,7 +479,7 @@
   .bg_side {
     width: $fullWidth;
     height: $fullHeight;
-    background-image: url("../../img/login-bg-tb.svg");
+    background-image: url("../../../img/login-bg-tb.svg");
     background-repeat: no-repeat;
     background-position: right;
 
@@ -490,7 +490,7 @@
       width: 150px;
       height: 60px;
       z-index: 100;
-      background-image: url("../../img/logo.svg");
+      background-image: url("../../../img/logo.svg");
       background-repeat: no-repeat;
     }
     p {
@@ -535,7 +535,7 @@
       width: 150px;
       height: 60px;
       z-index: 100;
-      background-image: url("../../img/logo.svg");
+      background-image: url("../../../img/logo.svg");
       background-repeat: no-repeat;
     }
     p {

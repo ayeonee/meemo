@@ -1,4 +1,4 @@
-import style from "../InputBoxStyle.module.scss";
+import style from "../../styles/InputBoxStyle.module.scss";
 
 interface InputDayListProps {
   data: {

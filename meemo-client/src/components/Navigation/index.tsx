@@ -8,7 +8,6 @@ import style from "./Navigation.module.scss";
 
 function Navigation({ location: { pathname } }: any): JSX.Element {
   const userName = localStorage.getItem("meemo-user-name");
-
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {

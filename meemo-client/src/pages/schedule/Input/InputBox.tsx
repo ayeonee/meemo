@@ -7,7 +7,7 @@ import {
 } from "../../../_types/scheduleTypes";
 import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
-import style from "./InputBoxStyle.module.scss";
+import style from "../styles/InputBoxStyle.module.scss";
 
 interface ModalTypes {
   modalState: boolean;

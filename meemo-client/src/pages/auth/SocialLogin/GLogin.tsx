@@ -2,7 +2,7 @@ import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import { gLoginUser } from "../../../_userActions/userAction";
 import { useHistory } from "react-router-dom";
-import style from "../Auth.module.scss";
+import style from "../styles/Auth.module.scss";
 
 export default function GLogin(): JSX.Element {
   const history = useHistory();

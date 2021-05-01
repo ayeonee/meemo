@@ -1,7 +1,7 @@
 import React from "react";
 import { AllData } from "../../../_types/scheduleTypes";
 import ScheduleItem from "./ScheduleItem";
-import style from "./ScheduleStyle.module.scss";
+import style from "../styles/ScheduleStyle.module.scss";
 
 interface ScheduleListProps {
   allData: AllData;

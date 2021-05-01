@@ -2,7 +2,7 @@ import TodoHeader from "./TodoHeader";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 import { TodoContextProvider } from "./TodosContext";
-import style from "./TodoPage.module.scss";
+import style from "./styles/TodoPage.module.scss";
 
 export default function TodoPage(): JSX.Element {
   return (

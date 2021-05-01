@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import style from "./AuthNav.module.scss";
+import style from "./styles/AuthNav.module.scss";
 
 interface AuthNavProps {
   loginTxt: boolean;

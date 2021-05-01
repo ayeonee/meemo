@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useTodoDispatch } from "../TodosContext";
-import style from "./InputTodo.module.scss";
+import style from "../styles/InputTodo.module.scss";
 
 export default function InputTodo(): JSX.Element {
   const [input, setInput] = useState<string>("");

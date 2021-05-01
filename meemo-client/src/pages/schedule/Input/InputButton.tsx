@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { DataProps } from "../../../_types/scheduleTypes";
 import InputBox from "./InputBox";
-import style from "./InputButtonStyle.module.scss";
+import style from "../styles/InputButtonStyle.module.scss";
 
 export default function InputButton({
   addData,

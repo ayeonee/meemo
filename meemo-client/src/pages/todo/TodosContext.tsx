@@ -3,6 +3,18 @@ import axios from "axios";
 import { Todo, TodoState } from "../../_types/todoTypes";
 import { BASE_URL } from "../../_data/urlData";
 
+const TodoStateContext = createContext<TodoState | undefined>(undefined);
+const TodoDispatchContext = createContext<TodoDispatch | undefined>(undefined);
+
+type Action =
+  | { type: "CREATE"; schedule: string }
+  | { type: "TOGGLE"; id: number }
+  | { type: "RESET" }
+  | { type: "REMOVE"; id: number }
+  | { type: "MOUNT"; todoData: Todo[] };
+
+type TodoDispatch = Dispatch<Action>;
+
 const saveTodo = (payloadData: Todo[] | null) => {
   axios({
     method: "POST",
@@ -82,15 +94,3 @@ export const useTodoDispatch = () => {
   if (!dispatch) throw new Error("TodoDispatchContext not found");
   return dispatch;
 };
-
-type Action =
-  | { type: "CREATE"; schedule: string }
-  | { type: "TOGGLE"; id: number }
-  | { type: "RESET" }
-  | { type: "REMOVE"; id: number }
-  | { type: "MOUNT"; todoData: Todo[] };
-
-type TodoDispatch = Dispatch<Action>;
-
-const TodoStateContext = createContext<TodoState | undefined>(undefined);
-const TodoDispatchContext = createContext<TodoDispatch | undefined>(undefined);

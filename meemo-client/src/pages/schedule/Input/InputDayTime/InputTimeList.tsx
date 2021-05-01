@@ -1,6 +1,6 @@
 import { hourData, minData } from "../../../../_data/scheduleData";
 import { Schedule } from "../../../../_types/scheduleTypes";
-import style from "../InputBoxStyle.module.scss";
+import style from "../../styles/InputBoxStyle.module.scss";
 
 interface InputTimeListProps {
   handleChange: React.ChangeEventHandler;

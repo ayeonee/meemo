@@ -4,7 +4,7 @@ import axios from "axios";
 import InputButton from "./Input/InputButton";
 import ScheduleList from "./Schedule/ScheduleList";
 import TimeTable from "./TimeTable";
-import style from "./Schedule.module.scss";
+import style from "./styles/Schedule.module.scss";
 import { BASE_URL } from "../../_data/urlData";
 
 export default function SchedulePage(): JSX.Element {

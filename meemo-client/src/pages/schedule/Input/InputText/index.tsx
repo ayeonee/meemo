@@ -1,5 +1,5 @@
 import { Input } from "../../../../_types/scheduleTypes";
-import style from "../InputBoxStyle.module.scss";
+import style from "../../styles/InputBoxStyle.module.scss";
 
 type InputTextProps = {
   input: Input;

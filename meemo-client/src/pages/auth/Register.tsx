@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../_userActions/userAction";
-import style from "./Auth.module.scss";
+import style from "./styles/Auth.module.scss";
 
 interface RegisterTypes {
   name: string;
