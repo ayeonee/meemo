@@ -9,11 +9,12 @@ function UserGraph(): JSX.Element {
   const [weatherInfo, setWeatherInfo] = useState({
     temperature: "",
     feelslike: "",
-    place: "",
     weather: "",
+    humidity: "",
     icon: "",
   });
-  const [cityName, setCityName] = useState<string>();
+
+  const [fullLocation, setFullLocation] = useState<string>("Seoul Dongjakgu");
 
   const getWeather = (cityName: string) => {
     fetch(
@@ -26,17 +27,21 @@ function UserGraph(): JSX.Element {
         setWeatherInfo({
           temperature: jsonfile.main.temp,
           feelslike: jsonfile.main.feels_like,
-          place: jsonfile.name,
           weather: jsonfile.weather[0].main,
+          humidity: jsonfile.main.humidity,
           icon: jsonfile.weather[0].icon,
         });
       });
   };
 
   const getCity = (latitudeVar: string, longitudeVar: string) => {
-    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
-      setCityName(response.results[0].address_components[3].long_name);
-    });
+    // Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
+    //   getWeather(response.results[0].address_components[3].long_name);
+    //   setFullLocation(
+    //     `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
+    //   );
+    // });
+    getWeather("Seoul"); /* for test*/
   };
 
   const handleGeoTrue = (position: any) => {
@@ -44,7 +49,6 @@ function UserGraph(): JSX.Element {
     const longitude = position.coords.longitude;
 
     getCity(latitude, longitude);
-    getWeather(cityName!);
   };
 
   const handleGeoFalse = (position: any) => {};
@@ -55,7 +59,7 @@ function UserGraph(): JSX.Element {
 
   useEffect(() => {
     askForCoords();
-  }, []);
+  }, [fullLocation]);
 
   return (
     <div className={style.user_graph}>
@@ -63,13 +67,16 @@ function UserGraph(): JSX.Element {
       <div className={style.weather_container}>
         <div className={style.weather_info}>
           <img
-            className={style.icon}
+            className={style.weather_icon}
             src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
           />
-          <div className={style.weather}>{weatherInfo.weather}</div>
-          <div className={style.temperature}>{weatherInfo.temperature}°C</div>
-          <div className={style.feels_like}>체감 {weatherInfo.feelslike}°C</div>
-          <div className={style.place}>{weatherInfo.place}</div>
+          <div className={style.weather_text}>
+            <div className={style.temperature}>{weatherInfo.temperature}°C</div>
+            <div className={style.weather}>{weatherInfo.weather}</div>
+            <div className={style.feels_like}>Sensory : {weatherInfo.feelslike}°C</div>
+            <div className={style.humidity}>humidity : {weatherInfo.humidity}%</div>
+            <div className={style.place}>{fullLocation}</div>
+          </div>
         </div>
       </div>
     </div>

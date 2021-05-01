@@ -39,6 +39,7 @@
         height: 350px;
         background-color: azure;
         border-radius: 5px;
+        box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
 
         .today_info {
           font-size: 18px;
@@ -74,6 +75,7 @@
         height: 350px;
         background-color: azure;
         border-radius: 5px;
+        box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
 
         .note_wrapper {
           width: 85%;
@@ -159,6 +161,7 @@
         width: 60%;
         height: 350px;
         background-color: azure;
+        box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
         border-radius: 5px;
         margin-top: 2%;
       }
@@ -170,16 +173,52 @@
         width: 35%;
         height: 350px;
         background-color: azure;
+        box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
         border-radius: 5px;
         margin-top: 2%;
 
         .weather_container {
-          width: 80%;
-          height: 60%;
-          background-color: $green_grade_2;
+          width: 150px;
+          height: 75%;
+          background-color: white;
           margin-top: 5%;
           border-radius: 5px;
-          @include align_center;
+          box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+          display: flex;
+          justify-content: center;
+
+          .weather_info {
+            .weather_icon {
+              display: block;
+              width: 120px;
+              margin: 0 auto;
+            }
+
+            .weather_text {
+              @include flex_col;
+              justify-content: space-between;
+              height: 47%;
+              margin-top: 5px;
+
+              .temperature {
+                font-weight: 700;
+                font-size: 22px;
+              }
+
+              .weather {
+                font-weight: 300;
+                font-size: 22px;
+                margin-bottom: 15px;
+              }
+
+              .feels_like,
+              .humidity,
+              .place {
+                font-weight: 300;
+                font-size: 11px;
+              }
+            }
+          }
         }
       }
     }

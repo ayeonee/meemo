@@ -1,5 +1,8 @@
+import { useState, useEffect } from "react";
+import { AllData } from "../../../_types/scheduleTypes";
+import { BASE_URL } from "../../../_data/urlData";
+import axios from "axios";
 import style from "../DashBoard.module.scss";
-import { ScheduleData } from "./scheduleData";
 
 type ScheduleInfo = {
   id: string;
@@ -14,9 +17,30 @@ type ScheduleInfo = {
 function TodaySchedule(): JSX.Element {
   const date = new Date();
   const today = date.getDay(); //일:0~토:6
+  const [allData, setAllData] = useState<AllData>([]);
+
   const scheduleInfo: ScheduleInfo[] = [];
 
-  ScheduleData.forEach((item) => {
+  const getSchedule = async (userId: string | null) => {
+    await axios({
+      method: "POST",
+      baseURL: BASE_URL,
+      url: "/get/schedule",
+      data: {
+        userId: userId,
+      },
+    })
+      .then((res) => {
+        setAllData(res.data.payload);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getSchedule(localStorage.getItem("meemo-user-id"));
+  }, []);
+
+  allData.forEach((item) => {
     item.schedule.forEach((scheduleItem) => {
       if (scheduleItem.date === today) {
         scheduleInfo.push({
@@ -31,6 +55,8 @@ function TodaySchedule(): JSX.Element {
       }
     });
   });
+
+  console.log(allData);
 
   return (
     <div className={style.today_schedule}>
@@ -62,8 +88,8 @@ function TodaySchedule(): JSX.Element {
                 <b>{item.name}</b>
                 <p>{item.place}</p>
                 <p>
-                  {item.startHour}:{item.startMin} ~ {item.endHour}:
-                  {item.endMin}
+                  {item.startHour}:{item.startMin === 0 ? "00" : item.startMin} ~ {item.endHour}:
+                  {item.endMin === 0 ? "00" : item.endMin}
                 </p>
               </div>
             ))}
