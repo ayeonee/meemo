@@ -3,10 +3,10 @@ import { AllData } from "../../../_types/scheduleTypes";
 import ScheduleItem from "./ScheduleItem";
 import style from "./ScheduleStyle.module.scss";
 
-type ScheduleListProps = {
+interface ScheduleListProps {
   allData: AllData;
   removeData: Function;
-};
+}
 
 function ScheduleList({ allData, removeData }: ScheduleListProps): JSX.Element {
   return (
@@ -14,9 +14,7 @@ function ScheduleList({ allData, removeData }: ScheduleListProps): JSX.Element {
       {allData.map((item) =>
         item.schedule.map((scheduleItem) => (
           <ScheduleItem
-            id={item.id}
-            name={item.name}
-            place={item.place}
+            data={item}
             {...scheduleItem}
             key={scheduleItem.index}
             removeData={removeData}

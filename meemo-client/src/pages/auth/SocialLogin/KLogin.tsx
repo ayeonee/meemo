@@ -1,6 +1,6 @@
 import KakaoLogin from "react-kakao-login";
 import { useDispatch } from "react-redux";
-import { kLoginUser } from "../../../_actions/userAction";
+import { kLoginUser } from "../../../_userActions/userAction";
 import { useHistory } from "react-router-dom";
 import style from "../Auth.module.scss";
 

@@ -9,10 +9,10 @@ import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
 import style from "./InputBoxStyle.module.scss";
 
-type ModalTypes = {
+interface ModalTypes {
   modalState: boolean;
   closeModal: Function;
-};
+}
 
 export default function InputBox({
   modalState,

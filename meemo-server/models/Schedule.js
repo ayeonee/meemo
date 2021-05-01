@@ -4,7 +4,7 @@ const scheuduleSchema = mongoose.Schema({
   userId: String,
   payload: [
     {
-      id: { type: Number },
+      id: { type: String },
       name: { type: String },
       place: { type: String },
       schedule: [

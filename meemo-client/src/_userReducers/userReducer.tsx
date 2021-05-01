@@ -4,7 +4,7 @@ import {
   AUTH_USER,
   KLOGIN_USER,
   GLOGIN_USER,
-} from "../_actions/types";
+} from "../_userActions/types";
 import { ResponseTypes } from "../_types/authTypes";
 
 type UserState = {

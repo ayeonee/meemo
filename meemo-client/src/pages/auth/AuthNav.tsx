@@ -1,11 +1,11 @@
 import { MouseEventHandler } from "react";
 import style from "./AuthNav.module.scss";
 
-type AuthNavProps = {
+interface AuthNavProps {
   loginTxt: boolean;
   registerTxt: boolean;
   onClickMenu: MouseEventHandler;
-};
+}
 
 export default function AuthNav({
   loginTxt,

@@ -1,13 +1,13 @@
 import style from "../InputBoxStyle.module.scss";
 
-type InputDayListProps = {
+interface InputDayListProps {
   data: {
     id: number;
     name: string;
     checked: boolean;
   };
   handleToggle: Function;
-};
+}
 
 export default function InputDayList({
   data,

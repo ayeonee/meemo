@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { loginUser } from "../../_actions/userAction";
+import { loginUser } from "../../_userActions/userAction";
 import style from "./Auth.module.scss";
 import GLogin from "./SocialLogin/GLogin";
 import KLogin from "./SocialLogin/KLogin";
 
-type LoginTypes = {
+interface LoginTypes {
   userId: string;
   password: string;
-};
+}
 
 function Login(): JSX.Element {
   const [loginInput, setLoginInput] = useState<LoginTypes>({

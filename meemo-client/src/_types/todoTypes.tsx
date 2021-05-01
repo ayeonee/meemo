@@ -3,3 +3,5 @@ export type Todo = {
   schedule: string;
   checked: boolean;
 };
+
+export type TodoState = Array<Todo>;

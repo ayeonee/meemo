@@ -10,13 +10,13 @@ import InputDayList from "./InputDayList";
 import InputTimeList from "./InputTimeList";
 import style from "../InputBoxStyle.module.scss";
 
-type InputDayTimeProps = {
+interface InputDayTimeProps {
   index: number;
   onChangeTime: Function;
   removeDayTime: Function;
   schedule: Schedule;
-  ref: any;
-};
+  ref: React.ForwardedRef<unknown>;
+}
 
 const InputDayTime: React.FC<InputDayTimeProps> = forwardRef(
   ({ index, onChangeTime, schedule, removeDayTime }, ref) => {

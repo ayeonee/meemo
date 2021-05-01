@@ -15,7 +15,7 @@ export type Schedule = {
 export type ScheduleArray = Array<Schedule>;
 
 export type Data = {
-  id: number;
+  id: string;
   name: string;
   place: string;
   schedule: ScheduleArray;

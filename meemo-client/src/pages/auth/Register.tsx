@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../_actions/userAction";
+import { registerUser } from "../../_userActions/userAction";
 import style from "./Auth.module.scss";
 
-type RegisterTypes = {
+interface RegisterTypes {
   name: string;
   userId: string;
   password: string;
   confirmPassword: string;
-};
+}
 
-type RegisterProps = {
+interface RegisterProps {
   setLoginTxt: React.Dispatch<React.SetStateAction<boolean>>;
   setRegisterText: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
 function Register({ ...props }: RegisterProps): JSX.Element {
   const toggleMenu = () => {

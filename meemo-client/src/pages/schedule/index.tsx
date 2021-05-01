@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { AllData, Data } from "../../_types/scheduleTypes";
 import axios from "axios";
 import InputButton from "./Input/InputButton";
@@ -11,7 +11,6 @@ export default function SchedulePage(): JSX.Element {
   const [allData, setAllData] = useState<AllData>([]);
   const [addDataCheck, setAddDataCheck] = useState<boolean>(false);
   const [deleteDataCheck, setDeleteDataCheck] = useState<boolean>(false);
-  const nextId = useRef<number>(1);
 
   const saveSchedule = (payloadData: AllData) => {
     axios({
@@ -20,7 +19,6 @@ export default function SchedulePage(): JSX.Element {
       url: "/save/schedule",
       data: {
         userId: localStorage.getItem("meemo-user-id"),
-        // userId: "test",
         payload: payloadData,
       },
     })
@@ -45,7 +43,6 @@ export default function SchedulePage(): JSX.Element {
 
   useEffect(() => {
     getSchedule(localStorage.getItem("meemo-user-id"));
-    // getSchedule("test");
   }, []);
 
   useEffect(() => {
@@ -68,17 +65,15 @@ export default function SchedulePage(): JSX.Element {
     setAllData((allData) =>
       allData.concat({
         ...elem,
-        id: nextId.current,
+        id: elem.name,
       })
     );
-
-    nextId.current += 1;
 
     setAddDataCheck(true);
   };
 
   const removeData = useCallback(
-    (index: number, id: number) => {
+    (index: number, id: string) => {
       if (allData.length === 1 && allData[0].schedule.length === 1) {
         setAllData([]);
         saveSchedule([]);

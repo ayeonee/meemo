@@ -1,32 +1,30 @@
 import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { daysData, colorCode } from "../../../_data/scheduleData";
-import { Schedule } from "../../../_types/scheduleTypes";
+import { Data, Schedule } from "../../../_types/scheduleTypes";
 import style from "./ScheduleStyle.module.scss";
 
-type ScheduleItemProps = {
-  id: number;
-  name: string;
-  place: string;
-  index: number;
+interface ScheduleItemProps {
+  data: Data;
   removeData: Function;
-};
+}
 
 function ScheduleItem({
-  id,
-  name,
-  place,
+  data,
   index,
   removeData,
   ...scheduleItem
 }: ScheduleItemProps & Schedule): JSX.Element {
-  const [delButtonState, setDelButtonState] = useState<boolean>(false);
+  const { id, name, place } = data;
   const { date, startHour, startMin, endHour, endMin } = scheduleItem;
+
+  const [delButtonState, setDelButtonState] = useState<boolean>(false);
+
   const datePosition = 82 + 96 * (date - 1);
   const scheduleTime = (endHour - startHour) * 60 + (endMin - startMin);
   const timeStart = 39 + 72 * (startHour - 8) + startMin * 1.2;
   const timeHeight = scheduleTime * 1.2 - 5;
-  const color = id % 6;
+  const color = (id.length + place.length) % 6;
 
   const showDelButton = useCallback(() => {
     if (!delButtonState) {

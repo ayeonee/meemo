@@ -2,7 +2,7 @@ import style from "../DashBoard.module.scss";
 import { ScheduleData } from "./scheduleData";
 
 type ScheduleInfo = {
-  id: number;
+  id: string;
   name: string;
   place: string;
   startHour: number;
@@ -62,7 +62,8 @@ function TodaySchedule(): JSX.Element {
                 <b>{item.name}</b>
                 <p>{item.place}</p>
                 <p>
-                  {item.startHour}:{item.startMin} ~ {item.endHour}:{item.endMin}
+                  {item.startHour}:{item.startMin} ~ {item.endHour}:
+                  {item.endMin}
                 </p>
               </div>
             ))}

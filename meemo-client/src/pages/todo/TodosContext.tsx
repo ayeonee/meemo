@@ -1,6 +1,6 @@
 import { Dispatch, createContext, useReducer, useContext } from "react";
 import axios from "axios";
-import { Todo } from "../../_types/todoTypes";
+import { Todo, TodoState } from "../../_types/todoTypes";
 import { BASE_URL } from "../../_data/urlData";
 
 const saveTodo = (payloadData: Todo[] | null) => {
@@ -16,9 +16,6 @@ const saveTodo = (payloadData: Todo[] | null) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
-
-const TodoStateContext = createContext<TodoState | undefined>(undefined);
-const TodoDispatchContext = createContext<TodoDispatch | undefined>(undefined);
 
 const todoReducer = (state: TodoState, action: Action) => {
   switch (action.type) {
@@ -93,5 +90,7 @@ type Action =
   | { type: "REMOVE"; id: number }
   | { type: "MOUNT"; todoData: Todo[] };
 
-type TodoState = Array<Todo>;
 type TodoDispatch = Dispatch<Action>;
+
+const TodoStateContext = createContext<TodoState | undefined>(undefined);
+const TodoDispatchContext = createContext<TodoDispatch | undefined>(undefined);

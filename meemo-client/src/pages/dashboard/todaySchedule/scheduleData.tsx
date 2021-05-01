@@ -1,13 +1,13 @@
-import { AllData } from '../../../_types/scheduleTypes';
+import { AllData } from "../../../_types/scheduleTypes";
 
 //dummyData
 //월:1~토:6
 
 export const ScheduleData: AllData = [
   {
-    id: 0,
-    name: '객체지향프로그래밍',
-    place: '정보과학관',
+    id: "sda",
+    name: "객체지향프로그래밍",
+    place: "정보과학관",
     schedule: [
       {
         index: 0,
@@ -20,9 +20,9 @@ export const ScheduleData: AllData = [
     ],
   },
   {
-    id: 1,
-    name: 'VISUAL STORY',
-    place: '정보과학관',
+    id: "saddas",
+    name: "VISUAL STORY",
+    place: "정보과학관",
     schedule: [
       {
         index: 0,
@@ -43,9 +43,9 @@ export const ScheduleData: AllData = [
     ],
   },
   {
-    id: 2,
-    name: '모바일시스템및응용',
-    place: '온라인 강의',
+    id: "dsadsadsa",
+    name: "모바일시스템및응용",
+    place: "온라인 강의",
     schedule: [
       {
         index: 0,
@@ -58,9 +58,9 @@ export const ScheduleData: AllData = [
     ],
   },
   {
-    id: 3,
-    name: '졸업프로젝트',
-    place: '온라인 강의',
+    id: "dsadsasda",
+    name: "졸업프로젝트",
+    place: "온라인 강의",
     schedule: [
       {
         index: 0,
