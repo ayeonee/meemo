@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
 import style from "../DashBoard.module.scss";
+import Geocode from "react-geocode";
 
-const API_KEY = `4b269952f4e55c72ce7689cdf1160b66`;
-const COORDS = `Coords`;
-
-type coordsObj = {
-  latitude: number;
-  longitude: number;
-};
+const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY!;
 
 function UserGraph(): JSX.Element {
   const [weatherInfo, setWeatherInfo] = useState({
@@ -17,10 +13,11 @@ function UserGraph(): JSX.Element {
     weather: "",
     icon: "",
   });
+  const [cityName, setCityName] = useState<string>();
 
-  function getWeather(latitudeVar: number, longitudeVar: number) {
+  const getWeather = (cityName: string) => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitudeVar}&lon=${longitudeVar}&lang=kr&appid=${API_KEY}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&lang=kr&appid=${API_KEY}&units=metric`
     )
       .then(function (response) {
         return response.json();
@@ -34,46 +31,31 @@ function UserGraph(): JSX.Element {
           icon: jsonfile.weather[0].icon,
         });
       });
-  }
+  };
 
-  function saveCoords(coordsObject: coordsObj) {
-    localStorage.setItem(COORDS, JSON.stringify(coordsObject));
-  }
+  const getCity = (latitudeVar: string, longitudeVar: string) => {
+    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
+      setCityName(response.results[0].address_components[3].long_name);
+    });
+  };
 
-  function handleGeoTrue(position: any) {
+  const handleGeoTrue = (position: any) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    const coordsObj = {
-      latitude,
-      longitude,
-    };
+    getCity(latitude, longitude);
+    getWeather(cityName!);
+  };
 
-    saveCoords(coordsObj);
-    getWeather(latitude, longitude);
-  }
+  const handleGeoFalse = (position: any) => {};
 
-  function handleGeoFalse(position: any) {}
-
-  function askForCoords() {
+  const askForCoords = () => {
     navigator.geolocation.getCurrentPosition(handleGeoTrue, handleGeoFalse);
-  }
-
-  function loadCoords() {
-    const loadedCoords = localStorage.getItem(COORDS);
-    if (loadedCoords === null) {
-      askForCoords();
-    } else {
-      const parseCoords = JSON.parse(loadedCoords);
-      getWeather(parseCoords.latitude, parseCoords.longitude);
-    }
-  }
+  };
 
   useEffect(() => {
-    loadCoords();
+    askForCoords();
   }, []);
-
-  console.log(weatherInfo);
 
   return (
     <div className={style.user_graph}>
