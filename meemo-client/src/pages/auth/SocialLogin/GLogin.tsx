@@ -16,7 +16,7 @@ export default function GLogin(): JSX.Element {
       .then((res: any) => {
         if (res.payload.loginSuccess) {
           localStorage.setItem("meemo-user-name", res.payload.name);
-          localStorage.setItem("meemo-user-id", res.payload._id);
+          localStorage.setItem("meemo-user-id", res.payload.userId);
           history.push({
             pathname: "/schedule",
           });
