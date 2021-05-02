@@ -56,8 +56,6 @@ function TodaySchedule(): JSX.Element {
     });
   });
 
-  console.log(allData);
-
   return (
     <div className={style.today_schedule}>
       <div className={style.title}>Today's Schedule</div>

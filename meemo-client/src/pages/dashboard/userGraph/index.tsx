@@ -14,7 +14,7 @@ function UserGraph(): JSX.Element {
     icon: "",
   });
 
-  const [fullLocation, setFullLocation] = useState<string>("Seoul Dongjakgu");
+  const [fullLocation, setFullLocation] = useState<string>("");
 
   const getWeather = (cityName: string) => {
     fetch(
@@ -35,13 +35,13 @@ function UserGraph(): JSX.Element {
   };
 
   const getCity = (latitudeVar: string, longitudeVar: string) => {
-    // Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
-    //   getWeather(response.results[0].address_components[3].long_name);
-    //   setFullLocation(
-    //     `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
-    //   );
-    // });
-    getWeather("Seoul"); /* for test*/
+    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
+      getWeather(response.results[0].address_components[3].long_name);
+      setFullLocation(
+        `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
+      );
+    });
+    // getWeather("Seoul"); /* for test*/
   };
 
   const handleGeoTrue = (position: any) => {
