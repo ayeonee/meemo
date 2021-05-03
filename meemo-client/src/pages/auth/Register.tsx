@@ -29,6 +29,8 @@ function Register({ ...props }: RegisterProps): JSX.Element {
     confirmPassword: "",
   });
   const dispatch = useDispatch<any>();
+  const [errorMessage, setErrorMessage] = useState<String>("");
+  const [rightPassword, setRightPassword] = useState<Boolean>(false);
 
   const onChangeRegisterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,31 +40,74 @@ function Register({ ...props }: RegisterProps): JSX.Element {
     });
   };
 
+  const onChangePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setRegisterInput({
+      ...registerInput,
+      [name]: value,
+    });
+    checkPassword(e.target.value);
+  };
+
+  const onChangeConfirmPasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setRegisterInput({
+      ...registerInput,
+      [name]: value,
+    });
+  };
+
+  const checkPassword = (value: string) => {
+    const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}/;
+    if (reg.test(value)) {
+      setErrorMessage("");
+      setRightPassword(true);
+    } else {
+      setErrorMessage("대소문자, 숫자, 특수문자 포함 8자리 이상");
+      setRightPassword(false);
+    }
+  };
+
+  const checkMouseFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!e.target.value) {
+      setErrorMessage("비밀번호를 입력해주세요.");
+    } else setErrorMessage("");
+  };
+
+  const checkButtonEnable = () => {
+    if (
+      registerInput.password === registerInput.confirmPassword &&
+      rightPassword &&
+      registerInput.userId &&
+      registerInput.name
+    )
+      return false;
+    else return true;
+  };
+
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
     const { name, userId, password, confirmPassword } = registerInput;
 
-    if (password === confirmPassword) {
-      const body = {
-        userId: userId,
-        name: name,
-        password: password,
-      };
+    const body = {
+      userId: userId,
+      name: name,
+      password: password,
+    };
 
-      dispatch(registerUser(body))
-        .then((res: any) => {
-          alert("회원가입이 완료되었습니다.");
-          setRegisterInput({
-            name: "",
-            userId: "",
-            password: "",
-            confirmPassword: "",
-          });
-        })
-        .then(() => toggleMenu())
-        .catch((err: any) => console.log(err));
-    } else alert("비밀번호가 다릅니다.");
+    dispatch(registerUser(body))
+      .then((res: any) => {
+        alert("회원가입이 완료되었습니다.");
+        setRegisterInput({
+          name: "",
+          userId: "",
+          password: "",
+          confirmPassword: "",
+        });
+      })
+      .then(() => toggleMenu())
+      .catch((err: any) => console.log(err));
   };
 
   return (
@@ -93,8 +138,10 @@ function Register({ ...props }: RegisterProps): JSX.Element {
           name="password"
           placeholder="Password"
           value={registerInput.password}
-          onChange={onChangeRegisterInput}
+          onChange={onChangePasswordInput}
+          onBlur={checkMouseFocus}
         />
+        <p className={style.error_message}>{errorMessage}</p>
         <label className={style.animated_label}>Password</label>
       </div>
       <div className={style.animated_div}>
@@ -103,13 +150,13 @@ function Register({ ...props }: RegisterProps): JSX.Element {
           name="confirmPassword"
           placeholder="Confirm Password"
           value={registerInput.confirmPassword}
-          onChange={onChangeRegisterInput}
+          onChange={onChangeConfirmPasswordInput}
         />
         <label className={style.animated_label}>Confirm Password</label>
       </div>
 
       <div className={style.button_wrapper}>
-        <button className={style.register_btn} type="submit">
+        <button className={style.register_btn} disabled={checkButtonEnable()} type="submit">
           회원가입
         </button>
       </div>

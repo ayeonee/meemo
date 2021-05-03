@@ -27,6 +27,11 @@ function Login(): JSX.Element {
     });
   };
 
+  const checkButtonEnable = () => {
+    if (loginInput.password && loginInput.userId) return false;
+    else return true;
+  };
+
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -45,6 +50,10 @@ function Login(): JSX.Element {
           });
         } else {
           alert(res.payload.message);
+          setLoginInput({
+            userId: "",
+            password: "",
+          });
         }
       })
       .catch((err: any) => {
@@ -77,7 +86,7 @@ function Login(): JSX.Element {
         </div>
 
         <div className={style.button_wrapper}>
-          <button className={style.login_btn} type="submit">
+          <button className={style.login_btn} disabled={checkButtonEnable()} type="submit">
             로그인
           </button>
         </div>
