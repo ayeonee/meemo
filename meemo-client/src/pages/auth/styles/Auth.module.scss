@@ -12,7 +12,6 @@
     display: flex;
     border-radius: 5px;
     align-items: center;
-    box-shadow: 1px 2px 25px 2px rgba(44, 44, 44, 0.185);
 
     button {
       font-size: 16px;
@@ -46,13 +45,32 @@
         width: 100%;
 
         .animated_div {
-          position: relative;
-          margin-bottom: 10px;
+          margin-bottom: 11px;
+        }
 
-          .error_message {
-            font-weight: 300;
-            font-size: 10px;
+        .animated_div_bottom {
+          margin: 9px 0;
+
+          .error_message_green {
+            color: $green_grade_5;
           }
+
+          .error_message_red {
+            color: rgb(197, 68, 68);
+          }
+
+          .error_message_green,
+          .error_message_red {
+            position: relative;
+            top: -10px;
+            font-weight: 400;
+            font-size: 11px;
+          }
+        }
+
+        .animated_div,
+        .animated_div_bottom {
+          position: relative;
 
           .animated_label {
             position: absolute;
@@ -139,8 +157,13 @@
             &:hover {
               box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.116);
             }
+
             &:disabled {
-              background-color: $green_grade_1;
+              background-color: $gray;
+            }
+            &:disabled:hover {
+              box-shadow: none;
+              transform: none;
             }
           }
         }
@@ -225,7 +248,6 @@
   .auth_background {
     display: flex;
     border-radius: 5px;
-    background-color: white;
     position: absolute;
     z-index: -99;
 
@@ -277,6 +299,7 @@
   .auth_box_wrapper {
     width: 70vw;
     height: 650px;
+    box-shadow: 1px 2px 25px 2px rgba(44, 44, 44, 0.185);
 
     .auth_box {
       left: 7.5%;
@@ -287,6 +310,7 @@
   .auth_background {
     width: 70vw;
     height: 650px;
+    background-color: white;
     background-image: url("../../../img/login-bg.svg");
     background-repeat: no-repeat;
     background-position: right;
@@ -323,6 +347,7 @@
   .auth_box_wrapper {
     width: 70vw;
     height: 650px;
+    box-shadow: 1px 2px 25px 2px rgba(44, 44, 44, 0.185);
 
     .auth_box {
       left: 7.5%;
@@ -333,6 +358,7 @@
   .auth_background {
     width: 70vw;
     height: 650px;
+    background-color: white;
     background-image: url("../../../img/login-bg-lg.svg");
     background-repeat: no-repeat;
     background-position: right;
@@ -371,6 +397,7 @@
     width: 450px;
     height: 600px;
     justify-content: center;
+    box-shadow: 1px 2px 25px 2px rgba(44, 44, 44, 0.185);
 
     .auth_box {
       top: 30px;
@@ -380,6 +407,7 @@
   .auth_background {
     width: 450px;
     height: 600px;
+    background-color: white;
 
     .logo {
       display: none;
@@ -418,6 +446,7 @@
     width: 450px;
     height: 600px;
     justify-content: center;
+    box-shadow: 1px 2px 25px 2px rgba(44, 44, 44, 0.185);
 
     .auth_box {
       top: 30px;
@@ -427,6 +456,7 @@
   .auth_background {
     width: 450px;
     height: 600px;
+    background-color: white;
 
     .logo {
       display: none;
@@ -465,6 +495,7 @@
     width: 430px;
     height: 580px;
     justify-content: center;
+    box-shadow: 1px 2px 25px 2px rgba(44, 44, 44, 0.185);
 
     .auth_box {
       top: 30px;
@@ -474,6 +505,7 @@
   .auth_background {
     width: 430px;
     height: 580px;
+    background-color: white;
 
     .logo {
       display: none;
@@ -492,14 +524,7 @@
     background-position: right;
 
     .bg_logo {
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      width: 150px;
-      height: 60px;
-      z-index: 100;
-      background-image: url("../../../img/logo.svg");
-      background-repeat: no-repeat;
+      display: none;
     }
     p {
       color: black;
@@ -509,8 +534,8 @@
 
 @include min {
   .auth_box_wrapper {
-    width: 400px;
-    height: 580px;
+    width: 100%;
+    height: fit-content;
     justify-content: center;
 
     .auth_box {
@@ -519,9 +544,6 @@
   }
 
   .auth_background {
-    width: 400px;
-    height: 580px;
-
     .logo {
       display: none;
     }
@@ -532,8 +554,8 @@
   }
 
   .bg_side {
-    width: $fullWidth;
-    height: $fullHeight;
+    width: 100%;
+    height: 100%;
 
     .bg_logo {
       position: fixed;

@@ -29,8 +29,16 @@ function Register({ ...props }: RegisterProps): JSX.Element {
     confirmPassword: "",
   });
   const dispatch = useDispatch<any>();
-  const [errorMessage, setErrorMessage] = useState<String>("");
+  const [errorMessage, setErrorMessage] = useState<String>(
+    " * 대소문자, 숫자, 특수문자 포함 8자리 이상"
+  );
+  const [secondErrorMessage, setSecondErrorMessage] = useState<String>(
+    " * 비밀번호와 동일하게 입력해주세요"
+  );
   const [rightPassword, setRightPassword] = useState<Boolean>(false);
+  const [rightConfirmPassword, setRightConfirmPassword] = useState<Boolean>(
+    false
+  );
 
   const onChangeRegisterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,34 +57,41 @@ function Register({ ...props }: RegisterProps): JSX.Element {
     checkPassword(e.target.value);
   };
 
-  const onChangeConfirmPasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeConfirmPasswordInput = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
     setRegisterInput({
       ...registerInput,
       [name]: value,
     });
+    checkSamePassword(e.target.value);
   };
 
   const checkPassword = (value: string) => {
     const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}/;
     if (reg.test(value)) {
-      setErrorMessage("");
+      setErrorMessage(" * 사용가능한 비밀번호입니다");
       setRightPassword(true);
     } else {
-      setErrorMessage("대소문자, 숫자, 특수문자 포함 8자리 이상");
       setRightPassword(false);
+      setErrorMessage(" * 대소문자, 숫자, 특수문자 포함 8자리 이상");
     }
   };
 
-  const checkMouseFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (!e.target.value) {
-      setErrorMessage("비밀번호를 입력해주세요.");
-    } else setErrorMessage("");
+  const checkSamePassword = (value: string) => {
+    if (registerInput.password === value) {
+      setSecondErrorMessage(" * 확인 완료");
+      setRightConfirmPassword(true);
+    } else {
+      setRightConfirmPassword(false);
+      setSecondErrorMessage(" * 비밀번호와 동일하게 입력해주세요");
+    }
   };
 
   const checkButtonEnable = () => {
     if (
-      registerInput.password === registerInput.confirmPassword &&
+      rightConfirmPassword &&
       rightPassword &&
       registerInput.userId &&
       registerInput.name
@@ -88,7 +103,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { name, userId, password, confirmPassword } = registerInput;
+    const { name, userId, password } = registerInput;
 
     const body = {
       userId: userId,
@@ -132,19 +147,24 @@ function Register({ ...props }: RegisterProps): JSX.Element {
         />
         <label className={style.animated_label}>User ID</label>
       </div>
-      <div className={style.animated_div}>
+      <div className={style.animated_div_bottom}>
         <input
           type="password"
           name="password"
           placeholder="Password"
           value={registerInput.password}
           onChange={onChangePasswordInput}
-          onBlur={checkMouseFocus}
         />
-        <p className={style.error_message}>{errorMessage}</p>
+        <p
+          className={
+            rightPassword ? style.error_message_green : style.error_message_red
+          }
+        >
+          {errorMessage}
+        </p>
         <label className={style.animated_label}>Password</label>
       </div>
-      <div className={style.animated_div}>
+      <div className={style.animated_div_bottom}>
         <input
           type="password"
           name="confirmPassword"
@@ -152,11 +172,24 @@ function Register({ ...props }: RegisterProps): JSX.Element {
           value={registerInput.confirmPassword}
           onChange={onChangeConfirmPasswordInput}
         />
+        <p
+          className={
+            rightConfirmPassword
+              ? style.error_message_green
+              : style.error_message_red
+          }
+        >
+          {secondErrorMessage}
+        </p>
         <label className={style.animated_label}>Confirm Password</label>
       </div>
 
       <div className={style.button_wrapper}>
-        <button className={style.register_btn} disabled={checkButtonEnable()} type="submit">
+        <button
+          className={style.register_btn}
+          disabled={checkButtonEnable()}
+          type="submit"
+        >
           회원가입
         </button>
       </div>
