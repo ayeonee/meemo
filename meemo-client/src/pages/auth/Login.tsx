@@ -18,8 +18,6 @@ function Login(): JSX.Element {
   });
   const history = useHistory();
   const dispatch = useDispatch<any>();
-  const [errorMessage, setErrorMessage] = useState<String>("");
-  const [rightPassword, setRightPassword] = useState<Boolean>(false);
 
   const onChangeLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,34 +27,8 @@ function Login(): JSX.Element {
     });
   };
 
-  const onChangePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLoginInput({
-      ...loginInput,
-      [name]: value,
-    });
-    checkPassword(e.target.value);
-  };
-
-  const checkPassword = (value: string) => {
-    const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}/;
-    if (reg.test(value)) {
-      setErrorMessage("");
-      setRightPassword(true);
-    } else {
-      setErrorMessage("대소문자, 숫자, 특수문자 포함 8자리 이상");
-      setRightPassword(false);
-    }
-  };
-
-  const checkMouseFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (!e.target.value) {
-      setErrorMessage("비밀번호를 입력해주세요.");
-    } else setErrorMessage("");
-  };
-
   const checkButtonEnable = () => {
-    if (rightPassword && loginInput.userId) return false;
+    if (loginInput.password && loginInput.userId) return false;
     else return true;
   };
 
@@ -108,10 +80,8 @@ function Login(): JSX.Element {
             name="password"
             placeholder="Password"
             value={loginInput.password}
-            onChange={onChangePasswordInput}
-            onBlur={checkMouseFocus}
+            onChange={onChangeLoginInput}
           />
-          <p className={style.error_message}>{errorMessage}</p>
           <label className={style.animated_label}>Password</label>
         </div>
 

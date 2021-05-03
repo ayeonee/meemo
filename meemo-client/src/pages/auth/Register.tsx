@@ -88,7 +88,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { name, userId, password } = registerInput;
+    const { name, userId, password, confirmPassword } = registerInput;
 
     const body = {
       userId: userId,
