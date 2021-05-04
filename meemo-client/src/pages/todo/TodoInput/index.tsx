@@ -6,20 +6,22 @@ export default function InputTodo(): JSX.Element {
   const [input, setInput] = useState<string>("");
   const dispatch = useTodoDispatch();
 
-  const onChangeInput = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInput(e.target.value);
-    },
-    []
-  );
+  const onChangeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  }, []);
 
   const addTodoData = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      dispatch({
-        type: "CREATE",
-        schedule: input,
-      });
+
+      if (!input || !/\S/.exec(input)) {
+        alert("내용을 입력해주세요.");
+      } else {
+        dispatch({
+          type: "CREATE",
+          schedule: input,
+        });
+      }
       setInput("");
     },
     [input, dispatch]

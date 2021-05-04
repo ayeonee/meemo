@@ -23,6 +23,7 @@
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-geocode": "^0.2.3",
     "react-google-login": "^5.2.2",
     "react-kakao-login": "^2.1.0",
     "react-query": "^3.13.0",
@@ -66,6 +67,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
+    "@types/react-geocode": "^0.2.0",
     "url-loader": "^4.1.1"
   }
 }

@@ -82,7 +82,7 @@ function RecentModify(): JSX.Element {
             {noteItem.map((item, index) => {
               if (index < 4) {
                 return (
-                  <div className={style.note_container}>
+                  <div key={index} className={style.note_container}>
                     <div
                       className={style.note_div}
                       onClick={() => onClick(item.parentId, item._id)}

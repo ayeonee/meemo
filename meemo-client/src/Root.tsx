@@ -50,16 +50,8 @@ function Root(): JSX.Element {
         <Route component={Auth(SchedulePage, true)} path="/schedule" exact />
         <Route component={Auth(FolderPage, true)} path="/folders" exact />
         <Route component={Auth(CalendarPage, true)} path="/calendar" exact />
-        <Route
-          component={Auth(NoteList, true)}
-          path="/folders/:folderTitle"
-          exact
-        />
-        <Route
-          component={Auth(Editor, true)}
-          path="/folders/:folderTitle/:noteId"
-          exact
-        />
+        <Route component={Auth(NoteList, true)} path="/folders/:folderTitle" exact />
+        <Route component={Auth(Editor, true)} path="/folders/:folderTitle/:noteId" exact />
         <Route component={Auth(UnkownPage, null)} path="*" />
 
         {/*테스트용*/}
