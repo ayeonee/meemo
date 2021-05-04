@@ -9,12 +9,12 @@ export default function DashBoardPage(): JSX.Element {
     <div className={style.dashboard_wrapper}>
       <div className={style.dashboard}>
         <div className={style.line_one}>
-          <TodaySchedule />
+          <UserGraph />
           <RecentModify />
         </div>
         <div className={style.line_two}>
+          <TodaySchedule />
           <TodoList />
-          <UserGraph />
         </div>
       </div>
     </div>

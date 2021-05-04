@@ -59,11 +59,11 @@ function UserGraph(): JSX.Element {
 
   useEffect(() => {
     askForCoords();
-  }, [fullLocation]);
+  }, []);
 
   return (
     <div className={style.user_graph}>
-      <div className={style.title}>User Graph</div>
+      <div className={style.title}>Welcome</div>
       <div className={style.weather_container}>
         <div className={style.weather_info}>
           <img
@@ -73,9 +73,11 @@ function UserGraph(): JSX.Element {
           <div className={style.weather_text}>
             <div className={style.temperature}>{weatherInfo.temperature}°C</div>
             <div className={style.weather}>{weatherInfo.weather}</div>
-            <div className={style.feels_like}>Sensory : {weatherInfo.feelslike}°C</div>
-            <div className={style.humidity}>humidity : {weatherInfo.humidity}%</div>
-            <div className={style.place}>{fullLocation}</div>
+            <div className={style.another_info}>
+              Sensory : {weatherInfo.feelslike}°C <br />
+              humidity : {weatherInfo.humidity}% <br />
+              {fullLocation}
+            </div>
           </div>
         </div>
       </div>

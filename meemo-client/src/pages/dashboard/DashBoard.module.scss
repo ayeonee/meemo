@@ -8,9 +8,8 @@
     @include flex_col;
     align-items: center;
 
-    width: 70%;
-    min-height: 630px;
-    height: fit-content;
+    width: 65%;
+    height: 83vh;
     margin-top: 12vh;
     padding: 15px 0;
 
@@ -22,6 +21,7 @@
       @include flex_row;
       justify-content: space-evenly;
       width: 100%;
+      height: 48%;
 
       .title {
         font-size: 28px;
@@ -30,16 +30,173 @@
         color: $green_grade_5;
       }
 
+      /* User Graph */
+      .user_graph {
+        @include flex_col;
+        align-items: center;
+        width: 55%;
+        height: 100%;
+        background-color: azure;
+        box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+        border-radius: 5px;
+
+        .weather_container {
+          width: 130px;
+          height: 75%;
+          background-color: white;
+          margin-top: 13px;
+          margin-bottom: 2%;
+          border-radius: 5px;
+          box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+          display: flex;
+          justify-content: center;
+
+          .weather_info {
+            .weather_icon {
+              display: block;
+              width: 100px;
+              margin: 0 auto;
+            }
+
+            .weather_text {
+              @include flex_col;
+              justify-content: center;
+              height: 47%;
+              margin-top: 5px;
+
+              .temperature {
+                font-weight: 700;
+                font-size: 22px;
+              }
+
+              .weather {
+                font-weight: 300;
+                font-size: 20px;
+                margin-bottom: 13px;
+              }
+
+              .another_info {
+                font-weight: 300;
+                font-size: 10px;
+                line-height: 1.5;
+              }
+            }
+
+            @media (max-height: 700px) {
+              .another_info {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+
+      /*recent modify style*/
+
+      .recent_modify {
+        @include flex_col;
+        align-items: center;
+        width: 40%;
+        height: 100%;
+        background-color: azure;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+
+        .note_wrapper {
+          width: 85%;
+          height: 70%;
+          box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+          background-color: white;
+          margin-top: auto;
+          margin-bottom: 5%;
+          border-radius: 5px;
+          @include flex_col;
+          justify-content: space-evenly;
+
+          /*show note info style*/
+          .note_container {
+            display: flex;
+            justify-content: center;
+
+            .note_div {
+              display: flex;
+              border: solid 2px $green_grade_2;
+              border-radius: 8px;
+              width: 95%;
+              padding: 10px 0;
+              cursor: pointer;
+
+              .icon_div {
+                height: 100%;
+                width: 30px;
+                pointer-events: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .note_icon {
+                  color: $green_grade_5;
+
+                  width: 20px;
+                  height: 20px;
+
+                  pointer-events: none;
+                }
+              }
+
+              .title_div {
+                margin: auto;
+                margin-left: 1%;
+                pointer-events: none;
+                p {
+                  font-size: 15px;
+                  pointer-events: none;
+                }
+              }
+
+              .time_div {
+                margin-right: 5px;
+                display: flex;
+                align-items: center;
+                font-size: 2px;
+                pointer-events: none;
+
+                small {
+                  color: black;
+                  pointer-events: none;
+                }
+              }
+            }
+            @media (max-width: 1199px) {
+              .icon_div,
+              .time_div small {
+                display: none;
+              }
+
+              .note_div {
+                padding: 5px 0;
+              }
+            }
+            @media (max-height: 700px) {
+              .note_div {
+                padding: 3px 0;
+              }
+            }
+          }
+        }
+      }
+
       /*today schedule style*/
 
       .today_schedule {
         @include flex_col;
         align-items: center;
         width: 35%;
-        height: 350px;
+        height: 100%;
         background-color: azure;
         border-radius: 5px;
         box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+        margin-top: 2%;
 
         .today_info {
           font-size: 18px;
@@ -67,100 +224,12 @@
         }
       }
 
-      /*recent modify style*/
-
-      .recent_modify {
-        @include flex_col;
-        align-items: center;
-        width: 60%;
-        height: 350px;
-        background-color: azure;
-        border-radius: 5px;
-        box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
-
-        .note_wrapper {
-          width: 85%;
-          height: 70%;
-          box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
-          background-color: white;
-          margin-top: auto;
-          margin-bottom: 5%;
-          border-radius: 5px;
-          @include flex_col;
-          justify-content: space-evenly;
-
-          /*show note info style*/
-          .note_container {
-            display: flex;
-            justify-content: center;
-
-            .note_div {
-              display: flex;
-              border: solid 2px $green_grade_2;
-              border-radius: 10px;
-              width: 95%;
-              height: 50px;
-              cursor: pointer;
-
-              .icon_div {
-                height: 100%;
-                width: 50px;
-                pointer-events: none;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                .note_icon {
-                  color: $green_grade_5;
-
-                  width: 30px;
-                  height: 30px;
-
-                  pointer-events: none;
-                }
-              }
-
-              .title_div {
-                margin: auto;
-                margin-left: 1%;
-                pointer-events: none;
-                p {
-                  font-size: 17px;
-                  pointer-events: none;
-                }
-              }
-
-              .time_div {
-                margin-right: 5px;
-                display: flex;
-                align-items: center;
-
-                pointer-events: none;
-                small {
-                  font-size: 7px;
-                  color: black;
-
-                  pointer-events: none;
-                }
-              }
-
-              @media (max-width: 768px) {
-                .icon_div,
-                .time_div small {
-                  display: none;
-                }
-              }
-            }
-          }
-        }
-      }
-
       /* To do List*/
       .todo_list {
         @include flex_col;
         align-items: center;
         width: 60%;
-        height: 350px;
+        height: 100%;
         background-color: azure;
         box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
         border-radius: 5px;
@@ -171,6 +240,7 @@
           height: 75%;
           background-color: white;
           margin-top: 15px;
+          margin-bottom: 3%;
           border-radius: 5px;
           box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
           @include flex_col;
@@ -210,62 +280,6 @@
                   text-overflow: ellipsis;
                   white-space: nowrap;
                 }
-              }
-            }
-          }
-        }
-      }
-
-      /* User Graph */
-      .user_graph {
-        @include flex_col;
-        align-items: center;
-        width: 35%;
-        height: 350px;
-        background-color: azure;
-        box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
-        border-radius: 5px;
-        margin-top: 2%;
-
-        .weather_container {
-          width: 150px;
-          height: 75%;
-          background-color: white;
-          margin-top: 15px;
-          border-radius: 5px;
-          box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
-          display: flex;
-          justify-content: center;
-
-          .weather_info {
-            .weather_icon {
-              display: block;
-              width: 120px;
-              margin: 0 auto;
-            }
-
-            .weather_text {
-              @include flex_col;
-              justify-content: space-between;
-              height: 47%;
-              margin-top: 5px;
-
-              .temperature {
-                font-weight: 700;
-                font-size: 22px;
-              }
-
-              .weather {
-                font-weight: 300;
-                font-size: 22px;
-                margin-bottom: 15px;
-              }
-
-              .feels_like,
-              .humidity,
-              .place {
-                font-weight: 300;
-                font-size: 11px;
               }
             }
           }
