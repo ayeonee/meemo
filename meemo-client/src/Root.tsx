@@ -11,6 +11,7 @@ import Navigation from "./components/Navigation";
 import Auth from "./hoc/auth";
 import CalendarPage from "./pages/calendar";
 import UnkownPage from "./pages/unknown";
+import BlockPage from "./pages/block";
 
 // hoc rule
 // null => 아무나 출입가능
@@ -40,7 +41,11 @@ function Root(): JSX.Element {
       <Switch>
         {/*배포용*/}
         <Route component={Auth(AuthPage, false)} path="/auth" exact />
-        <Route component={Auth(DashBoardPage, true)} path="/" exact />
+        {!visible ? (
+          <Route component={Auth(BlockPage, true)} path="/" exact />
+        ) : (
+          <Route component={Auth(DashBoardPage, true)} path="/" exact />
+        )}
         <Route component={Auth(TodoPage, true)} path="/todo" exact />
         <Route component={Auth(SchedulePage, true)} path="/schedule" exact />
         <Route component={Auth(FolderPage, true)} path="/folders" exact />
