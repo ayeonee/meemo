@@ -5,18 +5,17 @@
   top: 50%;
   width: 100%;
   height: 400px;
-  padding: 20px 0;
-  margin-top: -200px;
+  padding: 40px 0;
+  margin-top: -240px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(250, 250, 250);
+  @include align_center;
 
   .block_title {
-    position: absolute;
-    top: 35px;
-    font-size: 40px;
+    position: relative;
+    top: 20px;
+    font-size: 50px;
     color: $green_grade_5;
   }
 
@@ -28,10 +27,14 @@
     img {
       width: 200px;
       height: 200px;
+      margin: 20px 0;
     }
 
     .script {
       margin-top: 10px;
+      color: $green_grade_5;
+      font-size: 1.1rem;
+      font-weight: bold;
     }
   }
 }
