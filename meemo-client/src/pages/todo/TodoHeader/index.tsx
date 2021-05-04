@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { useTodoState, useTodoDispatch } from "../TodosContext";
+import reset from "../../../img/reset-icon.svg";
 import style from "../styles/TodoHeader.module.scss";
 
 export default function TodoHeader(): JSX.Element {
@@ -30,8 +31,9 @@ export default function TodoHeader(): JSX.Element {
           {checkedTodo.length}/{todos.length} Tasks Done!
         </div>
       </div>
-      <div onClick={onClickReset} className={style.todo_reset}>
-        초기화
+      <div className={style.reset_wrapper} onClick={onClickReset}>
+        <img src={`${reset}`} alt="reset icon" />
+        <div className={style.todo_reset}>초기화</div>
       </div>
     </div>
   );

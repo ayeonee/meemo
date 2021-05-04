@@ -1,15 +1,18 @@
 import { useCallback, useState, useEffect } from "react";
 import { AllData, Data } from "../../_types/scheduleTypes";
+import useConfirm from "../../hooks/useConfirm";
 import axios from "axios";
 import InputButton from "./Input/InputButton";
 import ScheduleList from "./Schedule/ScheduleList";
 import TimeTable from "./TimeTable";
 import style from "./styles/Schedule.module.scss";
+import reset from "../../img/reset-icon.svg";
 import { BASE_URL } from "../../_data/urlData";
 
 export default function SchedulePage(): JSX.Element {
   const [allData, setAllData] = useState<AllData>([]);
   const [addDataCheck, setAddDataCheck] = useState<boolean>(false);
+  const [resetDataCheck, setResetDataCheck] = useState<boolean>(false);
   const [deleteDataCheck, setDeleteDataCheck] = useState<boolean>(false);
 
   const saveSchedule = (payloadData: AllData) => {
@@ -61,6 +64,14 @@ export default function SchedulePage(): JSX.Element {
     return setDeleteDataCheck(false);
   }, [allData, deleteDataCheck]);
 
+  useEffect(() => {
+    if (resetDataCheck) {
+      saveSchedule(allData);
+    }
+
+    return setResetDataCheck(false);
+  }, [allData, resetDataCheck]);
+
   const addData = (elem: Data) => {
     setAllData((allData) =>
       allData.concat({
@@ -99,10 +110,24 @@ export default function SchedulePage(): JSX.Element {
     [allData]
   );
 
+  const resetAllData = () => {
+    setAllData([]);
+    setAddDataCheck(true);
+  };
+
+  const resetAllSchedule = useConfirm(
+    "시간표를 초기화 하시겠습니까?",
+    resetAllData,
+    () => null
+  );
+
   return (
     <div className={style.schedule}>
       <div className={style.time_line_wrapper}>
         <InputButton addData={addData} allData={allData} />
+        <div className={style.reset_button} onClick={resetAllSchedule}>
+          <img src={`${reset}`} alt="reset icon" />
+        </div>
         <div className={style.schedule_list_wrapper}>
           {allData.length >= 1 ? (
             <ScheduleList allData={allData} removeData={removeData} />

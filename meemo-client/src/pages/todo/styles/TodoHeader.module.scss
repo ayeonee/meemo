@@ -25,24 +25,34 @@
     }
   }
 
-  .todo_reset {
+  .reset_wrapper {
     width: fit-content;
     height: fit-content;
-    padding: 3px 3px 0 3px;
-    color: white;
-    font-size: 13px;
-    font-weight: 400;
-    border-style: none;
-    background-color: transparent;
     margin: 11px 9px 0 0;
+    @include flex_row;
+    align-items: center;
     cursor: pointer;
-
-    &:hover {
-      transform: translate(0, -1px);
-    }
 
     &:active {
       transform: none;
+    }
+
+    img {
+      margin: 5px 2px 0 0;
+      width: 12px;
+      height: 12px;
+      transform: rotate(-120deg);
+    }
+
+    .todo_reset {
+      width: fit-content;
+      height: fit-content;
+      padding: 3px 3px 0 3px;
+      color: white;
+      font-size: 13px;
+      font-weight: 400;
+      border-style: none;
+      background-color: transparent;
     }
   }
 }
