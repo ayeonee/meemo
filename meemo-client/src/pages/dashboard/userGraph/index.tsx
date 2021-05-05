@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
 import style from "../DashBoard.module.scss";
-import Geocode from "react-geocode";
-
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY!;
+import WeatherInfo from "./weatherInfo";
+import AchievementRate from "./achievementRate";
 
 function UserGraph(): JSX.Element {
+<<<<<<< HEAD
   const [weatherInfo, setWeatherInfo] = useState({
     temperature: "",
     feelslike: "",
@@ -63,25 +61,14 @@ function UserGraph(): JSX.Element {
     askForCoords();
   }, []);
 
+=======
+>>>>>>> 215ca64... add achievement rate graph
   return (
     <div className={style.user_graph}>
       <div className={style.title}>Welcome</div>
-      <div className={style.weather_container}>
-        <div className={style.weather_info}>
-          <img
-            className={style.weather_icon}
-            src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
-          />
-          <div className={style.weather_text}>
-            <div className={style.temperature}>{weatherInfo.temperature}°C</div>
-            <div className={style.weather}>{weatherInfo.weather}</div>
-            <div className={style.another_info}>
-              Sensory : {weatherInfo.feelslike}°C <br />
-              humidity : {weatherInfo.humidity}% <br />
-              {fullLocation}
-            </div>
-          </div>
-        </div>
+      <div className={style.welcome_box}>
+        <WeatherInfo />
+        <AchievementRate />
       </div>
     </div>
   );
