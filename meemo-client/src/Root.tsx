@@ -33,15 +33,14 @@ function Root(): JSX.Element {
   return (
     <BrowserRouter>
       {!visible ? null : <Navigation />}
-      {/*배포용*/}
+      {/*배포용 */}
 
       {/* <Navigation /> */}
       {/*테스트용*/}
 
       <Switch>
-<<<<<<< HEAD
         {/*배포용*/}
-        {/* <Route component={Auth(AuthPage, false)} path="/auth" exact />
+        <Route component={Auth(AuthPage, false)} path="/auth" exact />
         {!visible ? (
           <Route component={Auth(BlockPage, true)} path="/" exact />
         ) : (
@@ -51,12 +50,20 @@ function Root(): JSX.Element {
         <Route component={Auth(SchedulePage, true)} path="/schedule" exact />
         <Route component={Auth(FolderPage, true)} path="/folders" exact />
         <Route component={Auth(CalendarPage, true)} path="/calendar" exact />
-        <Route component={Auth(NoteList, true)} path="/folders/:folderTitle" exact />
-        <Route component={Auth(Editor, true)} path="/folders/:folderTitle/:noteId" exact />
-        <Route component={Auth(UnkownPage, null)} path="*" /> */}
+        <Route
+          component={Auth(NoteList, true)}
+          path="/folders/:folderTitle"
+          exact
+        />
+        <Route
+          component={Auth(Editor, true)}
+          path="/folders/:folderTitle/:noteId"
+          exact
+        />
+        <Route component={Auth(UnkownPage, null)} path="*" />
 
         {/*테스트용*/}
-        <Route component={Auth(AuthPage, null)} path="/auth" exact />
+        {/* <Route component={Auth(AuthPage, null)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, null)} path="/" exact />
         <Route component={Auth(CalendarPage, null)} path="/calendar" exact />
         <Route component={Auth(SchedulePage, null)} path="/schedule" exact />
@@ -72,13 +79,7 @@ function Root(): JSX.Element {
           path="/folders/:folderTitle/:noteId"
           exact
         />
-        <Route component={Auth(UnkownPage, null)} path="*" />
-=======
-        <Route component={AuthPage} path="/" exact />
-        <Route component={Home} path="/schedule" exact />
-        {/* <Route component={Auth(AuthPage, false)} path="/" exact />
-        <Route component={Auth(Home, true)} path="/schedule" exact /> */}
->>>>>>> feature/calendar
+        <Route component={Auth(UnkownPage, null)} path="*" /> */}
       </Switch>
     </BrowserRouter>
   );
