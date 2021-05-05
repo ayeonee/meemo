@@ -1,24 +1,32 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "../styles/CalendarModal.module.scss";
 import RMDEditor from "rich-markdown-editor";
 import debounce from "lodash/debounce";
 
-import {
-  EventApi,
-  DateSelectArg,
-  EventClickArg,
-  EventContentArg,
-  formatDate,
-  EventInput,
-} from "@fullcalendar/react";
+import DeleteModal from "./DeleteModal";
+
+// import {
+//   EventApi,
+//   DateSelectArg,
+//   EventClickArg,
+//   EventContentArg,
+//   formatDate,
+//   EventInput,
+// } from "@fullcalendar/react";
+
+import moment from "moment";
 
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import { update } from "lodash";
 
-type CalendarModalProps = {
+interface CalendarModalProps {
+  modalType: string;
   toggleModal: () => void;
   selectInfo: any;
-};
+  submit: (evnt: object) => void;
+  handleDelete: (id: string) => void;
+}
 
 // type selectInfoType = {
 //   startStr: string;
@@ -26,58 +34,76 @@ type CalendarModalProps = {
 // };
 
 export default function CalendarModal(props: CalendarModalProps): JSX.Element {
-  const { toggleModal, selectInfo } = props;
+  const { modalType, toggleModal, selectInfo, submit, handleDelete } = props;
 
   const [title, setTitle] = useState<string>(selectInfo.title);
   const [allDay, setAllDay] = useState<boolean>(selectInfo.allDay);
 
   const [startDate, setStartDate] = useState<string>(selectInfo.startStr);
-  const [endDate, setEndDate] = useState<string>(selectInfo.endStr);
+  const [endDate, setEndDate] = useState<string>(
+    selectInfo.allDay
+      ? moment(selectInfo.endStr).subtract(1, "days").format("YYYY-MM-DD")
+      : selectInfo.endStr
+  );
 
   const [startTime, setStartTime] = useState<string>(selectInfo.startTime);
   const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
 
-  const [editorBody, setEditorBody] = useState<string>("");
+  const [editorBody, setEditorBody] = useState<string>(selectInfo.body);
+
+  const [showDelModal, setShowDelModal] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(endDate);
+    // console.log(editorBody);
   }, []);
 
-  const submitApi = () => {
-    const calApi = {
-      title,
-      allDay,
-      startDate,
-      endDate,
-      startTime,
-      endTime,
-      editorBody,
+  const handleSubmit = () => {
+    const fixedEndDate = allDay
+      ? moment(endDate).add(1, "days").format("YYYY-MM-DD")
+      : endDate;
+    const calAdd = {
+      type: "ADD",
+      title: title,
+      allDay: allDay,
+      start: `${startDate}T${startTime}:00`,
+      end: `${fixedEndDate}T${endTime}:00`,
+      body: editorBody,
     };
-    console.log(calApi);
+
+    const calUpdate = {
+      type: "UPDATE",
+      id: selectInfo.id,
+      title: title,
+      allDay: allDay,
+      start: `${startDate}T${startTime}:00`,
+      end: `${fixedEndDate}T${endTime}:00`,
+      body: editorBody,
+    };
+
+    if (modalType === "ADD") {
+      submit(calAdd);
+    }
+    if (modalType === "UPDATE") {
+      submit(calUpdate);
+    }
   };
 
-  const handleEditorChange = debounce((value) => {
-    // let source = axios.CancelToken.source();
-    const noteInfo = {
-      body: `${value()}`,
-    };
-    // try {
-    //   axios
-    //     .post(
-    //       "https://meemo.kr/api/notes/update/" + history.location.state.id,
-    //       noteInfo,
-    //       {
-    //         cancelToken: source.token,
-    //       }
-    //     )
-    //     .then((res) => console.log(res.data));
-    // } catch (err) {
-    //   // Not sure that this is the right way to cancel the request. Might contain unknown problems.
-    //   // check if can fix the original error which is err
-    //   source.cancel();
-    //   console.log(err, "\nOperation canceled by the user.");
-    // }
-  }, 1000);
+  useEffect(() => {
+    if (showDelModal === false) {
+      const listener = (event: any) => {
+        if (event.which === 13) {
+          handleSubmit();
+        }
+        if (event.which === 27) {
+          toggleModal();
+        }
+      };
+      document.addEventListener("keydown", listener);
+      return () => {
+        document.removeEventListener("keydown", listener);
+      };
+    }
+  });
 
   return (
     <div className={style.wrapper}>
@@ -89,6 +115,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               name="title"
               className="titleInput"
               placeholder="제목을 입력하세요"
+              maxLength={26}
               value={title}
               onChange={(e: any) => setTitle(e.target.value)}
               autoFocus
@@ -130,7 +157,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                     id="fromTime"
                     label=""
                     type="time"
-                    defaultValue={startTime || "00:00"}
+                    defaultValue={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
                     InputLabelProps={{
                       shrink: true,
@@ -142,24 +169,6 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                 </form>
               )}
               <p>&#8212;</p>
-              {allDay ? null : (
-                <form className={style.container} noValidate>
-                  <TextField
-                    className={style.toTimeSelector}
-                    id="toTime"
-                    label=""
-                    type="time"
-                    defaultValue={endTime || "00:00"}
-                    onChange={(e) => setEndTime(e.target.value)}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    inputProps={{
-                      step: 300, // 5 min
-                    }}
-                  />
-                </form>
-              )}
               <form className={style.container} noValidate>
                 <TextField
                   className={style.toDateSelector}
@@ -173,6 +182,24 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                   }}
                 />
               </form>
+              {allDay ? null : (
+                <form className={style.container} noValidate>
+                  <TextField
+                    className={style.toTimeSelector}
+                    id="toTime"
+                    label=""
+                    type="time"
+                    defaultValue={endTime}
+                    onChange={(e) => setEndTime(e.target.value)}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      step: 300, // 5 min
+                    }}
+                  />
+                </form>
+              )}
             </div>
           </div>
           <div className={style.noteDiv}>
@@ -180,9 +207,9 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               id="example"
               readOnly={false}
               readOnlyWriteCheckboxes
-              value={editorBody}
+              // value={}
               placeholder={"일정에 대한 메모를 적어보세요..."}
-              // defaultValue={"testing"}
+              defaultValue={selectInfo.body}
               scrollTo={window.location.hash}
               handleDOMEvents={
                 {
@@ -194,7 +221,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               }
               onSave={(options) => console.log("Save triggered", options)}
               onCancel={() => console.log("Cancel triggered")}
-              onChange={handleEditorChange}
+              onChange={(value) => setEditorBody(value)}
               onClickLink={(href, event) =>
                 console.log("Clicked link: ", href, event)
               }
@@ -226,15 +253,29 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
             />
           </div>
           <div className={style.btnDiv}>
-            <button className="submitBtn" id={`noDeselect`} onClick={submitApi}>
-              추가
+            <button className="submitBtn" onClick={handleSubmit}>
+              {modalType === "ADD" ? "추가" : "수정"}
             </button>
-            <button name="cancelBtn" id={`noDeselect`} onClick={toggleModal}>
+            <button className="cancelBtn" onClick={toggleModal}>
               취소
             </button>
+            {modalType === "UPDATE" ? (
+              <button
+                className="deleteBtn"
+                onClick={() => setShowDelModal(!showDelModal)}
+              >
+                삭제
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
+      {showDelModal ? (
+        <DeleteModal
+          toggleModal={() => setShowDelModal(!showDelModal)}
+          handleDelete={() => handleDelete(selectInfo.id)}
+        />
+      ) : null}
     </div>
   );
 }
