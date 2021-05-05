@@ -39,6 +39,7 @@ function Root(): JSX.Element {
       {/*테스트용*/}
 
       <Switch>
+<<<<<<< HEAD
         {/*배포용*/}
         {/* <Route component={Auth(AuthPage, false)} path="/auth" exact />
         {!visible ? (
@@ -72,6 +73,12 @@ function Root(): JSX.Element {
           exact
         />
         <Route component={Auth(UnkownPage, null)} path="*" />
+=======
+        <Route component={AuthPage} path="/" exact />
+        <Route component={Home} path="/schedule" exact />
+        {/* <Route component={Auth(AuthPage, false)} path="/" exact />
+        <Route component={Auth(Home, true)} path="/schedule" exact /> */}
+>>>>>>> feature/calendar
       </Switch>
     </BrowserRouter>
   );

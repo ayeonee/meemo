@@ -1,7 +1,7 @@
 import { StylesProvider } from "@material-ui/styles";
 import React, { useState, useEffect } from "react";
 import { getGeneratedNameForNode } from "typescript";
-import style from "../styles/Popup.module.scss";
+import style from "../styles/AddRenameModal.module.scss";
 
 type PopupToggleProps = {
   prevTitle: string;
@@ -12,7 +12,7 @@ type PopupToggleProps = {
   getRename: (id: string, t: string) => void;
 };
 
-export default function Popup(props: PopupToggleProps) {
+export default function AddRenameModal(props: PopupToggleProps) {
   const {
     prevTitle,
     selectedId,
@@ -43,11 +43,10 @@ export default function Popup(props: PopupToggleProps) {
   };
 
   // tried to link keyboard keys such as Enter and ESC to the onClicks;
-
   useEffect(() => {
     const listener = (event: any) => {
       if (event.which === 13) {
-        handleSubmit(inputVal, props.selectedId);
+        handleSubmit(inputVal, selectedId);
       }
       if (event.which === 27) {
         props.togglePopup();

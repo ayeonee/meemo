@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+
+  min-height: 100%;
+
+  margin: 0 auto;
+
+  .calendarDiv {
+    flex-grow: 1;
+    padding: 50px;
+
+    overflow: hidden;
+  }
+}
