@@ -20,7 +20,7 @@ export default function InputButton({
   return (
     <>
       <div onClick={openModal} className={style.input_button}>
-        + &nbsp; 일정 추가 &nbsp;
+        <span> + </span>
       </div>
       <InputBox
         modalState={modalState}

@@ -225,7 +225,6 @@ export default function FolderList(): JSX.Element {
               }}
             >
               <Create className={style.renameIcon} />
-              &nbsp; 수정 &nbsp;
             </div>
 
             <div
@@ -236,7 +235,7 @@ export default function FolderList(): JSX.Element {
                 setShowPopup(!showPopup);
               }}
             >
-              + &nbsp; 폴더 추가 &nbsp;
+              <span> + </span>
             </div>
             <div
               className={delBtn ? style.deleteBtn : style.hideDelBtn}
@@ -246,7 +245,6 @@ export default function FolderList(): JSX.Element {
               }}
             >
               <Delete className={style.deleteIcon} />
-              &nbsp; 삭제 &nbsp;
             </div>
           </div>
         </>

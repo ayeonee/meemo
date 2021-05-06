@@ -1,5 +1,6 @@
 .list_wrapper {
   width: 100%;
+  overflow: scroll;
   margin-top: 5px;
   padding: 0;
 
@@ -13,6 +14,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    font-size: 1rem;
 
     .todo_false,
     .todo_true {
