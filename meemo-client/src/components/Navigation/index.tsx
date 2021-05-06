@@ -5,10 +5,11 @@ import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
 import removeLocalStorage from "../../hooks/removeLocalStorage";
 import style from "./Navigation.module.scss";
+import style_hidden from "../../styles/hidden.module.scss";
 
 function Navigation({ location: { pathname } }: any): JSX.Element {
   const userName = localStorage.getItem("meemo-user-name");
-  const userId = localStorage.getItem("meemo-user-id");
+  // const userId = localStorage.getItem("meemo-user-id");
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {
@@ -55,22 +56,61 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
     handleNavColor(pathname);
   }, [pathname]);
 
+  // return (
+  // /* 배포용 */
+
+  //   <div
+  //     className={
+  //       pathname === "/auth" || userId === null
+  //         ? style_hidden.hidden
+  //         : style.nav_wrapper
+  //     }
+  //   >
+  //   <nav className={style.nav_inside}>
+  //     <div
+  //       className={media ? style.burger_toggle : style.burger_menu}
+  //       onClick={onClickBurger}
+  //     >
+  //       <div className={style.burger_line1}></div>
+  //       <div className={style.burger_line2}></div>
+  //       <div className={style.burger_line3}></div>
+  //     </div>
+
+  //     <Link to="/">
+  //       <img
+  //         className={style.logo}
+  //         src={`${logo}`}
+  //         alt="logo"
+  //         onClick={() => handleNavColor("/")}
+  //       />
+  //     </Link>
+
+  //     <div className={media ? style.nav_items_on : style.nav_items_off}>
+  //       <div className={style.nav_menus}>
+  //         {menuColor.map((data) => (
+  //           <NavItem
+  //             data={data}
+  //             handleNavColor={handleNavColor}
+  //             key={data.address}
+  //             offNav={() => setMedia(false)}
+  //           />
+  //         ))}
+  //       </div>
+  //     </div>
+
+  //     <div className={style.user_menu}>
+  //       <p className={style.nav_username}>{userName}님</p>
+  //       <button className={style.logout_btn} onClick={onClickLogout}>
+  //         로그아웃
+  //       </button>
+  //     </div>
+  //   </nav>
+  // </div>
+
   return (
-    // 배포용
-    // <div
-    //   className={
-    //     pathname === "/auth" || userId === null
-    //       ? style.nav_hidden
-    //       : style.nav_wrapper
-    //   }
-    // >
-
-    // 테스트용
     <div
-      className={pathname === "/auth" ? style.nav_hidden : style.nav_wrapper}
+      className={pathname === "/auth" ? style_hidden.hidden : style.nav_wrapper}
     >
-      {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
-
       <nav className={style.nav_inside}>
         <div
           className={media ? style.burger_toggle : style.burger_menu}
