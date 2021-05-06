@@ -102,12 +102,13 @@
 
 @include under1100 {
   .nav_wrapper {
+    width: 100%;
     align-items: center;
     justify-content: center;
 
     .nav_inside {
       justify-content: space-between;
-      width: 92vw;
+      width: 92%;
 
       .burger_menu,
       .burger_toggle {
@@ -146,10 +147,12 @@
         height: 150vh;
         overflow-y: hidden;
         position: absolute;
-        top: 75px;
+        top: 77px;
         left: 0;
+        z-index: 0;
         background-color: white;
-        border: 1px solid $gray;
+
+        border-top: none;
         box-shadow: 2px 2px 3px rgba(44, 44, 44, 0.137);
 
         .nav_menus {
@@ -209,7 +212,7 @@
             margin: 12px 2.3vw 0 2.3vw;
           }
           .nav_menu_checked {
-            padding-bottom: 19px;
+            padding-bottom: 22px;
             border-bottom: 6px solid $green_grade_4;
           }
         }
