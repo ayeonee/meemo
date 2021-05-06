@@ -8,9 +8,6 @@ $green_grade_5: #52a58e;
 $gray: rgba(36, 36, 36, 0.24);
 $gray_border: 1px solid $gray;
 
-$fullHeight: 100vh;
-$fullWidth: 100vw;
-
 @mixin flex_col {
   display: flex;
   flex-direction: column;

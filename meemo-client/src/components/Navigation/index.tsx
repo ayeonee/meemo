@@ -56,13 +56,21 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
   }, [pathname]);
 
   return (
+    // 배포용
+    // <div
+    //   className={
+    //     pathname === "/auth" || userId === null
+    //       ? style.nav_hidden
+    //       : style.nav_wrapper
+    //   }
+    // >
+
+    // 테스트용
     <div
-      className={
-        pathname === "/auth" || userId === null
-          ? style.nav_hidden
-          : style.nav_wrapper
-      }
+      className={pathname === "/auth" ? style.nav_hidden : style.nav_wrapper}
     >
+      {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
+
       <nav className={style.nav_inside}>
         <div
           className={media ? style.burger_toggle : style.burger_menu}

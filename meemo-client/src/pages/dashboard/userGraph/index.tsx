@@ -43,7 +43,7 @@ function UserGraph(): JSX.Element {
     //     );
     //   }
     // );
-    getWeather("Seoul"); /* for test*/
+    // getWeather("Seoul"); /* for test*/
   };
 
   const handleGeoTrue = (position: any) => {

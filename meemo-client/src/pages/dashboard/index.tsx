@@ -16,23 +16,36 @@ export default function DashBoardPage(): JSX.Element {
     }
   }, []);
   return (
-    <>
-      {block ? (
-        <div className={style.dashboard_wrapper}>
-          <div className={style.dashboard}>
-            <div className={style.line_one}>
-              <UserGraph />
-              <RecentModify />
-            </div>
-            <div className={style.line_two}>
-              <TodaySchedule />
-              <TodoList />
-            </div>
-          </div>
+    // <>
+    //   {block ? (
+    //     <div className={style.dashboard_wrapper}>
+    //       <div className={style.dashboard}>
+    //         <div className={style.line_one}>
+    //           <UserGraph />
+    //           <RecentModify />
+    //         </div>
+    //         <div className={style.line_two}>
+    //           <TodaySchedule />
+    //           <TodoList />
+    //         </div>
+    //       </div>
+    //     </div>
+    //   ) : (
+    //     <BlockPage />
+    //   )}
+    // </>
+
+    <div className={style.dashboard_wrapper}>
+      <div className={style.dashboard}>
+        <div className={style.line_one}>
+          <UserGraph />
+          <RecentModify />
         </div>
-      ) : (
-        <BlockPage />
-      )}
-    </>
+        <div className={style.line_two}>
+          <TodaySchedule />
+          <TodoList />
+        </div>
+      </div>
+    </div>
   );
 }

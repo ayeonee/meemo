@@ -7,7 +7,7 @@ import promiseMiddlerware from "redux-promise";
 import reduxThunk from "redux-thunk";
 import reducer from "./_userReducers";
 import reportWebVitals from "./reportWebVitals";
-import "./styles/reset.module.scss";
+import "./styles/reset.css";
 
 const createStoreWidthMiddleware = applyMiddleware(
   promiseMiddlerware,
