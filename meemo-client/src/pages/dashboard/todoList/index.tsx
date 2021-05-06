@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import style from "../DashBoard.module.scss";
+import style from "../styles/TodoList.module.scss";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Todo } from "../../../_types/todoTypes";

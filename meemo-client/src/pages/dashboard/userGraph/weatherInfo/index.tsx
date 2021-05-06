@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import style from "../../DashBoard.module.scss";
+import style from "../../styles/UserGraph.module.scss";
 import Geocode from "react-geocode";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
@@ -14,7 +14,7 @@ function WeatherInfo(): JSX.Element {
     icon: "",
   });
 
-  const [fullLocation, setFullLocation] = useState<string>("");
+  const [fullLocation, setFullLocation] = useState<string>("Seoul Dongjak-gu");
 
   const getWeather = (cityName: string) => {
     fetch(

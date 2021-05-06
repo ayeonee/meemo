@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AllData } from "../../../_types/scheduleTypes";
 import { BASE_URL } from "../../../_data/urlData";
 import axios from "axios";
-import style from "../DashBoard.module.scss";
+import style from "../styles/TodaySchedule.module.scss";
 
 type ScheduleInfo = {
   id: string;

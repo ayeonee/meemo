@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import style from "../../DashBoard.module.scss";
+import style from "../../styles/UserGraph.module.scss";
 import { Todo } from "../../../../_types/todoTypes";
 import { BASE_URL } from "../../../../_data/urlData";
 import { Pie } from "react-chartjs-2";
@@ -41,7 +41,7 @@ function AchievementRate(): JSX.Element {
       {
         data: [checkedTodo.length, todoList.length - checkedTodo.length],
         backgroundColor: ["#6cbea7", "#cceae4"],
-        hoverBackGroundColor: ["#6cbea7", "#F1948A"],
+        hoverBackGroundColor: ["#6cbea7", "#cceae4"],
         borderWidth: 1,
       },
     ],
@@ -49,9 +49,7 @@ function AchievementRate(): JSX.Element {
 
   //그래프의 시각화를 돕는 options
   const todoPieOptions = {
-    animation: {
-      delay: 1000,
-    },
+    animation: false,
     plugins: {
       legend: {
         labels: {
@@ -66,13 +64,18 @@ function AchievementRate(): JSX.Element {
   };
 
   return (
-    <>
-      <div className={style.graph_box}>
-        <div className={style.graph_container}>
+    <div className={style.graph_box}>
+      <div className={style.graph_index}>Achievement Rate</div>
+      <div className={style.graph_container}>
+        {todoList.length === 0 ? (
+          <div className={style.graph_message}>
+            달성할 목표가 <br /> 아직 없습니당!
+          </div>
+        ) : (
           <Pie type="pie" data={todoBasedPieData} options={todoPieOptions} />
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
 
