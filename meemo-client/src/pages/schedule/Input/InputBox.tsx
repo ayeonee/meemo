@@ -135,7 +135,7 @@ export default function InputBox({
 
     schedule.forEach((elem) => {
       const { startHour, startMin, endHour, endMin } = elem;
-      if (startHour < endHour && startMin - endMin < 30) {
+      if (startHour < endHour && startMin - endMin <= 30) {
         checkTimeCorrect.current = true;
       } else if (startHour === endHour) {
         if (endMin > startMin && endMin - startMin >= 30) {

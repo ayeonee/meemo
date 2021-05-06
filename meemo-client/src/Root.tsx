@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AuthPage from "./pages/auth";
 import SchedulePage from "./pages/schedule";
@@ -11,7 +10,6 @@ import Navigation from "./components/Navigation";
 import Auth from "./hoc/auth";
 import CalendarPage from "./pages/calendar";
 import UnkownPage from "./pages/unknown";
-import BlockPage from "./pages/block";
 
 // hoc rule
 // null => 아무나 출입가능
@@ -19,33 +17,14 @@ import BlockPage from "./pages/block";
 // false => 로그인 한 유저는 출입 불가능
 
 function Root(): JSX.Element {
-  const [visible, setVisible] = useState<boolean>(false);
-
-  useEffect(() => {
-    const userInfo = localStorage.getItem("meemo-user-id");
-
-    if (userInfo) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  }, []);
   return (
     <BrowserRouter>
-      {!visible ? null : <Navigation />}
-      {/*배포용 */}
-
-      {/* <Navigation /> */}
-      {/*테스트용*/}
+      <Navigation />
 
       <Switch>
         {/*배포용*/}
         <Route component={Auth(AuthPage, false)} path="/auth" exact />
-        {!visible ? (
-          <Route component={Auth(BlockPage, true)} path="/" exact />
-        ) : (
-          <Route component={Auth(DashBoardPage, true)} path="/" exact />
-        )}
+        <Route component={Auth(DashBoardPage, true)} path="/" exact />
         <Route component={Auth(TodoPage, true)} path="/todo" exact />
         <Route component={Auth(SchedulePage, true)} path="/schedule" exact />
         <Route component={Auth(FolderPage, true)} path="/folders" exact />
@@ -63,7 +42,8 @@ function Root(): JSX.Element {
         <Route component={Auth(UnkownPage, null)} path="*" />
 
         {/*테스트용*/}
-        {/* <Route component={Auth(AuthPage, null)} path="/auth" exact />
+        {/* 
+        <Route component={Auth(AuthPage, null)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, null)} path="/" exact />
         <Route component={Auth(CalendarPage, null)} path="/calendar" exact />
         <Route component={Auth(SchedulePage, null)} path="/schedule" exact />

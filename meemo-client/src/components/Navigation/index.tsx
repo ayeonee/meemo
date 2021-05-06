@@ -8,6 +8,7 @@ import style from "./Navigation.module.scss";
 
 function Navigation({ location: { pathname } }: any): JSX.Element {
   const userName = localStorage.getItem("meemo-user-name");
+  const userId = localStorage.getItem("meemo-user-id");
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
     {
@@ -56,7 +57,11 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
 
   return (
     <div
-      className={pathname === "/auth" ? style.nav_hidden : style.nav_wrapper}
+      className={
+        pathname === "/auth" || userId === null
+          ? style.nav_hidden
+          : style.nav_wrapper
+      }
     >
       <nav className={style.nav_inside}>
         <div
