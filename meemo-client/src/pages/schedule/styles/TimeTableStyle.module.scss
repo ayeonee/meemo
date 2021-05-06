@@ -2,15 +2,12 @@
 
 .table_wrapper {
   @include flex_col;
-  position: static;
   background-color: white;
   width: fit-content;
   text-align: center;
 
   .table_header {
-    border: $gray_border;
-    border-right: none;
-    border-spacing: 0;
+    border-bottom: $gray_border;
     font-size: 18px;
     font-weight: 400;
     color: white;
@@ -22,6 +19,10 @@
     th {
       width: 80px;
       border-right: $gray_border;
+    }
+
+    .table_null_head {
+      width: 81px;
     }
 
     .day {

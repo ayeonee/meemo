@@ -2,16 +2,15 @@
 .todo_page_wrapper {
   display: flex;
   justify-content: center;
+
   .todo_page {
     @include flex_col;
     align-items: center;
-
     width: 60%;
     min-height: 500px;
     height: fit-content;
-    margin-top: 12vh;
+    margin-top: 100px;
     padding: 0px 30px 50px 30px;
-
     background-color: white;
     border-radius: 2px;
   }

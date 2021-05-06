@@ -8,7 +8,7 @@ export default function TimeLine(): JSX.Element {
       <table className={style.table_header}>
         <tbody>
           <tr>
-            <th></th>
+            <th className={style.table_null_head}></th>
             {daysData.map((data) => (
               <td className={style.day} key={data.id}>
                 {data.name}

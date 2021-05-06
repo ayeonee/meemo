@@ -22,7 +22,7 @@ function ScheduleItem({
 
   const datePosition = 82 + 96 * (date - 1);
   const scheduleTime = (endHour - startHour) * 60 + (endMin - startMin);
-  const timeStart = 39 + 72 * (startHour - 8) + startMin * 1.2;
+  const timeStart = 38 + 72 * (startHour - 8) + startMin * 1.2;
   const timeHeight = scheduleTime * 1.2 - 5;
   const color = (id.length + place.length) % 6;
 

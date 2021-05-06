@@ -228,8 +228,6 @@ app.post("/api/save/schedule", (req, res) => {
           });
         });
       } else {
-        console.log("update: true", req.body.payload);
-
         return res.status(200).json({
           update: true,
         });
