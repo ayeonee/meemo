@@ -232,11 +232,13 @@ export default function NoteList() {
                     onSelect(note);
                   }}
                 >
-                  <div className={style.iconDiv}>
-                    <Notes className={style.noteIcon} />
-                  </div>
-                  <div className={style.titleDiv}>
-                    <p>{note.title}</p>
+                  <div className={style.note_front}>
+                    <div className={style.iconDiv}>
+                      <Notes className={style.noteIcon} />
+                    </div>
+                    <div className={style.titleDiv}>
+                      <p>{note.title}</p>
+                    </div>
                   </div>
                   <div className={style.timeDiv}>
                     <small>최근 수정: {setTime(note.updatedAt)}</small>
@@ -246,7 +248,7 @@ export default function NoteList() {
             </div>
           </div>
           <div className={style.toolDiv}>
-            <button
+            <div
               className={delBtn ? style.renameBtn : style.hideRenameBtn}
               id={`noDeselect`}
               onClick={() => {
@@ -255,8 +257,8 @@ export default function NoteList() {
               }}
             >
               <Create className={style.renameIcon} />
-            </button>
-            <button
+            </div>
+            <div
               className={style.addBtn}
               id={`noDeselect`}
               onClick={() => {
@@ -265,8 +267,8 @@ export default function NoteList() {
               }}
             >
               <Add className={style.addIcon} />
-            </button>
-            <button
+            </div>
+            <div
               className={delBtn ? style.deleteBtn : style.hideDelBtn}
               id={`noDeselect`}
               onClick={() => {
@@ -274,7 +276,7 @@ export default function NoteList() {
               }}
             >
               <Delete className={style.deleteIcon} />
-            </button>
+            </div>
           </div>
         </>
       )}
