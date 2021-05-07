@@ -45,11 +45,11 @@
         width: 100%;
 
         .animated_div {
-          margin-bottom: 11px;
+          margin-bottom: 10px;
         }
 
         .animated_div_bottom {
-          margin: 9px 0;
+          margin: 16px 0;
 
           .error_message_green {
             color: $green_grade_5;
@@ -62,7 +62,7 @@
           .error_message_green,
           .error_message_red {
             position: relative;
-            top: -10px;
+            top: -7px;
             font-weight: 400;
             font-size: 11px;
           }
@@ -81,7 +81,7 @@
             opacity: 0.5;
             transition: 0.1s ease all;
             user-select: none;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 300;
             color: transparent;
             margin: 1.8vh 0 5px 0;
@@ -113,7 +113,7 @@
             border: unset;
             background-color: unset;
             margin: 5px 0 14px 0;
-            padding: 0 0 10px 3px;
+            padding: 0 0 9px 3px;
             z-index: 1;
             border-bottom: 1px solid $gray;
 
@@ -124,11 +124,11 @@
               ~ .animated_label {
                 opacity: 1;
                 color: $green_grade_5;
-                font-size: 15px;
+                font-size: 14px;
                 font-weight: 400;
                 border: unset;
-                padding-bottom: 33px;
-                top: -37px;
+                padding-bottom: 30px;
+                top: -35px;
 
                 &:after {
                   width: 100%;
