@@ -1,8 +1,48 @@
+@import "../../../styles/_variables.module.scss";
+
 .wrapper {
-  margin-top: 90px;
+  @include flex_col;
+  align-items: center;
+  width: 100%;
+  height: 80%;
+  overflow: scroll;
+  position: fixed;
+  top: 130px;
 
   .editor {
-    width: 900px;
-    margin: 5px auto;
+    height: fit-content;
+    min-width: 300px;
+  }
+}
+
+@include min {
+  .editor {
+    width: 325px;
+  }
+}
+@include mobile {
+  .editor {
+    width: 80%;
+  }
+}
+
+@include tablet {
+  .editor {
+    width: 80%;
+  }
+}
+@include mdDesktop {
+  .editor {
+    width: 80%;
+  }
+}
+@include lgDesktop {
+  .editor {
+    width: 55%;
+  }
+}
+@include max {
+  .editor {
+    width: 55%;
   }
 }

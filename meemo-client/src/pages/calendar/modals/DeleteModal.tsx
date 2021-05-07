@@ -36,7 +36,10 @@ export default function DeleteModal(props: DeleteModalProps): JSX.Element {
             <p>해당 이벤트가 삭제됩니다</p>
           </div>
           <div className={style.btnDiv}>
-            <button className="submitBtn" onClick={() => handleDelete()}>
+            <button
+              className={style.submit_button}
+              onClick={() => handleDelete()}
+            >
               지우기
             </button>
             <button name="cancelBtn" onClick={toggleModal}>

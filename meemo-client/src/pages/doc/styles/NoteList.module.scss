@@ -10,8 +10,6 @@
   top: 110px;
 
   .noteContainer {
-    width: 80%;
-    min-width: 350px;
     height: fit-content;
     margin-top: 30px;
 
@@ -186,5 +184,37 @@
     .hideDelBtn {
       display: none;
     }
+  }
+}
+
+@include min {
+  .noteContainer {
+    width: 325px;
+  }
+}
+@include mobile {
+  .noteContainer {
+    width: 80%;
+  }
+}
+
+@include tablet {
+  .noteContainer {
+    width: 80%;
+  }
+}
+@include mdDesktop {
+  .noteContainer {
+    width: 80%;
+  }
+}
+@include lgDesktop {
+  .noteContainer {
+    width: 55%;
+  }
+}
+@include max {
+  .noteContainer {
+    width: 55%;
   }
 }

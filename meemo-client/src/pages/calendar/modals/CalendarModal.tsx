@@ -253,7 +253,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
             />
           </div>
           <div className={style.btnDiv}>
-            <button className="submitBtn" onClick={handleSubmit}>
+            <button className={style.submit_button} onClick={handleSubmit}>
               {modalType === "ADD" ? "추가" : "수정"}
             </button>
             <button className="cancelBtn" onClick={toggleModal}>

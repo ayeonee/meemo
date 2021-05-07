@@ -1,6 +1,4 @@
-import { StylesProvider } from "@material-ui/styles";
-import React, { useState, useEffect } from "react";
-import { getGeneratedNameForNode } from "typescript";
+import { useState, useEffect } from "react";
 import style from "../styles/AddRenameModal.module.scss";
 
 type PopupToggleProps = {
@@ -24,15 +22,15 @@ export default function AddRenameModal(props: PopupToggleProps) {
 
   const setType = () => {
     if (component === "notelist") {
-      return "새 노트";
+      return "노트 생성";
     } else if (component === "folderlist") {
-      return "새 폴더";
+      return "폴더 생성";
     } else if (component === "rename") {
-      return "이름 바꾸기";
+      return "이름 변경";
     }
   };
 
-  const btnLabel = component === "rename" ? "바꾸기" : "만들기";
+  const btnLabel = component === "rename" ? "변경" : "생성";
 
   const [inputVal, setInputVal] = useState(
     component === "rename" ? prevTitle : `${setType()}`
@@ -65,6 +63,7 @@ export default function AddRenameModal(props: PopupToggleProps) {
           <div className={style.titleDiv} id={`noDeselect`}>
             <p id={`noDeselect`}>{setType()}</p>
           </div>
+
           <div className={style.inputDiv} id={`noDeselect`}>
             <input
               type="text"
@@ -78,13 +77,18 @@ export default function AddRenameModal(props: PopupToggleProps) {
           </div>
           <div className={style.btnDiv} id={`noDeselect`}>
             <button
-              className="submitBtn"
+              className={style.submit_button}
               id={`noDeselect`}
               onClick={() => handleSubmit(inputVal, selectedId)}
             >
               {btnLabel}
             </button>
-            <button name="cancelBtn" id={`noDeselect`} onClick={togglePopup}>
+            <button
+              name="cancelBtn"
+              id={`noDeselect`}
+              onClick={togglePopup}
+              className={style.cancel_button}
+            >
               취소
             </button>
           </div>

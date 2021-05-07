@@ -1,6 +1,4 @@
-import { StylesProvider } from "@material-ui/styles";
-import React, { useState, useEffect } from "react";
-import { getGeneratedNameForNode } from "typescript";
+import { useEffect } from "react";
 import style from "../styles/DeleteModal.module.scss";
 
 type DeleteModalProps = {
@@ -33,7 +31,7 @@ export default function DeleteModal(props: DeleteModalProps): JSX.Element {
       <div className={style.popup} id={`noDeselect`}>
         <div className={style.innerPopup} id={`noDeselect`}>
           <div className={style.titleDiv} id={`noDeselect`}>
-            <p id={`noDeselect`}>지우기</p>
+            <p id={`noDeselect`}>삭제</p>
           </div>
           <div className={style.targetDiv} id={`noDeselect`}>
             {props.type === "notelist" ? (
@@ -57,16 +55,17 @@ export default function DeleteModal(props: DeleteModalProps): JSX.Element {
           </div>
           <div className={style.btnDiv} id={`noDeselect`}>
             <button
-              className="submitBtn"
+              className={style.submit_button}
               id={`noDeselect`}
               onClick={() => props.delete(props.selectedId)}
             >
-              지우기
+              삭제
             </button>
             <button
               name="cancelBtn"
               id={`noDeselect`}
               onClick={props.toggleDelModal}
+              className={style.cancel_button}
             >
               취소
             </button>

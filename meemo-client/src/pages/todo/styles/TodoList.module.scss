@@ -1,8 +1,13 @@
 .list_wrapper {
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+
   margin-top: 5px;
   padding: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .list {
     width: 100%;

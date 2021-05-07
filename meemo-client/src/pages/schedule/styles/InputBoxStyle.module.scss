@@ -48,6 +48,10 @@
     width: fit-content;
     cursor: pointer;
 
+    &:hover {
+      color: $green_grade_5;
+    }
+
     &:active:focus {
       outline: none;
     }

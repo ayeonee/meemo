@@ -10,15 +10,15 @@
   top: 110px;
 
   .folderContainer {
-    width: 80%;
-    min-width: 350px;
     height: fit-content;
     margin-top: 30px;
+    display: flex;
+    align-items: center;
 
     .folderDiv {
       @include flex_row;
       flex-wrap: wrap;
-      width: 100%;
+      width: fit-content;
 
       .folders,
       .foldersSelected {
@@ -172,12 +172,34 @@
   }
 }
 
-@include over1100 {
+@include min {
+  .folderContainer {
+    width: 325px;
+  }
+}
+@include mobile {
+  .folderContainer {
+    width: 80%;
+  }
 }
 
-@include under1100 {
-  .folderDiv {
-    display: flex;
-    justify-content: center;
+@include tablet {
+  .folderContainer {
+    width: 80%;
+  }
+}
+@include mdDesktop {
+  .folderContainer {
+    width: 80%;
+  }
+}
+@include lgDesktop {
+  .folderContainer {
+    width: 55%;
+  }
+}
+@include max {
+  .folderContainer {
+    width: 55%;
   }
 }

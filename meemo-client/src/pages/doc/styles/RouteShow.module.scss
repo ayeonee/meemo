@@ -1,15 +1,46 @@
 @import "../../../styles/_variables.module.scss";
 
 .wrapper {
-  width: 80%;
-  min-width: 350px;
   height: 30px;
   position: fixed;
   top: 90px;
+  background-color: white;
 
   .route {
     padding: 10px 7px 10px 10px;
     font-size: 12px;
     border-bottom: 1.5px solid $green_grade_4;
+  }
+}
+
+@include min {
+  .wrapper {
+    width: 325px;
+  }
+}
+@include mobile {
+  .wrapper {
+    width: 80%;
+  }
+}
+
+@include tablet {
+  .wrapper {
+    width: 80%;
+  }
+}
+@include mdDesktop {
+  .wrapper {
+    width: 80%;
+  }
+}
+@include lgDesktop {
+  .wrapper {
+    width: 55%;
+  }
+}
+@include max {
+  .wrapper {
+    width: 55%;
   }
 }
