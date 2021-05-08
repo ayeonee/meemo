@@ -1,16 +1,10 @@
-import { allTimeData } from "../../../_data/scheduleData";
 import style from "../styles/TimeTableStyle.module.scss";
 
 export default function TimeLineGrid(): JSX.Element {
   return (
-    <td>
-      <div className={style.cols}>
-        <div className={style.grids}>
-          {allTimeData.map((data) => (
-            <div className={style.grid} key={data}></div>
-          ))}
-        </div>
-      </div>
+    <td className={style.cols}>
+      <div className={style.grid_top}></div>
+      <div className={style.grid_bottom}></div>
     </td>
   );
 }

@@ -2,62 +2,66 @@
 
 .table_wrapper {
   @include flex_col;
+  justify-content: center;
+  align-items: center;
   background-color: white;
-  width: fit-content;
+  width: 85%;
   text-align: center;
 
   .table_header {
-    border-bottom: $gray_border;
     font-size: 18px;
     font-weight: 400;
     color: white;
+    background-color: $green_grade_4;
+    width: 100%;
+    height: 50px;
 
-    tr {
-      height: 40px;
-      background-color: $green_grade_4;
-    }
-    th {
-      width: 80px;
-      border-right: $gray_border;
-    }
+    tbody {
+      width: 100%;
+      height: 100%;
 
-    .table_null_head {
-      width: 81px;
-    }
+      tr {
+        width: 100%;
 
-    .day {
-      border-right: $gray_border;
-      width: 95px;
-      margin: 0;
+        .table_null_head {
+          width: 10%;
+          border: $gray_border;
+        }
+
+        .day {
+          width: 10%;
+          border: $gray_border;
+        }
+      }
     }
   }
 
   .table_body {
-    width: fit-content;
-    border-spacing: 0;
+    width: 100%;
 
-    .times {
-      .time {
-        @include align_center;
-        color: rgb(27, 27, 27);
-        font-size: 14px;
-        font-weight: 400;
-        width: 80px;
-        height: 71px;
-        display: flex;
-        border: $gray_border;
-        border-top: none;
-      }
-    }
-
-    .cols {
-      .grids {
-        .grid {
-          width: 95px;
-          height: 35px;
+    tbody {
+      tr {
+        .time {
+          color: rgb(27, 27, 27);
+          font-size: 14px;
+          font-weight: 400;
+          width: 14.275%;
           border: $gray_border;
-          border-left: none;
-          border-top: none;
+        }
+
+        .cols {
+          width: 14.28%;
+          height: 72px;
+          border: $gray_border;
+
+          .grid_top {
+            height: 36px;
+            border-bottom: $gray_border;
+          }
+
+          .grid_bottom {
+            height: 35px;
+          }
         }
       }
     }
