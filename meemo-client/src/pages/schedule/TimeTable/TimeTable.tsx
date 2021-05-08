@@ -19,20 +19,17 @@ export default function TimeLine(): JSX.Element {
       </table>
 
       <table className={style.table_body}>
-        <tbody>
-          <tr>
-            <th className={style.times}>
-              {hourData.map((data) => (
-                <div className={style.time} key={data}>
-                  {data < 10 ? `0${data}` : data}시
-                </div>
+        <tbody className={style.times}>
+          {hourData.map((data) => (
+            <tr>
+              <td className={style.time} key={data}>
+                {data < 10 ? `0${data}` : data}시
+              </td>
+              {daysData.map((days) => (
+                <TimeTableGrid key={days.id} />
               ))}
-            </th>
-
-            {daysData.map((days) => (
-              <TimeTableGrid key={days.id} />
-            ))}
-          </tr>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

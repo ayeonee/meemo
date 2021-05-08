@@ -3,9 +3,10 @@
 .schedule {
   display: flex;
   justify-content: center;
+  align-items: center;
 
   .time_line_wrapper {
-    width: fit-content;
+    width: 80%;
     height: fit-content;
     margin: 100px 0 35px 0;
   }
@@ -46,66 +47,80 @@
       transform: scale(0.99);
     }
   }
+  .schedule_list_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  .table_wrapper {
-    @include flex_col;
-    position: static;
-    background-color: white;
-    width: fit-content;
-    text-align: center;
-
-    .table_header {
-      border: $gray_border;
-      border-right: none;
-      border-spacing: 0;
-      color: rgb(70, 70, 70);
-      font-size: 14px;
-      font-weight: 400;
-      tr {
-        height: 40px;
-        background-color: rgba(153, 153, 153, 0.329);
-      }
-      th {
-        width: 80px;
-        border-right: $gray_border;
-      }
-
-      .day {
-        border-right: $gray_border;
-        width: 95px;
-        margin: 0;
-      }
-    }
-
-    .table_body {
+    .table_wrapper {
+      @include flex_col;
+      position: static;
+      background-color: white;
       width: fit-content;
-      border-spacing: 0;
+      text-align: center;
 
-      .times {
-        .time {
-          @include align_center;
-          color: rgb(70, 70, 70);
-          font-size: 14px;
-          font-weight: 400;
+      .table_header {
+        border: $gray_border;
+        border-right: none;
+        border-spacing: 0;
+        color: rgb(70, 70, 70);
+        font-size: 14px;
+        font-weight: 400;
+        tr {
+          height: 40px;
+          background-color: rgba(153, 153, 153, 0.329);
+        }
+        th {
           width: 80px;
-          height: 71px;
-          display: flex;
-          border: $gray_border;
-          border-top: none;
+          border-right: $gray_border;
+        }
+
+        .day {
+          border-right: $gray_border;
+          width: 95px;
+          margin: 0;
         }
       }
 
-      .cols {
-        .grids {
-          .grid {
-            width: 95px;
-            height: 35px;
+      .table_body {
+        width: fit-content;
+        border-spacing: 0;
+
+        .times {
+          .time {
+            @include align_center;
+            color: rgb(70, 70, 70);
+            font-size: 14px;
+            font-weight: 400;
+            width: 80px;
+            height: 71px;
+            display: flex;
             border: $gray_border;
-            border-left: none;
             border-top: none;
+          }
+        }
+
+        .cols {
+          .grids {
+            .grid {
+              width: 95px;
+              height: 35px;
+              border: $gray_border;
+              border-left: none;
+              border-top: none;
+            }
           }
         }
       }
     }
+  }
+
+  .schedule_items_wrapper {
+    width: 85%;
+    height: 974px;
+    position: absolute;
+    top: 100px;
+    display: flex;
+    justify-content: center;
   }
 }

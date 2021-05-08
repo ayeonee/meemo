@@ -129,10 +129,12 @@ export default function SchedulePage(): JSX.Element {
           <img src={`${reset}`} alt="reset icon" />
         </div>
         <div className={style.schedule_list_wrapper}>
+          <TimeTable />
+        </div>
+        <div className={style.schedule_items_wrapper}>
           {allData.length >= 1 ? (
             <ScheduleList allData={allData} removeData={removeData} />
           ) : null}
-          <TimeTable />
         </div>
       </div>
     </div>
