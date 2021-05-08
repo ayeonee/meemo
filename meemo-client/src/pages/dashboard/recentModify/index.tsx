@@ -75,7 +75,7 @@ function RecentModify(): JSX.Element {
 
   return (
     <div className={style.recent_modify}>
-      <div className={style.title}>Recent Modified Note</div>
+      <div className={style.title}>Recently Modified Note</div>
       <div className={style.note_wrapper}>
         {
           <>
@@ -94,7 +94,7 @@ function RecentModify(): JSX.Element {
                         <p>{item.title}</p>
                       </div>
                       <div className={style.time_div}>
-                        {/* <p>최근 수정: {item.updatedAt}</p> */}
+                        <p>{item.updatedAt.substring(0, 16)}</p>
                       </div>
                     </div>
                   </div>

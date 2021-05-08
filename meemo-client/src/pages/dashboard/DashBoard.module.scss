@@ -10,7 +10,9 @@
 
     width: 65%;
     height: 83vh;
-    margin-top: 4vh;
+    min-width: 850px;
+    min-height: 600px;
+    margin-top: 12vh;
     padding: 15px 0;
 
     background-color: $green_grade_1;

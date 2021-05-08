@@ -1,12 +1,5 @@
 @import "../../../styles/_variables.module.scss";
 
-.title {
-  font-size: 28px;
-  font-weight: 400;
-  margin-top: 20px;
-  color: $green_grade_5;
-}
-
 .today_schedule {
   @include flex_col;
   align-items: center;
@@ -15,7 +8,17 @@
   background-color: azure;
   border-radius: 5px;
   box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
-  margin-top: 2%;
+
+  .title {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 20px;
+    color: $green_grade_5;
+  }
+
+  .today_wrapper {
+    width: 80%;
+  }
 
   .today_info {
     font-size: 16px;
@@ -24,21 +27,40 @@
 
   .schedule_wrapper {
     width: 80%;
-    height: 60%;
+    height: 70%;
     box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
     background-color: white;
     margin-top: auto;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     border-radius: 5px;
-    display: flex;
+    @include flex_col;
     @include align_center;
+
+    .schedule_box {
+      height: 90%;
+    }
+
+    .schedule_container {
+      width: 100%;
+      height: 90%;
+      @include flex_col;
+      @include align_center;
+      margin-bottom: 10px;
+
+      .schedule_list {
+        margin: 10px;
+        b,
+        p {
+          margin: 3px 0;
+        }
+      }
+    }
   }
 
-  .schedule_list {
-    margin: 10px;
-    b,
-    p {
-      margin: 3px 0;
-    }
+  .see_detail {
+    height: 5%;
+    font-weight: 300;
+    font-size: 10px;
+    cursor: pointer;
   }
 }

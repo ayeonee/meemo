@@ -1,46 +1,67 @@
 @import "../../../styles/_variables.module.scss";
 
-.title {
-  font-size: 28px;
-  font-weight: 400;
-  margin-top: 20px;
-  color: $green_grade_5;
-}
-
 .todo_list {
   @include flex_col;
   align-items: center;
-  width: 31%;
+  width: 63.7%;
   height: 100%;
   background-color: azure;
-  box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
   border-radius: 5px;
-  margin-top: 2%;
+  box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+
+  .title {
+    width: 90%;
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 20px;
+    color: $green_grade_5;
+  }
 
   .todo_wrapper {
-    width: 80%;
-    height: 70%;
+    width: 90%;
+    height: 75%;
     background-color: white;
     margin-top: auto;
-    margin-bottom: 5%;
+    margin-bottom: 12px;
     border-radius: 5px;
     box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
-    @include flex_col;
-    justify-content: flex-end;
+    @include flex_row;
     align-items: center;
 
-    .see_detail {
-      height: 10%;
-      font-weight: 300;
-      font-size: 12px;
-      cursor: pointer;
+    .graph_box {
+      width: 35%;
+      @include flex_col;
+      @include align_center;
+    }
+
+    .none_circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: lightgray;
+      margin-bottom: 0;
+    }
+
+    .graph_container {
+      width: 160px;
+      height: 160px;
+      @include flex_col;
+      @include align_center;
+      margin-bottom: 15px;
+    }
+
+    .todo_box {
+      @include flex_col;
+      margin: 0 auto;
+      width: 60%;
+      height: 90%;
+      align-items: center;
     }
 
     .todo_container {
-      width: 80%;
-      height: 80%;
-      display: flex;
-      flex-direction: column;
+      width: 100%;
+      height: 90%;
+      @include flex_col;
       @include align_center;
       margin-bottom: 10px;
 
@@ -64,6 +85,13 @@
           }
         }
       }
+    }
+
+    .see_detail {
+      height: 5%;
+      font-weight: 300;
+      font-size: 10px;
+      cursor: pointer;
     }
   }
 }

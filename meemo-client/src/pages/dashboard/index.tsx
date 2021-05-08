@@ -1,5 +1,5 @@
 import style from "./DashBoard.module.scss";
-import UserGraph from "./userGraph";
+import Weather from "./weather";
 import StickyMemo from "./stickyMemo";
 import TodaySchedule from "./todaySchedule";
 import RecentModify from "./recentModify";
@@ -30,13 +30,13 @@ export default function DashBoardPage(): JSX.Element {
     <div className={style.dashboard_wrapper}>
       <div className={style.dashboard}>
         <div className={style.line_one}>
-          <UserGraph />
-          <StickyMemo />
-        </div>
-        <div className={style.line_two}>
           <TodaySchedule />
           <TodoList />
+        </div>
+        <div className={style.line_two}>
           <RecentModify />
+          <StickyMemo />
+          <Weather />
         </div>
       </div>
     </div>

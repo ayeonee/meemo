@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import style from "../../styles/UserGraph.module.scss";
+import style from "../styles/Weather.module.scss";
 import Geocode from "react-geocode";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY!;
 
-function WeatherInfo(): JSX.Element {
+function Weather(): JSX.Element {
   const [weatherInfo, setWeatherInfo] = useState({
     temperature: "",
+    temp_max: "",
+    temp_min: "",
     feelslike: "",
     weather: "",
     humidity: "",
@@ -26,6 +28,8 @@ function WeatherInfo(): JSX.Element {
       .then(function (jsonfile) {
         setWeatherInfo({
           temperature: jsonfile.main.temp,
+          temp_max: jsonfile.main.temp_max,
+          temp_min: jsonfile.main.temp_min,
           feelslike: jsonfile.main.feels_like,
           weather: jsonfile.weather[0].main,
           humidity: jsonfile.main.humidity,
@@ -62,26 +66,45 @@ function WeatherInfo(): JSX.Element {
   }, []);
 
   return (
-    <>
+    <div className={style.weather}>
+      <div className={style.title}>Weather</div>
       <div className={style.weather_container}>
-        <div className={style.weather_info}>
-          <img
-            className={style.weather_icon}
-            src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
-          />
-          <div className={style.weather_text}>
-            <div className={style.temperature}>{weatherInfo.temperature}°C</div>
-            <div className={style.weather}>{weatherInfo.weather}</div>
-            <div className={style.another_info}>
-              Sensory : {weatherInfo.feelslike}°C <br />
-              humidity : {weatherInfo.humidity}% <br />
-              {fullLocation}
+        <div className={style.weather_line_one}>
+          <div className={style.weather_icon}>
+            <img
+              className={style.weather_icon}
+              src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
+            />
+          </div>
+
+          <div className={style.weather_info}>
+            <div className={style.temperature}>{weatherInfo.temperature}°</div>
+            <div className={style.explanation}>{weatherInfo.weather}</div>
+            <div className={style.location}>
+              <p>{fullLocation}</p>
             </div>
           </div>
         </div>
+        <div className={style.weather_line_two}>
+          <div className={style.temp_info}>
+            <p>
+              ↑ {weatherInfo.temp_max}° <br />↓ {weatherInfo.temp_min}°
+            </p>
+          </div>
+          <div className={style.feels_like}>
+            <h1>
+              Sensory :<p>{weatherInfo.feelslike}°</p>
+            </h1>
+          </div>
+          <div className={style.humidity}>
+            <h1>
+              humidity :<p>{weatherInfo.humidity}%</p>
+            </h1>
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default WeatherInfo;
+export default Weather;

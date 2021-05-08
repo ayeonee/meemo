@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import style from "../../styles/UserGraph.module.scss";
+import style from "../../styles/TodoList.module.scss";
 import { Todo } from "../../../../_types/todoTypes";
 import { BASE_URL } from "../../../../_data/urlData";
 import { Pie } from "react-chartjs-2";
@@ -65,16 +65,13 @@ function AchievementRate(): JSX.Element {
 
   return (
     <div className={style.graph_box}>
-      <div className={style.graph_index}>Achievement Rate</div>
-      <div className={style.graph_container}>
-        {todoList.length === 0 ? (
-          <div className={style.graph_message}>
-            달성할 목표가 <br /> 아직 없습니당!
-          </div>
-        ) : (
+      {todoList.length === 0 ? (
+        <div className={style.none_circle}></div>
+      ) : (
+        <div className={style.graph_container}>
           <Pie type="pie" data={todoBasedPieData} options={todoPieOptions} />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
