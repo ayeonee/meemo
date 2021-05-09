@@ -43,22 +43,6 @@ function TodaySchedule(): JSX.Element {
     getSchedule(localStorage.getItem("meemo-user-id"));
   }, []);
 
-  allData.forEach((item) => {
-    item.schedule.forEach((scheduleItem) => {
-      if (scheduleItem.date === today) {
-        scheduleInfo.push({
-          id: item.id,
-          name: item.name,
-          place: item.place,
-          startHour: scheduleItem.startHour,
-          startMin: scheduleItem.startMin,
-          endHour: scheduleItem.endHour,
-          endMin: scheduleItem.endMin,
-        });
-      }
-    });
-  });
-
   const goSchedulePage = () => {
     history.push({
       pathname: `/schedule`,

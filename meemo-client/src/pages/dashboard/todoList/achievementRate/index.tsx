@@ -21,7 +21,6 @@ function AchievementRate(): JSX.Element {
       .then((res) => {
         setTodoList(res.data.payload);
       })
-      .then((data) => {})
       .catch((err) => console.log(err));
   };
 
