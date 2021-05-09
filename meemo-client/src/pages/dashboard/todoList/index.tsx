@@ -30,7 +30,7 @@ function TodoList(): JSX.Element {
     getTodo(localStorage.getItem("meemo-user-id"));
   }, []);
 
-  const onClick = () => {
+  const goTodoPage = () => {
     history.push({
       pathname: `/todo`,
     });
@@ -60,7 +60,7 @@ function TodoList(): JSX.Element {
                   }
                 })}
           </div>
-          <div className={style.see_detail} onClick={() => onClick()}>
+          <div className={style.see_detail} onClick={() => goTodoPage()}>
             자세히 보기 &gt;
           </div>
         </div>

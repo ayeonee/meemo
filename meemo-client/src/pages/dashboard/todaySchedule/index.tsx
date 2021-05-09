@@ -58,7 +58,7 @@ function TodaySchedule(): JSX.Element {
     });
   });
 
-  const onClick = () => {
+  const goSchedulePage = () => {
     history.push({
       pathname: `/schedule`,
     });
@@ -106,7 +106,7 @@ function TodaySchedule(): JSX.Element {
               </div>
             )}
           </div>
-          <div className={style.see_detail} onClick={() => onClick()}>
+          <div className={style.see_detail} onClick={() => goSchedulePage()}>
             자세히 보기 &gt;
           </div>
         </div>

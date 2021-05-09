@@ -3,7 +3,7 @@ import axios from "axios";
 import style from "../../styles/TodoList.module.scss";
 import { Todo } from "../../../../_types/todoTypes";
 import { BASE_URL } from "../../../../_data/urlData";
-import { Pie } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2"; //chart 위한 라이브러리
 
 function AchievementRate(): JSX.Element {
   const [todoList, setTodoList] = useState<Todo[]>([]);
@@ -35,6 +35,7 @@ function AchievementRate(): JSX.Element {
     }
   });
 
+  //그래프에 넣을 데이터
   const todoBasedPieData = {
     labels: ["달성!", "아직 ㅠㅠ"],
     datasets: [
