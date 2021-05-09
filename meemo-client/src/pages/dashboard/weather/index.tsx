@@ -38,7 +38,7 @@ function Weather(): JSX.Element {
       });
   };
 
-  const getCity = (latitudeVar: string, longitudeVar: string) => {
+  const getCurrentCity = (latitudeVar: string, longitudeVar: string) => {
     // Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
     //   getWeather(response.results[0].address_components[3].long_name);
     //   setFullLocation(
@@ -52,7 +52,7 @@ function Weather(): JSX.Element {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    getCity(latitude, longitude);
+    getCurrentCity(latitude, longitude);
   };
 
   const handleGeoFalse = (position: any) => {};
