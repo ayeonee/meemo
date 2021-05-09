@@ -94,15 +94,21 @@ export default function InputBox({
       schedule.forEach((scheduleElem) => {
         if (date === scheduleElem.date) {
           if (
-            (endHour === scheduleElem.startHour &&
+            (endHour == scheduleElem.startHour &&
               endMin <= scheduleElem.startMin) ||
             endHour < scheduleElem.startHour
           ) {
             checkOverlap.current = false;
           } else if (
-            (startHour === scheduleElem.endHour &&
+            (startHour == scheduleElem.endHour &&
               startMin >= scheduleElem.startMin) ||
             startHour > scheduleElem.endHour
+          ) {
+            checkOverlap.current = false;
+          } else if (
+            endHour == scheduleElem.startHour &&
+            endMin == scheduleElem.startMin &&
+            scheduleElem.endMin - scheduleElem.startMin >= 30
           ) {
             checkOverlap.current = false;
           } else {
