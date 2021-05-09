@@ -43,6 +43,7 @@
 
         .note_front {
           @include flex_row;
+          pointer-events: none;
           .iconDiv {
             height: 100%;
             width: 50px;
