@@ -99,6 +99,8 @@ function RecentModify(): JSX.Element {
                     </div>
                   </div>
                 );
+              } else {
+                return null;
               }
             })}
           </>

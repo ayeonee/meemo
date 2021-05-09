@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AllData } from "../../../_types/scheduleTypes";
 import { BASE_URL } from "../../../_data/urlData";
+import { colorCode } from "../../../_data/scheduleData";
 import axios from "axios";
 import style from "../styles/TodaySchedule.module.scss";
 
@@ -20,8 +21,8 @@ function TodaySchedule(): JSX.Element {
   const date = new Date();
   const today = date.getDay(); //일:0~토:6
   const [allData, setAllData] = useState<AllData>([]);
-
-  const scheduleInfo: ScheduleInfo[] = [];
+  const [scheduleInfo, setScheduleInfo] = useState<ScheduleInfo[]>([]);
+  const [color, setColor] = useState<any>();
 
   const getSchedule = async (userId: string | null) => {
     await axios({
@@ -38,36 +39,47 @@ function TodaySchedule(): JSX.Element {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getSchedule(localStorage.getItem("meemo-user-id"));
-  }, []);
-
-  allData.forEach((item) => {
-    item.schedule.forEach((scheduleItem) => {
-      if (scheduleItem.date === today) {
-        scheduleInfo.push({
-          id: item.id,
-          name: item.name,
-          place: item.place,
-          startHour: scheduleItem.startHour,
-          startMin: scheduleItem.startMin,
-          endHour: scheduleItem.endHour,
-          endMin: scheduleItem.endMin,
-        });
-      }
-    });
-  });
-
   const onClick = () => {
     history.push({
       pathname: `/schedule`,
     });
   };
 
+  const getTodayData = () => {
+    allData.forEach((item) =>
+      item.schedule.forEach((scheduleItem) => {
+        if (scheduleItem.date === today) {
+          setColor(scheduleItem.date % 6);
+          setScheduleInfo((scheduleInfo) =>
+            scheduleInfo.concat({
+              ...scheduleInfo,
+
+              id: item.id,
+              name: item.name,
+              place: item.place,
+              startHour: scheduleItem.startHour,
+              startMin: scheduleItem.startMin,
+              endHour: scheduleItem.endHour,
+              endMin: scheduleItem.endMin,
+            })
+          );
+        }
+      })
+    );
+  };
+
+  useEffect(() => {
+    getTodayData();
+  }, [allData, today]);
+
+  useEffect(() => {
+    getSchedule(localStorage.getItem("meemo-user-id"));
+  }, []);
+
   return (
     <div className={style.today_schedule}>
       <div className={style.today_wrapper}>
-        <div className={style.title}>Today's Schedule</div>
+        <div className={style.title}>TODAY'S SCHEDULE</div>
         <div className={style.today_info}>
           {date.getMonth() + 1}월 {date.getDate()}일{" "}
           {today === 1
@@ -86,28 +98,34 @@ function TodaySchedule(): JSX.Element {
           요일
         </div>
       </div>
-      <div className={style.schedule_wrapper}>
+      <div
+        className={style.schedule_wrapper}
+        style={{
+          backgroundColor: `#${colorCode[color]}`,
+        }}
+      >
         <div className={style.schedule_box}>
           <div className={style.schedule_container}>
             {scheduleInfo.length === 0 ? (
               <p>오늘은 일정이 없습니다.</p>
             ) : (
-              <div>
-                {scheduleInfo.map((item) => (
-                  <div className={style.schedule_list} key={item.id}>
-                    <b>{item.name}</b>
-                    <p>{item.place}</p>
-                    <p>
-                      {item.startHour}:{item.startMin === 0 ? "00" : item.startMin} ~ {item.endHour}
-                      :{item.endMin === 0 ? "00" : item.endMin}
-                    </p>
-                  </div>
-                ))}
+              <div className={style.schedule_list}>
+                <b>{scheduleInfo[0].name}</b>
+                <p>{scheduleInfo[0].place}</p>
+                <p>
+                  {scheduleInfo[0].startHour}:
+                  {scheduleInfo[0].startMin === 0
+                    ? "00"
+                    : scheduleInfo[0].startMin}{" "}
+                  ~ {scheduleInfo[0].endHour}:
+                  {scheduleInfo[0].endMin === 0 ? "00" : scheduleInfo[0].endMin}
+                </p>
+                <span>외 {scheduleInfo.length - 1}개의 일정</span>
               </div>
             )}
           </div>
           <div className={style.see_detail} onClick={() => onClick()}>
-            자세히 보기 &gt;
+            자세히 보기
           </div>
         </div>
       </div>

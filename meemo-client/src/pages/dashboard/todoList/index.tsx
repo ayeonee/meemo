@@ -36,11 +36,11 @@ function TodoList(): JSX.Element {
     });
   };
 
-  var count: number = 0; //todolist max값 위해
+  let count: number = 0; //todolist max값 위해
 
   return (
     <div className={style.todo_list}>
-      <div className={style.title}>To Do List</div>
+      <div className={style.title}>TO-DO LIST</div>
       <div className={style.todo_wrapper}>
         <AchievementRate />
         <div className={style.todo_box}>
@@ -48,7 +48,7 @@ function TodoList(): JSX.Element {
             {todoList === null || todoList.length === 0
               ? "해야할 일이 없습니다."
               : todoList.map((item) => {
-                  if (!item.checked && count < 5) {
+                  if (!item.checked && count < 3) {
                     count++;
                     return (
                       <div key={item.id} className={style.todo_info}>
@@ -57,11 +57,13 @@ function TodoList(): JSX.Element {
                         </div>
                       </div>
                     );
+                  } else {
+                    return null;
                   }
                 })}
           </div>
           <div className={style.see_detail} onClick={() => onClick()}>
-            자세히 보기 &gt;
+            자세히 보기
           </div>
         </div>
       </div>

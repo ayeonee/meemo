@@ -1,4 +1,4 @@
-@import "../../styles/_variables.module.scss";
+@import "../../../styles/_variables.module.scss";
 
 .dashboard_wrapper {
   display: flex;
@@ -7,18 +7,16 @@
   .dashboard {
     @include flex_col;
     align-items: center;
-    padding: 15px 0;
-
-    background-color: $green_grade_1;
-    border-radius: 2px;
+    position: absolute;
+    top: 100px;
   }
 }
 
 @media (min-width: 991px) {
   .dashboard {
     width: 65%;
-    height: 83vh;
-    margin-top: 12vh;
+    height: 83%;
+    margin-top: 10px;
     min-width: 900px;
     min-height: 600px;
 
@@ -36,7 +34,6 @@
   .dashboard {
     width: 80%;
     height: 85vh;
-    margin-top: 9vh;
     min-width: 600px;
     min-height: 850px;
 
@@ -54,7 +51,6 @@
   .dashboard {
     width: 80%;
     height: 85vh;
-    margin-top: 9vh;
     min-width: 600px;
     min-height: fit-content;
 
@@ -72,7 +68,6 @@
   .dashboard {
     width: 80%;
     height: 100%;
-    margin-top: 12vh;
     min-width: 300px;
     min-height: fit-content;
 

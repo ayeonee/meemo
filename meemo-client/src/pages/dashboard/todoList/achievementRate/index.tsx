@@ -32,16 +32,16 @@ function AchievementRate(): JSX.Element {
   todoList.map((item) => {
     if (item.checked) {
       checkedTodo.push(item);
+    } else {
     }
   });
 
   const todoBasedPieData = {
-    labels: ["달성!", "아직 ㅠㅠ"],
     datasets: [
       {
         data: [checkedTodo.length, todoList.length - checkedTodo.length],
-        backgroundColor: ["#6cbea7", "#cceae4"],
-        hoverBackGroundColor: ["#6cbea7", "#cceae4"],
+        backgroundColor: ["#6cbea7", "rgb(210, 210, 210)"],
+        hoverBackGroundColor: ["#6cbea7", "rgb(210, 210, 210)"],
         borderWidth: 1,
       },
     ],
@@ -69,7 +69,16 @@ function AchievementRate(): JSX.Element {
         <div className={style.none_circle}></div>
       ) : (
         <div className={style.graph_container}>
-          <Pie type="pie" data={todoBasedPieData} options={todoPieOptions} />
+          <div className={style.rate_circle}>
+            <h1>{`${(checkedTodo.length / todoList.length) * 100}%`}</h1>
+          </div>
+          <Pie
+            type="pie"
+            data={todoBasedPieData}
+            options={todoPieOptions}
+            className={style.pie}
+          />
+          <div className={style.bg_circle}></div>
         </div>
       )}
     </div>

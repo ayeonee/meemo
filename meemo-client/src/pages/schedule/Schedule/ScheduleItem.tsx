@@ -77,7 +77,7 @@ function ScheduleItem({
         break;
 
       case 5:
-        position = 64.16;
+        position = 64.14;
         break;
 
       case 6:

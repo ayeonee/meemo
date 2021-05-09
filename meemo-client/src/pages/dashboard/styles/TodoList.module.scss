@@ -3,47 +3,82 @@
 .todo_list {
   @include flex_col;
   align-items: center;
-  background-color: azure;
-  border-radius: 5px;
-  box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 1px 2px 6px 2px rgba(56, 56, 56, 0.11);
 
   .title {
     width: 90%;
-    font-size: 24px;
-    font-weight: 400;
-    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 25px;
     color: $green_grade_5;
   }
 
   .todo_wrapper {
     width: 90%;
-    height: 75%;
-    background-color: white;
-    margin-top: auto;
+    height: 70%;
+    // background-color: $green_grade_3;
+    margin-top: 31px;
     margin-bottom: 12px;
-    border-radius: 5px;
-    box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+    border-radius: 2px;
 
     .graph_box {
       width: 35%;
+      margin-left: -5px;
       @include flex_col;
       @include align_center;
-    }
 
-    .none_circle {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background-color: lightgray;
-      margin-bottom: 0;
-    }
+      .none_circle {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background-color: lightgray;
+        margin-bottom: 0;
+      }
 
-    .graph_container {
-      width: 160px;
-      height: 160px;
-      @include flex_col;
-      @include align_center;
-      margin-bottom: 15px;
+      .graph_container {
+        width: 160px;
+        height: 160px;
+        @include flex_col;
+        @include align_center;
+        margin-bottom: 15px;
+
+        .rate_circle {
+          margin-top: 11px;
+          position: absolute;
+          display: flex;
+          @include align_center;
+          background-color: white;
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          z-index: 3;
+
+          h1 {
+            font-size: 23px;
+          }
+        }
+
+        .pie {
+          position: absolute;
+
+          z-index: 2;
+        }
+
+        .bg_circle {
+          margin-top: 11px;
+          position: absolute;
+          display: flex;
+          @include align_center;
+          background-color: white;
+          width: 170px;
+          height: 170px;
+          z-index: 1;
+          border-radius: 50%;
+          box-shadow: 1px 2px 7px 2px rgba(56, 56, 56, 0.137);
+        }
+      }
     }
 
     .todo_box {
@@ -52,42 +87,52 @@
       width: 60%;
       height: 90%;
       align-items: center;
-    }
 
-    .todo_container {
-      width: 100%;
-      height: 90%;
-      @include flex_col;
-      @include align_center;
-      margin-bottom: 10px;
+      .todo_container {
+        width: 90%;
+        height: 100%;
+        @include flex_col;
+        align-items: center;
+        margin-bottom: 10px;
 
-      .todo_info {
-        width: 100%;
-        height: 40px;
-        background-color: $green_grade_1;
-        border-radius: 5px;
-        margin-bottom: 7px;
+        .todo_info {
+          width: 100%;
+          height: 40px;
+          background-color: white;
+          border-bottom: 1px solid $gray;
+          margin-bottom: 7px;
 
-        .todo_div {
-          height: 100%;
-          display: flex;
-          @include align_center;
+          .todo_div {
+            height: 100%;
+            display: flex;
+            @include align_center;
 
-          .todo_text {
-            width: 90%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            .todo_text {
+              width: 90%;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
           }
         }
       }
-    }
 
-    .see_detail {
-      height: 5%;
-      font-weight: 300;
-      font-size: 10px;
-      cursor: pointer;
+      .see_detail {
+        position: relative;
+        bottom: 0;
+        padding: 5px;
+        font-weight: bold;
+        font-size: 12px;
+        cursor: pointer;
+        color: $green_grade_5;
+
+        &:hover {
+          transform: translate(0, -2px);
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+      }
     }
   }
 }
