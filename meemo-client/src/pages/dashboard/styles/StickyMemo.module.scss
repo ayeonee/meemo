@@ -30,3 +30,16 @@
     @include align_center;
   }
 }
+
+@include min {
+  .sticky_memo {
+    width: 100%;
+    height: 280px;
+    margin-top: 15px;
+
+    .title,
+    .sticky_wrapper {
+      width: 90%;
+    }
+  }
+}

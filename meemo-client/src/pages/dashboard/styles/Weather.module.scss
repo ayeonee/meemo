@@ -96,7 +96,7 @@
     .humidity,
     .feels_like {
       width: 31%;
-      height: 70%;
+      height: 60%;
       border-left: 0.5px solid $gray;
       @include flex_col;
       justify-content: center;
@@ -118,6 +118,19 @@
       .another_info {
         display: none;
       }
+    }
+  }
+}
+
+@include min {
+  .weather {
+    width: 100%;
+    height: 280px;
+    margin-top: 15px;
+
+    .title,
+    .weather_container {
+      width: 90%;
     }
   }
 }
