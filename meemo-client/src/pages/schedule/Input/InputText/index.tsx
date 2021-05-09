@@ -15,7 +15,7 @@ function InputText({ input, onChangeTxt }: InputTextProps): JSX.Element {
         name="name"
         value={input.name}
         onChange={onChangeTxt}
-        placeholder="일정 (필수입력)"
+        placeholder="강의명을 입력해주세요"
       />
       <input
         className={style.input_content}
@@ -23,7 +23,7 @@ function InputText({ input, onChangeTxt }: InputTextProps): JSX.Element {
         name="place"
         value={input.place}
         onChange={onChangeTxt}
-        placeholder="세부 사항"
+        placeholder="장소를 입력해주세요"
       />
     </>
   );
