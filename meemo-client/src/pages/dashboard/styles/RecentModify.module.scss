@@ -1,0 +1,118 @@
+@import "../../../styles/_variables.module.scss";
+
+.recent_modify {
+  @include flex_col;
+  align-items: center;
+  width: 31%;
+  height: 100%;
+  background-color: azure;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+  margin-top: 2%;
+
+  .title {
+    width: 80%;
+    font-size: 22px;
+    font-weight: 400;
+    margin-top: 20px;
+    color: $green_grade_5;
+  }
+
+  .note_wrapper {
+    width: 80%;
+    height: 75%;
+    box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+    background-color: white;
+    margin-top: auto;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    @include flex_col;
+    justify-content: space-evenly;
+
+    /*show note info style*/
+    .note_container {
+      display: flex;
+      justify-content: center;
+
+      .note_div {
+        display: flex;
+        border: solid 2px $green_grade_2;
+        border-radius: 8px;
+        width: 95%;
+        padding: 10px 0;
+        cursor: pointer;
+
+        .icon_div {
+          height: 100%;
+          width: 30px;
+          pointer-events: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .note_icon {
+            color: $green_grade_5;
+
+            width: 20px;
+            height: 20px;
+
+            pointer-events: none;
+          }
+        }
+
+        .title_div {
+          margin: auto;
+          margin-left: 1%;
+          pointer-events: none;
+          p {
+            font-size: 14px;
+            pointer-events: none;
+          }
+        }
+
+        .time_div {
+          margin-right: 5px;
+          display: flex;
+          justify-content: right;
+          align-items: center;
+          font-size: 2px;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1480px) {
+    .title {
+      font-size: 20px;
+    }
+
+    .time_div p {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 477px) {
+  .recent_modify {
+    width: 31%;
+    height: 100%;
+  }
+}
+
+@include min {
+  .recent_modify {
+    width: 100%;
+    height: 280px;
+    margin-top: 15px;
+
+    .title {
+      width: 90%;
+      font-size: 22px;
+    }
+
+    .note_wrapper {
+      width: 90%;
+    }
+  }
+}

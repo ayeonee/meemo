@@ -32,37 +32,21 @@ function Root(): JSX.Element {
         <Route component={Auth(SchedulePage, true)} path="/schedule" exact />
         <Route component={Auth(FolderPage, true)} path="/folders" exact />
         <Route component={Auth(CalendarPage, true)} path="/calendar" exact />
-        <Route
-          component={Auth(NoteList, true)}
-          path="/folders/:folderTitle"
-          exact
-        />
-        <Route
-          component={Auth(Editor, true)}
-          path="/folders/:folderTitle/:noteId"
-          exact
-        />
+        <Route component={Auth(NoteList, true)} path="/folders/:folderTitle" exact />
+        <Route component={Auth(Editor, true)} path="/folders/:folderTitle/:noteId" exact />
         <Route component={Auth(UnkownPage, null)} path="*" /> */}
 
         {/*테스트용*/}
 
         <Route component={Auth(AuthPage, null)} path="/auth" exact />
-        <Route component={Auth(BlockPage, undefined)} path="/" exact />
+        <Route component={Auth(BlockPage, null)} path="/" exact />
         <Route component={Auth(DashBoardPage, null)} path="/home" exact />
         <Route component={Auth(CalendarPage, null)} path="/calendar" exact />
         <Route component={Auth(SchedulePage, null)} path="/schedule" exact />
         <Route component={Auth(TodoPage, null)} path="/todo" exact />
         <Route component={Auth(FolderPage, null)} path="/folders" exact />
-        <Route
-          component={Auth(NoteList, null)}
-          path="/folders/:folderTitle"
-          exact
-        />
-        <Route
-          component={Auth(Editor, null)}
-          path="/folders/:folderTitle/:noteId"
-          exact
-        />
+        <Route component={Auth(NoteList, null)} path="/folders/:folderTitle" exact />
+        <Route component={Auth(Editor, null)} path="/folders/:folderTitle/:noteId" exact />
         <Route component={Auth(UnkownPage, null)} path="*" />
       </Switch>
     </BrowserRouter>

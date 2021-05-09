@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import style from "../DashBoard.module.scss";
+import style from "../styles/RecentModify.module.scss";
 import axios from "axios";
 import moment from "moment";
 import { Notes } from "@material-ui/icons";
@@ -75,7 +75,7 @@ function RecentModify(): JSX.Element {
 
   return (
     <div className={style.recent_modify}>
-      <div className={style.title}>Recent Modified Note</div>
+      <div className={style.title}>Recently Modified Note</div>
       <div className={style.note_wrapper}>
         {
           <>
@@ -94,7 +94,7 @@ function RecentModify(): JSX.Element {
                         <p>{item.title}</p>
                       </div>
                       <div className={style.time_div}>
-                        <small>최근 수정: {item.updatedAt}</small>
+                        <p>{item.updatedAt.substring(0, 16)}</p>
                       </div>
                     </div>
                   </div>

@@ -1,0 +1,137 @@
+@import "../../../styles/_variables.module.scss";
+
+.todo_list {
+  @include flex_col;
+  align-items: center;
+  background-color: azure;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+
+  .title {
+    width: 90%;
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 20px;
+    color: $green_grade_5;
+  }
+
+  .todo_wrapper {
+    width: 90%;
+    height: 75%;
+    background-color: white;
+    margin-top: auto;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+
+    .graph_box {
+      width: 35%;
+      @include flex_col;
+      @include align_center;
+    }
+
+    .none_circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: lightgray;
+      margin-bottom: 0;
+    }
+
+    .graph_container {
+      width: 160px;
+      height: 160px;
+      @include flex_col;
+      @include align_center;
+      margin-bottom: 15px;
+    }
+
+    .todo_box {
+      @include flex_col;
+      margin: 0 auto;
+      width: 60%;
+      height: 90%;
+      align-items: center;
+    }
+
+    .todo_container {
+      width: 100%;
+      height: 90%;
+      @include flex_col;
+      @include align_center;
+      margin-bottom: 10px;
+
+      .todo_info {
+        width: 100%;
+        height: 40px;
+        background-color: $green_grade_1;
+        border-radius: 5px;
+        margin-bottom: 7px;
+
+        .todo_div {
+          height: 100%;
+          display: flex;
+          @include align_center;
+
+          .todo_text {
+            width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    .see_detail {
+      height: 5%;
+      font-weight: 300;
+      font-size: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: 477px) {
+  .todo_list {
+    width: 63.7%;
+    height: 100%;
+
+    .todo_wrapper {
+      @include flex_row;
+      align-items: center;
+    }
+  }
+}
+
+@include min {
+  .todo_list {
+    width: 100%;
+    height: 100%;
+
+    .todo_wrapper {
+      @include flex_col;
+      align-items: center;
+      margin-top: 15px;
+
+      .todo_box {
+        width: 90%;
+      }
+
+      .todo_container {
+        min-height: 80px;
+      }
+
+      .graph_box {
+        width: 100%;
+        min-height: 180px;
+        @include flex_col;
+        @include align_center;
+      }
+
+      .see_detail {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

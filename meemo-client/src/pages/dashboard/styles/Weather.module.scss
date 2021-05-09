@@ -1,0 +1,136 @@
+@import "../../../styles/_variables.module.scss";
+
+.weather {
+  @include flex_col;
+  align-items: center;
+  width: 31%;
+  height: 100%;
+  background-color: azure;
+  box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+  border-radius: 5px;
+  margin-top: 2%;
+
+  .title {
+    width: 80%;
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 20px;
+    color: $green_grade_5;
+  }
+
+  .weather_container {
+    width: 80%;
+    height: 75%;
+    box-shadow: 0 2px 6px 1px rgb(10 10 10 / 19%);
+    background-color: white;
+    margin-top: auto;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    @include flex_col;
+    align-items: center;
+    justify-content: center;
+
+    .weather_line_one {
+      @include flex_row;
+      align-items: center;
+      justify-content: space-between;
+      width: 95%;
+      height: 50%;
+    }
+
+    .weather_icon {
+      width: 50%;
+
+      img {
+        display: block;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+      }
+    }
+
+    .weather_info {
+      @include flex_col;
+      width: 50%;
+
+      .temperature {
+        font-weight: 300;
+        font-size: 25px;
+      }
+
+      .explanation {
+        font-weight: 300;
+        font-size: 18px;
+        margin-top: 7%;
+        margin-bottom: 5px;
+      }
+
+      .location {
+        font-weight: 300;
+        font-size: 10px;
+      }
+    }
+
+    .weather_line_two {
+      @include flex_row;
+      align-items: center;
+      justify-content: center;
+      width: 95%;
+      height: 30%;
+    }
+
+    .temp_info {
+      width: 31%;
+      height: 60%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 1.3;
+      }
+    }
+
+    .humidity,
+    .feels_like {
+      width: 31%;
+      height: 60%;
+      border-left: 0.5px solid $gray;
+      @include flex_col;
+      justify-content: center;
+
+      h1 {
+        font-weight: 300;
+        font-size: 12px;
+        margin: 0 auto;
+
+        p {
+          margin-top: 10%;
+          font-weight: 300;
+          font-size: 14px;
+        }
+      }
+    }
+
+    @media (max-height: 700px) {
+      .another_info {
+        display: none;
+      }
+    }
+  }
+}
+
+@include min {
+  .weather {
+    width: 100%;
+    height: 280px;
+    margin-top: 15px;
+
+    .title,
+    .weather_container {
+      width: 90%;
+    }
+  }
+}
