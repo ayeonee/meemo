@@ -5,7 +5,7 @@ import "./main.css";
 
 export default function Calendar(): JSX.Element {
   return (
-    <div>
+    <div className="calendarWrapper">
       <CalendarApp />
     </div>
   );
