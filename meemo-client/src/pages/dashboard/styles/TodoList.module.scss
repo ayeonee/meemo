@@ -18,14 +18,11 @@
   .todo_wrapper {
     width: 90%;
     height: 70%;
-    // background-color: $green_grade_3;
     margin-top: 31px;
     margin-bottom: 12px;
     border-radius: 2px;
 
     .graph_box {
-      width: 35%;
-      margin-left: -5px;
       @include flex_col;
       @include align_center;
 
@@ -84,8 +81,6 @@
     .todo_box {
       @include flex_col;
       margin: 0 auto;
-      width: 60%;
-      height: 90%;
       align-items: center;
 
       .todo_container {
@@ -118,10 +113,8 @@
 
       .see_detail {
         position: relative;
-        bottom: 0;
         padding: 5px;
         font-weight: bold;
-        font-size: 12px;
         cursor: pointer;
         color: $green_grade_5;
 
@@ -137,7 +130,7 @@
   }
 }
 
-@media (min-width: 477px) {
+@include max {
   .todo_list {
     width: 63.7%;
     height: 100%;
@@ -145,6 +138,129 @@
     .todo_wrapper {
       @include flex_row;
       align-items: center;
+
+      .graph_box {
+        width: 35%;
+        border-right: 2px solid $green_grade_4;
+        margin-left: -10px;
+        padding-right: 10px;
+      }
+
+      .todo_box {
+        width: 60%;
+        height: 60%;
+      }
+      .see_detail {
+        bottom: 0;
+        font-size: 12px;
+      }
+    }
+  }
+}
+@include lgDesktop {
+  .todo_list {
+    width: 63.7%;
+    height: 100%;
+
+    .todo_wrapper {
+      @include flex_row;
+      align-items: center;
+
+      .graph_box {
+        width: 40%;
+        border-right: 2px solid $green_grade_4;
+        margin-left: -10px;
+        padding-right: 10px;
+      }
+
+      .todo_box {
+        width: 60%;
+        height: 60%;
+      }
+      .see_detail {
+        bottom: 0;
+        font-size: 12px;
+      }
+    }
+  }
+}
+@include mdDesktop {
+  .todo_list {
+    width: 63.7%;
+    height: 100%;
+
+    .todo_wrapper {
+      @include flex_row;
+      align-items: center;
+
+      .graph_box {
+        width: 45%;
+        border-right: 2px solid $green_grade_4;
+        margin-left: -10px;
+        padding-right: 10px;
+      }
+
+      .todo_box {
+        width: 48%;
+        height: 60%;
+      }
+      .see_detail {
+        bottom: 0;
+        font-size: 12px;
+      }
+    }
+  }
+}
+@include tablet {
+  .todo_list {
+    width: 63.7%;
+    height: 100%;
+
+    .todo_wrapper {
+      @include flex_row;
+      align-items: center;
+
+      .graph_box {
+        width: 47%;
+        border-right: 2px solid $green_grade_4;
+        margin-left: -10px;
+        padding-right: 10px;
+      }
+      .todo_box {
+        width: 43%;
+        height: 60%;
+      }
+      .see_detail {
+        bottom: 0;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@include mobile {
+  .todo_list {
+    width: 63.7%;
+    height: 100%;
+
+    .todo_wrapper {
+      @include flex_row;
+      align-items: center;
+
+      .graph_box {
+        width: 53%;
+        border-right: 2px solid $green_grade_4;
+        margin-left: -10px;
+        padding-right: 10px;
+      }
+      .todo_box {
+        width: 40%;
+        height: 60%;
+      }
+      .see_detail {
+        bottom: 0;
+        font-size: 12px;
+      }
     }
   }
 }
@@ -161,6 +277,8 @@
 
       .todo_box {
         width: 90%;
+        height: 90%;
+        margin-top: 10px;
       }
 
       .todo_container {
@@ -175,7 +293,8 @@
       }
 
       .see_detail {
-        margin-bottom: 8px;
+        font-size: 1rem;
+        bottom: -20px;
       }
     }
   }
