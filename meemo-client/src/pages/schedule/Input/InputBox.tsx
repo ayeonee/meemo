@@ -122,7 +122,7 @@ export default function InputBox({
 
   const handleAddData = () => {
     if (input.name === "") {
-      alert("일정/과목명을 입력해 주세요");
+      alert("강의명을 입력해 주세요");
       return;
     }
 
@@ -201,8 +201,8 @@ export default function InputBox({
 
           <div className={style.input_wrapper_sub}>
             <div className={style.input_title}>
-              <h3>일정</h3>
-              <h3>세부 사항</h3>
+              <h3>강의명</h3>
+              <h3>장소</h3>
               <h3>날짜/시간</h3>
             </div>
 

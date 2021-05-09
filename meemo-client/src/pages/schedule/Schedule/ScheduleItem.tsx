@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
-import { daysData, colorCode } from "../../../_data/scheduleData";
+import { colorCode } from "../../../_data/scheduleData";
 import { Data, Schedule } from "../../../_types/scheduleTypes";
 import style from "../styles/ScheduleStyle.module.scss";
 
