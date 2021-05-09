@@ -1,29 +1,19 @@
-html,
-body,
-body > div {
-  /* the react root */
-  margin: 0;
-  margin-top: 30px;
-  padding: 0;
-  height: 100%;
-}
-
-h2 {
+.calendarWrapper > h2 {
   margin: 0;
   font-size: 16px;
 }
 
-ul {
+.calendarWrapper > ul {
   margin: 0;
   padding: 0 0 0 1.5em;
 }
 
-li {
+.calendarWrapper > li {
   margin: 1.5em 0;
   padding: 0;
 }
 
-b {
+.calendarWrapper > b {
   /* used for event dates/times */
   margin-right: 3px;
 }
