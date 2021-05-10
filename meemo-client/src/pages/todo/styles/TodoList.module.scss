@@ -1,10 +1,12 @@
+@import "../../../styles/_variables.module.scss";
+
 .list_wrapper {
   width: 100%;
   overflow-y: scroll;
-
   margin-top: 5px;
   padding: 0;
 
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -47,5 +49,38 @@
         color: rgb(126, 126, 126);
       }
     }
+  }
+}
+
+@include max {
+  .list_wrapper {
+    height: 70vh;
+  }
+}
+@include lgDesktop {
+  .list_wrapper {
+    height: 70vh;
+  }
+}
+@include mdDesktop {
+  .list_wrapper {
+    height: 70vh;
+  }
+}
+@include tablet {
+  .list_wrapper {
+    height: 70vh;
+  }
+}
+
+@include mobile {
+  .list_wrapper {
+    height: 67vh;
+  }
+}
+
+@include min {
+  .list_wrapper {
+    height: 60vh;
   }
 }

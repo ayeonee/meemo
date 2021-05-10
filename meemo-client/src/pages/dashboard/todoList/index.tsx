@@ -22,7 +22,6 @@ function TodoList(): JSX.Element {
       .then((res) => {
         setTodoList(res.data.payload);
       })
-      .then((data) => {})
       .catch((err) => console.log(err));
   };
 
@@ -42,7 +41,7 @@ function TodoList(): JSX.Element {
     <div className={style.todo_list}>
       <div className={style.title}>TO-DO LIST</div>
       <div className={style.todo_wrapper}>
-        <AchievementRate />
+        <AchievementRate todoList={todoList} />
         <div className={style.todo_box}>
           <div className={style.todo_container}>
             {todoList === null || todoList.length === 0

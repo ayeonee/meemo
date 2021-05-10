@@ -54,10 +54,9 @@ function TodaySchedule(): JSX.Element {
       item.schedule.forEach((scheduleItem) => {
         if (scheduleItem.date === today) {
           setColor(scheduleItem.date % 6);
-          setScheduleInfo((scheduleInfo) =>
-            scheduleInfo.concat({
-              ...scheduleInfo,
-
+          setScheduleInfo((scheduleInfo) => [
+            ...scheduleInfo,
+            {
               id: item.id,
               name: item.name,
               place: item.place,
@@ -65,8 +64,8 @@ function TodaySchedule(): JSX.Element {
               startMin: scheduleItem.startMin,
               endHour: scheduleItem.endHour,
               endMin: scheduleItem.endMin,
-            })
-          );
+            },
+          ]);
         }
       })
     );

@@ -1,39 +1,18 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import style from "../../styles/TodoList.module.scss";
+import { useState, useEffect } from "react";
 import { Todo } from "../../../../_types/todoTypes";
-import { BASE_URL } from "../../../../_data/urlData";
 import { Pie } from "react-chartjs-2"; //chart 위한 라이브러리
 
-function AchievementRate(): JSX.Element {
-  const [todoList, setTodoList] = useState<Todo[]>([]);
-  const checkedTodo: Todo[] = [];
+interface AchievementRateProps {
+  todoList: Todo[];
+}
 
-  const getTodo = async (userId: string | null) => {
-    await axios({
-      method: "POST",
-      baseURL: BASE_URL,
-      url: "/get/todo",
-      data: {
-        userId: userId,
-      },
-    })
-      .then((res) => {
-        setTodoList(res.data.payload);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    getTodo(localStorage.getItem("meemo-user-id"));
-  }, []);
-
-  todoList.map((item) => {
-    if (item.checked) {
-      checkedTodo.push(item);
-    } else {
-    }
-  });
+function AchievementRate({ todoList }: AchievementRateProps): JSX.Element {
+  const [checkedTodo, setCheckedTodo] = useState<
+    {
+      checked: boolean;
+    }[]
+  >([]);
 
   //그래프에 넣을 데이터
   const todoBasedPieData = {
@@ -63,6 +42,20 @@ function AchievementRate(): JSX.Element {
     },
   };
 
+  useEffect(() => {
+    todoList.map((item) => {
+      if (item.checked) {
+        setCheckedTodo((checkedTodo) => [
+          ...checkedTodo,
+          {
+            checked: item.checked,
+          },
+        ]);
+      } else {
+      }
+    });
+  }, [todoList]);
+
   return (
     <div className={style.graph_box}>
       {todoList.length === 0 ? (
@@ -70,7 +63,9 @@ function AchievementRate(): JSX.Element {
       ) : (
         <div className={style.graph_container}>
           <div className={style.rate_circle}>
-            <h1>{`${(checkedTodo.length / todoList.length) * 100}%`}</h1>
+            <h1>{`${Math.round(
+              (checkedTodo.length / todoList.length) * 100
+            )}%`}</h1>
           </div>
           <Pie
             type="pie"
