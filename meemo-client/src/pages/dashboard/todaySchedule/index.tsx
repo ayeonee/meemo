@@ -100,13 +100,15 @@ function TodaySchedule(): JSX.Element {
       <div
         className={style.schedule_wrapper}
         style={{
-          backgroundColor: `#${colorCode[color]}`,
+          backgroundColor: !color ? `#6cbea7` : `#${colorCode[color]}`,
         }}
       >
         <div className={style.schedule_box}>
           <div className={style.schedule_container}>
             {scheduleInfo.length === 0 ? (
-              <p>오늘은 일정이 없습니다.</p>
+              <div className={style.schedule_list}>
+                <b>오늘은 일정이 없습니다.</b>
+              </div>
             ) : (
               <div className={style.schedule_list}>
                 <b>{scheduleInfo[0].name}</b>

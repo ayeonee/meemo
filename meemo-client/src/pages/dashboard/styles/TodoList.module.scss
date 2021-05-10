@@ -15,24 +15,26 @@
     color: $green_grade_5;
   }
 
+  .sub_title {
+    width: 90%;
+    display: flex;
+
+    span {
+      font-size: 14px;
+      margin: 8px 0 10px 0;
+      color: rgb(27, 27, 27);
+    }
+  }
+
   .todo_wrapper {
     width: 90%;
     height: 70%;
-    margin-top: 31px;
-    margin-bottom: 12px;
+    margin: 11px 0;
     border-radius: 2px;
 
     .graph_box {
       @include flex_col;
       @include align_center;
-
-      .none_circle {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        background-color: lightgray;
-        margin-bottom: 0;
-      }
 
       .graph_container {
         width: 160px;
@@ -40,6 +42,18 @@
         @include flex_col;
         @include align_center;
         margin-bottom: 15px;
+
+        .block_circle {
+          margin-top: 11px;
+          position: absolute;
+          display: flex;
+          @include align_center;
+          background-color: transparent;
+          width: 180px;
+          height: 180px;
+          border-radius: 50%;
+          z-index: 4;
+        }
 
         .rate_circle {
           margin-top: 11px;
@@ -59,8 +73,17 @@
 
         .pie {
           position: absolute;
-
           z-index: 2;
+        }
+
+        .none_circle {
+          position: absolute;
+          z-index: 2;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          background-color: rgb(192, 192, 192);
+          margin-top: 11px;
         }
 
         .bg_circle {
@@ -87,8 +110,14 @@
         width: 90%;
         height: 100%;
         @include flex_col;
-        align-items: center;
+        @include align_center;
         margin-bottom: 10px;
+        background-color: white;
+
+        .null_message {
+          font-size: 1.1rem;
+          font-weight: 500;
+        }
 
         .todo_info {
           width: 100%;
