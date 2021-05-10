@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import NavItem from "./NavItem";
 import logo from "../../img/logo.svg";
+import logout from "../../img/logout.svg";
 import removeLocalStorage from "../../hooks/removeLocalStorage";
 import style from "./Navigation.module.scss";
 import style_hidden from "../../styles/hidden.module.scss";
@@ -93,13 +94,23 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
               />
             ))}
           </div>
-        </div>
 
-        <div className={style.user_menu}>
-          <p className={style.nav_username}>{userName}님</p>
-          <button className={style.logout_btn} onClick={onClickLogout}>
-            로그아웃
-          </button>
+          <div className={style.user_menu}>
+            <p className={style.nav_username}>
+              {userName !== null && userName.length > 5
+                ? userName.substring(0, 4) + "..."
+                : userName}
+              님의 미-모
+            </p>
+            <div onClick={onClickLogout} className={style.logout_wrapper}>
+              <img
+                className={style.logout_icon}
+                src={`${logout}`}
+                alt="logout"
+              />
+              <button className={style.logout_btn}>로그아웃</button>
+            </div>
+          </div>
         </div>
       </nav>
     </div>

@@ -39,10 +39,6 @@ function TodaySchedule(): JSX.Element {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getSchedule(localStorage.getItem("meemo-user-id"));
-  }, []);
-
   const goSchedulePage = () => {
     history.push({
       pathname: `/schedule`,
