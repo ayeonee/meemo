@@ -51,7 +51,7 @@ export default function FolderList(): JSX.Element {
 
     const loadFolders = async () => {
       try {
-        const res = await axios.get("https://meemo.kr/api/folders", {
+        const res = await axios.get(BASE_URL + "/folders", {
           cancelToken: source.token,
         });
         console.log("Got the folders!");
@@ -75,7 +75,7 @@ export default function FolderList(): JSX.Element {
 
   const getTitle = async (id: string) => {
     try {
-      const res = await axios.get("https://meemo.kr/api/folders/" + id);
+      const res = await axios.get(BASE_URL + "/folders/" + id);
       setFolderTitle(res.data.title);
     } catch (err) {
       throw err;
@@ -85,7 +85,7 @@ export default function FolderList(): JSX.Element {
   const getChildren = async (id: string) => {
     let temp: any[] = [];
     try {
-      const res = await axios.get("https://meemo.kr/api/notes");
+      const res = await axios.get(BASE_URL + "/notes");
       res.data.map((note: any) => {
         if (note.parentId === id) {
           temp.push(note);
@@ -102,12 +102,9 @@ export default function FolderList(): JSX.Element {
       const folder = {
         title: `${t}`,
       };
-      const stickymemoInit = {
-        body: "",
-        userId: "stickymemo",
-      };
+
       axios
-        .post("https://meemo.kr/api/folders/create", folder)
+        .post(BASE_URL + "/folders/create", folder)
         .then(() => setUpdate(!update))
         .then(() => console.log("New folder added!"))
         .then(() => setShowPopup(!showPopup))
@@ -120,21 +117,21 @@ export default function FolderList(): JSX.Element {
   const deleteFolder = async (id: string) => {
     let temp: any[] = [];
     try {
-      const res = await axios.get("https://meemo.kr/api/notes");
+      const res = await axios.get(BASE_URL + "/notes");
       res.data.map((note: any) => {
         if (note.parentId === id) {
           temp.push(note);
         }
       });
       temp.map((note) => {
-        axios.delete("https://meemo.kr/api/notes/" + note._id);
+        axios.delete(BASE_URL + "/notes/" + note._id);
       });
     } catch (err) {
       throw err;
     }
     try {
       axios
-        .delete("https://meemo.kr/api/folders/" + id)
+        .delete(BASE_URL + "/folders/" + id)
         .then(() => console.log("Folder deleted."))
         .then(() => setUpdate(!update))
         .then(() => setDelBtn(false))
@@ -154,7 +151,7 @@ export default function FolderList(): JSX.Element {
       };
 
       axios
-        .put("https://meemo.kr/api/folders/" + id, title)
+        .put(BASE_URL + "/folders/" + id, title)
         .then(() => console.log("Folder Renamed"))
         .then(() => setUpdate(!update))
         .then(() => setShowPopup(false))

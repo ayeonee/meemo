@@ -19,6 +19,8 @@ import style from "./styles/CalendarApp.module.scss";
 
 import CalendarModal from "./modals/CalendarModal";
 
+import { BASE_URL } from "../../_data/urlData";
+
 // let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
 
 // const TestEvent: EventInput[] = [
@@ -57,7 +59,7 @@ export default function CalendarApp(): JSX.Element {
 
     const loadEvents = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/calendar", {
+        const res = await axios.get(BASE_URL + "/calendar", {
           cancelToken: source.token,
         });
         console.log("Got the Calendar Events!");
@@ -134,7 +136,7 @@ export default function CalendarApp(): JSX.Element {
     if (calEvnt.type === "ADD") {
       try {
         axios
-          .post("http://localhost:5000/api/calendar/create", calEvnt)
+          .post(BASE_URL + "/calendar/create", calEvnt)
           .then(() => setUpdate(!update))
           .then(() => console.log("New Calendar Event Added!"))
           .then(() => setShowAddModal(!showAddModal))
@@ -146,7 +148,7 @@ export default function CalendarApp(): JSX.Element {
     if (calEvnt.type === "UPDATE") {
       try {
         axios
-          .put("http://localhost:5000/api/calendar/" + calEvnt.id, evnt)
+          .put(BASE_URL + "/calendar/" + calEvnt.id, evnt)
           .then(() => console.log("Calendar Event Updated"))
           .then(() => setUpdate(!update))
           .then(() => setShowUpdateModal(false))
@@ -189,7 +191,7 @@ export default function CalendarApp(): JSX.Element {
 
   const handleDelete = (id: string) => {
     axios
-      .delete("http://localhost:5000/api/calendar/" + id)
+      .delete(BASE_URL + "/calendar/" + id)
       .then(() => setUpdate(!update))
       .then(() => console.log("Calendar Event Deleted"))
       .then(() => setShowUpdateModal(!showUpdateModal))

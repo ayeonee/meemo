@@ -9,6 +9,8 @@ import RouteShow from "../misc/RouteShow";
 import LoaderSpinner from "../misc/LoaderSpinner";
 import DeleteModal from "../modals/DeleteModal";
 
+import { BASE_URL } from "../../../_data/urlData";
+
 const removeMd = require("remove-markdown");
 
 // removing remaining md strings; maybe not needed
@@ -65,7 +67,7 @@ export default function NoteList() {
 
   const getParentId = async () => {
     try {
-      const res = await axios.get("https://meemo.kr/api/folders", {
+      const res = await axios.get(BASE_URL + "/folders", {
         cancelToken: source.token,
       });
       res.data.forEach((folder: any) => {
@@ -87,7 +89,7 @@ export default function NoteList() {
 
     const loadNotes = async () => {
       try {
-        const res = await axios.get("https://meemo.kr/api/notes", {
+        const res = await axios.get(BASE_URL + "/notes", {
           cancelToken: source.token,
         });
         res.data.forEach((note: any) => {
@@ -119,7 +121,7 @@ export default function NoteList() {
 
   const getTitle = async (id: string) => {
     try {
-      const res = await axios.get("https://meemo.kr/api/notes/" + id);
+      const res = await axios.get(BASE_URL + "/notes/" + id);
       setNoteTitle(res.data.title);
     } catch (err) {
       throw err;
@@ -135,7 +137,7 @@ export default function NoteList() {
         parentId: `${parentId}`,
       };
       axios
-        .post("https://meemo.kr/api/notes/create", note)
+        .post(BASE_URL + "/notes/create", note)
         .then(() => setUpdate(!update))
         .then(() => console.log("New note added!"))
         .then(() => setShowPopup(!showPopup))
@@ -147,7 +149,7 @@ export default function NoteList() {
 
   const deleteNote = (id: any) => {
     axios
-      .delete("https://meemo.kr/api/notes/" + id)
+      .delete(BASE_URL + "/notes/" + id)
       .then(() => console.log("Note deleted."))
       .then(() => setShowDelModal(!showDelModal))
       .then(() => setDelBtn(false))
@@ -166,7 +168,7 @@ export default function NoteList() {
       };
 
       axios
-        .put("https://meemo.kr/api/notes/" + id, title)
+        .put(BASE_URL + "/notes/" + id, title)
         .then(() => console.log("Note Renamed"))
         .then(() => setUpdate(!update))
         .then(() => setShowPopup(false))

@@ -8,6 +8,8 @@ import style from "../styles/Editor.module.scss";
 import LoaderSpinner from "../misc/LoaderSpinner";
 import RouteShow from "../misc/RouteShow";
 
+import { BASE_URL } from "../../../_data/urlData";
+
 const YoutubeEmbed: React.FC<any> = (props) => {
   const { attrs } = props;
   const videoId = attrs.matches[1];
@@ -36,7 +38,7 @@ export default function Editor(): JSX.Element {
     let source = axios.CancelToken.source();
     const loadNote = async () => {
       try {
-        const res = await axios.get("https://meemo.kr/api/notes/" + noteId, {
+        const res = await axios.get(BASE_URL + "/notes/" + noteId, {
           cancelToken: source.token,
         });
         console.log("Got the note!");
@@ -68,7 +70,7 @@ export default function Editor(): JSX.Element {
     };
     try {
       axios
-        .post("https://meemo.kr/api/notes/update/" + noteId, noteInfo, {
+        .post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
           cancelToken: source.token,
         })
         .then((res) => console.log(res.data));
@@ -148,10 +150,7 @@ export default function Editor(): JSX.Element {
                 data.append("imgFile", file);
 
                 return new Promise(async (resolve) => {
-                  const res = await axios.post(
-                    "https://meemo.kr/api/s3/upload/",
-                    data
-                  );
+                  const res = await axios.post(BASE_URL + "/s3/upload/", data);
                   resolve(res.data);
                 });
               }}
