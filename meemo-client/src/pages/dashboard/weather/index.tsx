@@ -67,7 +67,7 @@ function Weather(): JSX.Element {
 
   return (
     <div className={style.weather}>
-      <div className={style.title}>Weather</div>
+      <div className={style.title}>WEATHER</div>
       <div className={style.weather_container}>
         <div className={style.weather_line_one}>
           <div className={style.weather_icon}>
@@ -87,19 +87,22 @@ function Weather(): JSX.Element {
         </div>
         <div className={style.weather_line_two}>
           <div className={style.temp_info}>
-            <p>
-              ↑ {weatherInfo.temp_max}° <br />↓ {weatherInfo.temp_min}°
-            </p>
+            <div className={style.temp_line}>
+              <div className={style.temp_arrow}>↑</div>
+              <p>{weatherInfo.temp_max}°</p>
+            </div>
+            <div className={style.temp_line}>
+              <div className={style.temp_arrow}>↓</div>
+              <p> {weatherInfo.temp_min}°</p>
+            </div>
           </div>
           <div className={style.feels_like}>
-            <h1>
-              Sensory :<p>{weatherInfo.feelslike}°</p>
-            </h1>
+            <h1>Sensory :</h1>
+            <p>{weatherInfo.feelslike}°</p>
           </div>
           <div className={style.humidity}>
-            <h1>
-              humidity :<p>{weatherInfo.humidity}%</p>
-            </h1>
+            <h1>Humidity :</h1>
+            <p>{weatherInfo.humidity}%</p>
           </div>
         </div>
       </div>

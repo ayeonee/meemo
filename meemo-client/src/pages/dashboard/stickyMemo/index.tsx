@@ -48,7 +48,7 @@ function StickyMemo(): JSX.Element {
 
   return (
     <div className={style.sticky_memo}>
-      <div className={style.title}>Sticky Memo</div>
+      <div className={style.title}>STICKY MEMO</div>
       <div className={style.sticky_wrapper}>
         <RMDEditor
           id="example"
@@ -69,24 +69,18 @@ function StickyMemo(): JSX.Element {
           onSave={(options) => console.log("Save triggered", options)}
           onCancel={() => console.log("Cancel triggered")}
           onChange={handleChange}
-          onClickLink={(href, event) =>
-            console.log("Clicked link: ", href, event)
-          }
+          onClickLink={(href, event) => console.log("Clicked link: ", href, event)}
           onHoverLink={(event: any) => {
             console.log("Hovered link: ", event.target.href);
             return false;
           }}
-          onClickHashtag={(tag, event) =>
-            console.log("Clicked hashtag: ", tag, event)
-          }
+          onClickHashtag={(tag, event) => console.log("Clicked hashtag: ", tag, event)}
           onCreateLink={(title) => {
             // Delay to simulate time taken for remote API request to complete
             return new Promise((resolve, reject) => {
               setTimeout(() => {
                 if (title !== "error") {
-                  return resolve(
-                    `/doc/${encodeURIComponent(title.toLowerCase())}`
-                  );
+                  return resolve(`/doc/${encodeURIComponent(title.toLowerCase())}`);
                 } else {
                   reject("500 error");
                 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/RecentModify.module.scss";
 import axios from "axios";
 import moment from "moment";
@@ -24,45 +25,75 @@ type FolderInfo = {
 function RecentModify(): JSX.Element {
   const [notes, setNotes] = useState<NoteInfo[]>([]);
   const [folders, setFolders] = useState<FolderInfo[]>([]);
+  const [rearrangedNotes, setRearrangedNotes] = useState<NoteInfo[]>([]);
 
   const history = useHistory();
 
-  async function getNoteData() {
-    await axios.get("https://meemo.kr/api/notes").then((response) => {
-      setNotes(response.data);
-    });
-  }
+  /* user id별로 가져오는 것 해야 함 */
+  const getNoteData = async () => {
+    await axios({
+      method: "GET",
+      baseURL: BASE_URL,
+      url: "/notes",
+    })
+      .then((res) => {
+        setNotes(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
-  async function getFolderData() {
-    await axios.get("https://meemo.kr/api/folders").then((response) => {
-      setFolders(response.data);
+  const getFolderData = async () => {
+    await axios({
+      method: "GET",
+      baseURL: BASE_URL,
+      url: "/folders",
+    })
+      .then((res) => {
+        setFolders(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const sortNoteItems = () => {
+    setRearrangedNotes((rearrangedNotes) =>
+      rearrangedNotes.sort((a, b) => {
+        return a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0;
+      })
+    );
+  };
+
+  const arrangeNoteItems = () => {
+    notes.map((item) => {
+      setRearrangedNotes((rearrangedNotes) =>
+        rearrangedNotes.concat({
+          ...rearrangedNotes,
+          _id: item._id,
+          title: item.title,
+          body: item.body,
+          parentId: item.parentId,
+          createdAt: item.createdAt,
+          //최근 업데이트 시간 비교 위해 변환
+          updatedAt: moment(item.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+        })
+      );
     });
-  }
+
+    sortNoteItems();
+  };
 
   useEffect(() => {
     getNoteData();
     getFolderData();
+
+    // getNoteData(localStorage.getItem("meemo-user-id"));
+    // getFolderData(localStorage.getItem("meemo-user-id"));
   }, []);
 
-  const noteItem: NoteInfo[] = [];
+  useEffect(() => {
+    arrangeNoteItems();
+  }, [notes]);
 
-  notes.map((item) => {
-    noteItem.push({
-      _id: item._id,
-      title: item.title,
-      body: item.body,
-      parentId: item.parentId,
-      createdAt: item.createdAt,
-      //최근 업데이트 시간 비교 위해 변환
-      updatedAt: moment(item.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
-    });
-  });
-
-  noteItem.sort((a, b) => {
-    return a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0;
-  });
-
-  const onClick = (parentId: string, noteId: string) => {
+  const goSelectedNotePage = (parentId: string, noteId: string) => {
     for (let i = 0; i < folders.length; i++) {
       if (folders[i]._id === parentId) {
         history.push({
@@ -75,17 +106,19 @@ function RecentModify(): JSX.Element {
 
   return (
     <div className={style.recent_modify}>
-      <div className={style.title}>Recently Modified Note</div>
+      <div className={style.title}>RECENTLY MODIFIED NOTE</div>
       <div className={style.note_wrapper}>
-        {
+        {rearrangedNotes.length === 0 ? (
+          "생성된 노트가 없습니다."
+        ) : (
           <>
-            {noteItem.map((item, index) => {
+            {rearrangedNotes.map((item, index) => {
               if (index < 4) {
                 return (
                   <div key={index} className={style.note_container}>
                     <div
                       className={style.note_div}
-                      onClick={() => onClick(item.parentId, item._id)}
+                      onClick={() => goSelectedNotePage(item.parentId, item._id)}
                     >
                       <div className={style.icon_div}>
                         <Notes className={style.note_icon} />
@@ -104,7 +137,7 @@ function RecentModify(): JSX.Element {
               }
             })}
           </>
-        }
+        )}
       </div>
     </div>
   );
