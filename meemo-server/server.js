@@ -257,11 +257,13 @@ const notesRouter = require("./routes/notes");
 const foldersRouter = require("./routes/folders");
 const storageRouter = require("./routes/storage");
 const calendarRouter = require("./routes/calendar");
+const stickynoteRouter = require("./routes/stickynote");
 
 app.use("/api/notes", notesRouter);
 app.use("/api/folders", foldersRouter);
 app.use("/api/s3", storageRouter);
 app.use("/api/calendar", calendarRouter);
+app.use("/api/stickynote", stickynoteRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

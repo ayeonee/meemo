@@ -1,5 +1,9 @@
 @import "../../../styles/_variables.module.scss";
 
+.ProseMirror-widget {
+  background-color: aqua;
+}
+
 .sticky_memo {
   @include flex_col;
   align-items: center;
