@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { weatherData } from "../../../_data/weatherData";
 import style from "../styles/Weather.module.scss";
 import Geocode from "react-geocode";
 
@@ -65,9 +66,43 @@ function Weather(): JSX.Element {
     askForCoords();
   }, []);
 
+  const weatherMessage = (weatherInfo: string) => {
+    if (weatherInfo === "Thunderstorm") {
+      return weatherData[0];
+    } else if (weatherInfo === "Rain" || weatherInfo === "Squall") {
+      return weatherData[1];
+    } else if (weatherInfo === "Snow") {
+      return weatherData[2];
+    } else if (
+      weatherInfo === "Mist" ||
+      weatherInfo === "Smoke" ||
+      weatherInfo === "Haze" ||
+      weatherInfo === "Fog"
+    ) {
+      return weatherData[3];
+    } else if (weatherInfo === "Dust") {
+      return weatherData[4];
+    } else if (weatherInfo === "Sand") {
+      return weatherData[5];
+    } else if (weatherInfo === "Ash") {
+      return weatherData[6];
+    } else if (weatherInfo === "Tornado") {
+      return weatherData[7];
+    } else if (weatherInfo === "Clear") {
+      return weatherData[8];
+    } else if (weatherInfo === "Clouds") {
+      return weatherData[9];
+    } else {
+      return "공부하기 좋은날!";
+    }
+  };
+
   return (
     <div className={style.weather}>
       <div className={style.title}>WEATHER</div>
+      <div className={style.sub_title}>
+        <span>{weatherMessage(weatherInfo.weather)}</span>
+      </div>
       <div className={style.weather_container}>
         <div className={style.weather_line_one}>
           <div className={style.weather_icon}>

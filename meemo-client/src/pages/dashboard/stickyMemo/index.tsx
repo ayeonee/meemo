@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import RMDEditor from "rich-markdown-editor";
 import axios from "axios";
 import debounce from "lodash/debounce";
-
 import { BASE_URL } from "../../../_data/urlData";
-
 import style from "../styles/StickyMemo.module.scss";
 
 function StickyMemo(): JSX.Element {
@@ -49,13 +47,16 @@ function StickyMemo(): JSX.Element {
   return (
     <div className={style.sticky_memo}>
       <div className={style.title}>STICKY MEMO</div>
+      <div className={style.sub_title}>
+        <span>간단한 메모를 작성할 수 있습니다.</span>
+      </div>
       <div className={style.sticky_wrapper}>
         <RMDEditor
           id="example"
           readOnly={false}
           readOnlyWriteCheckboxes
           value={body}
-          placeholder={"메모를 적어보세요..."}
+          placeholder={"메모를 적어보세요.."}
           defaultValue={body}
           scrollTo={window.location.hash}
           handleDOMEvents={
@@ -69,18 +70,24 @@ function StickyMemo(): JSX.Element {
           onSave={(options) => console.log("Save triggered", options)}
           onCancel={() => console.log("Cancel triggered")}
           onChange={handleChange}
-          onClickLink={(href, event) => console.log("Clicked link: ", href, event)}
+          onClickLink={(href, event) =>
+            console.log("Clicked link: ", href, event)
+          }
           onHoverLink={(event: any) => {
             console.log("Hovered link: ", event.target.href);
             return false;
           }}
-          onClickHashtag={(tag, event) => console.log("Clicked hashtag: ", tag, event)}
+          onClickHashtag={(tag, event) =>
+            console.log("Clicked hashtag: ", tag, event)
+          }
           onCreateLink={(title) => {
             // Delay to simulate time taken for remote API request to complete
             return new Promise((resolve, reject) => {
               setTimeout(() => {
                 if (title !== "error") {
-                  return resolve(`/doc/${encodeURIComponent(title.toLowerCase())}`);
+                  return resolve(
+                    `/doc/${encodeURIComponent(title.toLowerCase())}`
+                  );
                 } else {
                   reject("500 error");
                 }

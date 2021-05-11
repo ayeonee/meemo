@@ -3,6 +3,7 @@
 .dashboard_wrapper {
   display: flex;
   justify-content: center;
+  background-color: rgb(235, 235, 235);
 
   .dashboard {
     @include flex_col;

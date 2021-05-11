@@ -57,7 +57,11 @@ function RecentModify(): JSX.Element {
   const sortNoteItems = () => {
     setRearrangedNotes((rearrangedNotes) =>
       rearrangedNotes.sort((a, b) => {
-        return a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0;
+        return a.updatedAt < b.updatedAt
+          ? 1
+          : a.updatedAt > b.updatedAt
+          ? -1
+          : 0;
       })
     );
   };
@@ -107,6 +111,9 @@ function RecentModify(): JSX.Element {
   return (
     <div className={style.recent_modify}>
       <div className={style.title}>RECENTLY MODIFIED NOTE</div>
+      <div className={style.sub_title}>
+        <span>최근 수정된 목록</span>
+      </div>
       <div className={style.note_wrapper}>
         {rearrangedNotes.length === 0 ? (
           "생성된 노트가 없습니다."
@@ -118,7 +125,9 @@ function RecentModify(): JSX.Element {
                   <div key={index} className={style.note_container}>
                     <div
                       className={style.note_div}
-                      onClick={() => goSelectedNotePage(item.parentId, item._id)}
+                      onClick={() =>
+                        goSelectedNotePage(item.parentId, item._id)
+                      }
                     >
                       <div className={style.icon_div}>
                         <Notes className={style.note_icon} />
