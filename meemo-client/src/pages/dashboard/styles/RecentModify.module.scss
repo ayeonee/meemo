@@ -28,64 +28,80 @@
       color: rgb(27, 27, 27);
     }
   }
+  .null_message {
+    width: fit-content;
+    height: 75%;
+    @include flex_col;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      color: rgb(61, 61, 61);
+      font-size: 0.9rem;
+    }
+  }
 
   .note_wrapper {
     width: 86%;
     height: 75%;
     background-color: white;
-    margin-top: auto;
+    margin-top: 15px;
     margin-bottom: 12px;
     border-radius: 5px;
     @include flex_col;
 
-    /*show note info style*/
-    .note_container {
-      display: flex;
-      justify-content: center;
-
-      .note_div {
+    .visible_notes {
+      /*show note info style*/
+      .note_container {
         display: flex;
-        border: solid 1px $green_grade_2;
-        border-radius: 3px;
-        width: 93%;
-        height: 40px;
-        cursor: pointer;
+        justify-content: center;
+        width: 100%;
 
-        .icon_div {
-          height: 100%;
-          width: 30px;
-          pointer-events: none;
+        .note_div {
           display: flex;
-          justify-content: center;
-          align-items: center;
+          border: solid 1px $green_grade_2;
+          border-radius: 3px;
+          width: 93%;
+          height: 40px;
+          margin-top: 5px;
+          cursor: pointer;
 
-          .note_icon {
-            color: $green_grade_5;
+          .icon_div {
+            height: 100%;
+            width: 30px;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-            width: 20px;
-            height: 20px;
+            .note_icon {
+              color: $green_grade_5;
 
+              width: 20px;
+              height: 20px;
+
+              pointer-events: none;
+            }
+          }
+
+          .title_div {
+            margin: auto;
+            margin-left: 1%;
+            pointer-events: none;
+            p {
+              font-size: 14px;
+              pointer-events: none;
+            }
+          }
+
+          .time_div {
+            margin-right: 5px;
+            display: flex;
+            justify-content: right;
+            align-items: center;
+            font-size: 2px;
             pointer-events: none;
           }
-        }
-
-        .title_div {
-          margin: auto;
-          margin-left: 1%;
-          pointer-events: none;
-          p {
-            font-size: 14px;
-            pointer-events: none;
-          }
-        }
-
-        .time_div {
-          margin-right: 5px;
-          display: flex;
-          justify-content: right;
-          align-items: center;
-          font-size: 2px;
-          pointer-events: none;
         }
       }
     }

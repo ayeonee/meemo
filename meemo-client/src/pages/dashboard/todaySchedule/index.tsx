@@ -22,7 +22,6 @@ function TodaySchedule(): JSX.Element {
   const today = date.getDay(); //일:0~토:6
   const [allData, setAllData] = useState<AllData>([]);
   const [scheduleInfo, setScheduleInfo] = useState<ScheduleInfo[]>([]);
-  const [color, setColor] = useState<any>();
 
   const getSchedule = async (userId: string | null) => {
     await axios({
@@ -49,7 +48,6 @@ function TodaySchedule(): JSX.Element {
     allData.forEach((item) =>
       item.schedule.forEach((scheduleItem) => {
         if (scheduleItem.date === today) {
-          setColor(scheduleItem.date % 6);
           setScheduleInfo((scheduleInfo) => [
             ...scheduleInfo,
             {
@@ -97,12 +95,7 @@ function TodaySchedule(): JSX.Element {
           요일
         </div>
       </div>
-      <div
-        className={style.schedule_wrapper}
-        style={{
-          backgroundColor: !color ? `#6cbea7` : `#${colorCode[color]}`,
-        }}
-      >
+      <div className={style.schedule_wrapper}>
         <div className={style.schedule_box}>
           <div className={style.schedule_container}>
             {scheduleInfo.length === 0 ? (

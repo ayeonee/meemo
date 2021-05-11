@@ -26,11 +26,13 @@
   }
 
   .schedule_wrapper {
+    background-color: $green_grade_4;
     color: white;
     width: 80%;
-    height: 70%;
+    height: 67%;
     margin-bottom: 12px;
-    border-radius: 2px;
+    margin-top: 5px;
+    border-radius: 3px;
     @include flex_col;
     @include align_center;
 

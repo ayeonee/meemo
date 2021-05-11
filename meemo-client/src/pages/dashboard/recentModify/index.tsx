@@ -114,11 +114,13 @@ function RecentModify(): JSX.Element {
       <div className={style.sub_title}>
         <span>최근 수정된 목록</span>
       </div>
-      <div className={style.note_wrapper}>
-        {rearrangedNotes.length === 0 ? (
-          "생성된 노트가 없습니다."
-        ) : (
-          <>
+      {rearrangedNotes.length === 0 ? (
+        <div className={style.null_message}>
+          <p>생성된 노트가 없습니다.</p>
+        </div>
+      ) : (
+        <div className={style.note_wrapper}>
+          <div className={style.visible_notes}>
             {rearrangedNotes.map((item, index) => {
               if (index < 4) {
                 return (
@@ -145,9 +147,9 @@ function RecentModify(): JSX.Element {
                 return null;
               }
             })}
-          </>
-        )}
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
