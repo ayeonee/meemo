@@ -1,7 +1,10 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../_userActions/userAction";
 import style from "./styles/Auth.module.scss";
+
+import { BASE_URL } from "../../_data/urlData";
 
 interface RegisterTypes {
   name: string;
@@ -111,6 +114,11 @@ function Register({ ...props }: RegisterProps): JSX.Element {
       password: password,
     };
 
+    const stickymemoInit = {
+      body: "",
+      userId: userId,
+    };
+
     dispatch(registerUser(body))
       .then((res: any) => {
         alert("회원가입이 완료되었습니다.");
@@ -121,6 +129,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
           confirmPassword: "",
         });
       })
+      .then(() => axios.post(BASE_URL + "/stickynote/create", stickymemoInit))
       .then(() => toggleMenu())
       .catch((err: any) => console.log(err));
   };

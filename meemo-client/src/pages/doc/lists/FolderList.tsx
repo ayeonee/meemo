@@ -9,6 +9,8 @@ import RouteShow from "../misc/RouteShow";
 import LoaderSpinner from "../misc/LoaderSpinner";
 import DeleteModal from "../modals/DeleteModal";
 
+import { BASE_URL } from "../../../_data/urlData";
+
 export default function FolderList(): JSX.Element {
   const [folders, setFolders] = useState([]);
   const [selectedFolder, setSelectedFolder] = useState<string>("");
@@ -99,6 +101,10 @@ export default function FolderList(): JSX.Element {
     try {
       const folder = {
         title: `${t}`,
+      };
+      const stickymemoInit = {
+        body: "",
+        userId: "stickymemo",
       };
       axios
         .post("https://meemo.kr/api/folders/create", folder)

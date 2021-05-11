@@ -1,28 +1,50 @@
 import { useState, useEffect } from "react";
 import RMDEditor from "rich-markdown-editor";
 import axios from "axios";
+import debounce from "lodash/debounce";
 
 import { BASE_URL } from "../../../_data/urlData";
 
 import style from "../styles/StickyMemo.module.scss";
 
 function StickyMemo(): JSX.Element {
-  const [user, setUser] = useState("");
+  const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
-  const [updateBody, setUpdateBody] = useState<string>("");
+
+  // useEffect(() => {
+  //   localStorage.setItem("meemo-user-id", "testmeemo");
+  // }, []);
 
   useEffect(() => {
     getBody(localStorage.getItem("meemo-user-id"));
   }, []);
 
   const getBody = async (userId: string | null) => {
-    const res = await axios.get(BASE_URL + "/dashnote");
+    const res = await axios.get(BASE_URL + "/stickynote");
     res.data.forEach((note: any) => {
       if (note.userId === userId) {
         setBody(note.body);
+        setNoteId(note._id);
       }
     });
   };
+
+  const handleChange = debounce((value) => {
+    let source = axios.CancelToken.source();
+    const noteInfo = {
+      body: `${value()}`,
+    };
+    try {
+      axios
+        .put(BASE_URL + "/stickynote/" + noteId, noteInfo, {
+          cancelToken: source.token,
+        })
+        .then((res) => console.log(res.data));
+    } catch (err) {
+      source.cancel();
+      console.log(err, "\nOperation canceled by the user.");
+    }
+  }, 1000);
 
   return (
     <div className={style.sticky_memo}>
@@ -32,7 +54,7 @@ function StickyMemo(): JSX.Element {
           id="example"
           readOnly={false}
           readOnlyWriteCheckboxes
-          // value={}
+          value={body}
           placeholder={"메모를 적어보세요..."}
           defaultValue={body}
           scrollTo={window.location.hash}
@@ -46,7 +68,7 @@ function StickyMemo(): JSX.Element {
           }
           onSave={(options) => console.log("Save triggered", options)}
           onCancel={() => console.log("Cancel triggered")}
-          onChange={(value) => console.log(value)}
+          onChange={handleChange}
           onClickLink={(href, event) =>
             console.log("Clicked link: ", href, event)
           }
