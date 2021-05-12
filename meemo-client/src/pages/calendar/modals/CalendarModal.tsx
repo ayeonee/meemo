@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useConfirm from "../../../hooks/useConfirm";
 import style from "../styles/CalendarModal.module.scss";
 import RMDEditor from "rich-markdown-editor";
 import debounce from "lodash/debounce";
-
-import DeleteModal from "./DeleteModal";
 
 // import {
 //   EventApi,
@@ -15,7 +14,6 @@ import DeleteModal from "./DeleteModal";
 // } from "@fullcalendar/react";
 
 import moment from "moment";
-
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { update } from "lodash";
@@ -35,10 +33,8 @@ interface CalendarModalProps {
 
 export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const { modalType, toggleModal, selectInfo, submit, handleDelete } = props;
-
   const [title, setTitle] = useState<string>(selectInfo.title);
   const [allDay, setAllDay] = useState<boolean>(selectInfo.allDay);
-
   const [startDate, setStartDate] = useState<string>(selectInfo.startStr);
   const [endDate, setEndDate] = useState<string>(
     selectInfo.allDay
@@ -48,14 +44,13 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
 
   const [startTime, setStartTime] = useState<string>(selectInfo.startTime);
   const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
-
   const [editorBody, setEditorBody] = useState<string>(selectInfo.body);
 
-  const [showDelModal, setShowDelModal] = useState<boolean>(false);
-
-  useEffect(() => {
-    // console.log(editorBody);
-  }, []);
+  const removeSchedule = useConfirm(
+    "일정을 삭제 하시겠습니까?",
+    () => handleDelete(selectInfo.id),
+    () => null
+  );
 
   const handleSubmit = () => {
     const fixedEndDate = allDay
@@ -88,23 +83,6 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    if (showDelModal === false) {
-      const listener = (event: any) => {
-        if (event.which === 13) {
-          handleSubmit();
-        }
-        if (event.which === 27) {
-          toggleModal();
-        }
-      };
-      document.addEventListener("keydown", listener);
-      return () => {
-        document.removeEventListener("keydown", listener);
-      };
-    }
-  });
-
   return (
     <div className={style.wrapper}>
       <div className={style.popupWrapper}>
@@ -134,6 +112,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                 }
                 label="종일"
                 labelPlacement="start"
+                className={style.dayLabel}
               />
             </div>
             <div className={style.selectDiv}>
@@ -168,7 +147,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                   />
                 </form>
               )}
-              <p>&#8212;</p>
+              <p className={style.dash}>&#8212;</p>
               <form className={style.container} noValidate>
                 <TextField
                   className={style.toDateSelector}
@@ -208,7 +187,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               readOnly={false}
               readOnlyWriteCheckboxes
               // value={}
-              placeholder={"일정에 대한 메모를 적어보세요..."}
+              placeholder={"일정에 대한 메모를 적어보세요.."}
               defaultValue={selectInfo.body}
               scrollTo={window.location.hash}
               handleDOMEvents={
@@ -256,26 +235,17 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
             <button className={style.submit_button} onClick={handleSubmit}>
               {modalType === "ADD" ? "추가" : "수정"}
             </button>
-            <button className="cancelBtn" onClick={toggleModal}>
-              취소
-            </button>
             {modalType === "UPDATE" ? (
-              <button
-                className="deleteBtn"
-                onClick={() => setShowDelModal(!showDelModal)}
-              >
+              <button className={style.remove_button} onClick={removeSchedule}>
                 삭제
               </button>
             ) : null}
+            <button className={style.cancel_button} onClick={toggleModal}>
+              취소
+            </button>
           </div>
         </div>
       </div>
-      {showDelModal ? (
-        <DeleteModal
-          toggleModal={() => setShowDelModal(!showDelModal)}
-          handleDelete={() => handleDelete(selectInfo.id)}
-        />
-      ) : null}
     </div>
   );
 }

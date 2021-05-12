@@ -1,9 +1,10 @@
 .wrapper {
-  display: flex;
+  position: absolute;
+  top: 90px;
 
+  width: 100%;
+  height: fit-content;
   min-height: 100%;
-
-  margin: 0 auto;
 
   .calendarDiv {
     flex-grow: 1;
