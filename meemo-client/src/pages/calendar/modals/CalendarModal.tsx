@@ -36,6 +36,8 @@ interface CalendarModalProps {
 export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const { modalType, toggleModal, selectInfo, submit, handleDelete } = props;
 
+  const [userId, setUserId] = useState<string | null>("");
+
   const [title, setTitle] = useState<string>(selectInfo.title);
   const [allDay, setAllDay] = useState<boolean>(selectInfo.allDay);
 
@@ -53,8 +55,23 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
 
   const [showDelModal, setShowDelModal] = useState<boolean>(false);
 
+  const [update, setUpdate] = useState<boolean>(false);
+
   useEffect(() => {
     // console.log(editorBody);
+  }, []);
+
+  // 빌드할 때 지울것
+  useEffect(() => {
+    localStorage.setItem("meemo-user-id", "testmeemo");
+  });
+
+  useEffect(() => {
+    setUserId(localStorage.getItem("meemo-user-id"));
+  }, [update]);
+
+  useEffect(() => {
+    setUpdate(!update);
   }, []);
 
   const handleSubmit = () => {
@@ -68,6 +85,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
       start: `${startDate}T${startTime}:00`,
       end: `${fixedEndDate}T${endTime}:00`,
       body: editorBody,
+      userId: userId,
     };
 
     const calUpdate = {
@@ -78,6 +96,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
       start: `${startDate}T${startTime}:00`,
       end: `${fixedEndDate}T${endTime}:00`,
       body: editorBody,
+      userId: userId,
     };
 
     if (modalType === "ADD") {

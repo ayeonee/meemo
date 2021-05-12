@@ -7,7 +7,7 @@ export default function UnkownPage(): JSX.Element {
       <div className={style.error_box_wrapper}>
         <h1 className={style.title}>Oooooooops!</h1>
         <h1 className={style.sub_title}>
-          This page is unknown or does not exit.
+          This page is unknown or does not exist.
         </h1>
         <div className={style.section}>
           <img src={`${unknown}`} alt="block icon" />

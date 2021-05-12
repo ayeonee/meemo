@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const folderSchema = new Schema(
   {
-    title: String,
+    title: "",
+    userId: "",
   },
   {
     timestamps: true,

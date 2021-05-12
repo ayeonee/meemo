@@ -9,8 +9,9 @@ router.route("/").get((req, res) => {
 
 router.route("/create").post((req, res) => {
   const title = req.body.title;
+  const userId = req.body.userId;
 
-  const newFolder = new Folder({ title });
+  const newFolder = new Folder({ title, userId });
 
   newFolder
     .save()

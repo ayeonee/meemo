@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import RMDEditor from "rich-markdown-editor";
@@ -27,39 +27,78 @@ const YoutubeEmbed: React.FC<any> = (props) => {
 export default function Editor(): JSX.Element {
   let { folderTitle, noteId }: any = useParams();
 
+  const [update, setUpdate] = useState(false);
+
   const [value, setValue] = useState<string>("");
   const [noteTitle, setNoteTitle] = useState<string>("");
   const [folderId, setFolderId] = useState<string>("");
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string | null>("");
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  let history = useHistory<any>();
+
+  let source = axios.CancelToken.source();
+
+  // 빌드할 때 지울것
+  useEffect(() => {
+    localStorage.setItem("meemo-user-id", "testmeemo");
+  });
 
   useEffect(() => {
-    setIsLoading(true);
-    let source = axios.CancelToken.source();
-    const loadNote = async () => {
-      try {
-        const res = await axios.get(BASE_URL + "/notes/" + noteId, {
-          cancelToken: source.token,
-        });
-        console.log("Got the note!");
-        setValue(res.data.body);
-        setNoteTitle(res.data.title);
-        setFolderId(res.data.parentId);
-      } catch (err) {
-        if (axios.isCancel(err)) {
-          console.log("Caught a cancel.");
-        } else {
-          throw err;
-        }
-      }
-    };
-    loadNote().then(() => setIsLoading(false));
-
+    setUserId(localStorage.getItem("meemo-user-id"));
+    setUpdate(!update);
     return () => {
       console.log("Unmounting Editor.");
       source.cancel();
     };
   }, []);
+
+  useEffect(() => {
+    loadNote(userId);
+  }, [update]);
+
+  const loadNote = async (userId: string | null) => {
+    try {
+      const folderRes = await axios.get(BASE_URL + "/folders", {
+        cancelToken: source.token,
+      });
+      try {
+        const noteRes = await axios.get(BASE_URL + "/notes/" + noteId, {
+          cancelToken: source.token,
+        });
+        if (userId !== "") {
+          folderRes.data.forEach((folder: any) => {
+            if (
+              (folder.title === folderTitle && folder.userId === userId) ===
+              true
+            ) {
+              console.log("Got the note!");
+              setValue(noteRes.data.body);
+              setNoteTitle(noteRes.data.title);
+              setFolderId(noteRes.data.parentId);
+              setIsLoading(false);
+            } else {
+              history.push({
+                pathname: "/error",
+              });
+            }
+          });
+        }
+      } catch {
+        history.push({
+          pathname: "/error",
+        });
+      }
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        console.log("Caught a cancel.");
+      } else {
+        throw err;
+      }
+    }
+  };
 
   //title update uses put; editor body uses post + update.
   //to fix, add another prop in popup to get the body from the editor and feed in put.
@@ -84,16 +123,16 @@ export default function Editor(): JSX.Element {
 
   return (
     <div className={style.wrapper}>
-      <RouteShow
-        type="editor"
-        folderId={folderId}
-        folderTitle={folderTitle}
-        noteTitle={noteTitle}
-      />
       {isLoading ? (
         <LoaderSpinner />
       ) : (
         <>
+          <RouteShow
+            type="editor"
+            folderId={folderId}
+            folderTitle={folderTitle}
+            noteTitle={noteTitle}
+          />
           <div className={style.editor}>
             {/* need thorough study of each prop, such as image upload */}
             <RMDEditor
