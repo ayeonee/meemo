@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRouteMatch, useHistory, useParams } from "react-router-dom";
-import style from "../styles/NoteList.module.scss";
+
 import axios from "axios";
+import style from "../styles/NoteList.module.scss";
 import { Add, Delete, Notes, Create } from "@material-ui/icons";
 
 import AddRenameModal from "../modals/AddRenameModal";
+import DeleteModal from "../modals/DeleteModal";
 import RouteShow from "../misc/RouteShow";
 import LoaderSpinner from "../misc/LoaderSpinner";
-import DeleteModal from "../modals/DeleteModal";
 
 import { BASE_URL } from "../../../_data/urlData";
 
@@ -34,13 +35,15 @@ export default function NoteList() {
   const [noteTitle, setNoteTitle] = useState("");
   const [parentId, setParentId] = useState("");
 
+  const [userId, setUserId] = useState<string | null>("");
+
   const [popupType, setPopupType] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [showDelModal, setShowDelModal] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
-  let { url } = useRouteMatch();
+  let { url }: any = useRouteMatch();
   let { folderTitle }: any = useParams();
 
   // passing note information into Editor component
@@ -65,24 +68,18 @@ export default function NoteList() {
     };
   }, []);
 
-  const getParentId = async () => {
-    try {
-      const res = await axios.get(BASE_URL + "/folders", {
-        cancelToken: source.token,
-      });
-      res.data.forEach((folder: any) => {
-        if (folder.title === folderTitle) {
-          setParentId(folder._id);
-        }
-      });
-    } catch (err) {
-      if (axios.isCancel(err)) {
-        console.log("Caught a cancel.");
-      } else {
-        throw err;
-      }
-    }
-  };
+  // 빌드할 때 지울것
+  useEffect(() => {
+    localStorage.setItem("meemo-user-id", "testmeemo");
+  });
+
+  useEffect(() => {
+    setUserId(localStorage.getItem("meemo-user-id"));
+  });
+
+  useEffect(() => {
+    setUpdate(!update);
+  }, []);
 
   useEffect(() => {
     let temp: any[] = [];
@@ -98,6 +95,8 @@ export default function NoteList() {
           }
         });
         setNotes(temp.map((note: any) => note));
+        console.log("Got the notes!");
+        setUpdate(false); // update 바뀜에 따라 실행되는 useEffect 안에서 update 하기위함
         setIsLoading(false);
       } catch (err) {
         if (axios.isCancel(err)) {
@@ -107,10 +106,7 @@ export default function NoteList() {
         }
       }
     };
-    getParentId()
-      .then(loadNotes)
-      .then(() => setUpdate(true))
-      .then(() => console.log("Got the notes!"));
+    getParentId().then(loadNotes);
 
     return () => {
       console.log("Unmounting NoteList.");
@@ -118,6 +114,31 @@ export default function NoteList() {
       clearTimeout();
     };
   }, [update]);
+
+  const getParentId = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/folders", {
+        cancelToken: source.token,
+      });
+      res.data.forEach((folder: any) => {
+        if (
+          (folder.title === folderTitle && folder.userId === userId) === true
+        ) {
+          setParentId(folder._id);
+        } else {
+          history.push({
+            pathname: "/error", // no such page as error, just a random path not registered
+          });
+        }
+      });
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        console.log("Caught a cancel.");
+      } else {
+        throw err;
+      }
+    }
+  };
 
   const getTitle = async (id: string) => {
     try {
@@ -128,13 +149,13 @@ export default function NoteList() {
     }
   };
 
-  const addNote = async (t: string) => {
+  const addNote = async (title: string) => {
     try {
-      let title = await t;
       const note = {
         title: `${title}`,
         body: "this is the body",
         parentId: `${parentId}`,
+        userId: userId,
       };
       axios
         .post(BASE_URL + "/notes/create", note)
@@ -209,16 +230,16 @@ export default function NoteList() {
 
   return (
     <div className={style.noteList}>
-      <RouteShow
-        folderId={""}
-        type="notelist"
-        folderTitle={folderTitle}
-        noteTitle=""
-      />
       {isLoading ? (
         <LoaderSpinner />
       ) : (
         <>
+          <RouteShow
+            folderId={""}
+            type="notelist"
+            folderTitle={folderTitle}
+            noteTitle=""
+          />
           <div className={style.noteContainer}>
             <div className={style.noteDiv}>
               {notes.map((note: any) => (

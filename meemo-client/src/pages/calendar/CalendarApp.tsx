@@ -47,6 +47,8 @@ import { BASE_URL } from "../../_data/urlData";
 export default function CalendarApp(): JSX.Element {
   const [currentEvents, setCurrentEvents]: any[] = useState([]);
 
+  const [userId, setUserId] = useState<string | null>("");
+
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
 
@@ -54,32 +56,51 @@ export default function CalendarApp(): JSX.Element {
 
   const [update, setUpdate] = useState<boolean>(false);
 
+  let source = axios.CancelToken.source();
+
+  // 빌드할 때 지울것
   useEffect(() => {
-    let source = axios.CancelToken.source();
+    localStorage.setItem("meemo-user-id", "testmeemo");
+  });
 
-    const loadEvents = async () => {
-      try {
-        const res = await axios.get(BASE_URL + "/calendar", {
-          cancelToken: source.token,
-        });
-        console.log("Got the Calendar Events!");
-        setCurrentEvents(res.data.map((cal: any) => cal));
-        // setIsLoading(false);
-      } catch (err) {
-        if (axios.isCancel(err)) {
-          console.log("Caught a cancel.");
-        } else {
-          throw err;
-        }
-      }
-    };
-    loadEvents();
-
+  useEffect(() => {
+    setUserId(localStorage.getItem("meemo-user-id"));
+    setUpdate(!update);
     return () => {
       console.log("Unmounting Calendar");
       source.cancel();
     };
+  }, []);
+
+  useEffect(() => {
+    loadEvents(userId);
   }, [update]);
+
+  const loadEvents = async (userId: string | null) => {
+    try {
+      const res = await axios.get(BASE_URL + "/calendar", {
+        cancelToken: source.token,
+      });
+      if (res.data.length === 0) {
+        // setIsLoading(false);
+        setCurrentEvents([]);
+      } else {
+        res.data.forEach((cal: any) => {
+          if (cal.userId === userId) {
+            setCurrentEvents(res.data.map((cal: any) => cal));
+            console.log("Got the Calendar Events!");
+            // setIsLoading(false);
+          }
+        });
+      }
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        console.log("Caught a cancel.");
+      } else {
+        throw err;
+      }
+    }
+  };
 
   const toggleModal = () => {
     if (showAddModal === true) {

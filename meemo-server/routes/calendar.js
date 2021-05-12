@@ -8,9 +8,9 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/create").post((req, res) => {
-  const { title, allDay, start, end, body } = req.body;
+  const { title, allDay, start, end, body, userId } = req.body;
 
-  const newCalAPI = new CalAPI({ title, allDay, start, end, body });
+  const newCalAPI = new CalAPI({ title, allDay, start, end, body, userId });
 
   newCalAPI
     .save()
@@ -25,11 +25,18 @@ router.route("/:id").get((req, res) => {
 });
 
 router.route("/:id").put((req, res) => {
-  const { title, allDay, start, end, body } = req.body;
+  const { title, allDay, start, end, body, userId } = req.body;
 
   CalAPI.findOneAndUpdate(
     { _id: req.params.id },
-    { title: title, allDay: allDay, start: start, end: end, body: body }
+    {
+      title: title,
+      allDay: allDay,
+      start: start,
+      end: end,
+      body: body,
+      userId: userId,
+    }
   )
     .then(() => res.json("CalAPI Updated!"))
     .catch((err) => res.status(400).json("Error: " + err));

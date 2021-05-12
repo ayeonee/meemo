@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouteMatch, useHistory, useParams } from "react-router-dom";
-import axios from "axios";
 import { Add, Delete, FolderOpen, Create } from "@material-ui/icons";
+import axios from "axios";
 import style from "../styles/FolderList.module.scss";
 
 import AddRenameModal from "../modals/AddRenameModal";
@@ -17,6 +17,8 @@ export default function FolderList(): JSX.Element {
   const [delBtn, setDelBtn] = useState<boolean>(false);
   const [update, setUpdate] = useState<boolean>(false);
 
+  const [userId, setUserId] = useState<string | null>("");
+
   const [folderTitle, setFolderTitle] = useState<string>("");
   const [folderChildren, setFolderChildren]: any = useState([]);
 
@@ -29,6 +31,8 @@ export default function FolderList(): JSX.Element {
   let { url } = useRouteMatch();
   let history = useHistory();
 
+  let source = axios.CancelToken.source();
+
   useEffect(() => {
     document.onclick = (event: any) => {
       setTimeout(() => {
@@ -38,40 +42,56 @@ export default function FolderList(): JSX.Element {
         }
       }, 100);
     };
+
     return () => {
+      console.log("Unmounting FolderList.");
       clearTimeout();
       setSelectedFolder("");
       setFolderTitle("");
       setFolders([]);
+      source.cancel();
     };
   }, []);
 
+  // 빌드할 때 지울것
   useEffect(() => {
-    let source = axios.CancelToken.source();
+    localStorage.setItem("meemo-user-id", "testmeemo");
+  });
 
-    const loadFolders = async () => {
-      try {
-        const res = await axios.get(BASE_URL + "/folders", {
-          cancelToken: source.token,
-        });
-        console.log("Got the folders!");
-        setFolders(res.data.map((folder: any) => folder));
-        setIsLoading(false);
-      } catch (err) {
-        if (axios.isCancel(err)) {
-          console.log("Caught a cancel.");
-        } else {
-          throw err;
-        }
-      }
-    };
-    loadFolders();
+  useEffect(() => {
+    setUserId(localStorage.getItem("meemo-user-id"));
+    setUpdate(!update);
+  }, []);
 
-    return () => {
-      console.log("Unmounting FolderList.");
-      source.cancel();
-    };
+  useEffect(() => {
+    loadFolders(userId);
   }, [update]);
+
+  const loadFolders = async (userId: string | null) => {
+    try {
+      const res = await axios.get(BASE_URL + "/folders", {
+        cancelToken: source.token,
+      });
+      if (res.data.length === 0) {
+        setIsLoading(false);
+        setFolders([]);
+      } else {
+        res.data.forEach((folder: any) => {
+          if (folder.userId === userId) {
+            setFolders(res.data.map((folder: any) => folder));
+            console.log("Got the folders!");
+            setIsLoading(false);
+          }
+        });
+      }
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        console.log("Caught a cancel.");
+      } else {
+        throw err;
+      }
+    }
+  };
 
   const getTitle = async (id: string) => {
     try {
@@ -101,6 +121,7 @@ export default function FolderList(): JSX.Element {
     try {
       const folder = {
         title: `${t}`,
+        userId: userId,
       };
 
       axios
@@ -153,6 +174,7 @@ export default function FolderList(): JSX.Element {
       axios
         .put(BASE_URL + "/folders/" + id, title)
         .then(() => console.log("Folder Renamed"))
+        .then(() => setDelBtn(false))
         .then(() => setUpdate(!update))
         .then(() => setShowPopup(false))
         .then(() => setSelectedFolder(""))

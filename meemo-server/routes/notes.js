@@ -11,8 +11,9 @@ router.route("/create").post((req, res) => {
   const title = req.body.title;
   const body = req.body.body;
   const parentId = req.body.parentId;
+  const userId = req.body.userId;
 
-  const newNote = new Note({ title, body, parentId });
+  const newNote = new Note({ title, body, parentId, userId });
 
   newNote
     .save()

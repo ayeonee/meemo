@@ -7,6 +7,7 @@ const noteSchema = new Schema(
     title: "",
     body: "",
     parentId: "",
+    userId: "",
   },
   {
     timestamps: true,

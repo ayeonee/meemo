@@ -8,6 +8,7 @@ const calendarSchema = new Schema({
   start: "",
   end: "",
   body: "",
+  userId: "",
 });
 
 const CalAPI = mongoose.model("CalAPI", calendarSchema);

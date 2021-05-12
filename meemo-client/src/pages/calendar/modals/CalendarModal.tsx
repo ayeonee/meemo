@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import style from "../styles/CalendarModal.module.scss";
 import RMDEditor from "rich-markdown-editor";
@@ -33,6 +33,9 @@ interface CalendarModalProps {
 
 export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const { modalType, toggleModal, selectInfo, submit, handleDelete } = props;
+
+  const [userId, setUserId] = useState<string | null>("");
+
   const [title, setTitle] = useState<string>(selectInfo.title);
   const [allDay, setAllDay] = useState<boolean>(selectInfo.allDay);
   const [startDate, setStartDate] = useState<string>(selectInfo.startStr);
@@ -46,11 +49,26 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
   const [editorBody, setEditorBody] = useState<string>(selectInfo.body);
 
+  const [update, setUpdate] = useState<boolean>(false);
+
   const removeSchedule = useConfirm(
     "일정을 삭제 하시겠습니까?",
     () => handleDelete(selectInfo.id),
     () => null
   );
+
+  // 빌드할 때 지울것
+  useEffect(() => {
+    localStorage.setItem("meemo-user-id", "testmeemo");
+  });
+
+  useEffect(() => {
+    setUserId(localStorage.getItem("meemo-user-id"));
+  }, [update]);
+
+  useEffect(() => {
+    setUpdate(!update);
+  }, []);
 
   const handleSubmit = () => {
     const fixedEndDate = allDay
@@ -63,6 +81,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
       start: `${startDate}T${startTime}:00`,
       end: `${fixedEndDate}T${endTime}:00`,
       body: editorBody,
+      userId: userId,
     };
 
     const calUpdate = {
@@ -73,6 +92,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
       start: `${startDate}T${startTime}:00`,
       end: `${fixedEndDate}T${endTime}:00`,
       body: editorBody,
+      userId: userId,
     };
 
     if (modalType === "ADD") {
