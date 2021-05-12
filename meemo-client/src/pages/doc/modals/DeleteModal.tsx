@@ -35,19 +35,20 @@ export default function DeleteModal(props: DeleteModalProps): JSX.Element {
           </div>
           <div className={style.targetDiv} id={`noDeselect`}>
             {props.type === "notelist" ? (
-              <p>
-                <b>{`${props.selectedTitle}`}</b> 이(가) 삭제됩니다
+              <p id={`noDeselect`}>
+                <b id={`noDeselect`}>{`${props.selectedTitle}`}</b> 이(가)
+                삭제됩니다
               </p>
             ) : (
               <>
-                <p>
-                  <b>{`${props.selectedTitle}`}</b> 와{" "}
-                  <b>{`${props.childTitles.length}`}</b> 개의 노트들이
-                  삭제됩니다
+                <p id={`noDeselect`}>
+                  <b id={`noDeselect`}>{`${props.selectedTitle}`}</b> 와{" "}
+                  <b id={`noDeselect`}>{`${props.childTitles.length}`}</b> 개의
+                  노트들이 삭제됩니다
                 </p>
-                <div className={style.childTitleDiv}>
+                <div className={style.childTitleDiv} id={`noDeselect`}>
                   {props.childTitles.map((title: string, i: number) => (
-                    <b key={i}>{`${title}`}</b>
+                    <b key={i} id={`noDeselect`}>{`${title}`}</b>
                   ))}
                 </div>
               </>

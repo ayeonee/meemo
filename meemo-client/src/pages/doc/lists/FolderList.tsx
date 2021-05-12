@@ -54,9 +54,9 @@ export default function FolderList(): JSX.Element {
   }, []);
 
   // 빌드할 때 지울것
-  useEffect(() => {
-    localStorage.setItem("meemo-user-id", "testmeemo");
-  });
+  // useEffect(() => {
+  //   localStorage.setItem("meemo-user-id", "testmeemo");
+  // });
 
   useEffect(() => {
     setUserId(localStorage.getItem("meemo-user-id"));
