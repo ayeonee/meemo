@@ -42,9 +42,9 @@ export default function Editor(): JSX.Element {
   let source = axios.CancelToken.source();
 
   // 빌드할 때 지울것
-  // useEffect(() => {
-  //   localStorage.setItem("meemo-user-id", "testmeemo");
-  // });
+  useEffect(() => {
+    localStorage.setItem("meemo-user-id", "testmeemo");
+  });
 
   useEffect(() => {
     setUserId(localStorage.getItem("meemo-user-id"));

@@ -27,6 +27,18 @@ router.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/specif/:userId").get((req, res) => {
+  Note.find({ userId: req.params.userId })
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/specif/:userId/:noteId").get((req, res) => {
+  Note.find({ userId: req.params.userId, _id: req.params.noteId })
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/:id").put((req, res) => {
   Note.findOneAndUpdate({ _id: req.params.id }, { title: req.body.title })
     .then(() => res.json("Note Updated!"))
