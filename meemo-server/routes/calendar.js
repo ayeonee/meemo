@@ -7,6 +7,12 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/user/:userId").get((req, res) => {
+  CalAPI.find({ userId: req.params.userId })
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/create").post((req, res) => {
   const { title, allDay, start, end, body, userId } = req.body;
 

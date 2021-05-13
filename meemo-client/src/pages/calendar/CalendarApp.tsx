@@ -17,6 +17,8 @@ import moment from "moment";
 
 import style from "./styles/CalendarApp.module.scss";
 
+import LoaderSpinner from "../doc/misc/LoaderSpinner";
+
 import CalendarModal from "./modals/CalendarModal";
 
 import { BASE_URL } from "../../_data/urlData";
@@ -47,7 +49,9 @@ import { BASE_URL } from "../../_data/urlData";
 export default function CalendarApp(): JSX.Element {
   const [currentEvents, setCurrentEvents]: any[] = useState([]);
 
-  const [userId, setUserId] = useState<string | null>("");
+  const [userId, setUserId] = useState<string | null>(
+    localStorage.getItem("meemo-user-id")
+  );
 
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
@@ -56,44 +60,51 @@ export default function CalendarApp(): JSX.Element {
 
   const [update, setUpdate] = useState<boolean>(false);
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   let source = axios.CancelToken.source();
-
-  // 빌드할 때 지울것
-  useEffect(() => {
-    localStorage.setItem("meemo-user-id", "testmeemo");
-  });
-
-  useEffect(() => {
-    setUserId(localStorage.getItem("meemo-user-id"));
-    setUpdate(!update);
-    return () => {
-      console.log("Unmounting Calendar");
-      source.cancel();
-    };
-  }, []);
 
   useEffect(() => {
     loadEvents(userId);
+    return () => {
+      source.cancel();
+    };
   }, [update]);
 
+  // const loadFolders = async (userId: string | null) => {
+  //   try {
+  //     const res = await axios.get(BASE_URL + "/folders/user/" + userId, {
+  //       cancelToken: source.token,
+  //     });
+  //     if (res.data.length === 0) {
+  //       setIsLoading(false);
+  //       setFolders([]);
+  //     } else {
+  //       setFolders(res.data.map((folder: any) => folder));
+  //       console.log("Got the folders!");
+  //       setIsLoading(false);
+  //     }
+  //   } catch (err) {
+  //     if (axios.isCancel(err)) {
+  //       console.log("Caught a cancel.");
+  //     } else {
+  //       throw err;
+  //     }
+  //   }
+  // };
+
   const loadEvents = async (userId: string | null) => {
-    let temp: any[] = [];
     try {
-      const res = await axios.get(BASE_URL + "/calendar", {
+      const res = await axios.get(BASE_URL + "/calendar/user/" + userId, {
         cancelToken: source.token,
       });
-      res.data.map((calEvnt: any) => {
-        if (calEvnt.userId === userId) {
-          temp.push(calEvnt);
-        }
-      });
-      if (temp.length === 0) {
-        // setIsLoading(false);
+      if (res.data.length === 0) {
+        setIsLoading(false);
         setCurrentEvents([]);
       } else {
-        setCurrentEvents(temp.map((cal: any) => cal));
+        setCurrentEvents(res.data.map((cal: any) => cal));
         console.log("Got the Calendar Events!");
-        // setIsLoading(false);
+        setIsLoading(false);
       }
     } catch (err) {
       if (axios.isCancel(err)) {
@@ -102,6 +113,31 @@ export default function CalendarApp(): JSX.Element {
         throw err;
       }
     }
+    // let temp: any[] = [];
+    // try {
+    //   const res = await axios.get(BASE_URL + "/calendar", {
+    //     cancelToken: source.token,
+    //   });
+    //   res.data.map((calEvnt: any) => {
+    //     if (calEvnt.userId === userId) {
+    //       temp.push(calEvnt);
+    //     }
+    //   });
+    //   if (temp.length === 0) {
+    //     // setIsLoading(false);
+    //     setCurrentEvents([]);
+    //   } else {
+    //     setCurrentEvents(temp.map((cal: any) => cal));
+    //     console.log("Got the Calendar Events!");
+    //     // setIsLoading(false);
+    //   }
+    // } catch (err) {
+    //   if (axios.isCancel(err)) {
+    //     console.log("Caught a cancel.");
+    //   } else {
+    //     throw err;
+    //   }
+    // }
   };
 
   const toggleModal = () => {
@@ -229,6 +265,40 @@ export default function CalendarApp(): JSX.Element {
 
   return (
     <div className={style.wrapper}>
+      {isLoading ? (
+        <LoaderSpinner />
+      ) : (
+        <>
+          <div className={style.calendarDiv}>
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek",
+              }}
+              initialView="dayGridMonth"
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={true}
+              weekends={true}
+              events={currentEvents}
+              // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+              select={handleNewEvent}
+              //  select(dateOrObj: DateInput | any, endDate?: DateInput): void;
+              // eventContent={renderEventContent} // custom render function
+              eventClick={handleEventClick}
+              // eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+              /* you can update a remote database when these fire:
+            eventAdd={function(){}}
+            eventChange={function(){}}
+            eventRemove={function(){}}
+            */
+            />
+          </div>
+        </>
+      )}
       {showAddModal ? (
         <CalendarModal
           modalType="ADD"
@@ -247,34 +317,6 @@ export default function CalendarApp(): JSX.Element {
           handleDelete={handleDelete}
         />
       ) : null}
-      <div className={style.calendarDiv}>
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          headerToolbar={{
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek",
-          }}
-          initialView="dayGridMonth"
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          weekends={true}
-          events={currentEvents}
-          // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-          select={handleNewEvent}
-          //  select(dateOrObj: DateInput | any, endDate?: DateInput): void;
-          // eventContent={renderEventContent} // custom render function
-          eventClick={handleEventClick}
-          // eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-          /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
-        />
-      </div>
     </div>
   );
 }

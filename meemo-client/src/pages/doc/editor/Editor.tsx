@@ -33,7 +33,11 @@ export default function Editor(): JSX.Element {
   const [noteTitle, setNoteTitle] = useState<string>("");
   const [folderId, setFolderId] = useState<string>("");
 
-  const [userId, setUserId] = useState<string | null>("");
+  const [gotFolderId, setGotFolderId] = useState<boolean>(false);
+
+  const [userId, setUserId] = useState<string | null>(
+    localStorage.getItem("meemo-user-id")
+  );
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -41,61 +45,64 @@ export default function Editor(): JSX.Element {
 
   let source = axios.CancelToken.source();
 
-  // 빌드할 때 지울것
   useEffect(() => {
-    localStorage.setItem("meemo-user-id", "testmeemo");
-  });
-
-  useEffect(() => {
-    setUserId(localStorage.getItem("meemo-user-id"));
-    setUpdate(!update);
+    getParentId();
     return () => {
-      console.log("Unmounting Editor.");
       source.cancel();
     };
   }, []);
 
   useEffect(() => {
-    loadNote(userId);
+    if (gotFolderId === true) {
+      loadNote();
+    }
   }, [update]);
 
-  const loadNote = async (userId: string | null) => {
+  const loadNote = async () => {
     try {
-      const folderRes = await axios.get(BASE_URL + "/folders", {
+      const res = await axios.get(BASE_URL + "/notes/" + noteId, {
         cancelToken: source.token,
       });
-      try {
-        const noteRes = await axios.get(BASE_URL + "/notes/" + noteId, {
+
+      if (res.data === null) {
+        // 에러
+      } else {
+        setValue(res.data.body);
+        setNoteTitle(res.data.title);
+        setIsLoading(false);
+        console.log("Got the note!");
+      }
+    } catch {
+      history.push({
+        pathname: "/error",
+      });
+    }
+  };
+
+  const getParentId = async () => {
+    try {
+      const res = await axios.get(
+        BASE_URL + `/folders/userTitle/${userId}/${folderTitle}`,
+        {
           cancelToken: source.token,
-        });
-        if (userId !== "") {
-          folderRes.data.forEach((folder: any) => {
-            if (
-              (folder.title === folderTitle && folder.userId === userId) ===
-              true
-            ) {
-              console.log("Got the note!");
-              setValue(noteRes.data.body);
-              setNoteTitle(noteRes.data.title);
-              setFolderId(noteRes.data.parentId);
-              setIsLoading(false);
-            } else {
-              history.push({
-                pathname: "/error",
-              });
-            }
-          });
         }
-      } catch {
+      );
+      if (res.data.length === 0) {
         history.push({
           pathname: "/error",
         });
+      } else {
+        setFolderId(res.data[0]._id);
+        setGotFolderId(true);
+        setUpdate(!update);
       }
     } catch (err) {
       if (axios.isCancel(err)) {
         console.log("Caught a cancel.");
       } else {
-        throw err;
+        // history.push({
+        //   pathname: "/error",
+        // });
       }
     }
   };

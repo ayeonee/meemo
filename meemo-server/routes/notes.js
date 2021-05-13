@@ -27,14 +27,14 @@ router.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/specif/:userId").get((req, res) => {
+router.route("/user/:userId").get((req, res) => {
   Note.find({ userId: req.params.userId })
     .then((note) => res.json(note))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/specif/:userId/:parentId").get((req, res) => {
-  Note.find({ userId: req.params.userId, _id: req.params.parentId })
+router.route("/userParent/:userId/:parentId").get((req, res) => {
+  Note.find({ userId: req.params.userId, parentId: req.params.parentId })
     .then((note) => res.json(note))
     .catch((err) => res.status(400).json("Error: " + err));
 });

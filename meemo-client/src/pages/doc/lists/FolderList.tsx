@@ -61,7 +61,7 @@ export default function FolderList(): JSX.Element {
 
   const loadFolders = async (userId: string | null) => {
     try {
-      const res = await axios.get(BASE_URL + "/folders/specif/" + userId, {
+      const res = await axios.get(BASE_URL + "/folders/user/" + userId, {
         cancelToken: source.token,
       });
       if (res.data.length === 0) {
@@ -199,7 +199,7 @@ export default function FolderList(): JSX.Element {
 
   return (
     <div className={style.folderList}>
-      <RouteShow type="" folderId="" folderTitle={folderTitle} noteTitle="" />
+      <RouteShow type="" folderId="" folderTitle="" noteTitle="" />
       {isLoading ? (
         <LoaderSpinner />
       ) : (

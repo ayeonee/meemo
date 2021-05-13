@@ -25,13 +25,13 @@ router.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/specif/:userId").get((req, res) => {
+router.route("/user/:userId").get((req, res) => {
   Folder.find({ userId: req.params.userId })
     .then((note) => res.json(note))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/specif/:userId/:title").get((req, res) => {
+router.route("/userTitle/:userId/:title").get((req, res) => {
   Folder.find({ userId: req.params.userId, title: req.params.title })
     .then((note) => res.json(note))
     .catch((err) => res.status(400).json("Error: " + err));

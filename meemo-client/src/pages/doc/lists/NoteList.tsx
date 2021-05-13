@@ -27,25 +27,24 @@ const setTime = (utcTime: any) => {
 };
 
 export default function NoteList() {
-  localStorage.setItem("meemo-user-id", "testmeemo");
-
   const [notes, setNotes]: any = useState([]);
-  const [selectedNote, setSelectedNote] = useState("");
-  const [delBtn, setDelBtn] = useState(false);
-  const [update, setUpdate] = useState(false);
+  const [selectedNote, setSelectedNote] = useState<string>("");
+  const [delBtn, setDelBtn] = useState<boolean>(false);
+  const [update, setUpdate] = useState<boolean>(false);
 
-  const [noteTitle, setNoteTitle] = useState("");
-  const [parentId, setParentId] = useState("");
+  const [noteTitle, setNoteTitle] = useState<string>("");
+  const [folderId, setFolderId] = useState<string>("");
+  const [gotFolderId, setGotFolderId] = useState<boolean>(false);
 
   const [userId, setUserId] = useState<string | null>(
     localStorage.getItem("meemo-user-id")
   );
 
-  const [popupType, setPopupType] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const [showDelModal, setShowDelModal] = useState(false);
+  const [popupType, setPopupType] = useState<string>("");
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [showDelModal, setShowDelModal] = useState<boolean>(false);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   let { url }: any = useRouteMatch();
   let { folderTitle }: any = useParams();
@@ -73,13 +72,23 @@ export default function NoteList() {
   }, []);
 
   useEffect(() => {
-    getParentId().then(loadNotes);
+    getParentId();
+    return () => {
+      source.cancel();
+    };
+  }, []);
+
+  // 여기서 parentId 를 못불러오는 문제 loadNotes를 parentId 로딩될때까지 다른곳에 두거나 해야됨
+  useEffect(() => {
+    if (gotFolderId === true) {
+      loadNotes();
+    }
   }, [update]);
 
   const loadNotes = async () => {
     try {
       const res = await axios.get(
-        BASE_URL + `/notes/specif/${userId}/${parentId}`,
+        BASE_URL + `/notes/userParent/${userId}/${folderId}`,
         {
           cancelToken: source.token,
         }
@@ -98,7 +107,9 @@ export default function NoteList() {
       if (axios.isCancel(err)) {
         console.log("Caught a cancel.");
       } else {
-        throw err;
+        // history.push({
+        //   pathname: "/error",
+        // });
       }
     }
   };
@@ -106,7 +117,7 @@ export default function NoteList() {
   const getParentId = async () => {
     try {
       const res = await axios.get(
-        BASE_URL + `/folders/specif/${userId}/${folderTitle}`,
+        BASE_URL + `/folders/userTitle/${userId}/${folderTitle}`,
         {
           cancelToken: source.token,
         }
@@ -116,13 +127,17 @@ export default function NoteList() {
           pathname: "/error",
         });
       } else {
-        setParentId(res.data._id);
+        setFolderId(res.data[0]._id);
+        setGotFolderId(true);
+        setUpdate(!update);
       }
     } catch (err) {
       if (axios.isCancel(err)) {
         console.log("Caught a cancel.");
       } else {
-        throw err;
+        // history.push({
+        //   pathname: "/error",
+        // });
       }
     }
   };
@@ -141,7 +156,7 @@ export default function NoteList() {
       const note = {
         title: `${title}`,
         body: "this is the body",
-        parentId: `${parentId}`,
+        parentId: `${folderId}`,
         userId: userId,
       };
       axios
