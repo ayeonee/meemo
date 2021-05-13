@@ -31,7 +31,6 @@ function RecentModify(): JSX.Element {
 
   const history = useHistory();
 
-  /* user id별로 가져오는 것 해야 함 */
   const getNoteData = async (userId: string | null) => {
     await axios({
       method: "GET",
