@@ -33,8 +33,8 @@ router.route("/specif/:userId").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/specif/:userId/:noteId").get((req, res) => {
-  Note.find({ userId: req.params.userId, _id: req.params.noteId })
+router.route("/specif/:userId/:parentId").get((req, res) => {
+  Note.find({ userId: req.params.userId, _id: req.params.parentId })
     .then((note) => res.json(note))
     .catch((err) => res.status(400).json("Error: " + err));
 });
