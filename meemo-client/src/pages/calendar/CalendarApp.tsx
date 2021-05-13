@@ -77,21 +77,23 @@ export default function CalendarApp(): JSX.Element {
   }, [update]);
 
   const loadEvents = async (userId: string | null) => {
+    let temp: any[] = [];
     try {
       const res = await axios.get(BASE_URL + "/calendar", {
         cancelToken: source.token,
       });
-      if (res.data.length === 0) {
+      res.data.map((calEvnt: any) => {
+        if (calEvnt.userId === userId) {
+          temp.push(calEvnt);
+        }
+      });
+      if (temp.length === 0) {
         // setIsLoading(false);
         setCurrentEvents([]);
       } else {
-        res.data.forEach((cal: any) => {
-          if (cal.userId === userId) {
-            setCurrentEvents(res.data.map((cal: any) => cal));
-            console.log("Got the Calendar Events!");
-            // setIsLoading(false);
-          }
-        });
+        setCurrentEvents(temp.map((cal: any) => cal));
+        console.log("Got the Calendar Events!");
+        // setIsLoading(false);
       }
     } catch (err) {
       if (axios.isCancel(err)) {

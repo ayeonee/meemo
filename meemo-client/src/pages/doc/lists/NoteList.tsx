@@ -27,6 +27,8 @@ const setTime = (utcTime: any) => {
 };
 
 export default function NoteList() {
+  localStorage.setItem("meemo-user-id", "testmeemo");
+
   const [notes, setNotes]: any = useState([]);
   const [selectedNote, setSelectedNote] = useState("");
   const [delBtn, setDelBtn] = useState(false);
@@ -35,7 +37,9 @@ export default function NoteList() {
   const [noteTitle, setNoteTitle] = useState("");
   const [parentId, setParentId] = useState("");
 
-  const [userId, setUserId] = useState<string | null>("");
+  const [userId, setUserId] = useState<string | null>(
+    localStorage.getItem("meemo-user-id")
+  );
 
   const [popupType, setPopupType] = useState("");
   const [showPopup, setShowPopup] = useState(false);
@@ -68,69 +72,46 @@ export default function NoteList() {
     };
   }, []);
 
-  // 빌드할 때 지울것
   useEffect(() => {
-    localStorage.setItem("meemo-user-id", "testmeemo");
-  });
-
-  useEffect(() => {
-    setUserId(localStorage.getItem("meemo-user-id"));
-  });
-
-  useEffect(() => {
-    setUpdate(!update);
-  }, []);
-
-  useEffect(() => {
-    let temp: any[] = [];
-
-    const loadNotes = async () => {
-      try {
-        const res = await axios.get(BASE_URL + "/notes", {
-          cancelToken: source.token,
-        });
-        res.data.forEach((note: any) => {
-          if (note.parentId === parentId) {
-            temp.push(note);
-          }
-        });
-        setNotes(temp.map((note: any) => note));
-        console.log("Got the notes!");
-        setUpdate(false); // update 바뀜에 따라 실행되는 useEffect 안에서 update 하기위함
-        setIsLoading(false);
-      } catch (err) {
-        if (axios.isCancel(err)) {
-          console.log("Caught a cancel.");
-        } else {
-          throw err;
-        }
-      }
-    };
     getParentId().then(loadNotes);
-
-    return () => {
-      console.log("Unmounting NoteList.");
-      source.cancel();
-      clearTimeout();
-    };
   }, [update]);
+
+  const loadNotes = async () => {
+    try {
+      const res = await axios.get(
+        BASE_URL + `/notes/specif/${userId}/${parentId}`,
+        {
+          cancelToken: source.token,
+        }
+      );
+      setNotes(res.data.map((note: any) => note));
+      console.log("Got the notes!");
+      // setUpdate(false);
+      setIsLoading(false);
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        console.log("Caught a cancel.");
+      } else {
+        throw err;
+      }
+    }
+  };
 
   const getParentId = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/folders", {
-        cancelToken: source.token,
-      });
-      res.data.forEach((folder: any) => {
-        if (
-          (folder.title === folderTitle && folder.userId === userId) === true
-        ) {
-          setParentId(folder._id);
-        } else {
-          history.push({
-            pathname: "/error", // no such page as error, just a random path not registered
-          });
+      const res = await axios.get(
+        BASE_URL + `/folders/specif/${userId}/${folderTitle}`,
+        {
+          cancelToken: source.token,
         }
-      });
+      );
+      if (res.data.length === 0) {
+        history.push({
+          pathname: "/error",
+        });
+      } else {
+        setParentId(res.data._id);
+      }
     } catch (err) {
       if (axios.isCancel(err)) {
         console.log("Caught a cancel.");

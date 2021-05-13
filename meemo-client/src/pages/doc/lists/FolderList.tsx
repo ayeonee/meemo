@@ -12,12 +12,14 @@ import DeleteModal from "../modals/DeleteModal";
 import { BASE_URL } from "../../../_data/urlData";
 
 export default function FolderList(): JSX.Element {
-  const [folders, setFolders] = useState([]);
+  const [folders, setFolders]: any = useState([]);
   const [selectedFolder, setSelectedFolder] = useState<string>("");
   const [delBtn, setDelBtn] = useState<boolean>(false);
   const [update, setUpdate] = useState<boolean>(false);
 
-  const [userId, setUserId] = useState<string | null>("");
+  const [userId, setUserId] = useState<string | null>(
+    localStorage.getItem("meemo-user-id")
+  );
 
   const [folderTitle, setFolderTitle] = useState<string>("");
   const [folderChildren, setFolderChildren]: any = useState([]);
@@ -53,42 +55,23 @@ export default function FolderList(): JSX.Element {
     };
   }, []);
 
-  // 빌드할 때 지울것
-  useEffect(() => {
-    localStorage.setItem("meemo-user-id", "testmeemo");
-  });
-
-  useEffect(() => {
-    setUserId(localStorage.getItem("meemo-user-id"));
-    setUpdate(!update);
-  }, []);
-
   useEffect(() => {
     loadFolders(userId);
   }, [update]);
 
   const loadFolders = async (userId: string | null) => {
-    let temp: any[] = [];
     try {
-      const res = await axios.get(BASE_URL + "/folders", {
+      const res = await axios.get(BASE_URL + "/folders/specif/" + userId, {
         cancelToken: source.token,
       });
-      res.data.map((folder: any) => {
-        if (folder.userId === userId) {
-          temp.push(folder);
-        }
-      });
-      if (temp.length === 0) {
+
+      if (res.data.length === 0) {
         setIsLoading(false);
         setFolders([]);
       } else {
-        res.data.forEach((folder: any) => {
-          if (folder.userId === userId) {
-            setFolders(res.data.map((folder: any) => folder));
-            console.log("Got the folders!");
-            setIsLoading(false);
-          }
-        });
+        setFolders(res.data.map((folder: any) => folder));
+        console.log("Got the folders!");
+        setIsLoading(false);
       }
     } catch (err) {
       if (axios.isCancel(err)) {

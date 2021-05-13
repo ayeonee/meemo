@@ -25,6 +25,18 @@ router.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/specif/:userId").get((req, res) => {
+  Folder.find({ userId: req.params.userId })
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/specif/:userId/:title").get((req, res) => {
+  Folder.find({ userId: req.params.userId, title: req.params.title })
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/:id").put((req, res) => {
   Folder.findOneAndUpdate({ _id: req.params.id }, { title: req.body.title })
     .then(() => res.json("Folder Updated!"))
