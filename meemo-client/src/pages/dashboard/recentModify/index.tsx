@@ -38,7 +38,7 @@ function RecentModify(): JSX.Element {
       url: "/notes",
     })
       .then((res) => {
-        res.data.forEach((item: any) => {
+        res.data.forEach((item: NoteInfo) => {
           if (item.userId === userId) {
             setNotes(notes.concat(item));
           }
@@ -54,7 +54,7 @@ function RecentModify(): JSX.Element {
       url: "/folders",
     })
       .then((res) => {
-        res.data.forEach((item: any)=>{
+        res.data.forEach((item: FolderInfo)=>{
           if(item.userId === userId){
             setFolders(folders.concat(item));
           }

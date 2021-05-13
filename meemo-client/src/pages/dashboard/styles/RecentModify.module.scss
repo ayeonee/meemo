@@ -112,6 +112,22 @@
   }
 }
 
+@media (max-width : 1412px){
+  .recent_modify{
+    .note_wrapper{
+      margin-top : 5px;
+
+      .visible_notes{
+        .note_container{
+          .note_div{
+            height : 37px;
+          }
+        }
+      }
+    }
+  }
+}
+
 @include tablet {
   .recent_modify {
     .note_wrapper {
@@ -178,5 +194,11 @@
         }
       }
     }
+  }
+}
+
+@media (max-width : 408px){
+  .recent_modify{
+    height: 300px;
   }
 }
