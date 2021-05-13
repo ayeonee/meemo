@@ -92,6 +92,10 @@
               font-size: 14px;
               pointer-events: none;
             }
+
+            @media (max-width: 1294px) and (min-width: 991px) {
+              max-width: 100px;
+            }
           }
 
           .time_div {
@@ -113,13 +117,15 @@
     .note_wrapper {
       height: 73%;
 
-      .note_container {
-        .note_div {
-          width: 90%;
-        }
+      .visible_notes {
+        .note_container {
+          .note_div {
+            width: 90%;
+          }
 
-        .time_div p {
-          display: none;
+          .time_div p {
+            display: none;
+          }
         }
       }
     }
@@ -131,13 +137,15 @@
     .note_wrapper {
       height: 73%;
 
-      .note_container {
-        .note_div {
-          width: 90%;
-        }
+      .visible_notes {
+        .note_container {
+          .note_div {
+            width: 90%;
+          }
 
-        .time_div p {
-          display: none;
+          .time_div p {
+            display: none;
+          }
         }
       }
     }
@@ -157,6 +165,18 @@
     .note_wrapper {
       height: 80%;
       margin-top: 12px;
+
+      .visible_notes {
+        .note_container {
+          .note_div {
+            .time_div {
+              @media (max-width: 390px) {
+                min-width: 86px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

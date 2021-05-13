@@ -11,6 +11,7 @@ type NoteInfo = {
   title: string;
   body: string;
   parentId: string;
+  userId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -18,6 +19,7 @@ type NoteInfo = {
 type FolderInfo = {
   _id: string;
   title: string;
+  userId: string;
   updatedAt: string;
   createdAt: string;
 };
@@ -30,25 +32,34 @@ function RecentModify(): JSX.Element {
   const history = useHistory();
 
   /* user id별로 가져오는 것 해야 함 */
-  const getNoteData = async () => {
+  const getNoteData = async (userId: string | null) => {
     await axios({
       method: "GET",
       baseURL: BASE_URL,
       url: "/notes",
     })
       .then((res) => {
-        setNotes(res.data);
+        res.data.forEach((item: any) => {
+          if (item.userId === userId) {
+            setNotes(notes.concat(item));
+          }
+        });
       })
       .catch((err) => console.log(err));
   };
 
-  const getFolderData = async () => {
+  const getFolderData = async (userId: string | null) => {
     await axios({
       method: "GET",
       baseURL: BASE_URL,
       url: "/folders",
     })
       .then((res) => {
+        res.data.forEach((item: any)=>{
+          if(item.userId === userId){
+            setFolders(folders.concat(item));
+          }
+        });
         setFolders(res.data);
       })
       .catch((err) => console.log(err));
@@ -57,17 +68,13 @@ function RecentModify(): JSX.Element {
   const sortNoteItems = () => {
     setRearrangedNotes((rearrangedNotes) =>
       rearrangedNotes.sort((a, b) => {
-        return a.updatedAt < b.updatedAt
-          ? 1
-          : a.updatedAt > b.updatedAt
-          ? -1
-          : 0;
+        return a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0;
       })
     );
   };
 
   const arrangeNoteItems = () => {
-    notes.map((item) => {
+    notes.forEach((item) => {
       setRearrangedNotes((rearrangedNotes) =>
         rearrangedNotes.concat({
           ...rearrangedNotes,
@@ -85,18 +92,6 @@ function RecentModify(): JSX.Element {
     sortNoteItems();
   };
 
-  useEffect(() => {
-    getNoteData();
-    getFolderData();
-
-    // getNoteData(localStorage.getItem("meemo-user-id"));
-    // getFolderData(localStorage.getItem("meemo-user-id"));
-  }, []);
-
-  useEffect(() => {
-    arrangeNoteItems();
-  }, [notes]);
-
   const goSelectedNotePage = (parentId: string, noteId: string) => {
     for (let i = 0; i < folders.length; i++) {
       if (folders[i]._id === parentId) {
@@ -107,6 +102,15 @@ function RecentModify(): JSX.Element {
       }
     }
   };
+
+  useEffect(() => {
+    getNoteData(localStorage.getItem("meemo-user-id"));
+    getFolderData(localStorage.getItem("meemo-user-id"));
+  }, []);
+
+  useEffect(() => {
+    arrangeNoteItems();
+  }, [notes]);
 
   return (
     <div className={style.recent_modify}>
@@ -127,9 +131,7 @@ function RecentModify(): JSX.Element {
                   <div key={index} className={style.note_container}>
                     <div
                       className={style.note_div}
-                      onClick={() =>
-                        goSelectedNotePage(item.parentId, item._id)
-                      }
+                      onClick={() => goSelectedNotePage(item.parentId, item._id)}
                     >
                       <div className={style.icon_div}>
                         <Notes className={style.note_icon} />
