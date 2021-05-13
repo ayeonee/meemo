@@ -9,8 +9,8 @@ export default function TimeLine(): JSX.Element {
         <tbody>
           <tr>
             <th className={style.table_null_head}></th>
-            {daysData.map((data) => (
-              <td className={style.day} key={data.id}>
+            {daysData.map((data, index) => (
+              <td className={style.day} key={index}>
                 {data.name}
               </td>
             ))}
@@ -20,13 +20,11 @@ export default function TimeLine(): JSX.Element {
 
       <table className={style.table_body}>
         <tbody className={style.times}>
-          {hourData.map((data) => (
-            <tr>
-              <td className={style.time} key={data}>
-                {data < 10 ? `0${data}` : data}시
-              </td>
-              {daysData.map((days) => (
-                <TimeTableGrid key={days.id} />
+          {hourData.map((data, index) => (
+            <tr key={index}>
+              <td className={style.time}>{data < 10 ? `0${data}` : data}시</td>
+              {daysData.map((days, index) => (
+                <TimeTableGrid key={index} />
               ))}
             </tr>
           ))}
