@@ -54,9 +54,9 @@ export default function FolderList(): JSX.Element {
   }, []);
 
   // 빌드할 때 지울것
-  // useEffect(() => {
-  //   localStorage.setItem("meemo-user-id", "testmeemo");
-  // });
+  useEffect(() => {
+    localStorage.setItem("meemo-user-id", "testmeemo");
+  });
 
   useEffect(() => {
     setUserId(localStorage.getItem("meemo-user-id"));
@@ -68,11 +68,17 @@ export default function FolderList(): JSX.Element {
   }, [update]);
 
   const loadFolders = async (userId: string | null) => {
+    let temp: any[] = [];
     try {
       const res = await axios.get(BASE_URL + "/folders", {
         cancelToken: source.token,
       });
-      if (res.data.length === 0) {
+      res.data.map((folder: any) => {
+        if (folder.userId === userId) {
+          temp.push(folder);
+        }
+      });
+      if (temp.length === 0) {
         setIsLoading(false);
         setFolders([]);
       } else {
