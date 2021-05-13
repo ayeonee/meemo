@@ -84,10 +84,16 @@ export default function NoteList() {
           cancelToken: source.token,
         }
       );
-      setNotes(res.data.map((note: any) => note));
-      console.log("Got the notes!");
-      // setUpdate(false);
-      setIsLoading(false);
+      if (res.data.length === 0) {
+        setNotes([]);
+        setIsLoading(false);
+        console.log("Got the notes!");
+      } else {
+        setNotes(res.data.map((note: any) => note));
+        console.log("Got the notes!");
+        // setUpdate(false);
+        setIsLoading(false);
+      }
     } catch (err) {
       if (axios.isCancel(err)) {
         console.log("Caught a cancel.");
