@@ -1,17 +1,6 @@
-import { useState, useEffect } from "react";
 import style from "./styles/Block.module.scss";
-import style_hidden from "../../styles/hidden.module.scss";
 import block from "../../img/block.svg";
 export default function BlockPage(): JSX.Element {
-  // const [blockVisible, setBlockVisible] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   const userId = localStorage.getItem("meemo-user-id");
-  //   if (userId !== null || userId !== undefined || !userId) {
-  //     setBlockVisible(true);
-  //   }
-  // }, []);
-
   return (
     <div className={style.block_wrapper}>
       <h1 className={style.block_title}>LOGIN FIRST!</h1>
