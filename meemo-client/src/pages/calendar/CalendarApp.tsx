@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FullCalendar, {
   EventApi,
   DateSelectArg,
@@ -11,6 +11,8 @@ import axios from "axios";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { useSelector } from "react-redux";
+import { RootState } from "../../_userReducers";
 // import { INITIAL_EVENTS, createEventId } from "./event-utils";
 
 import moment from "moment";
@@ -48,19 +50,21 @@ import { BASE_URL } from "../../_data/urlData";
 
 export default function CalendarApp(): JSX.Element {
   const [currentEvents, setCurrentEvents]: any[] = useState([]);
-
-  const [userId, setUserId] = useState<string | null>(
-    localStorage.getItem("meemo-user-id")
-  );
-
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
-
   const [selectInfo, setSelectInfo] = useState({});
-
   const [update, setUpdate] = useState<boolean>(false);
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const userIdInfo = useSelector(
+    (state: RootState) => state.user.userData.userId
+  );
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
+
+  // const userId = useRef<string | null>(userIdInfo);
+
+  // useEffect(() => {
+  //   setUserId(userIdInfo);
+  // }, []);
 
   let source = axios.CancelToken.source();
 

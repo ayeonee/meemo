@@ -12,6 +12,9 @@ import LoaderSpinner from "../misc/LoaderSpinner";
 
 import { BASE_URL } from "../../../_data/urlData";
 
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_userReducers";
+
 const removeMd = require("remove-markdown");
 
 // removing remaining md strings; maybe not needed
@@ -36,15 +39,16 @@ export default function NoteList() {
   const [folderId, setFolderId] = useState<string>("");
   const [gotFolderId, setGotFolderId] = useState<boolean>(false);
 
-  const [userId, setUserId] = useState<string | null>(
-    localStorage.getItem("meemo-user-id")
-  );
-
   const [popupType, setPopupType] = useState<string>("");
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelModal, setShowDelModal] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const userIdInfo = useSelector(
+    (state: RootState) => state.user.userData.userId
+  );
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url }: any = useRouteMatch();
   let { folderTitle }: any = useParams();
