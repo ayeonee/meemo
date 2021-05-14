@@ -16,7 +16,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "./_userReducers";
 import { authUser } from "./_userActions/userAction";
 import { useDispatch } from "react-redux";
-import { ResponseTypes } from "./_types/authTypes";
 
 // hoc rule
 // null => 아무나 출입가능
