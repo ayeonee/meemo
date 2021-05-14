@@ -74,12 +74,12 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
           <div className={style.burger_line3}></div>
         </div>
 
-        <Link to="/">
+        <Link to="/home">
           <img
             className={style.logo}
             src={`${logo}`}
             alt="logo"
-            onClick={() => handleNavColor("/")}
+            onClick={() => handleNavColor("/home")}
           />
         </Link>
 
