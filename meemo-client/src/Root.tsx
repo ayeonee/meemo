@@ -32,10 +32,7 @@ function Root(): JSX.Element {
 
   useEffect(() => {
     if (userIdInfo === "") {
-      dispatch(authUser()).then((res: ResponseTypes) => {
-        console.log(res.payload);
-        console.log(userIdInfo);
-      });
+      dispatch(authUser());
     }
   }, []);
 
