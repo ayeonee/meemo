@@ -54,8 +54,8 @@ function RecentModify(): JSX.Element {
       url: "/folders",
     })
       .then((res) => {
-        res.data.forEach((item: FolderInfo)=>{
-          if(item.userId === userId){
+        res.data.forEach((item: FolderInfo) => {
+          if (item.userId === userId) {
             setFolders(folders.concat(item));
           }
         });
@@ -135,12 +135,8 @@ function RecentModify(): JSX.Element {
                       <div className={style.icon_div}>
                         <Notes className={style.note_icon} />
                       </div>
-                      <div className={style.title_div}>
-                        <p>{item.title}</p>
-                      </div>
-                      <div className={style.time_div}>
-                        <p>{item.updatedAt.substring(0, 16)}</p>
-                      </div>
+                      <div className={style.title_div}>{item.title}</div>
+                      <div className={style.time_div}>{item.updatedAt.substring(0, 16)}</div>
                     </div>
                   </div>
                 );
