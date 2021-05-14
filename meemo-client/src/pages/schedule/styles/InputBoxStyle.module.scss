@@ -48,10 +48,13 @@
 
     .input_title {
       @include flex_col;
+      min-width: 63px;
+      flex-wrap: nowrap;
     }
 
     .input_body {
       @include flex_col;
+      flex: 1;
 
       .input_content {
         border: none;

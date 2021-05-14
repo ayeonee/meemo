@@ -21,7 +21,7 @@ function ScheduleItem({
   const scheduleTime = (endHour - startHour) * 60 + (endMin - startMin);
   const timeStart = 48 + 73 * (startHour - 8) + startMin * 1.2;
   const color = (id.length + place.length) % 6;
-  const timeLength = scheduleTime * 1.2;
+  const timeLength = scheduleTime * 1.2 - 0.5;
 
   const scheduleHeight = (scheduleTime: number, timeLength: number) => {
     let length;

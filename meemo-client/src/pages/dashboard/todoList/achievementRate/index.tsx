@@ -40,7 +40,6 @@ function AchievementRate({
         ) : (
           <Pie type="pie" data={todoBasedPieData} className={style.pie} />
         )}
-        <div className={style.bg_circle}></div>
       </div>
     </div>
   );

@@ -15,8 +15,9 @@
   .block_title {
     position: relative;
     top: 20px;
-    font-size: 50px;
+    font-size: 2rem;
     color: $green_grade_5;
+    margin-bottom: 10px;
   }
 
   .block_section {
@@ -27,14 +28,18 @@
     img {
       width: 200px;
       height: 200px;
-      margin: 20px 0;
+      margin: 25px 0;
     }
 
     .script {
       margin-top: 10px;
-      color: $green_grade_5;
-      font-size: 1.1rem;
-      font-weight: bold;
+      width: 80%;
+      color: rgb(44, 44, 44);
+      font-size: 0.9rem;
+
+      p {
+        margin-bottom: 5px;
+      }
     }
   }
 }

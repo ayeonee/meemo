@@ -36,32 +36,32 @@
       @include align_center;
 
       .graph_container {
-        width: 160px;
-        height: 160px;
+        width: 168px !important;
+        height: 168px !important;
         @include flex_col;
         @include align_center;
         margin-bottom: 15px;
 
         .block_circle {
-          margin-top: 11px;
-          position: absolute;
+          margin-top: 10px;
+          position: absolute !important;
           display: flex;
           @include align_center;
           background-color: transparent;
-          width: 180px;
-          height: 180px;
+          width: 168px;
+          height: 168px;
           border-radius: 50%;
           z-index: 4;
         }
 
         .rate_circle {
-          margin-top: 11px;
-          position: absolute;
+          margin-top: 10px;
+          position: relative !important;
           display: flex;
           @include align_center;
           background-color: white;
-          width: 120px;
-          height: 120px;
+          width: 126px !important;
+          height: 126px !important;
           border-radius: 50%;
           z-index: 3;
 
@@ -71,31 +71,18 @@
         }
 
         .pie {
-          position: absolute;
+          position: absolute !important;
           z-index: 2;
         }
 
         .none_circle {
-          position: absolute;
+          position: absolute !important;
           z-index: 2;
-          width: 150px;
-          height: 150px;
+          width: 168px !important;
+          height: 168px !important;
           border-radius: 50%;
           background-color: rgb(192, 192, 192);
           margin-top: 11px;
-        }
-
-        .bg_circle {
-          margin-top: 11px;
-          position: absolute;
-          display: flex;
-          @include align_center;
-          background-color: white;
-          width: 170px;
-          height: 170px;
-          z-index: 1;
-          border-radius: 50%;
-          box-shadow: 1px 2px 7px 2px rgba(56, 56, 56, 0.137);
         }
       }
     }
