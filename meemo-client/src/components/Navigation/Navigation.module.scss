@@ -31,6 +31,10 @@
       margin-top: 6px;
       height: 39px;
       cursor: pointer;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     .nav_items_on,

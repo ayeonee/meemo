@@ -46,7 +46,7 @@ function Login(): JSX.Element {
           localStorage.setItem("meemo-user-name", res.payload.name);
           localStorage.setItem("meemo-user-id", res.payload.userId);
           history.push({
-            pathname: "/",
+            pathname: "/home",
           });
         } else {
           alert(res.payload.message);
@@ -86,7 +86,11 @@ function Login(): JSX.Element {
         </div>
 
         <div className={style.button_wrapper}>
-          <button className={style.login_btn} disabled={checkButtonEnable()} type="submit">
+          <button
+            className={style.login_btn}
+            disabled={checkButtonEnable()}
+            type="submit"
+          >
             로그인
           </button>
         </div>
