@@ -10,16 +10,14 @@ import LoaderSpinner from "../misc/LoaderSpinner";
 import DeleteModal from "../modals/DeleteModal";
 
 import { BASE_URL } from "../../../_data/urlData";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_userReducers";
 
 export default function FolderList(): JSX.Element {
   const [folders, setFolders]: any = useState([]);
   const [selectedFolder, setSelectedFolder] = useState<string>("");
   const [delBtn, setDelBtn] = useState<boolean>(false);
   const [update, setUpdate] = useState<boolean>(false);
-
-  const [userId, setUserId] = useState<string | null>(
-    localStorage.getItem("meemo-user-id")
-  );
 
   const [folderTitle, setFolderTitle] = useState<string>("");
   const [folderChildren, setFolderChildren]: any = useState([]);
@@ -29,6 +27,11 @@ export default function FolderList(): JSX.Element {
   const [showDelModal, setShowDelModal] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const userIdInfo = useSelector(
+    (state: RootState) => state.user.userData.userId
+  );
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url } = useRouteMatch();
   let history = useHistory();
