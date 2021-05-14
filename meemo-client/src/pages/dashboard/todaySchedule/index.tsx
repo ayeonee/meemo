@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AllData } from "../../../_types/scheduleTypes";
 import { BASE_URL } from "../../../_data/urlData";
-import { colorCode } from "../../../_data/scheduleData";
+import { UserIdType } from "../../../_types/authTypes";
 import axios from "axios";
 import style from "../styles/TodaySchedule.module.scss";
 
@@ -16,7 +16,7 @@ type ScheduleInfo = {
   endMin: number;
 };
 
-function TodaySchedule(): JSX.Element {
+function TodaySchedule({ userIdInfo }: UserIdType): JSX.Element {
   const history = useHistory();
   const date = new Date();
   const today = date.getDay(); //일:0~토:6
@@ -70,7 +70,7 @@ function TodaySchedule(): JSX.Element {
   }, [allData, today]);
 
   useEffect(() => {
-    getSchedule(localStorage.getItem("meemo-user-id"));
+    getSchedule(userIdInfo);
   }, []);
 
   return (

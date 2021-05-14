@@ -6,11 +6,16 @@ import { useTodoDispatch } from "../TodosContext";
 import { Todo } from "../../../_types/todoTypes";
 import style from "../styles/TodoList.module.scss";
 import { BASE_URL } from "../../../_data/urlData";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_userReducers";
 
 function TodoList(): JSX.Element {
   const todos = useTodoState();
   const dispatch = useTodoDispatch();
   const [todoList, setTodoList] = useState<Todo[]>([]);
+  const userIdInfo = useSelector(
+    (state: RootState) => state.user.userData.userId
+  );
 
   const getTodo = async (userId: string | null) => {
     await axios({
@@ -26,7 +31,7 @@ function TodoList(): JSX.Element {
   };
 
   useEffect(() => {
-    getTodo(localStorage.getItem("meemo-user-id"));
+    getTodo(userIdInfo);
   }, []);
 
   useEffect(() => {

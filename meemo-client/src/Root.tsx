@@ -11,6 +11,12 @@ import Auth from "./hoc/auth";
 import CalendarPage from "./pages/calendar";
 import UnkownPage from "./pages/unknown";
 import BlockPage from "./pages/block";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "./_userReducers";
+import { authUser } from "./_userActions/userAction";
+import { useDispatch } from "react-redux";
+import { ResponseTypes } from "./_types/authTypes";
 
 // hoc rule
 // null => 아무나 출입가능
@@ -19,6 +25,20 @@ import BlockPage from "./pages/block";
 // undefined => block
 
 function Root(): JSX.Element {
+  const dispatch = useDispatch<any>();
+  const userIdInfo = useSelector(
+    (state: RootState) => state.user.userData.userId
+  );
+
+  useEffect(() => {
+    if (userIdInfo === "") {
+      dispatch(authUser()).then((res: ResponseTypes) => {
+        console.log(res.payload);
+        console.log(userIdInfo);
+      });
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Navigation />

@@ -4,6 +4,7 @@ import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/RecentModify.module.scss";
 import axios from "axios";
 import moment from "moment";
+import { UserIdType } from "../../../_types/authTypes";
 import { Notes } from "@material-ui/icons";
 
 type NoteInfo = {
@@ -24,7 +25,7 @@ type FolderInfo = {
   createdAt: string;
 };
 
-function RecentModify(): JSX.Element {
+function RecentModify({ userIdInfo }: UserIdType): JSX.Element {
   const [notes, setNotes] = useState<NoteInfo[]>([]);
   const [folders, setFolders] = useState<FolderInfo[]>([]);
   const [rearrangedNotes, setRearrangedNotes] = useState<NoteInfo[]>([]);
@@ -54,8 +55,8 @@ function RecentModify(): JSX.Element {
       url: "/folders",
     })
       .then((res) => {
-        res.data.forEach((item: FolderInfo)=>{
-          if(item.userId === userId){
+        res.data.forEach((item: FolderInfo) => {
+          if (item.userId === userId) {
             setFolders(folders.concat(item));
           }
         });
@@ -67,7 +68,11 @@ function RecentModify(): JSX.Element {
   const sortNoteItems = () => {
     setRearrangedNotes((rearrangedNotes) =>
       rearrangedNotes.sort((a, b) => {
-        return a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0;
+        return a.updatedAt < b.updatedAt
+          ? 1
+          : a.updatedAt > b.updatedAt
+          ? -1
+          : 0;
       })
     );
   };
@@ -103,8 +108,13 @@ function RecentModify(): JSX.Element {
   };
 
   useEffect(() => {
-    getNoteData(localStorage.getItem("meemo-user-id"));
-    getFolderData(localStorage.getItem("meemo-user-id"));
+    getNoteData(userIdInfo);
+    getFolderData(userIdInfo);
+
+    return () => {
+      setNotes([]);
+      setFolders([]);
+    };
   }, []);
 
   useEffect(() => {
@@ -130,7 +140,9 @@ function RecentModify(): JSX.Element {
                   <div key={index} className={style.note_container}>
                     <div
                       className={style.note_div}
-                      onClick={() => goSelectedNotePage(item.parentId, item._id)}
+                      onClick={() =>
+                        goSelectedNotePage(item.parentId, item._id)
+                      }
                     >
                       <div className={style.icon_div}>
                         <Notes className={style.note_icon} />

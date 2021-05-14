@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../_userReducers";
 import { useHistory } from "react-router-dom";
 import style from "../styles/TodoList.module.scss";
 import axios from "axios";
 import AchievementRate from "./achievementRate";
 import { Todo } from "../../../_types/todoTypes";
+import { UserIdType } from "../../../_types/authTypes";
 import { BASE_URL } from "../../../_data/urlData";
 
-function TodoList(): JSX.Element {
+function TodoList({ userIdInfo }: UserIdType): JSX.Element {
   const [todoList, setTodoList] = useState<Todo[]>([]);
   const [checkedTodo, setCheckedTodo] = useState<
     {
@@ -23,10 +22,6 @@ function TodoList(): JSX.Element {
       pathname: `/todo`,
     });
   };
-
-  const userIdInfo = useSelector(
-    (state: RootState) => state.user.userData.userId
-  );
 
   const getTodo = async (userId: string | null) => {
     await axios({
@@ -58,9 +53,9 @@ function TodoList(): JSX.Element {
   }, [todoList]);
 
   useEffect(() => {
-    // getTodo(localStorage.getItem("meemo-user-id"));
     getTodo(userIdInfo);
-    console.log(userIdInfo);
+
+    return setTodoList([]);
   }, []);
 
   return (

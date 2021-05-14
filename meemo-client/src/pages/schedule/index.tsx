@@ -8,12 +8,17 @@ import TimeTable from "./TimeTable";
 import style from "./styles/Schedule.module.scss";
 import reset from "../../img/reset-icon.svg";
 import { BASE_URL } from "../../_data/urlData";
+import { useSelector } from "react-redux";
+import { RootState } from "../../_userReducers";
 
 export default function SchedulePage(): JSX.Element {
   const [allData, setAllData] = useState<AllData>([]);
   const [addDataCheck, setAddDataCheck] = useState<boolean>(false);
   const [resetDataCheck, setResetDataCheck] = useState<boolean>(false);
   const [deleteDataCheck, setDeleteDataCheck] = useState<boolean>(false);
+  const userIdInfo = useSelector(
+    (state: RootState) => state.user.userData.userId
+  );
 
   const saveSchedule = (payloadData: AllData) => {
     axios({
@@ -21,7 +26,7 @@ export default function SchedulePage(): JSX.Element {
       baseURL: BASE_URL,
       url: "/save/schedule",
       data: {
-        userId: localStorage.getItem("meemo-user-id"),
+        userId: userIdInfo,
         payload: payloadData,
       },
     })
@@ -45,7 +50,7 @@ export default function SchedulePage(): JSX.Element {
   };
 
   useEffect(() => {
-    getSchedule(localStorage.getItem("meemo-user-id"));
+    getSchedule(userIdInfo);
   }, []);
 
   useEffect(() => {
