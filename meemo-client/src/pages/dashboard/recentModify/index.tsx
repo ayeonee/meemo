@@ -147,12 +147,8 @@ function RecentModify({ userIdInfo }: UserIdType): JSX.Element {
                       <div className={style.icon_div}>
                         <Notes className={style.note_icon} />
                       </div>
-                      <div className={style.title_div}>
-                        <p>{item.title}</p>
-                      </div>
-                      <div className={style.time_div}>
-                        <p>{item.updatedAt.substring(0, 16)}</p>
-                      </div>
+                      <div className={style.title_div}>{item.title}</div>
+                      <div className={style.time_div}>{item.updatedAt.substring(0, 16)}</div>
                     </div>
                   </div>
                 );

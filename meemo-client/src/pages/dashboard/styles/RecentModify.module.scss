@@ -68,7 +68,7 @@
 
           .icon_div {
             height: 100%;
-            width: 30px;
+            min-width: 30px;
             pointer-events: none;
             display: flex;
             justify-content: center;
@@ -85,25 +85,26 @@
           }
 
           .title_div {
+            flex: 1;
             margin: auto;
             margin-left: 1%;
             pointer-events: none;
-            p {
-              font-size: 14px;
-              pointer-events: none;
-            }
-
-            @media (max-width: 1294px) and (min-width: 991px) {
-              max-width: 100px;
-            }
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            -ms-text-overflow: ellipsis;
+            font-size: 14px;
+            pointer-events: none;
           }
 
           .time_div {
+            min-width: 90px;
             margin-right: 5px;
             display: flex;
-            justify-content: right;
+            justify-content: flex-end;
             align-items: center;
-            font-size: 2px;
+            font-size: 10px;
             pointer-events: none;
           }
         }
@@ -112,15 +113,15 @@
   }
 }
 
-@media (max-width : 1412px){
-  .recent_modify{
-    .note_wrapper{
-      margin-top : 5px;
+@media (max-width: 1412px) {
+  .recent_modify {
+    .note_wrapper {
+      margin-top: 5px;
 
-      .visible_notes{
-        .note_container{
-          .note_div{
-            height : 37px;
+      .visible_notes {
+        .note_container {
+          .note_div {
+            height: 37px;
           }
         }
       }
@@ -137,10 +138,15 @@
         .note_container {
           .note_div {
             width: 90%;
-          }
 
-          .time_div p {
-            display: none;
+            .title_div {
+              margin-right: 5px;
+            }
+
+            .time_div {
+              width: 0px;
+              display: none;
+            }
           }
         }
       }
@@ -157,10 +163,15 @@
         .note_container {
           .note_div {
             width: 90%;
-          }
 
-          .time_div p {
-            display: none;
+            .title_div {
+              margin-right: 5px;
+            }
+
+            .time_div {
+              width: 0px;
+              display: none;
+            }
           }
         }
       }
@@ -179,26 +190,13 @@
     }
 
     .note_wrapper {
-      height: 80%;
       margin-top: 12px;
-
-      .visible_notes {
-        .note_container {
-          .note_div {
-            .time_div {
-              @media (max-width: 390px) {
-                min-width: 86px;
-              }
-            }
-          }
-        }
-      }
     }
   }
 }
 
-@media (max-width : 408px){
-  .recent_modify{
+@media (max-width: 408px) {
+  .recent_modify {
     height: 300px;
   }
 }
