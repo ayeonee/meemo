@@ -87,29 +87,25 @@ export default function InputBox({
     [input]
   );
 
-  const compareStates = useCallback((elem: Data, schedule: ScheduleArray) => {
+  const compareStates = (elem: Data, schedule: ScheduleArray) => {
     elem.schedule.forEach((elem) => {
       const { date, startHour, startMin, endHour, endMin } = elem;
 
       schedule.forEach((scheduleElem) => {
         if (date === scheduleElem.date) {
           if (
-            (endHour == scheduleElem.startHour &&
-              endMin <= scheduleElem.startMin) ||
-            endHour < scheduleElem.startHour
-          ) {
-            checkOverlap.current = false;
-          } else if (
-            (startHour == scheduleElem.endHour &&
-              startMin >= scheduleElem.startMin) ||
-            startHour > scheduleElem.endHour
-          ) {
-            checkOverlap.current = false;
-          } else if (
             endHour == scheduleElem.startHour &&
-            endMin == scheduleElem.startMin &&
-            scheduleElem.endMin - scheduleElem.startMin >= 30
+            scheduleElem.startMin - endMin >= 0
           ) {
+            checkOverlap.current = false;
+          } else if (scheduleElem.startHour - endHour >= 1) {
+            checkOverlap.current = false;
+          } else if (
+            startHour == scheduleElem.endHour &&
+            startMin - scheduleElem.endMin >= 0
+          ) {
+            checkOverlap.current = false;
+          } else if (startHour - scheduleElem.endHour >= 1) {
             checkOverlap.current = false;
           } else {
             checkOverlap.current = true;
@@ -118,7 +114,7 @@ export default function InputBox({
         }
       });
     });
-  }, []);
+  };
 
   const compareAllData = (schedule: ScheduleArray) => {
     allData.forEach((elem) => {
@@ -130,38 +126,39 @@ export default function InputBox({
     if (input.name === "") {
       alert("일정을 입력해 주세요");
       return;
-    }
-
-    compareAllData(schedule);
-    if (checkOverlap.current) {
-      alert("중복된 시간표가 있습니다");
-      checkOverlap.current = false;
-      return;
-    }
-
-    schedule.forEach((elem) => {
-      const { startHour, startMin, endHour, endMin } = elem;
-      if (startHour < endHour && startMin - endMin <= 30) {
-        checkTimeCorrect.current = true;
-      } else if (startHour === endHour) {
-        if (endMin > startMin && endMin - startMin >= 30) {
-          checkTimeCorrect.current = true;
-        } else {
-          checkTimeCorrect.current = false;
-        }
-      } else {
-        checkTimeCorrect.current = false;
-      }
-    });
-
-    if (checkTimeCorrect.current === true) {
-      addData({ ...input, schedule: schedule });
-      onClickResetDays();
-      resetData();
     } else {
-      alert("정확한 시간(최소 30분)을 입력해 주세요");
-      checkTimeCorrect.current = true;
-      return;
+      compareAllData(schedule);
+
+      if (checkOverlap.current) {
+        alert("중복된 시간표가 있습니다");
+        checkOverlap.current = false;
+        return;
+      } else {
+        schedule.forEach((elem) => {
+          const { startHour, startMin, endHour, endMin } = elem;
+
+          if (startHour == endHour && endMin - startMin >= 30) {
+            checkTimeCorrect.current = false;
+          } else if (endHour - startHour >= 2) {
+            checkTimeCorrect.current = false;
+          } else if (endHour - startHour == 1 && startMin - endMin <= 30) {
+            checkTimeCorrect.current = false;
+          } else {
+            checkTimeCorrect.current = true;
+          }
+        });
+
+        if (checkTimeCorrect.current === false) {
+          addData({ ...input, schedule: schedule });
+          onClickResetDays();
+          resetData();
+        } else {
+          alert("정확한 시간(최소 30분)을 입력해 주세요");
+          checkTimeCorrect.current = false;
+
+          return;
+        }
+      }
     }
   };
 

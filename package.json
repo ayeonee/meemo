@@ -4,6 +4,7 @@
   "description": "<br/>",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd meemo-client && npm run-script build",
     "start": "concurrently \"cd meemo-server && nodemon server\" \"cd meemo-client && npm start\" "
   },
   "repository": {

@@ -10,10 +10,6 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
-  // useEffect(() => {
-  //   localStorage.setItem("meemo-user-id", "testmeemo");
-  // }, []);
-
   useEffect(() => {
     getBody(userIdInfo);
 
@@ -24,12 +20,10 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   }, []);
 
   const getBody = async (userId: string | null) => {
-    const res = await axios.get(BASE_URL + "/stickynote");
+    const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
     res.data.forEach((note: any) => {
-      if (note.userId === userId) {
-        setBody(note.body);
-        setNoteId(note._id);
-      }
+      setBody(note.body);
+      setNoteId(note._id);
     });
   };
 

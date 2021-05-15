@@ -2,21 +2,10 @@ import { useState, useEffect } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import style from "../styles/CalendarModal.module.scss";
 import RMDEditor from "rich-markdown-editor";
-import debounce from "lodash/debounce";
-
-// import {
-//   EventApi,
-//   DateSelectArg,
-//   EventClickArg,
-//   EventContentArg,
-//   formatDate,
-//   EventInput,
-// } from "@fullcalendar/react";
 
 import moment from "moment";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import { update } from "lodash";
 
 interface CalendarModalProps {
   modalType: string;
@@ -25,11 +14,6 @@ interface CalendarModalProps {
   submit: (evnt: object) => void;
   handleDelete: (id: string) => void;
 }
-
-// type selectInfoType = {
-//   startStr: string;
-//   endStr: string;
-// };
 
 export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const { modalType, toggleModal, selectInfo, submit, handleDelete } = props;
@@ -50,8 +34,6 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const [startTime, setStartTime] = useState<string>(selectInfo.startTime);
   const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
   const [editorBody, setEditorBody] = useState<string>(selectInfo.body);
-
-  const [update, setUpdate] = useState<boolean>(false);
 
   const removeSchedule = useConfirm(
     "일정을 삭제 하시겠습니까?",

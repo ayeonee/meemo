@@ -35,7 +35,7 @@ function AchievementRate({
               : `0%`}
           </h1>
         </div>
-        {todoList.length === 0 ? (
+        {todoList.length === 0 || todoList === null ? (
           <div className={style.none_circle}></div>
         ) : (
           <Pie type="pie" data={todoBasedPieData} className={style.pie} />

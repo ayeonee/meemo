@@ -16,7 +16,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "./_userReducers";
 import { authUser } from "./_userActions/userAction";
 import { useDispatch } from "react-redux";
-import { ResponseTypes } from "./_types/authTypes";
 
 // hoc rule
 // null => 아무나 출입가능
@@ -32,10 +31,7 @@ function Root(): JSX.Element {
 
   useEffect(() => {
     if (userIdInfo === "") {
-      dispatch(authUser()).then((res: ResponseTypes) => {
-        console.log(res.payload);
-        console.log(userIdInfo);
-      });
+      dispatch(authUser());
     }
   }, []);
 
@@ -45,6 +41,7 @@ function Root(): JSX.Element {
 
       <Switch>
         {/*배포용*/}
+
         <Route component={Auth(AuthPage, false)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, true)} path="/home" exact />
         <Route component={Auth(BlockPage, undefined)} path="/" exact />

@@ -1,7 +1,6 @@
-import React from "react";
-import { render } from "react-dom";
 import CalendarApp from "./CalendarApp";
-import "./main.css";
+import "./styles/main.css";
+import "./styles/override.css";
 
 export default function Calendar(): JSX.Element {
   return (

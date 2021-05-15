@@ -148,6 +148,7 @@ export default function Editor(): JSX.Element {
               readOnlyWriteCheckboxes
               value={value}
               defaultValue={value}
+              placeholder="멋진 것을 써보세요!"
               scrollTo={window.location.hash}
               handleDOMEvents={
                 {
