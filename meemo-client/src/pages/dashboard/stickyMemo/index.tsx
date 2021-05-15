@@ -6,28 +6,17 @@ import { UserIdType } from "../../../_types/authTypes";
 import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/StickyMemo.module.scss";
 
-<<<<<<< HEAD
 function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
-=======
-function StickyMemo(): JSX.Element {
-  const [userId, setUserId] = useState<string | null>(
-    localStorage.getItem("meemo-user-id")
-  );
->>>>>>> feature/calendar-css
   const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
   useEffect(() => {
-<<<<<<< HEAD
     getBody(userIdInfo);
 
     return () => {
       setBody("");
       setNoteId("");
     };
-=======
-    getBody(userId);
->>>>>>> feature/calendar-css
   }, []);
 
   const getBody = async (userId: string | null) => {
