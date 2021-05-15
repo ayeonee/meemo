@@ -147,6 +147,9 @@
     width: 30px !important;
     height: 30px !important;
   }
+  .fc-popover {
+    left: 20%;
+  }
 }
 
 /* tablet */
