@@ -17,7 +17,7 @@ function Weather(): JSX.Element {
     icon: "",
   });
 
-  const [fullLocation, setFullLocation] = useState<string>("Seoul Dongjak-gu");
+  const [fullLocation, setFullLocation] = useState<string>("");
 
   const getWeather = (cityName: string) => {
     fetch(
@@ -40,13 +40,13 @@ function Weather(): JSX.Element {
   };
 
   const getCurrentCity = (latitudeVar: string, longitudeVar: string) => {
-    // Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
-    //   getWeather(response.results[0].address_components[3].long_name);
-    //   setFullLocation(
-    //     `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
-    //   );
-    // });
-    getWeather("Seoul"); /* for test*/
+    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
+      getWeather(response.results[0].address_components[3].long_name);
+      setFullLocation(
+        `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
+      );
+    });
+    //getWeather("Seoul"); /* for test*/
   };
 
   const handleGeoTrue = (position: any) => {
@@ -56,15 +56,9 @@ function Weather(): JSX.Element {
     getCurrentCity(latitude, longitude);
   };
 
-  const handleGeoFalse = (position: any) => {};
-
   const askForCoords = () => {
-    navigator.geolocation.getCurrentPosition(handleGeoTrue, handleGeoFalse);
+    navigator.geolocation.getCurrentPosition(handleGeoTrue, () => console.error);
   };
-
-  useEffect(() => {
-    askForCoords();
-  }, []);
 
   const weatherMessage = (weatherInfo: string) => {
     if (weatherInfo === "Thunderstorm") {
@@ -97,6 +91,10 @@ function Weather(): JSX.Element {
     }
   };
 
+  useEffect(() => {
+    askForCoords();
+  }, []);
+
   return (
     <div className={style.weather}>
       <div className={style.title}>WEATHER</div>
@@ -109,6 +107,7 @@ function Weather(): JSX.Element {
             <img
               className={style.weather_icon}
               src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
+              alt=""
             />
           </div>
 
