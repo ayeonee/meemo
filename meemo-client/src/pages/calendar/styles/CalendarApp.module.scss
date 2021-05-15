@@ -1,6 +1,8 @@
+@import "../../../styles/_variables.module.scss";
+
 .wrapper {
-  position: absolute;
-  top: 90px;
+  position: fixed;
+  margin-top: 100px;
 
   width: 100%;
   height: fit-content;
@@ -8,8 +10,50 @@
 
   .calendarDiv {
     flex-grow: 1;
-    padding: 50px;
 
     overflow: hidden;
+  }
+}
+
+@include min {
+  .calendarDiv {
+    margin: 0 5%;
+  }
+
+  .dash {
+    display: none;
+  }
+}
+@include mobile {
+  .calendarDiv {
+    margin: 0 5%;
+  }
+  .dash {
+    display: none;
+  }
+}
+
+@include tablet {
+  .calendarDiv {
+    margin: 0 10%;
+  }
+
+  .dash {
+    display: none;
+  }
+}
+@include mdDesktop {
+  .calendarDiv {
+    margin: 0 10%;
+  }
+}
+@include lgDesktop {
+  .calendarDiv {
+    margin: 0 15%;
+  }
+}
+@include max {
+  .calendarDiv {
+    margin: 0 15%;
   }
 }

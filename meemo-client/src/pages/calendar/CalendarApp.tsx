@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import FullCalendar, {
-  EventApi,
   DateSelectArg,
   EventClickArg,
-  EventContentArg,
-  formatDate,
-  EventInput,
 } from "@fullcalendar/react";
 import axios from "axios";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-// import { INITIAL_EVENTS, createEventId } from "./event-utils";
-
-import moment from "moment";
 
 import style from "./styles/CalendarApp.module.scss";
 
@@ -22,29 +15,6 @@ import LoaderSpinner from "../doc/misc/LoaderSpinner";
 import CalendarModal from "./modals/CalendarModal";
 
 import { BASE_URL } from "../../_data/urlData";
-
-// let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
-
-// const TestEvent: EventInput[] = [
-//   {
-//     title: "DongHo",
-//     start: "2021-04-30",
-//     end: "2021-04-28",
-//   },
-//   {
-//     title: "Yes",
-//     start: "2021-04-30" + "T16:30:00",
-//   },
-// ];
-
-// function renderEventContent(eventContent: EventContentArg) {
-//   return (
-//     <>
-//       <b>{eventContent.timeText}</b>
-//       {eventContent.event.title}
-//     </>
-//   );
-// }
 
 export default function CalendarApp(): JSX.Element {
   const [currentEvents, setCurrentEvents]: any[] = useState([]);
@@ -64,6 +34,11 @@ export default function CalendarApp(): JSX.Element {
 
   let source = axios.CancelToken.source();
 
+  // button text override
+  const todayBtn = document.getElementsByClassName("fc-today-button");
+  const monthBtn = document.getElementsByClassName("fc-dayGridMonth-button");
+  const weekBtn = document.getElementsByClassName("fc-timeGridWeek-button");
+
   useEffect(() => {
     loadEvents(userId);
     return () => {
@@ -71,27 +46,15 @@ export default function CalendarApp(): JSX.Element {
     };
   }, [update]);
 
-  // const loadFolders = async (userId: string | null) => {
-  //   try {
-  //     const res = await axios.get(BASE_URL + "/folders/user/" + userId, {
-  //       cancelToken: source.token,
-  //     });
-  //     if (res.data.length === 0) {
-  //       setIsLoading(false);
-  //       setFolders([]);
-  //     } else {
-  //       setFolders(res.data.map((folder: any) => folder));
-  //       console.log("Got the folders!");
-  //       setIsLoading(false);
-  //     }
-  //   } catch (err) {
-  //     if (axios.isCancel(err)) {
-  //       console.log("Caught a cancel.");
-  //     } else {
-  //       throw err;
-  //     }
-  //   }
-  // };
+  useEffect(() => {
+    if (todayBtn[0] === undefined) {
+      return;
+    } else {
+      todayBtn[0].innerHTML = "오늘";
+      monthBtn[0].innerHTML = "월";
+      weekBtn[0].innerHTML = "주";
+    }
+  });
 
   const loadEvents = async (userId: string | null) => {
     try {
@@ -113,31 +76,6 @@ export default function CalendarApp(): JSX.Element {
         throw err;
       }
     }
-    // let temp: any[] = [];
-    // try {
-    //   const res = await axios.get(BASE_URL + "/calendar", {
-    //     cancelToken: source.token,
-    //   });
-    //   res.data.map((calEvnt: any) => {
-    //     if (calEvnt.userId === userId) {
-    //       temp.push(calEvnt);
-    //     }
-    //   });
-    //   if (temp.length === 0) {
-    //     // setIsLoading(false);
-    //     setCurrentEvents([]);
-    //   } else {
-    //     setCurrentEvents(temp.map((cal: any) => cal));
-    //     console.log("Got the Calendar Events!");
-    //     // setIsLoading(false);
-    //   }
-    // } catch (err) {
-    //   if (axios.isCancel(err)) {
-    //     console.log("Caught a cancel.");
-    //   } else {
-    //     throw err;
-    //   }
-    // }
   };
 
   const toggleModal = () => {
@@ -218,36 +156,6 @@ export default function CalendarApp(): JSX.Element {
     }
   };
 
-  // const handleUpdate = async (evnt: object) => {
-  //   try {
-  //     axios
-  //       .put("https://meemo.kr/api/calendar/" + evnt.id, evnt)
-  //       .then(() => console.log("Calendar Event Updated"))
-  //       .then(() => setUpdate(!update))
-  //       .then(() => setShowUpdateModal(false))
-  //       .catch((err) => console.log(`error: ${err}`));
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // };
-
-  // const handleDateSelect = (selectInfo: DateSelectArg) => {
-  //   let title = prompt("Please enter a new title for your event");
-  //   let calendarApi = selectInfo.view.calendar;
-
-  //   calendarApi.unselect(); // clear date selection
-
-  //   if (title) {
-  //     calendarApi.addEvent({
-  //       id: createEventId(),
-  //       title,
-  //       start: selectInfo.startStr,
-  //       end: selectInfo.endStr,
-  //       allDay: selectInfo.allDay,
-  //     });
-  //   }
-  // };
-
   const handleDelete = (id: string) => {
     axios
       .delete(BASE_URL + "/calendar/" + id)
@@ -259,10 +167,6 @@ export default function CalendarApp(): JSX.Element {
       });
   };
 
-  // const handleEvents = (events: EventApi[]) => {
-  //   setCurrentEvents(events);
-  // };
-
   return (
     <div className={style.wrapper}>
       {isLoading ? (
@@ -272,6 +176,7 @@ export default function CalendarApp(): JSX.Element {
           <div className={style.calendarDiv}>
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              locale="ko"
               headerToolbar={{
                 left: "prev,next today",
                 center: "title",

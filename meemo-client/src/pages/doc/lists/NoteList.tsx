@@ -155,7 +155,7 @@ export default function NoteList() {
     try {
       const note = {
         title: `${title}`,
-        body: "this is the body",
+        body: "",
         parentId: `${folderId}`,
         userId: userId,
       };

@@ -6,24 +6,21 @@ import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/StickyMemo.module.scss";
 
 function StickyMemo(): JSX.Element {
+  const [userId, setUserId] = useState<string | null>(
+    localStorage.getItem("meemo-user-id")
+  );
   const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
-  // useEffect(() => {
-  //   localStorage.setItem("meemo-user-id", "testmeemo");
-  // }, []);
-
   useEffect(() => {
-    getBody(localStorage.getItem("meemo-user-id"));
+    getBody(userId);
   }, []);
 
   const getBody = async (userId: string | null) => {
-    const res = await axios.get(BASE_URL + "/stickynote");
+    const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
     res.data.forEach((note: any) => {
-      if (note.userId === userId) {
-        setBody(note.body);
-        setNoteId(note._id);
-      }
+      setBody(note.body);
+      setNoteId(note._id);
     });
   };
 
