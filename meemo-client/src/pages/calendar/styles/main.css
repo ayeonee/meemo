@@ -84,11 +84,14 @@
 
 /* min */
 @media (max-width: 476px) {
+  .fc-toolbar-title {
+    font-size: 15px !important;
+  }
   .fc-daygrid-day-number,
   .fc-col-header-cell-cushion,
   .fc-timegrid-slot-label-cushion {
     /* default size */
-    font-size: 6px !important;
+    font-size: 0.5em !important;
   }
   .fc-timegrid-axis-cushion {
     font-size: 8px !important;
@@ -98,6 +101,20 @@
   }
   .fc-event-title {
     font-size: 6px !important;
+  }
+  .fc-button {
+    width: 30px !important;
+    height: 25px !important;
+    font-size: 0.5em !important;
+  }
+  .fc-prev-button,
+  .fc-next-button {
+    width: 25px !important;
+    height: 25px !important;
+  }
+
+  .fc-daygrid-more-link {
+    font-size: 0.1em;
   }
 }
 
