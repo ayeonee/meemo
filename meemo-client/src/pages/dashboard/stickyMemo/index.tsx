@@ -6,30 +6,35 @@ import { UserIdType } from "../../../_types/authTypes";
 import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/StickyMemo.module.scss";
 
+<<<<<<< HEAD
 function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
+=======
+function StickyMemo(): JSX.Element {
+  const [userId, setUserId] = useState<string | null>(
+    localStorage.getItem("meemo-user-id")
+  );
+>>>>>>> feature/calendar-css
   const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
-  // useEffect(() => {
-  //   localStorage.setItem("meemo-user-id", "testmeemo");
-  // }, []);
-
   useEffect(() => {
+<<<<<<< HEAD
     getBody(userIdInfo);
 
     return () => {
       setBody("");
       setNoteId("");
     };
+=======
+    getBody(userId);
+>>>>>>> feature/calendar-css
   }, []);
 
   const getBody = async (userId: string | null) => {
-    const res = await axios.get(BASE_URL + "/stickynote");
+    const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
     res.data.forEach((note: any) => {
-      if (note.userId === userId) {
-        setBody(note.body);
-        setNoteId(note._id);
-      }
+      setBody(note.body);
+      setNoteId(note._id);
     });
   };
 

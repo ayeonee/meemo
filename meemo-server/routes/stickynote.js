@@ -7,6 +7,12 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/user/:userId").get((req, res) => {
+  StickyNote.find({ userId: req.params.userId })
+    .then((notes) => res.json(notes))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/create").post((req, res) => {
   const body = req.body.body;
   const userId = req.body.userId;

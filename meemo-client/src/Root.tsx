@@ -41,6 +41,7 @@ function Root(): JSX.Element {
 
       <Switch>
         {/*배포용*/}
+
         <Route component={Auth(AuthPage, false)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, true)} path="/home" exact />
         <Route component={Auth(BlockPage, undefined)} path="/" exact />
