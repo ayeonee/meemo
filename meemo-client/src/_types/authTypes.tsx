@@ -5,4 +5,5 @@ export type ResponseTypes = {
 
 export type UserIdType = {
   userIdInfo: string | null;
+  modeInfo: string;
 };

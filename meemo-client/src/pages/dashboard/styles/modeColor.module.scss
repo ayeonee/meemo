@@ -1,0 +1,116 @@
+@import "../../../styles/_variables.module.scss";
+
+.recent_modify_dark {
+  background-color: $dark_bg;
+  span {
+    color: $dark_text_3;
+  }
+  p {
+    color: $dark_text_2;
+  }
+}
+.recent_modify_light {
+  background-color: white;
+}
+
+.sticky_memo_dark {
+  background-color: $dark_bg;
+  span {
+    color: $dark_text_3;
+  }
+  .sticky_wrapper_light {
+    background-color: $dark_bg;
+  }
+}
+.sticky_memo_light {
+  background-color: white;
+  span {
+    color: rgb(27, 27, 27);
+  }
+  .sticky_wrapper_light {
+    background-color: white;
+  }
+}
+
+.today_schedule_dark {
+  background-color: $dark_bg;
+  .today_info_dark {
+    color: $dark_text_3;
+  }
+  .schedule_wrapper_dark {
+    background-color: $green_grade_5;
+    color: rgb(27, 27, 27);
+  }
+}
+.today_schedule_light {
+  background-color: white;
+  .today_info_light {
+    color: rgb(27, 27, 27);
+  }
+  .schedule_wrapper_light {
+    background-color: $green_grade_4;
+    color: white;
+  }
+}
+
+.todo_list_dark {
+  background-color: $dark_bg;
+  span {
+    color: $dark_text_3;
+  }
+  .rate_circle_dark {
+    background-color: $dark_bg;
+    h1 {
+      color: $dark_text_3;
+    }
+  }
+  .todo_container_dark {
+    background-color: $dark_bg;
+
+    h2 {
+      color: $dark_text_3;
+    }
+    .todo_info_dark {
+      border-bottom: 1px solid $dark_text_1;
+    }
+    .todo_text_dark {
+      color: $dark_text_3;
+    }
+  }
+}
+
+.todo_list_light {
+  background-color: white;
+  span {
+    color: rgb(27, 27, 27);
+  }
+  .rate_circle_light {
+    background-color: white;
+  }
+  .todo_container_light {
+    background-color: white;
+
+    .todo_info_dark {
+      border-bottom: 1px solid $gray;
+    }
+  }
+}
+
+.weather_dark {
+  background-color: $dark_bg;
+  p,
+  h1,
+  span {
+    color: $dark_text_3;
+  }
+  img {
+  }
+}
+
+.weather_light {
+  background-color: white;
+
+  span {
+    color: rgb(27, 27, 27);
+  }
+}

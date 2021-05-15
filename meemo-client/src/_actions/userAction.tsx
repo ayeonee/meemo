@@ -4,7 +4,7 @@ import {
   AUTH_USER,
   GLOGIN_USER,
   KLOGIN_USER,
-} from "./types";
+} from "../_types/actionTypes";
 import axios from "axios";
 import { BASE_URL } from "../_data/urlData";
 

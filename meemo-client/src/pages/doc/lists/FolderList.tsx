@@ -11,7 +11,7 @@ import DeleteModal from "../modals/DeleteModal";
 
 import { BASE_URL } from "../../../_data/urlData";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_userReducers";
+import { RootState } from "../../../_reducers";
 
 export default function FolderList(): JSX.Element {
   const [folders, setFolders]: any = useState([]);
@@ -29,7 +29,7 @@ export default function FolderList(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const userIdInfo = useSelector(
-    (state: RootState) => state.user.userData.userId
+    (state: RootState) => state.userReducer.userData.userId
   );
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 

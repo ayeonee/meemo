@@ -13,8 +13,9 @@ import UnkownPage from "./pages/unknown";
 import BlockPage from "./pages/block";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "./_userReducers";
-import { authUser } from "./_userActions/userAction";
+import { RootState } from "./_reducers";
+import { authUser } from "./_actions/userAction";
+import { lightModeAction, darkModeAction } from "./_actions/modeAction";
 import { useDispatch } from "react-redux";
 
 // hoc rule
@@ -24,14 +25,23 @@ import { useDispatch } from "react-redux";
 // undefined => block
 
 function Root(): JSX.Element {
+  const modeState = localStorage.getItem("meemo-mode");
   const dispatch = useDispatch<any>();
   const userIdInfo = useSelector(
-    (state: RootState) => state.user.userData.userId
+    (state: RootState) => state.userReducer.userData.userId
   );
 
   useEffect(() => {
     if (userIdInfo === "") {
       dispatch(authUser());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (modeState === "dark") {
+      dispatch(darkModeAction());
+    } else if (modeState === "light") {
+      dispatch(lightModeAction());
     }
   }, []);
 
@@ -41,7 +51,7 @@ function Root(): JSX.Element {
 
       <Switch>
         {/*배포용*/}
-        <Route component={Auth(AuthPage, false)} path="/auth" exact />
+        {/* <Route component={Auth(AuthPage, false)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, true)} path="/home" exact />
         <Route component={Auth(BlockPage, undefined)} path="/" exact />
         <Route component={Auth(TodoPage, true)} path="/todo" exact />
@@ -58,11 +68,11 @@ function Root(): JSX.Element {
           path="/folders/:folderTitle/:noteId"
           exact
         />
-        <Route component={Auth(UnkownPage, null)} path="*" />
+        <Route component={Auth(UnkownPage, null)} path="*" /> */}
 
         {/*테스트용*/}
 
-        {/* <Route component={Auth(AuthPage, null)} path="/auth" exact />
+        <Route component={Auth(AuthPage, null)} path="/auth" exact />
         <Route component={Auth(BlockPage, null)} path="/" exact />
         <Route component={Auth(DashBoardPage, null)} path="/home" exact />
         <Route component={Auth(CalendarPage, null)} path="/calendar" exact />
@@ -79,7 +89,7 @@ function Root(): JSX.Element {
           path="/folders/:folderTitle/:noteId"
           exact
         />
-        <Route component={Auth(UnkownPage, null)} path="*" /> */}
+        <Route component={Auth(UnkownPage, null)} path="*" />
       </Switch>
     </BrowserRouter>
   );

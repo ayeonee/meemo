@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import NavItem from "./NavItem";
+import DarkMode from "../DarkMode";
 import logo from "../../img/logo.svg";
 import logout from "../../img/logout.svg";
 import removeLocalStorage from "../../hooks/removeLocalStorage";
-import style from "./Navigation.module.scss";
+import style from "./styles/Navigation.module.scss";
 import style_hidden from "../../styles/hidden.module.scss";
+import style_mode from "./styles/modeColor.module.scss";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../../_reducers";
 
 function Navigation({ location: { pathname } }: any): JSX.Element {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const userName = localStorage.getItem("meemo-user-name");
   const [media, setMedia] = useState<boolean>(false);
   const [menuColor, setMenuColor] = useState<
@@ -61,7 +67,12 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
       className={
         pathname === "/auth" || pathname === "/"
           ? style_hidden.hidden
-          : style.nav_wrapper
+          : [
+              style.nav_wrapper,
+              modeInfo === "light"
+                ? style_mode.nav_wrapper_light
+                : style_mode.nav_wrapper_dark,
+            ].join(" ")
       }
     >
       <nav className={style.nav_inside}>
@@ -83,20 +94,39 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
           />
         </Link>
 
-        <div className={media ? style.nav_items_on : style.nav_items_off}>
+        <div
+          className={
+            media
+              ? [
+                  style.nav_items_on,
+                  modeInfo === "light"
+                    ? style_mode.nav_items_on_light
+                    : style_mode.nav_items_on_dark,
+                ].join(" ")
+              : style.nav_items_off
+          }
+        >
           <div className={style.nav_menus}>
             {menuColor.map((data) => (
               <NavItem
                 data={data}
                 handleNavColor={handleNavColor}
                 key={data.address}
+                modeInfo={modeInfo}
                 offNav={() => setMedia(false)}
               />
             ))}
           </div>
 
           <div className={style.user_menu}>
-            <p className={style.nav_username}>
+            <p
+              className={[
+                style.nav_username,
+                modeInfo === "light"
+                  ? style_mode.nav_username_light
+                  : style_mode.nav_username_dark,
+              ].join(" ")}
+            >
               {userName !== null && userName.length > 5
                 ? userName.substring(0, 4) + "..."
                 : userName}
@@ -108,8 +138,21 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
                 src={`${logout}`}
                 alt="logout"
               />
-              <button className={style.logout_btn}>로그아웃</button>
+              <button
+                className={[
+                  style.logout_btn,
+                  modeInfo === "light"
+                    ? style_mode.logout_btn_light
+                    : style_mode.logout_btn_dark,
+                ].join(" ")}
+              >
+                로그아웃
+              </button>
             </div>
+          </div>
+
+          <div className={style.dark_mode_wraspper}>
+            <DarkMode />
           </div>
         </div>
       </nav>

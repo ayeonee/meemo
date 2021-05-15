@@ -5,7 +5,7 @@
   align-items: center;
   width: 31%;
   height: 100%;
-  background-color: white;
+
   box-shadow: 1px 2px 6px 2px rgba(56, 56, 56, 0.11);
   border-radius: 3px;
   margin-top: 2%;
@@ -25,14 +25,12 @@
     span {
       font-size: 14px;
       margin: 8px 0 10px 0;
-      color: rgb(27, 27, 27);
     }
   }
 
   .weather_container {
     width: 80%;
     height: 75%;
-    background-color: white;
     margin-top: auto;
     margin-bottom: 12px;
     border-radius: 5px;
@@ -56,12 +54,14 @@
           width: 100px;
           height: 100px;
           margin: 0 auto;
+          border-radius: 50%;
         }
       }
 
       .weather_info {
         @include flex_col;
         width: 50%;
+        margin-left: 10px;
 
         .temperature {
           font-weight: 300;

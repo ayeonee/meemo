@@ -9,7 +9,7 @@ import style from "./styles/Schedule.module.scss";
 import reset from "../../img/reset-icon.svg";
 import { BASE_URL } from "../../_data/urlData";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_userReducers";
+import { RootState } from "../../_reducers";
 
 export default function SchedulePage(): JSX.Element {
   const [allData, setAllData] = useState<AllData>([]);
@@ -17,7 +17,7 @@ export default function SchedulePage(): JSX.Element {
   const [resetDataCheck, setResetDataCheck] = useState<boolean>(false);
   const [deleteDataCheck, setDeleteDataCheck] = useState<boolean>(false);
   const userIdInfo = useSelector(
-    (state: RootState) => state.user.userData.userId
+    (state: RootState) => state.userReducer.userData.userId
   );
 
   const saveSchedule = (payloadData: AllData) => {
