@@ -262,7 +262,7 @@ export default function NoteList() {
                   <div className={style.titleDiv}>{note.title}</div>
                   <div className={style.timeDiv}>
                     <p>
-                      <div className={style.timeMent}>최근 수정 :&nbsp;</div>
+                      최근 수정 :&nbsp;
                       {moment(note.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
                     </p>
                   </div>
