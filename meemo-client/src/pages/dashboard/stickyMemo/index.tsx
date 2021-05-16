@@ -13,11 +13,12 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   const [userId, setUserId] = useState<string | null>("");
   const [gotUserId, setGotUserId] = useState<boolean>(false);
 
+  const [getUserId, setGetUserId] = useState<boolean>(false);
   const [update, setUpdate] = useState<boolean>(false);
 
   useEffect(() => {
-    getUserId();
-  }, []);
+    fetchUserId();
+  }, [getUserId]);
 
   useEffect(() => {
     getBody(userId);
@@ -27,9 +28,9 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
     };
   }, [update]);
 
-  const getUserId = () => {
+  const fetchUserId = () => {
     if (userIdInfo === "") {
-      return;
+      setGetUserId(!getUserId);
     } else {
       setUserId(userIdInfo);
       setGotUserId(true);
