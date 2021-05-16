@@ -11,7 +11,6 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   const [body, setBody] = useState<string>("");
 
   useEffect(() => {
-    console.log("first useEffect");
     getBody(userIdInfo);
 
     return () => {
@@ -28,15 +27,13 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
         setNoteId(note._id);
       });
     } catch {
-      console.log(userIdInfo);
-      const stickymemoInit = {
-        body: "",
-        userId: userIdInfo,
-      };
-      console.log(stickymemoInit);
-      axios
-        .post(BASE_URL + "/stickynote/create", stickymemoInit)
-        .then((res) => console.log(res.data));
+      // const stickymemoInit = {
+      //   body: "",
+      //   userId: userIdInfo,
+      // };
+      // axios
+      //   .post(BASE_URL + "/stickynote/create", stickymemoInit)
+      //   .then((res) => console.log(res.data));
     }
   };
 
