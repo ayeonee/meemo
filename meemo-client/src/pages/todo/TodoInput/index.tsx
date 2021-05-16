@@ -1,14 +1,18 @@
 import React, { useCallback, useState } from "react";
 import { useTodoDispatch } from "../TodosContext";
 import style from "../styles/InputTodo.module.scss";
+import { Mode } from "../../../_types/authTypes";
 
-export default function InputTodo(): JSX.Element {
+export default function InputTodo({ modeInfo }: Mode): JSX.Element {
   const [input, setInput] = useState<string>("");
   const dispatch = useTodoDispatch();
 
-  const onChangeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  }, []);
+  const onChangeInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInput(e.target.value);
+    },
+    []
+  );
 
   const addTodoData = useCallback(
     (e: React.FormEvent) => {
@@ -35,7 +39,16 @@ export default function InputTodo(): JSX.Element {
         value={input}
         onChange={onChangeInput}
       />
-      <button className={style.todo_input_button}>+</button>
+      <button
+        className={[
+          style.todo_input_button,
+          modeInfo === "light"
+            ? style.todo_input_button_light
+            : style.todo_input_button_dark,
+        ].join(" ")}
+      >
+        +
+      </button>
     </form>
   );
 }

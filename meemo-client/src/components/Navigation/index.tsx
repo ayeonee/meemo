@@ -4,7 +4,9 @@ import axios from "axios";
 import NavItem from "./NavItem";
 import DarkMode from "../DarkMode";
 import logo from "../../img/logo.svg";
+import logoDark from "../../img/logo_dark.svg";
 import logout from "../../img/logout.svg";
+import logoutDark from "../../img/logout_dark.svg";
 import removeLocalStorage from "../../hooks/removeLocalStorage";
 import style from "./styles/Navigation.module.scss";
 import style_hidden from "../../styles/hidden.module.scss";
@@ -55,7 +57,11 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
   };
 
   const onClickBurger = () => {
-    media ? setMedia(false) : setMedia(true);
+    if (media) {
+      setMedia(false);
+    } else {
+      setMedia(true);
+    }
   };
 
   useEffect(() => {
@@ -88,7 +94,7 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
         <Link to="/home">
           <img
             className={style.logo}
-            src={`${logo}`}
+            src={modeInfo === "light" ? `${logo}` : `${logoDark}`}
             alt="logo"
             onClick={() => handleNavColor("/home")}
           />
@@ -100,10 +106,15 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
               ? [
                   style.nav_items_on,
                   modeInfo === "light"
-                    ? style_mode.nav_items_on_light
-                    : style_mode.nav_items_on_dark,
+                    ? style_mode.nav_items_light
+                    : style_mode.nav_items_dark,
                 ].join(" ")
-              : style.nav_items_off
+              : [
+                  style.nav_items_off,
+                  modeInfo === "light"
+                    ? style_mode.nav_items_light
+                    : style_mode.nav_items_dark,
+                ].join(" ")
           }
         >
           <div className={style.nav_menus}>
@@ -135,7 +146,7 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
             <div onClick={onClickLogout} className={style.logout_wrapper}>
               <img
                 className={style.logout_icon}
-                src={`${logout}`}
+                src={modeInfo === "light" ? `${logout}` : `${logoutDark}`}
                 alt="logout"
               />
               <button
@@ -152,7 +163,7 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
           </div>
 
           <div className={style.dark_mode_wraspper}>
-            <DarkMode />
+            <DarkMode pathname={pathname} />
           </div>
         </div>
       </nav>

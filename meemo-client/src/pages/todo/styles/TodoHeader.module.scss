@@ -5,8 +5,6 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background-color: $green_grade_4;
-  color: white;
   padding: 10px 0 10px 0;
 
   .todo_header_front {
@@ -33,6 +31,10 @@
     align-items: center;
     cursor: pointer;
 
+    &:hover {
+      transform: translate(0, -1px);
+    }
+
     &:active {
       transform: none;
     }
@@ -41,16 +43,14 @@
       margin: 3px 2px 0 0;
       width: 11px;
       height: 11px;
-      transform: rotate(-120deg);
     }
 
     .todo_reset {
       width: fit-content;
       height: fit-content;
       padding: 3px 3px 0 3px;
-      color: white;
       font-size: 13px;
-      font-weight: 400;
+      font-weight: 500;
       border-style: none;
       background-color: transparent;
     }

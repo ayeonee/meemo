@@ -5,7 +5,7 @@ import style from "./darkmode.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../_reducers";
 
-export default function DarkMode(): JSX.Element {
+export default function DarkMode({ pathname }: any): JSX.Element {
   const dispatch = useDispatch<any>();
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const [modeToggle, setModeToggle] = useState<string>("light");
@@ -27,10 +27,14 @@ export default function DarkMode(): JSX.Element {
   }, [modeInfo]);
 
   useEffect(() => {
-    if (localStorage.getItem("meemo-mode") === "dark") {
-      document.body.style.backgroundColor = "rgb(53, 54, 58)";
-    } else {
+    if (pathname === "/auth" || pathname === "/") {
       document.body.style.backgroundColor = "white";
+    } else {
+      if (localStorage.getItem("meemo-mode") === "dark") {
+        document.body.style.backgroundColor = "rgb(53, 54, 58)";
+      } else {
+        document.body.style.backgroundColor = "white";
+      }
     }
   }, []);
 

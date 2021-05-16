@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AllData } from "../../../_types/scheduleTypes";
 import { BASE_URL } from "../../../_data/urlData";
-import { UserIdType } from "../../../_types/authTypes";
+import { Mode, UserIdType } from "../../../_types/authTypes";
 import axios from "axios";
 import style from "../styles/TodaySchedule.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
@@ -17,7 +17,10 @@ type ScheduleInfo = {
   endMin: number;
 };
 
-function TodaySchedule({ userIdInfo, modeInfo }: UserIdType): JSX.Element {
+function TodaySchedule({
+  userIdInfo,
+  modeInfo,
+}: UserIdType & Mode): JSX.Element {
   const history = useHistory();
   const date = new Date();
   const today = date.getDay(); //일:0~토:6

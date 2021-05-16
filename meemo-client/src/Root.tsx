@@ -73,7 +73,7 @@ function Root(): JSX.Element {
         {/*테스트용*/}
 
         <Route component={Auth(AuthPage, null)} path="/auth" exact />
-        <Route component={Auth(BlockPage, null)} path="/" exact />
+        <Route component={Auth(BlockPage, undefined)} path="/" exact />
         <Route component={Auth(DashBoardPage, null)} path="/home" exact />
         <Route component={Auth(CalendarPage, null)} path="/calendar" exact />
         <Route component={Auth(SchedulePage, null)} path="/schedule" exact />

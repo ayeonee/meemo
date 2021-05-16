@@ -25,7 +25,7 @@
 .sticky_memo_light {
   background-color: white;
   span {
-    color: rgb(27, 27, 27);
+    color: $dark_text_b;
   }
   .sticky_wrapper_light {
     background-color: white;
@@ -39,13 +39,13 @@
   }
   .schedule_wrapper_dark {
     background-color: $green_grade_5;
-    color: rgb(27, 27, 27);
+    color: $dark_text_b;
   }
 }
 .today_schedule_light {
   background-color: white;
   .today_info_light {
-    color: rgb(27, 27, 27);
+    color: $dark_text_b;
   }
   .schedule_wrapper_light {
     background-color: $green_grade_4;
@@ -82,7 +82,7 @@
 .todo_list_light {
   background-color: white;
   span {
-    color: rgb(27, 27, 27);
+    color: $dark_text_b;
   }
   .rate_circle_light {
     background-color: white;
@@ -103,14 +103,12 @@
   span {
     color: $dark_text_3;
   }
-  img {
-  }
 }
 
 .weather_light {
   background-color: white;
 
   span {
-    color: rgb(27, 27, 27);
+    color: $dark_text_b;
   }
 }

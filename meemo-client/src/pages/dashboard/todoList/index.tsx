@@ -5,10 +5,10 @@ import style_mode from "../styles/modeColor.module.scss";
 import axios from "axios";
 import AchievementRate from "./achievementRate";
 import { Todo } from "../../../_types/todoTypes";
-import { UserIdType } from "../../../_types/authTypes";
+import { Mode, UserIdType } from "../../../_types/authTypes";
 import { BASE_URL } from "../../../_data/urlData";
 
-function TodoList({ userIdInfo, modeInfo }: UserIdType): JSX.Element {
+function TodoList({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   const [todoList, setTodoList] = useState<Todo[]>([]);
   const [checkedTodo, setCheckedTodo] = useState<
     {

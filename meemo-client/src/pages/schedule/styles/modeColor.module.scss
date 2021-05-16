@@ -1,0 +1,106 @@
+@import "../../../styles/_variables.module.scss";
+
+.table_light {
+  color: white;
+}
+.table_light_second {
+  color: $dark_text_3;
+}
+.table_dark {
+  color: $dark_text_b;
+}
+
+.schedule_item_light {
+  background-color: white;
+  p {
+    color: $dark_text_b;
+  }
+}
+.schedule_item_dark {
+  background-color: rgb(35, 36, 39);
+  p {
+    color: $dark_text_2;
+  }
+}
+
+.blur_background_dark {
+  background-color: rgba(0, 0, 0, 0.6);
+  .input_wrapper_dark {
+    background-color: $dark_default;
+    .input_content_dark {
+      color: $dark_text_3;
+      &::placeholder {
+        color: $dark_text_2;
+      }
+    }
+    .input_title_dark {
+      color: $dark_text_3;
+    }
+    .input_box_button_dark {
+      color: $dark_text_b;
+    }
+    .day_check_true_dark,
+    .day_check_dark {
+      &:hover {
+        color: black;
+      }
+    }
+    .day_check_true_dark {
+      color: black;
+    }
+    .day_check_dark {
+      color: rgba(10, 10, 10, 0.671);
+    }
+    .select_wrapper_dark {
+      select,
+      h4 {
+        color: $dark_text_2;
+      }
+    }
+  }
+}
+.input_button_dark {
+  background-color: $green_grade_5;
+  color: $dark_text_b;
+}
+.blur_background_light {
+  background-color: rgba(36, 36, 36, 0.144);
+  .input_wrapper_light {
+    background-color: white;
+    .input_content_light {
+      color: $dark_text_b;
+
+      &::placeholder {
+        color: $dark_text_1;
+      }
+    }
+    .input_title_light {
+      color: $dark_text_b;
+    }
+    .input_box_button_light {
+      color: white;
+    }
+    .day_check_true_light,
+    .day_check_light {
+      &:hover {
+        color: white;
+      }
+    }
+    .day_check_true_light {
+      color: white;
+    }
+    .day_check_light {
+      color: rgba(10, 10, 10, 0.486);
+    }
+    .select_wrapper_light {
+      select,
+      h4 {
+        color: $dark_text_b;
+      }
+    }
+  }
+}
+.input_button_light {
+  background-color: $green_grade_4;
+  color: white;
+}

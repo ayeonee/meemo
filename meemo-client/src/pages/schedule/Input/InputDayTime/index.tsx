@@ -21,7 +21,6 @@ interface InputDayTimeProps {
 const InputDayTime: React.FC<InputDayTimeProps> = forwardRef(
   ({ index, onChangeTime, schedule, removeDayTime }, ref) => {
     const [daysArray, setDaysArray] = useState(daysData);
-
     const handleClick = useCallback(
       (e) => {
         onChangeTime(index, "date", e.target.value);

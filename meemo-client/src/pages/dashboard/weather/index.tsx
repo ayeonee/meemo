@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 import { weatherData } from "../../../_data/weatherData";
 import style from "../styles/Weather.module.scss";
-import { UserIdType } from "../../../_types/authTypes";
+import { Mode } from "../../../_types/authTypes";
 import style_mode from "../styles/modeColor.module.scss";
 import Geocode from "react-geocode";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY!;
 
-interface ModeInfoProps {
-  modeInfo: string;
-}
-function Weather({ modeInfo }: ModeInfoProps): JSX.Element {
+function Weather({ modeInfo }: Mode): JSX.Element {
   const [weatherInfo, setWeatherInfo] = useState({
     temperature: "",
     temp_max: "",

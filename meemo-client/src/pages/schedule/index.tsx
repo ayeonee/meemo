@@ -3,22 +3,24 @@ import { AllData, Data } from "../../_types/scheduleTypes";
 import useConfirm from "../../hooks/useConfirm";
 import axios from "axios";
 import InputButton from "./Input/InputButton";
-import ScheduleList from "./Schedule/ScheduleList";
+import ScheduleList from "./Schedule";
 import TimeTable from "./TimeTable";
 import style from "./styles/Schedule.module.scss";
 import reset from "../../img/reset-icon.svg";
+import resetDark from "../../img/reset-icon_dark.svg";
 import { BASE_URL } from "../../_data/urlData";
 import { useSelector } from "react-redux";
 import { RootState } from "../../_reducers";
 
 export default function SchedulePage(): JSX.Element {
+  const userIdInfo = useSelector(
+    (state: RootState) => state.userReducer.userData.userId
+  );
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const [allData, setAllData] = useState<AllData>([]);
   const [addDataCheck, setAddDataCheck] = useState<boolean>(false);
   const [resetDataCheck, setResetDataCheck] = useState<boolean>(false);
   const [deleteDataCheck, setDeleteDataCheck] = useState<boolean>(false);
-  const userIdInfo = useSelector(
-    (state: RootState) => state.userReducer.userData.userId
-  );
 
   const saveSchedule = (payloadData: AllData) => {
     axios({
@@ -130,8 +132,19 @@ export default function SchedulePage(): JSX.Element {
     <div className={style.schedule}>
       <div className={style.time_line_wrapper}>
         <InputButton addData={addData} allData={allData} />
-        <div className={style.reset_button} onClick={resetAllSchedule}>
-          <img src={`${reset}`} alt="reset icon" />
+        <div
+          className={[
+            style.reset_button,
+            modeInfo === "light"
+              ? style.reset_button_light
+              : style.reset_button_dark,
+          ].join(" ")}
+          onClick={resetAllSchedule}
+        >
+          <img
+            src={modeInfo === "light" ? `${reset}` : `${resetDark}`}
+            alt="reset icon"
+          />
         </div>
         <div className={style.schedule_list_wrapper}>
           <TimeTable />

@@ -4,14 +4,13 @@
   @include flex_col;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: transparent;
   width: 85%;
   text-align: center;
 
   .table_header {
     font-size: 18px;
     font-weight: 400;
-    color: white;
     background-color: $green_grade_4;
     width: 100%;
     height: 50px;
@@ -42,7 +41,6 @@
     tbody {
       tr {
         .time {
-          color: rgb(27, 27, 27);
           font-size: 14px;
           font-weight: 400;
           width: 14.275%;
