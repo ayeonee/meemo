@@ -20,11 +20,21 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   }, []);
 
   const getBody = async (userId: string | null) => {
-    const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
-    res.data.forEach((note: any) => {
-      setBody(note.body);
-      setNoteId(note._id);
-    });
+    try {
+      const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
+      res.data.forEach((note: any) => {
+        setBody(note.body);
+        setNoteId(note._id);
+      });
+    } catch {
+      const noteInfo = {
+        body: "",
+        userId: userId,
+      };
+      axios
+        .post(BASE_URL + "/stickynote/create", noteInfo)
+        .then((res) => console.log(res.data));
+    }
   };
 
   const handleChange = debounce((value) => {
