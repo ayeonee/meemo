@@ -17,7 +17,8 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   useEffect(() => {
     setUserId(userIdInfo);
 
-    if (userId !== "") {
+    if (userId === "") {
+    } else {
       setUpdate(!update);
       console.log("update triggered");
     }
