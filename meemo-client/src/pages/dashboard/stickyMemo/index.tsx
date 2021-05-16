@@ -18,10 +18,12 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
 
   useEffect(() => {
     fetchUserId();
+    console.log("1st useEffect");
   }, [getUserId]);
 
   useEffect(() => {
     getBody(userId);
+    console.log("2nd useEffect");
     return () => {
       setBody("");
       setNoteId("");
@@ -29,6 +31,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   }, [update]);
 
   const fetchUserId = () => {
+    console.log("fetUserId, userIdInfo: " + userIdInfo);
     if (userIdInfo === "") {
       setGetUserId(!getUserId);
     } else {
@@ -39,6 +42,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   };
 
   const getBody = async (userId: string | null) => {
+    console.log("getBody, gotUserId: " + gotUserId);
     if (gotUserId === true) {
       try {
         const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
