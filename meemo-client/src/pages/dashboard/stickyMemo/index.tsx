@@ -27,12 +27,14 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
         setNoteId(note._id);
       });
     } catch {
-      const noteInfo = {
+      console.log(userId);
+      const stickymemoInit = {
         body: "",
         userId: userId,
       };
+      console.log(stickymemoInit);
       axios
-        .post(BASE_URL + "/stickynote/create", noteInfo)
+        .post(BASE_URL + "/stickynote/create", stickymemoInit)
         .then((res) => console.log(res.data));
     }
   };
