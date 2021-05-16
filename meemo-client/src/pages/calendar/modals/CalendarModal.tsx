@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import style from "../styles/CalendarModal.module.scss";
 import RMDEditor from "rich-markdown-editor";
@@ -34,6 +34,8 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const [startTime, setStartTime] = useState<string>(selectInfo.startTime);
   const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
   const [editorBody, setEditorBody] = useState<string>(selectInfo.body);
+
+  const note: any = useRef();
 
   const removeSchedule = useConfirm(
     "일정을 삭제 하시겠습니까?",
@@ -172,9 +174,20 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               )}
             </div>
           </div>
-          <div className={style.noteDiv}>
+          {/* 여기서 noteDiv만 클릭했을 때 되도록. 이미 쓴 글 클릭 시 focusAtEnd로 넘어가는 현상 발생. */}
+          <div
+            id="noteDiv"
+            className={style.noteDiv}
+            onClick={(e) => {
+              if (e.target === e.target) {
+                note.current.focusAtEnd();
+              }
+              console.log(e);
+            }}
+          >
             <RMDEditor
               id="example"
+              ref={note}
               readOnly={false}
               readOnlyWriteCheckboxes
               // value={}

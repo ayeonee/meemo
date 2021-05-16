@@ -38,10 +38,10 @@ router.route("/:id").put((req, res) => {
 });
 
 //회원탈퇴 시 가져가세요
-// router.route("/:id").delete((req, res) => {
-//   Note.findByIdAndDelete(req.params.id)
-//     .then(() => res.json("Note deleted."))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
+router.route("/:id").delete((req, res) => {
+  StickyNote.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Note deleted."))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 module.exports = router;

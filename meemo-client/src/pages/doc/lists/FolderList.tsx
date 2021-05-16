@@ -31,7 +31,7 @@ export default function FolderList(): JSX.Element {
   const userIdInfo = useSelector(
     (state: RootState) => state.user.userData.userId
   );
-  const [userId, setUserId] = useState<string | null>(userIdInfo);
+  const [userId, setUserId] = useState<string | null>("testmeemo");
 
   let { url } = useRouteMatch();
   let history = useHistory();
@@ -109,18 +109,32 @@ export default function FolderList(): JSX.Element {
   };
 
   const addFolder = async (t: string) => {
+    let title = t;
+    let i = 1;
     try {
-      const folder = {
-        title: `${t}`,
-        userId: userId,
-      };
+      while (true) {
+        const res = await axios.get(
+          BASE_URL + `/folders/userTitle/${userId}/${title}`
+        );
 
-      axios
-        .post(BASE_URL + "/folders/create", folder)
-        .then(() => setUpdate(!update))
-        .then(() => console.log("New folder added!"))
-        .then(() => setShowPopup(!showPopup))
-        .then(() => setSelectedFolder(""));
+        if (res.data.length === 0) {
+          const folder = {
+            title: `${title}`,
+            userId: userId,
+          };
+          axios
+            .post(BASE_URL + "/folders/create", folder)
+            .then(() => setUpdate(!update))
+            .then(() => console.log("New folder added!"))
+            .then(() => setShowPopup(!showPopup))
+            .then(() => setSelectedFolder(""));
+
+          break;
+        } else {
+          title = `${t} ${i}`;
+          i = i + 1;
+        }
+      }
     } catch (err) {
       throw err;
     }

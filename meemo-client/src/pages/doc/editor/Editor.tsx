@@ -65,7 +65,9 @@ export default function Editor(): JSX.Element {
       });
 
       if (res.data === null) {
-        // 에러
+        history.push({
+          pathname: "/error",
+        });
       } else {
         setValue(res.data.body);
         setNoteTitle(res.data.title);

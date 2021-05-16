@@ -65,7 +65,7 @@
 }
 
 .fc-button-primary:disabled {
-  background-color: var(--green_grade_2) !important;
+  background-color: var(--gray) !important;
 }
 .fc-button {
   background-color: var(--green_grade_4) !important;

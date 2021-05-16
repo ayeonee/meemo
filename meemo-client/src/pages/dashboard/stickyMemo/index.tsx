@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import RMDEditor from "rich-markdown-editor";
 import axios from "axios";
 import debounce from "lodash/debounce";
@@ -10,12 +10,17 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
+  const editor: any = useRef();
+
+  let source = axios.CancelToken.source();
+
   useEffect(() => {
     getBody(userIdInfo);
 
     return () => {
       setBody("");
       setNoteId("");
+      source.cancel();
     };
   }, []);
 
@@ -28,7 +33,6 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   };
 
   const handleChange = debounce((value) => {
-    let source = axios.CancelToken.source();
     const noteInfo = {
       body: `${value()}`,
     };
@@ -50,9 +54,13 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
       <div className={style.sub_title}>
         <span>간단한 메모를 작성할 수 있습니다.</span>
       </div>
-      <div className={style.sticky_wrapper}>
+      <div
+        className={style.sticky_wrapper}
+        onClick={() => editor.current.focusAtEnd()}
+      >
         <RMDEditor
-          id="example"
+          id="stickymemo"
+          ref={editor}
           readOnly={false}
           readOnlyWriteCheckboxes
           value={body}

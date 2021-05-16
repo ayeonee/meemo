@@ -72,17 +72,14 @@ export default function NoteList() {
       setSelectedNote("");
       setNoteTitle("");
       setNotes([]);
+      source.cancel();
     };
   }, []);
 
   useEffect(() => {
     getParentId();
-    return () => {
-      source.cancel();
-    };
   }, []);
 
-  // 여기서 parentId 를 못불러오는 문제 loadNotes를 parentId 로딩될때까지 다른곳에 두거나 해야됨
   useEffect(() => {
     if (gotFolderId === true) {
       loadNotes();
