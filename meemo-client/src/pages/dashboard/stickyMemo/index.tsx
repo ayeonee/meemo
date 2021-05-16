@@ -26,7 +26,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   }, [update]);
 
   const fetchUserId = () => {
-    if (userIdInfo === "") {
+    if (userIdInfo === "" || undefined) {
       setGetUserId(!getUserId);
     } else {
       setGotUserId(true);
