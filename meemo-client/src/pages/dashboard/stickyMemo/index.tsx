@@ -45,6 +45,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
     console.log("getBody, gotUserId: " + gotUserId);
     if (gotUserId === true) {
       try {
+        console.log("try fetching memo for user: " + userId);
         const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
         res.data.forEach((note: any) => {
           setBody(note.body);
@@ -55,6 +56,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
           body: "",
           userId: userIdInfo,
         };
+        console.log("post new memo: " + stickymemoInit);
         axios
           .post(BASE_URL + "/stickynote/create", stickymemoInit)
           .then((res) => console.log(res.data));
