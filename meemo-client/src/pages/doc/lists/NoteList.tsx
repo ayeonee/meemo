@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouteMatch, useHistory, useParams } from "react-router-dom";
 
 import axios from "axios";
+import moment from "moment";
 import style from "../styles/NoteList.module.scss";
 import { Add, Delete, Notes, Create } from "@material-ui/icons";
 
@@ -24,11 +25,6 @@ const onlyLet = (str: string) => {
   return rem;
 };
 
-const setTime = (utcTime: any) => {
-  const localTime = new Date(utcTime).toLocaleString();
-  return localTime;
-};
-
 export default function NoteList() {
   const [notes, setNotes]: any = useState([]);
   const [selectedNote, setSelectedNote] = useState<string>("");
@@ -45,9 +41,7 @@ export default function NoteList() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const userIdInfo = useSelector(
-    (state: RootState) => state.user.userData.userId
-  );
+  const userIdInfo = useSelector((state: RootState) => state.user.userData.userId);
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url }: any = useRouteMatch();
@@ -91,12 +85,9 @@ export default function NoteList() {
 
   const loadNotes = async () => {
     try {
-      const res = await axios.get(
-        BASE_URL + `/notes/userParent/${userId}/${folderId}`,
-        {
-          cancelToken: source.token,
-        }
-      );
+      const res = await axios.get(BASE_URL + `/notes/userParent/${userId}/${folderId}`, {
+        cancelToken: source.token,
+      });
       if (res.data.length === 0) {
         setNotes([]);
         setIsLoading(false);
@@ -120,12 +111,9 @@ export default function NoteList() {
 
   const getParentId = async () => {
     try {
-      const res = await axios.get(
-        BASE_URL + `/folders/userTitle/${userId}/${folderTitle}`,
-        {
-          cancelToken: source.token,
-        }
-      );
+      const res = await axios.get(BASE_URL + `/folders/userTitle/${userId}/${folderTitle}`, {
+        cancelToken: source.token,
+      });
       if (res.data.length === 0) {
         history.push({
           pathname: "/error",
@@ -240,11 +228,8 @@ export default function NoteList() {
         <LoaderSpinner />
       ) : (
         <>
-          <RouteShow
-            folderId={""}
-            type="notelist"
-            folderTitle={folderTitle}
-            noteTitle=""
+          <RouteShow 
+            folderId={""} type="notelist" folderTitle={folderTitle} noteTitle="" 
           />
           <div className={style.noteContainer}>
             <div className={style.noteDiv}>
@@ -252,25 +237,20 @@ export default function NoteList() {
                 <div
                   key={note._id}
                   id={`noDeselect`}
-                  className={
-                    selectedNote === note._id
-                      ? style.notesSelected
-                      : style.notes
-                  }
+                  className={selectedNote === note._id ? style.notesSelected : style.notes}
                   onClick={() => {
                     onSelect(note);
                   }}
                 >
-                  <div className={style.note_front}>
-                    <div className={style.iconDiv}>
-                      <Notes className={style.noteIcon} />
-                    </div>
-                    <div className={style.titleDiv}>
-                      <p>{note.title}</p>
-                    </div>
+                  <div className={style.iconDiv}>
+                    <Notes className={style.noteIcon} />
                   </div>
+                  <div className={style.titleDiv}>{note.title}</div>
                   <div className={style.timeDiv}>
-                    <small>최근 수정: {setTime(note.updatedAt)}</small>
+                    <p>
+                      <div className={style.timeMent}>최근 수정 :&nbsp;</div>
+                      {moment(note.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
+                    </p>
                   </div>
                 </div>
               ))}

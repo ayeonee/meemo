@@ -36,49 +36,52 @@
         border: solid 1px $green_grade_2;
         border-radius: 3px;
         margin: 3px 0;
-        @include flex_row;
-        justify-content: space-between;
+        display: flex;
+        align-items: center;
         width: 100%;
         height: 50px;
+        pointer-events: none;
 
-        .note_front {
-          @include flex_row;
+        .iconDiv {
+          height: 100%;
+          width: 50px;
           pointer-events: none;
-          .iconDiv {
-            height: 100%;
-            width: 50px;
+
+          .noteIcon {
+            width: 30px;
+            height: 30px;
+            margin-top: 10px;
+            margin-left: 10px;
             pointer-events: none;
-
-            .noteIcon {
-              width: 30px;
-              height: 30px;
-              margin-top: 10px;
-              margin-left: 10px;
-              pointer-events: none;
-            }
           }
+        }
 
-          .titleDiv {
-            display: flex;
-            align-items: center;
-            pointer-events: none;
+        .titleDiv {
+          flex: 1;
+          justify-content: center;
+          pointer-events: none;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
+          -ms-text-overflow: ellipsis;
 
-            p {
-              font-size: 1.1rem;
-              margin-left: 5px;
-              pointer-events: none;
-            }
-          }
+          font-size: 1.1rem;
+          margin-left: 5px;
+          pointer-events: none;
         }
 
         .timeDiv {
           display: flex;
           align-items: center;
+          justify-content: flex-end;
           pointer-events: none;
+          min-width: 150px;
           margin-right: 15px;
 
-          small {
-            font-size: 7px;
+          p {
+            @include flex_row;
+            font-size: 10px;
             color: rgb(17, 17, 17);
             font-weight: 500;
             pointer-events: none;
@@ -189,10 +192,27 @@
 }
 
 @include min {
-  .noteContainer {
-    width: 325px;
+  .noteList {
+    .noteContainer {
+      width: 325px;
+
+      .noteDiv {
+        .notes,
+        .notesSelected {
+          .timeDiv {
+            min-width: 105px;
+            margin-right: 10px;
+
+            p .timeMent {
+              display: none;
+            }
+          }
+        }
+      }
+    }
   }
 }
+
 @include mobile {
   .noteContainer {
     width: 80%;
