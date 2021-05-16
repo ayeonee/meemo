@@ -7,10 +7,10 @@ import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/StickyMemo.module.scss";
 
 function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
-  const [noteId, setNoteId] = useState<string>("");
+  // const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
-  const [userId, setUserId] = useState<string | null>("");
+  // const [userId, setUserId] = useState<string | null>("");
   const [gotUserId, setGotUserId] = useState<boolean>(false);
 
   const [getUserId, setGetUserId] = useState<boolean>(false);
@@ -22,11 +22,11 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   }, [getUserId]);
 
   useEffect(() => {
-    getBody(userId);
+    getBody(userIdInfo);
     console.log("2nd useEffect");
     return () => {
       setBody("");
-      setNoteId("");
+      // setNoteId("");
     };
   }, [update]);
 
@@ -35,7 +35,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
     if (userIdInfo === "") {
       setGetUserId(!getUserId);
     } else {
-      setUserId(userIdInfo);
+      // setUserId(userIdInfo);
       setGotUserId(true);
       setUpdate(!update);
     }
@@ -59,7 +59,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
         } else {
           res.data.forEach((note: any) => {
             setBody(note.body);
-            setNoteId(note._id);
+            // setNoteId(note._id);
           });
         }
       } catch (err) {
@@ -75,7 +75,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
     };
     try {
       axios
-        .put(BASE_URL + "/stickynote/" + noteId, noteInfo, {
+        .put(BASE_URL + "/stickynote/userId" + userIdInfo, noteInfo, {
           cancelToken: source.token,
         })
         .then((res) => console.log(res.data));
