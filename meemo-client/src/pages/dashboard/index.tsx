@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import style from "./styles/DashBoard.module.scss";
 import Weather from "./weather";
 import StickyMemo from "./stickyMemo";
@@ -12,10 +11,6 @@ export default function DashBoardPage(): JSX.Element {
   const userIdInfo = useSelector(
     (state: RootState) => state.user.userData.userId
   );
-
-  useEffect(() => {
-    console.log(userIdInfo);
-  }, []);
 
   return (
     <div className={style.dashboard_wrapper}>

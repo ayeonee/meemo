@@ -13,6 +13,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   useEffect(() => {
     getBody(userIdInfo);
 
+    console.log(userIdInfo);
     return () => {
       setBody("");
       setNoteId("");
