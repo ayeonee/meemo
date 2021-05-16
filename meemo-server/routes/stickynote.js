@@ -31,8 +31,11 @@ router.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/:id").put((req, res) => {
-  StickyNote.findOneAndUpdate({ _id: req.params.id }, { body: req.body.body })
+router.route("/user/:userId").put((req, res) => {
+  StickyNote.findOneAndUpdate(
+    { userId: req.params.userId },
+    { body: req.body.body }
+  )
     .then(() => res.json("Note Updated!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
