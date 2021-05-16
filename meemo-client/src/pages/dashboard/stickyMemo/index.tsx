@@ -11,6 +11,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   const [body, setBody] = useState<string>("");
 
   useEffect(() => {
+    console.log("first useEffect");
     getBody(userIdInfo);
 
     return () => {
@@ -27,10 +28,10 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
         setNoteId(note._id);
       });
     } catch {
-      console.log(userId);
+      console.log(userIdInfo);
       const stickymemoInit = {
         body: "",
-        userId: userId,
+        userId: userIdInfo,
       };
       console.log(stickymemoInit);
       axios
