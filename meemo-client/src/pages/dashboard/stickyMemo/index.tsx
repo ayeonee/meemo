@@ -35,24 +35,22 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   }, [update]);
 
   const getBody = async (userId: string | null) => {
-    if (update === true) {
-      console.log("getbody triggered");
-      console.log(userId);
-      try {
-        const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
-        res.data.forEach((note: any) => {
-          setBody(note.body);
-          setNoteId(note._id);
-        });
-      } catch {
-        // const stickymemoInit = {
-        //   body: "",
-        //   userId: userIdInfo,
-        // };
-        // axios
-        //   .post(BASE_URL + "/stickynote/create", stickymemoInit)
-        //   .then((res) => console.log(res.data));
-      }
+    console.log("getbody triggered");
+
+    try {
+      const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
+      res.data.forEach((note: any) => {
+        setBody(note.body);
+        setNoteId(note._id);
+      });
+    } catch {
+      const stickymemoInit = {
+        body: "",
+        userId: userIdInfo,
+      };
+      axios
+        .post(BASE_URL + "/stickynote/create", stickymemoInit)
+        .then((res) => console.log(res.data));
     }
   };
 
