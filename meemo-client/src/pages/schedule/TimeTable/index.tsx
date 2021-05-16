@@ -36,8 +36,8 @@ export default function TimeLine(): JSX.Element {
                 className={[
                   style.time,
                   modeInfo === "light"
-                    ? style_mode.table_dark
-                    : style_mode.table_light_second,
+                    ? style_mode.table_text_dark
+                    : style_mode.table_text_light,
                 ].join(" ")}
               >
                 {data < 10 ? `0${data}` : data}시

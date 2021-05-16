@@ -2,11 +2,16 @@
 
 .table_light {
   color: white;
+  background-color: $green_grade_4;
 }
-.table_light_second {
+.table_text_light {
   color: $dark_text_3;
 }
 .table_dark {
+  color: $dark_text_b;
+  background-color: $green_grade_5;
+}
+.table_text_dark {
   color: $dark_text_b;
 }
 
