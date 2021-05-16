@@ -75,7 +75,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
     };
     try {
       axios
-        .put(BASE_URL + "/stickynote/userId/" + userIdInfo, noteInfo, {
+        .put(BASE_URL + "/stickynote/user/" + userIdInfo, noteInfo, {
           cancelToken: source.token,
         })
         .then((res) => console.log(res.data));
