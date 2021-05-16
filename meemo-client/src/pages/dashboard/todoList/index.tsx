@@ -5,7 +5,8 @@ import style_mode from "../styles/modeColor.module.scss";
 import axios from "axios";
 import AchievementRate from "./achievementRate";
 import { Todo } from "../../../_types/todoTypes";
-import { Mode, UserIdType } from "../../../_types/authTypes";
+import { UserIdType } from "../../../_types/authTypes";
+import { Mode } from "../../../_types/modeTypes";
 import { BASE_URL } from "../../../_data/urlData";
 
 function TodoList({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
