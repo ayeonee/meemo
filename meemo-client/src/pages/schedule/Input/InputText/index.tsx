@@ -1,4 +1,4 @@
-import { Mode } from "../../../../_types/authTypes";
+import { Mode } from "../../../../_types/modeTypes";
 import { Input } from "../../../../_types/scheduleTypes";
 import style from "../../styles/InputBoxStyle.module.scss";
 import style_mode from "../../styles/modeColor.module.scss";

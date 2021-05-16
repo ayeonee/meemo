@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { weatherData } from "../../../_data/weatherData";
 import style from "../styles/Weather.module.scss";
-import { Mode } from "../../../_types/authTypes";
+import { Mode } from "../../../_types/modeTypes";
 import style_mode from "../styles/modeColor.module.scss";
 import Geocode from "react-geocode";
 

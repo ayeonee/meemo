@@ -5,7 +5,8 @@ import style_mode from "../styles/modeColor.module.scss";
 import style from "../styles/RecentModify.module.scss";
 import axios from "axios";
 import moment from "moment";
-import { UserIdType, Mode } from "../../../_types/authTypes";
+import { UserIdType } from "../../../_types/authTypes";
+import { Mode } from "../../../_types/modeTypes";
 import { Notes } from "@material-ui/icons";
 
 type NoteInfo = {

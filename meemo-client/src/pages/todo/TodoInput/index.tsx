@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useTodoDispatch } from "../TodosContext";
 import style from "../styles/InputTodo.module.scss";
-import { Mode } from "../../../_types/authTypes";
+import { Mode } from "../../../_types/modeTypes";
 
 export default function InputTodo({ modeInfo }: Mode): JSX.Element {
   const [input, setInput] = useState<string>("");
