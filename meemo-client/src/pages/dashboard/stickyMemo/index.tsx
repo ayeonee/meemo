@@ -47,19 +47,23 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
       try {
         console.log("try fetching memo for user: " + userId);
         const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
-        res.data.forEach((note: any) => {
-          setBody(note.body);
-          setNoteId(note._id);
-        });
-      } catch {
-        const stickymemoInit = {
-          body: "",
-          userId: userIdInfo,
-        };
-        console.log("post new memo: " + stickymemoInit);
-        axios
-          .post(BASE_URL + "/stickynote/create", stickymemoInit)
-          .then((res) => console.log(res.data));
+        if (res.data.length === 0) {
+          const stickymemoInit = {
+            body: "",
+            userId: userIdInfo,
+          };
+          console.log("post new memo: " + stickymemoInit);
+          axios
+            .post(BASE_URL + "/stickynote/create", stickymemoInit)
+            .then((res) => console.log(res.data));
+        } else {
+          res.data.forEach((note: any) => {
+            setBody(note.body);
+            setNoteId(note._id);
+          });
+        }
+      } catch (err) {
+        throw err;
       }
     }
   };
