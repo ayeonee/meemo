@@ -8,28 +8,9 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/user/:userId").get((req, res) => {
-  try {
-    StickyNote.find({ userId: req.params.userId })
-      .then((notes) => res.json(notes))
-      .catch((err) => res.status(400).json("Error: " + err));
-  } catch {
-    const body = "";
-    const userId = req.params.userId;
-    const newStickyNote = new StickyNote({ body, userId });
-
-    newStickyNote
-      .save()
-      .then(() => res.json("New Note Created!"))
-      .catch((err) => res.status(400).json("Error" + err));
-
-    try {
-      StickyNote.find({ userId: req.params.userId })
-        .then((notes) => res.json(notes))
-        .catch((err) => res.status(400).json("Error: " + err));
-    } catch (err) {
-      throw err;
-    }
-  }
+  StickyNote.find({ userId: req.params.userId })
+    .then((notes) => res.json(notes))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/create").post((req, res) => {

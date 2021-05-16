@@ -41,7 +41,9 @@ export default function NoteList() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const userIdInfo = useSelector((state: RootState) => state.user.userData.userId);
+  const userIdInfo = useSelector(
+    (state: RootState) => state.user.userData.userId
+  );
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url }: any = useRouteMatch();
@@ -76,7 +78,6 @@ export default function NoteList() {
     };
   }, []);
 
-  // 여기서 parentId 를 못불러오는 문제 loadNotes를 parentId 로딩될때까지 다른곳에 두거나 해야됨
   useEffect(() => {
     if (gotFolderId === true) {
       loadNotes();
@@ -85,9 +86,12 @@ export default function NoteList() {
 
   const loadNotes = async () => {
     try {
-      const res = await axios.get(BASE_URL + `/notes/userParent/${userId}/${folderId}`, {
-        cancelToken: source.token,
-      });
+      const res = await axios.get(
+        BASE_URL + `/notes/userParent/${userId}/${folderId}`,
+        {
+          cancelToken: source.token,
+        }
+      );
       if (res.data.length === 0) {
         setNotes([]);
         setIsLoading(false);
@@ -111,9 +115,12 @@ export default function NoteList() {
 
   const getParentId = async () => {
     try {
-      const res = await axios.get(BASE_URL + `/folders/userTitle/${userId}/${folderTitle}`, {
-        cancelToken: source.token,
-      });
+      const res = await axios.get(
+        BASE_URL + `/folders/userTitle/${userId}/${folderTitle}`,
+        {
+          cancelToken: source.token,
+        }
+      );
       if (res.data.length === 0) {
         history.push({
           pathname: "/error",
@@ -228,8 +235,11 @@ export default function NoteList() {
         <LoaderSpinner />
       ) : (
         <>
-          <RouteShow 
-            folderId={""} type="notelist" folderTitle={folderTitle} noteTitle="" 
+          <RouteShow
+            folderId={""}
+            type="notelist"
+            folderTitle={folderTitle}
+            noteTitle=""
           />
           <div className={style.noteContainer}>
             <div className={style.noteDiv}>
@@ -237,7 +247,11 @@ export default function NoteList() {
                 <div
                   key={note._id}
                   id={`noDeselect`}
-                  className={selectedNote === note._id ? style.notesSelected : style.notes}
+                  className={
+                    selectedNote === note._id
+                      ? style.notesSelected
+                      : style.notes
+                  }
                   onClick={() => {
                     onSelect(note);
                   }}
