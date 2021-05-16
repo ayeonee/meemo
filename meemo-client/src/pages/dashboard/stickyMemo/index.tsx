@@ -7,10 +7,8 @@ import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/StickyMemo.module.scss";
 
 function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
-  // const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
-  // const [userId, setUserId] = useState<string | null>("");
   const [gotUserId, setGotUserId] = useState<boolean>(false);
 
   const [getUserId, setGetUserId] = useState<boolean>(false);
@@ -18,48 +16,39 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
 
   useEffect(() => {
     fetchUserId();
-    console.log("1st useEffect");
   }, [getUserId]);
 
   useEffect(() => {
     getBody(userIdInfo);
-    console.log("2nd useEffect");
     return () => {
       setBody("");
-      // setNoteId("");
     };
   }, [update]);
 
   const fetchUserId = () => {
-    console.log("fetUserId, userIdInfo: " + userIdInfo);
     if (userIdInfo === "") {
       setGetUserId(!getUserId);
     } else {
-      // setUserId(userIdInfo);
       setGotUserId(true);
       setUpdate(!update);
     }
   };
 
   const getBody = async (userId: string | null) => {
-    console.log("getBody, gotUserId: " + gotUserId);
     if (gotUserId === true) {
       try {
-        console.log("try fetching memo for user: " + userId);
         const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
         if (res.data.length === 0) {
           const stickymemoInit = {
             body: "",
             userId: userIdInfo,
           };
-          console.log("post new memo: " + stickymemoInit);
           axios
             .post(BASE_URL + "/stickynote/create", stickymemoInit)
             .then((res) => console.log(res.data));
         } else {
           res.data.forEach((note: any) => {
             setBody(note.body);
-            // setNoteId(note._id);
           });
         }
       } catch (err) {
