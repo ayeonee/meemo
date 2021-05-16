@@ -36,9 +36,10 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
 
   const getBody = async (userId: string | null) => {
     if (gotUserId === true) {
+      console.log("gotUserId === true, userId: " + userId);
       try {
         const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
-        console.log(res.data.length);
+        console.log(`${BASE_URL} + "/stickynote/user/" + ${userId}`);
         if (res.data.length === 0) {
           const stickymemoInit = {
             body: "",
