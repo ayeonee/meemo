@@ -10,6 +10,19 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
+  const [userId, setUserId] = useState<string | null>("");
+
+  const [update, setUpdate] = useState<boolean>(false);
+
+  useEffect(() => {
+    setUserId(userIdInfo);
+
+    if (userId !== "") {
+      setUpdate(!update);
+      console.log("update triggered");
+    }
+  }, []);
+
   useEffect(() => {
     getBody(userIdInfo);
 
@@ -18,23 +31,27 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
       setBody("");
       setNoteId("");
     };
-  }, []);
+  }, [update]);
 
   const getBody = async (userId: string | null) => {
-    try {
-      const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
-      res.data.forEach((note: any) => {
-        setBody(note.body);
-        setNoteId(note._id);
-      });
-    } catch {
-      // const stickymemoInit = {
-      //   body: "",
-      //   userId: userIdInfo,
-      // };
-      // axios
-      //   .post(BASE_URL + "/stickynote/create", stickymemoInit)
-      //   .then((res) => console.log(res.data));
+    if (update === true) {
+      console.log("getbody triggered");
+      console.log(userId);
+      try {
+        const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
+        res.data.forEach((note: any) => {
+          setBody(note.body);
+          setNoteId(note._id);
+        });
+      } catch {
+        // const stickymemoInit = {
+        //   body: "",
+        //   userId: userIdInfo,
+        // };
+        // axios
+        //   .post(BASE_URL + "/stickynote/create", stickymemoInit)
+        //   .then((res) => console.log(res.data));
+      }
     }
   };
 
