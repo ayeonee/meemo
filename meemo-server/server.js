@@ -133,19 +133,6 @@ app.post("/api/users/auth/google", async (req, res) => {
         if (err) {
           return res.status(400).send(err);
         }
-        // 스티키메모 구글 사용자 테스트
-        app.post("/api/stickynote/create", (req, res) => {
-          const body = "";
-          const userId = user.userId;
-
-          const newStickyNote = new StickyNote({ body, userId });
-
-          newStickyNote
-            .save()
-            .then(() => res.json("New Note Created!"))
-            .catch((err) => res.status(400).json("Error" + err));
-        });
-        // 스티키메모 구글 사용자 테스트
         res.cookie("meemo_auth", user.token).status(200).json({
           loginSuccess: true,
           userId: user.userId,

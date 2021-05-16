@@ -8,9 +8,28 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/user/:userId").get((req, res) => {
-  StickyNote.find({ userId: req.params.userId })
-    .then((notes) => res.json(notes))
-    .catch((err) => res.status(400).json("Error: " + err));
+  try {
+    StickyNote.find({ userId: req.params.userId })
+      .then((notes) => res.json(notes))
+      .catch((err) => res.status(400).json("Error: " + err));
+  } catch {
+    const body = "";
+    const userId = req.params.userId;
+    const newStickyNote = new StickyNote({ body, userId });
+
+    newStickyNote
+      .save()
+      .then(() => res.json("New Note Created!"))
+      .catch((err) => res.status(400).json("Error" + err));
+
+    try {
+      StickyNote.find({ userId: req.params.userId })
+        .then((notes) => res.json(notes))
+        .catch((err) => res.status(400).json("Error: " + err));
+    } catch (err) {
+      throw err;
+    }
+  }
 });
 
 router.route("/create").post((req, res) => {
@@ -37,11 +56,11 @@ router.route("/:id").put((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//회원탈퇴 시 가져가세요
-// router.route("/:id").delete((req, res) => {
-//   Note.findByIdAndDelete(req.params.id)
-//     .then(() => res.json("Note deleted."))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
+//회원탈퇴
+router.route("/:id").delete((req, res) => {
+  StickyNote.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Note deleted."))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 module.exports = router;
