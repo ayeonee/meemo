@@ -106,7 +106,7 @@ function Weather(): JSX.Element {
           <div className={style.weather_icon}>
             <img
               className={style.weather_icon}
-              src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
+              src={`https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
               alt=""
             />
           </div>
