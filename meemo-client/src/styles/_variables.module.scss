@@ -5,8 +5,17 @@ $green_grade_3: #88cdbf;
 $green_grade_4: #6cbea7;
 $green_grade_5: #52a58e;
 
-$gray: rgba(48, 48, 48, 0.267);
+$gray: rgba(151, 151, 151, 0.726);
+$gray_hover: rgba(190, 190, 196, 0.801);
 $gray_border: 1px solid $gray;
+
+$dark_default: rgb(53, 54, 58);
+$dark_bg: rgb(24, 26, 27);
+$dark_text_b: rgb(27, 27, 27);
+
+$dark_text_1: rgb(145, 145, 145);
+$dark_text_2: rgb(202, 202, 202);
+$dark_text_3: rgb(230, 230, 230);
 
 @mixin flex_col {
   display: flex;

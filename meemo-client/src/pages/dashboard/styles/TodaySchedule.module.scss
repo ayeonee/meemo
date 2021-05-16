@@ -3,7 +3,6 @@
 .today_schedule {
   @include flex_col;
   align-items: center;
-  background-color: white;
   border-radius: 3px;
   box-shadow: 1px 2px 6px 2px rgba(56, 56, 56, 0.11);
 
@@ -21,13 +20,10 @@
     .today_info {
       font-size: 14px;
       margin: 8px 0 10px 0;
-      color: rgb(27, 27, 27);
     }
   }
 
   .schedule_wrapper {
-    background-color: $green_grade_4;
-    color: white;
     width: 80%;
     height: 67%;
     margin-bottom: 12px;

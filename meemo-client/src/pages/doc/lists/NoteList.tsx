@@ -14,7 +14,7 @@ import LoaderSpinner from "../misc/LoaderSpinner";
 import { BASE_URL } from "../../../_data/urlData";
 
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_userReducers";
+import { RootState } from "../../../_reducers";
 
 const removeMd = require("remove-markdown");
 
@@ -42,7 +42,7 @@ export default function NoteList() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const userIdInfo = useSelector(
-    (state: RootState) => state.user.userData.userId
+    (state: RootState) => state.userReducer.userData.userId
   );
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 

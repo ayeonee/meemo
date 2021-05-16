@@ -8,7 +8,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_userReducers";
+import { RootState } from "../../_reducers";
 // import { INITIAL_EVENTS, createEventId } from "./event-utils";
 
 import moment from "moment";
@@ -29,7 +29,7 @@ export default function CalendarApp(): JSX.Element {
   const [update, setUpdate] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const userIdInfo = useSelector(
-    (state: RootState) => state.user.userData.userId
+    (state: RootState) => state.userReducer.userData.userId
   );
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 

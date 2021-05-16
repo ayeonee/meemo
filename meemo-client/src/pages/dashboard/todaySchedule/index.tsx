@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AllData } from "../../../_types/scheduleTypes";
 import { BASE_URL } from "../../../_data/urlData";
-import { UserIdType } from "../../../_types/authTypes";
+import { Mode, UserIdType } from "../../../_types/authTypes";
 import axios from "axios";
 import style from "../styles/TodaySchedule.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 
 type ScheduleInfo = {
   id: string;
@@ -16,7 +17,10 @@ type ScheduleInfo = {
   endMin: number;
 };
 
-function TodaySchedule({ userIdInfo }: UserIdType): JSX.Element {
+function TodaySchedule({
+  userIdInfo,
+  modeInfo,
+}: UserIdType & Mode): JSX.Element {
   const history = useHistory();
   const date = new Date();
   const today = date.getDay(); //일:0~토:6
@@ -74,10 +78,24 @@ function TodaySchedule({ userIdInfo }: UserIdType): JSX.Element {
   }, []);
 
   return (
-    <div className={style.today_schedule}>
+    <div
+      className={[
+        style.today_schedule,
+        modeInfo === "light"
+          ? style_mode.today_schedule_light
+          : style_mode.today_schedule_dark,
+      ].join(" ")}
+    >
       <div className={style.today_wrapper}>
         <div className={style.title}>TODAY'S SCHEDULE</div>
-        <div className={style.today_info}>
+        <div
+          className={[
+            style.today_info,
+            modeInfo === "light"
+              ? style_mode.today_info_light
+              : style_mode.today_info_dark,
+          ].join(" ")}
+        >
           {date.getMonth() + 1}월 {date.getDate()}일{" "}
           {today === 1
             ? "월"
@@ -95,7 +113,14 @@ function TodaySchedule({ userIdInfo }: UserIdType): JSX.Element {
           요일
         </div>
       </div>
-      <div className={style.schedule_wrapper}>
+      <div
+        className={[
+          style.schedule_wrapper,
+          modeInfo === "light"
+            ? style_mode.schedule_wrapper_light
+            : style_mode.schedule_wrapper_dark,
+        ].join(" ")}
+      >
         <div className={style.schedule_box}>
           <div className={style.schedule_container}>
             {scheduleInfo.length === 0 ? (

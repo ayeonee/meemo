@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import RMDEditor from "rich-markdown-editor";
 import axios from "axios";
 import debounce from "lodash/debounce";
-import { UserIdType } from "../../../_types/authTypes";
+import { Mode, UserIdType } from "../../../_types/authTypes";
 import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/StickyMemo.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 
-function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
+function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   const [noteId, setNoteId] = useState<string>("");
   const [body, setBody] = useState<string>("");
 
@@ -45,12 +46,26 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   }, 1000);
 
   return (
-    <div className={style.sticky_memo}>
+    <div
+      className={[
+        style.sticky_memo,
+        modeInfo === "light"
+          ? style_mode.sticky_memo_light
+          : style_mode.sticky_memo_dark,
+      ].join(" ")}
+    >
       <div className={style.title}>STICKY MEMO</div>
       <div className={style.sub_title}>
         <span>간단한 메모를 작성할 수 있습니다.</span>
       </div>
-      <div className={style.sticky_wrapper}>
+      <div
+        className={[
+          style.sticky_wrapper,
+          modeInfo === "light"
+            ? style_mode.sticky_wrapper_light
+            : style_mode.sticky_wrapper_dark,
+        ].join(" ")}
+      >
         <RMDEditor
           id="example"
           readOnly={false}
@@ -95,7 +110,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
             });
           }}
           onShowToast={(message, type) => window.alert(`${type}: ${message}`)}
-          dark={false}
+          dark={modeInfo === "dark" ? true : false}
         />
       </div>
     </div>

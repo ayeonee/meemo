@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { BASE_URL } from "../../../_data/urlData";
+import style_mode from "../styles/modeColor.module.scss";
 import style from "../styles/RecentModify.module.scss";
 import axios from "axios";
 import moment from "moment";
-import { UserIdType } from "../../../_types/authTypes";
+import { UserIdType, Mode } from "../../../_types/authTypes";
 import { Notes } from "@material-ui/icons";
 
 type NoteInfo = {
@@ -25,7 +26,10 @@ type FolderInfo = {
   createdAt: string;
 };
 
-function RecentModify({ userIdInfo }: UserIdType): JSX.Element {
+function RecentModify({
+  userIdInfo,
+  modeInfo,
+}: UserIdType & Mode): JSX.Element {
   const [notes, setNotes] = useState<NoteInfo[]>([]);
   const [folders, setFolders] = useState<FolderInfo[]>([]);
   const [rearrangedNotes, setRearrangedNotes] = useState<NoteInfo[]>([]);
@@ -122,7 +126,14 @@ function RecentModify({ userIdInfo }: UserIdType): JSX.Element {
   }, [notes]);
 
   return (
-    <div className={style.recent_modify}>
+    <div
+      className={[
+        style.recent_modify,
+        modeInfo === "light"
+          ? style_mode.recent_modify_light
+          : style_mode.recent_modify_dark,
+      ].join(" ")}
+    >
       <div className={style.title}>RECENTLY MODIFIED NOTE</div>
       <div className={style.sub_title}>
         <span>최근 수정된 목록</span>
@@ -148,7 +159,9 @@ function RecentModify({ userIdInfo }: UserIdType): JSX.Element {
                         <Notes className={style.note_icon} />
                       </div>
                       <div className={style.title_div}>{item.title}</div>
-                      <div className={style.time_div}>{item.updatedAt.substring(0, 16)}</div>
+                      <div className={style.time_div}>
+                        {item.updatedAt.substring(0, 16)}
+                      </div>
                     </div>
                   </div>
                 );

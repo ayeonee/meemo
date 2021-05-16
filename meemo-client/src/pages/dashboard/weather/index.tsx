@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { weatherData } from "../../../_data/weatherData";
 import style from "../styles/Weather.module.scss";
+import { Mode } from "../../../_types/authTypes";
+import style_mode from "../styles/modeColor.module.scss";
 import Geocode from "react-geocode";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY!;
 
-function Weather(): JSX.Element {
+function Weather({ modeInfo }: Mode): JSX.Element {
   const [weatherInfo, setWeatherInfo] = useState({
     temperature: "",
     temp_max: "",
@@ -23,10 +25,10 @@ function Weather(): JSX.Element {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&lang=kr&appid=${API_KEY}&units=metric`
     )
-      .then(function (response) {
+      .then((response) => {
         return response.json();
       })
-      .then(function (jsonfile) {
+      .then((jsonfile) => {
         setWeatherInfo({
           temperature: jsonfile.main.temp,
           temp_max: jsonfile.main.temp_max,
@@ -40,12 +42,14 @@ function Weather(): JSX.Element {
   };
 
   const getCurrentCity = (latitudeVar: string, longitudeVar: string) => {
-    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
-      getWeather(response.results[0].address_components[3].long_name);
-      setFullLocation(
-        `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
-      );
-    });
+    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then(
+      (response) => {
+        getWeather(response.results[0].address_components[3].long_name);
+        setFullLocation(
+          `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
+        );
+      }
+    );
     //getWeather("Seoul"); /* for test*/
   };
 
@@ -57,7 +61,10 @@ function Weather(): JSX.Element {
   };
 
   const askForCoords = () => {
-    navigator.geolocation.getCurrentPosition(handleGeoTrue, () => console.error);
+    navigator.geolocation.getCurrentPosition(
+      handleGeoTrue,
+      () => console.error
+    );
   };
 
   const weatherMessage = (weatherInfo: string) => {
@@ -96,7 +103,14 @@ function Weather(): JSX.Element {
   }, []);
 
   return (
-    <div className={style.weather}>
+    <div
+      className={[
+        style.weather,
+        modeInfo === "light"
+          ? style_mode.weather_light
+          : style_mode.weather_dark,
+      ].join(" ")}
+    >
       <div className={style.title}>WEATHER</div>
       <div className={style.sub_title}>
         <span>{weatherMessage(weatherInfo.weather)}</span>
@@ -107,13 +121,13 @@ function Weather(): JSX.Element {
             <img
               className={style.weather_icon}
               src={`https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
-              alt=""
+              alt="weather icon"
             />
           </div>
 
           <div className={style.weather_info}>
-            <div className={style.temperature}>{weatherInfo.temperature}°</div>
-            <div className={style.explanation}>{weatherInfo.weather}</div>
+            <p className={style.temperature}>{weatherInfo.temperature}°</p>
+            <p className={style.explanation}>{weatherInfo.weather}</p>
             <div className={style.location}>
               <p>{fullLocation}</p>
             </div>
@@ -122,11 +136,11 @@ function Weather(): JSX.Element {
         <div className={style.weather_line_two}>
           <div className={style.temp_info}>
             <div className={style.temp_line}>
-              <div className={style.temp_arrow}>↑</div>
+              <p className={style.temp_arrow}>↑</p>
               <p>{weatherInfo.temp_max}°</p>
             </div>
             <div className={style.temp_line}>
-              <div className={style.temp_arrow}>↓</div>
+              <p className={style.temp_arrow}>↓</p>
               <p> {weatherInfo.temp_min}°</p>
             </div>
           </div>

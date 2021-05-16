@@ -11,6 +11,12 @@
     margin: 100px 0 35px 0;
   }
 
+  .reset_button_dark {
+    background-color: $green_grade_5;
+  }
+  .reset_button_light {
+    background-color: $green_grade_4;
+  }
   .reset_button {
     @include flex_col;
     z-index: 99;
@@ -24,8 +30,6 @@
     border-style: none;
     border-radius: 50px;
     box-shadow: 0 2px 6px 1px rgba(10, 10, 10, 0.192);
-    color: white;
-    background-color: $green_grade_4;
     align-items: center;
     cursor: pointer;
     display: flex;
@@ -35,7 +39,6 @@
     img {
       width: 20px;
       height: 20px;
-      transform: rotate(-120deg);
     }
 
     &:hover {
@@ -122,5 +125,11 @@
     top: 100px;
     display: flex;
     justify-content: center;
+
+    .schedule_list {
+      padding: 0;
+      margin-top: 50px;
+      color: rgb(0, 0, 0);
+    }
   }
 }
