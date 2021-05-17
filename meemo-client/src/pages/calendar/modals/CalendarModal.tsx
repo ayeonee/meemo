@@ -35,7 +35,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
   const [editorBody, setEditorBody] = useState<string>(selectInfo.body);
 
-  const note: any = useRef();
+  const editor: any = useRef();
 
   const removeSchedule = useConfirm(
     "일정을 삭제 하시겠습니까?",
@@ -178,16 +178,15 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
           <div
             id="noteDiv"
             className={style.noteDiv}
-            onClick={(e) => {
-              if (e.target === e.target) {
-                note.current.focusAtEnd();
+            onClick={(e: any) => {
+              if (e.target.className === "CalendarModal_noteDiv__1ezjn") {
+                editor.current.focusAtEnd();
               }
-              console.log(e);
             }}
           >
             <RMDEditor
               id="example"
-              ref={note}
+              ref={editor}
               readOnly={false}
               readOnlyWriteCheckboxes
               // value={}

@@ -177,7 +177,7 @@ export default function CalendarApp(): JSX.Element {
   return (
     <div className={style.wrapper}>
       {isLoading ? (
-        <LoaderSpinner />
+        <LoaderSpinner type="" />
       ) : (
         <>
           <div className={style.calendarDiv}>

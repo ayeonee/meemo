@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import debounce from "lodash/debounce";
@@ -40,8 +40,12 @@ export default function Editor(): JSX.Element {
   );
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isSaving, setIsSaving] = useState<boolean | null>(null);
+  const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
 
   let history = useHistory<any>();
+
+  const editor: any = useRef();
 
   let source = axios.CancelToken.source();
 
@@ -109,31 +113,39 @@ export default function Editor(): JSX.Element {
     }
   };
 
+  // readonly 용 prop 하나 만들고 routeshow에서 true false 값 구분할것
+  const handleReadEdit = () => {
+    setIsReadOnly(!isReadOnly);
+  };
+
   //title update uses put; editor body uses post + update.
-  //to fix, add another prop in popup to get the body from the editor and feed in put.
-  const handleChange = debounce((value) => {
-    let source = axios.CancelToken.source();
-    const noteInfo = {
-      body: `${value()}`,
-    };
-    try {
-      axios
-        .post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
-          cancelToken: source.token,
-        })
-        .then((res) => console.log(res.data));
-    } catch (err) {
-      // Not sure that this is the right way to cancel the request. Might contain unknown problems.
-      // check if can fix the original error which is err
-      source.cancel();
-      console.log(err, "\nOperation canceled by the user.");
-    }
-  }, 1000);
+  const handleChange = () => {
+    setIsSaving(true);
+    debounce((value) => {
+      let source = axios.CancelToken.source();
+      const noteInfo = {
+        body: `${value()}`,
+      };
+      try {
+        axios
+          .post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
+            cancelToken: source.token,
+          })
+          .then((res) => console.log(res.data))
+          .then(() => setIsSaving(false));
+      } catch (err) {
+        // Not sure that this is the right way to cancel the request. Might contain unknown problems.
+        // check if can fix the original error which is err
+        source.cancel();
+        console.log(err, "\nOperation canceled by the user.");
+      }
+    }, 1000);
+  };
 
   return (
     <div className={style.wrapper}>
       {isLoading ? (
-        <LoaderSpinner />
+        <LoaderSpinner type="" />
       ) : (
         <>
           <RouteShow
@@ -141,12 +153,23 @@ export default function Editor(): JSX.Element {
             folderId={folderId}
             folderTitle={folderTitle}
             noteTitle={noteTitle}
+            isSaving={isSaving}
+            handleEdit={handleReadEdit}
+            isReadOnly={isReadOnly}
           />
-          <div className={style.editor}>
+          <div
+            className={style.editor}
+            onClick={(e: any) => {
+              if (e.target.className === "Editor_editor__qwGTj") {
+                editor.current.focusAtEnd();
+              }
+            }}
+          >
             {/* need thorough study of each prop, such as image upload */}
             <RMDEditor
               id="example"
-              readOnly={false}
+              ref={editor}
+              readOnly={isReadOnly}
               readOnlyWriteCheckboxes
               value={value}
               defaultValue={value}

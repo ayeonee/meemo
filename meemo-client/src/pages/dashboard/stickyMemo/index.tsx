@@ -56,7 +56,11 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
       </div>
       <div
         className={style.sticky_wrapper}
-        onClick={() => editor.current.focusAtEnd()}
+        onClick={(e: any) => {
+          if (e.target.className === "StickyMemo_sticky_wrapper__Q7axL") {
+            editor.current.focusAtEnd();
+          }
+        }}
       >
         <RMDEditor
           id="stickymemo"

@@ -31,7 +31,7 @@ export default function FolderList(): JSX.Element {
   const userIdInfo = useSelector(
     (state: RootState) => state.user.userData.userId
   );
-  const [userId, setUserId] = useState<string | null>("testmeemo");
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url } = useRouteMatch();
   let history = useHistory();
@@ -216,9 +216,17 @@ export default function FolderList(): JSX.Element {
 
   return (
     <div className={style.folderList}>
-      <RouteShow type="" folderId="" folderTitle="" noteTitle="" />
+      <RouteShow
+        type=""
+        folderId=""
+        folderTitle=""
+        noteTitle=""
+        isSaving={null}
+        handleEdit={null}
+        isReadOnly={null}
+      />
       {isLoading ? (
-        <LoaderSpinner />
+        <LoaderSpinner type="" />
       ) : (
         <>
           <div className={style.folderContainer}>
