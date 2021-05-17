@@ -32,7 +32,7 @@ export default function DarkMode({ pathname }: any): JSX.Element {
         document.body.style.backgroundColor = "white";
       }
     }
-  }, []);
+  }, [pathname, modeState]);
 
   return (
     <div
