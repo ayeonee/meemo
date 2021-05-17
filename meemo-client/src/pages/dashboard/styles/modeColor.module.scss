@@ -6,11 +6,17 @@
     color: $dark_text_3;
   }
   p {
-    color: $dark_text_2;
+    color: $dark_text_3;
   }
 }
 .recent_modify_light {
   background-color: white;
+  span {
+    color: $dark_text_b;
+  }
+  p {
+    color: $dark_text_b;
+  }
 }
 
 .sticky_memo_dark {
@@ -90,7 +96,7 @@
   .todo_container_light {
     background-color: white;
 
-    .todo_info_dark {
+    .todo_info_light {
       border-bottom: 1px solid $gray;
     }
   }

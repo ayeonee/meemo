@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import FullCalendar, {
   DateSelectArg,
   EventClickArg,
@@ -14,6 +14,7 @@ import { RootState } from "../../_reducers";
 import moment from "moment";
 
 import style from "./styles/CalendarApp.module.scss";
+import style_mode from "./styles/modeColor.module.scss";
 
 import LoaderSpinner from "../doc/misc/LoaderSpinner";
 
@@ -22,15 +23,16 @@ import CalendarModal from "./modals/CalendarModal";
 import { BASE_URL } from "../../_data/urlData";
 
 export default function CalendarApp(): JSX.Element {
+  const userIdInfo = useSelector(
+    (state: RootState) => state.userReducer.userData.userId
+  );
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const [currentEvents, setCurrentEvents]: any[] = useState([]);
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
   const [selectInfo, setSelectInfo] = useState({});
   const [update, setUpdate] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const userIdInfo = useSelector(
-    (state: RootState) => state.userReducer.userData.userId
-  );
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   // const userId = useRef<string | null>(userIdInfo);
@@ -42,6 +44,8 @@ export default function CalendarApp(): JSX.Element {
   let source = axios.CancelToken.source();
 
   // button text override
+  const prevBtn = document.getElementsByClassName("fc-prev-button");
+  const nextBtn = document.getElementsByClassName("fc-next-button");
   const todayBtn = document.getElementsByClassName("fc-today-button");
   const monthBtn = document.getElementsByClassName("fc-dayGridMonth-button");
   const weekBtn = document.getElementsByClassName("fc-timeGridWeek-button");
@@ -57,10 +61,23 @@ export default function CalendarApp(): JSX.Element {
     if (todayBtn[0] === undefined) {
       return;
     } else {
-      todayBtn[0].innerHTML = "오늘";
-      monthBtn[0].innerHTML = "월";
-      weekBtn[0].innerHTML = "주";
+      todayBtn[0].innerHTML = `<span style='color: ${
+        modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+      }; font-weight: bold;'>오늘</span>`;
+      monthBtn[0].innerHTML = `<span style='color: ${
+        modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+      }; font-weight: bold;'>월</span>`;
+      weekBtn[0].innerHTML = `<span style='color: ${
+        modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+      }; font-weight: bold;'>주</span>`;
     }
+
+    prevBtn[0].innerHTML = `<span style='color: ${
+      modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+    }; font-weight: bold;'> &#9664; </span>`;
+    nextBtn[0].innerHTML = `<span style='color: ${
+      modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+    }; font-weight: bold;'>	&#9654; </span>`;
   });
 
   const loadEvents = async (userId: string | null) => {
@@ -175,7 +192,14 @@ export default function CalendarApp(): JSX.Element {
   };
 
   return (
-    <div className={style.wrapper}>
+    <div
+      className={[
+        style.wrapper,
+        modeInfo === "light"
+          ? style_mode.wrapper_light
+          : style_mode.wrapper_dark,
+      ].join(" ")}
+    >
       {isLoading ? (
         <LoaderSpinner />
       ) : (

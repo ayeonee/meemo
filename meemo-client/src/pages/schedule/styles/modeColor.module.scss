@@ -22,7 +22,7 @@
   }
 }
 .schedule_item_dark {
-  background-color: rgb(35, 36, 39);
+  background-color: rgb(32, 33, 36);
   p {
     color: $dark_text_2;
   }
@@ -73,7 +73,7 @@
   .input_wrapper_light {
     background-color: white;
     .input_content_light {
-      color: $dark_text_b;
+      color: white;
 
       &::placeholder {
         color: $dark_text_1;

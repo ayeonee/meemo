@@ -22,7 +22,6 @@
 
       .folders,
       .foldersSelected {
-        border: solid 1px $green_grade_3;
         border-radius: 5px;
         margin: 5px;
         display: flex;
@@ -64,8 +63,6 @@
       }
 
       .foldersSelected {
-        background-color: $green_grade_3;
-
         &:focus {
           outline: none;
         }
@@ -76,7 +73,6 @@
           pointer-events: none;
 
           .folderIcon {
-            color: white;
             width: 100%;
             height: 100%;
             pointer-events: none;
@@ -89,7 +85,6 @@
           pointer-events: none;
 
           p {
-            color: white;
             margin: 10px 15px;
             font-size: 13px;
             pointer-events: none;
@@ -112,9 +107,7 @@
     .addBtn,
     .renameBtn,
     .deleteBtn {
-      background-color: $green_grade_4;
       display: flex;
-      color: white;
       border-radius: 50px;
       padding: 9px;
       border-style: none;

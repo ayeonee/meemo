@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouteMatch, useHistory, useParams } from "react-router-dom";
-import { Add, Delete, FolderOpen, Create } from "@material-ui/icons";
+import { Delete, FolderOpen, Create } from "@material-ui/icons";
 import axios from "axios";
 import style from "../styles/FolderList.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 
 import AddRenameModal from "../modals/AddRenameModal";
 import RouteShow from "../misc/RouteShow";
@@ -14,6 +15,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../_reducers";
 
 export default function FolderList(): JSX.Element {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
+  const userIdInfo = useSelector(
+    (state: RootState) => state.userReducer.userData.userId
+  );
   const [folders, setFolders]: any = useState([]);
   const [selectedFolder, setSelectedFolder] = useState<string>("");
   const [delBtn, setDelBtn] = useState<boolean>(false);
@@ -28,9 +33,6 @@ export default function FolderList(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const userIdInfo = useSelector(
-    (state: RootState) => state.userReducer.userData.userId
-  );
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url } = useRouteMatch();
@@ -215,16 +217,41 @@ export default function FolderList(): JSX.Element {
                   id={`noDeselect`}
                   className={
                     selectedFolder === folder._id
-                      ? style.foldersSelected
-                      : style.folders
+                      ? [
+                          style.foldersSelected,
+                          modeInfo === "light"
+                            ? style_mode.selected_light
+                            : style_mode.selected_dark,
+                        ].join(" ")
+                      : [
+                          style.folders,
+                          modeInfo === "light"
+                            ? style_mode.folders_light
+                            : style_mode.folders_dark,
+                        ].join(" ")
                   }
                   onClick={() => onSelect(folder)}
                 >
                   <div className={style.iconDiv}>
-                    <FolderOpen className={style.folderIcon} />
+                    <FolderOpen
+                      className={[
+                        style.folderIcon,
+                        modeInfo === "light"
+                          ? style_mode.folderIcon_light
+                          : style_mode.folderIcon_dark,
+                      ].join(" ")}
+                    />
                   </div>
                   <div className={style.titleDiv}>
-                    <p>{folder.title}</p>
+                    <p
+                      className={
+                        modeInfo === "light"
+                          ? style_mode.text_light
+                          : style_mode.text_dark
+                      }
+                    >
+                      {folder.title}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -233,7 +260,16 @@ export default function FolderList(): JSX.Element {
 
           <div className={style.toolDiv}>
             <div
-              className={delBtn ? style.renameBtn : style.hideRenameBtn}
+              className={
+                delBtn
+                  ? [
+                      style.renameBtn,
+                      modeInfo === "light"
+                        ? style_mode.btn_light
+                        : style_mode.btn_dark,
+                    ].join(" ")
+                  : style.hideRenameBtn
+              }
               id={`noDeselect`}
               onClick={() => {
                 setPopupType("rename");
@@ -244,7 +280,12 @@ export default function FolderList(): JSX.Element {
             </div>
 
             <div
-              className={style.addBtn}
+              className={[
+                style.addBtn,
+                modeInfo === "light"
+                  ? style_mode.btn_light
+                  : style_mode.btn_dark,
+              ].join(" ")}
               id={`noDeselect`}
               onClick={() => {
                 setPopupType("folderlist");
@@ -254,7 +295,16 @@ export default function FolderList(): JSX.Element {
               <span> + </span>
             </div>
             <div
-              className={delBtn ? style.deleteBtn : style.hideDelBtn}
+              className={
+                delBtn
+                  ? [
+                      style.deleteBtn,
+                      modeInfo === "light"
+                        ? style_mode.btn_light
+                        : style_mode.btn_dark,
+                    ].join(" ")
+                  : style.hideDelBtn
+              }
               id={`noDeselect`}
               onClick={() => {
                 setShowDelModal(!showDelModal);

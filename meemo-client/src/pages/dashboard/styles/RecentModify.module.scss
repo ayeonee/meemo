@@ -57,12 +57,11 @@
 
         .note_div {
           display: flex;
-          border: solid 1px $green_grade_2;
+          border: solid 1px $gray;
           border-radius: 3px;
           width: 93%;
           height: 40px;
           margin-top: 5px;
-          cursor: pointer;
 
           .icon_div {
             height: 100%;

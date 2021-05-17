@@ -159,10 +159,10 @@ function RecentModify({
                       <div className={style.icon_div}>
                         <Notes className={style.note_icon} />
                       </div>
-                      <div className={style.title_div}>{item.title}</div>
-                      <div className={style.time_div}>
+                      <p className={style.title_div}>{item.title}</p>
+                      <p className={style.time_div}>
                         {item.updatedAt.substring(0, 16)}
-                      </div>
+                      </p>
                     </div>
                   </div>
                 );

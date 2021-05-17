@@ -90,6 +90,13 @@
           }
         }
       }
+
+      .mode_toggle_light {
+        color: $dark_text_b;
+      }
+      .mode_toggle_dark {
+        color: $dark_text_3;
+      }
     }
   }
 }
@@ -228,10 +235,18 @@
           }
         }
 
-        .dark_mode_wraspper {
+        .dark_mode_wrapper {
           position: absolute;
+          @include flex_col;
           width: 60%;
           bottom: 220px;
+          margin-left: 2px;
+
+          p {
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: bold;
+          }
         }
       }
     }
@@ -287,10 +302,14 @@
           }
         }
 
-        .dark_mode_wraspper {
+        .dark_mode_wrapper {
           position: fixed;
-          bottom: 80px;
+          bottom: 50px;
           right: 90px;
+
+          p {
+            display: none;
+          }
         }
       }
     }
