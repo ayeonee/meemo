@@ -1,6 +1,6 @@
 import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
-import { gLoginUser } from "../../../_userActions/userAction";
+import { gLoginUser } from "../../../_actions/userAction";
 import { useHistory } from "react-router-dom";
 import style from "../styles/Auth.module.scss";
 

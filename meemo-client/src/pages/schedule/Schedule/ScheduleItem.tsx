@@ -2,7 +2,10 @@ import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { colorCode } from "../../../_data/scheduleData";
 import { Data, Schedule } from "../../../_types/scheduleTypes";
-import style from "../styles/ScheduleStyle.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_reducers";
+import style from "../styles/ScheduleItem.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 
 interface ScheduleItemProps {
   data: Data;
@@ -15,6 +18,7 @@ function ScheduleItem({
   removeData,
   ...scheduleItem
 }: ScheduleItemProps & Schedule): JSX.Element {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const { id, name, place } = data;
   const { date, startHour, startMin, endHour, endMin } = scheduleItem;
   const [delButtonState, setDelButtonState] = useState<boolean>(false);
@@ -69,15 +73,15 @@ function ScheduleItem({
         break;
 
       case 3:
-        position = 41.24;
+        position = 41.2;
         break;
 
       case 4:
-        position = 52.68;
+        position = 52.6;
         break;
 
       case 5:
-        position = 64.14;
+        position = 64;
         break;
 
       case 6:
@@ -110,7 +114,12 @@ function ScheduleItem({
 
   return (
     <div
-      className={style.schedule_item}
+      className={[
+        style.schedule_item,
+        modeInfo === "light"
+          ? style_mode.schedule_item_light
+          : style_mode.schedule_item_dark,
+      ].join(" ")}
       style={{
         left: `${datePosition(date)}%`,
         top: `${timeStart}px`,
@@ -126,20 +135,18 @@ function ScheduleItem({
           display: delButtonState ? "flex" : "none",
         }}
       >
-        <p onClick={confirmDelete}>×</p>
+        <span onClick={confirmDelete}>×</span>
       </div>
       <div className={style.item_content}>
-        <div className={style.item_name}>{name}</div>
-        <div className={style.item_place}>
-          {timeLength >= 54 ? place : null}
-        </div>
+        <p className={style.item_name}>{name}</p>
+        <p className={style.item_place}>{timeLength >= 54 ? place : null}</p>
         {timeLength >= 54 ? (
-          <div className={style.item_time}>
+          <p className={style.item_time}>
             {startHour < 10 ? `0${startHour}` : startHour}:
             {startMin < 10 ? `0${startMin}` : startMin}&nbsp;~&nbsp;
             {endHour < 10 ? `0${endHour}` : endHour}:
             {endMin < 10 ? `0${endMin}` : endMin}
-          </div>
+          </p>
         ) : null}
       </div>
     </div>

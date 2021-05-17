@@ -3,33 +3,65 @@ import RMDEditor from "rich-markdown-editor";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import { UserIdType } from "../../../_types/authTypes";
+import { Mode } from "../../../_types/modeTypes";
 import { BASE_URL } from "../../../_data/urlData";
 import style from "../styles/StickyMemo.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 
-function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
-  const [noteId, setNoteId] = useState<string>("");
+function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   const [body, setBody] = useState<string>("");
+
+  const [gotUserId, setGotUserId] = useState<boolean>(false);
+
+  const [getUserId, setGetUserId] = useState<boolean>(false);
+  const [update, setUpdate] = useState<boolean>(false);
 
   const editor: any = useRef();
 
   let source = axios.CancelToken.source();
 
   useEffect(() => {
-    getBody(userIdInfo);
+    fetchUserId();
+  }, [getUserId]);
 
+  useEffect(() => {
+    getBody(userIdInfo);
     return () => {
       setBody("");
-      setNoteId("");
       source.cancel();
     };
-  }, []);
+  }, [update]);
+
+  const fetchUserId = () => {
+    if (userIdInfo === "" || userIdInfo === undefined) {
+      setGetUserId(!getUserId);
+    } else {
+      setGotUserId(true);
+      setUpdate(!update);
+    }
+  };
 
   const getBody = async (userId: string | null) => {
-    const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
-    res.data.forEach((note: any) => {
-      setBody(note.body);
-      setNoteId(note._id);
-    });
+    if (gotUserId === true) {
+      try {
+        const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
+        if (res.data.length === 0) {
+          const stickymemoInit = {
+            body: "",
+            userId: userIdInfo,
+          };
+          axios
+            .post(BASE_URL + "/stickynote/create", stickymemoInit)
+            .then((res) => console.log(res.data));
+        } else {
+          res.data.forEach((note: any) => {
+            setBody(note.body);
+          });
+        }
+      } catch (err) {
+        throw err;
+      }
+    }
   };
 
   const handleChange = debounce((value) => {
@@ -38,7 +70,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
     };
     try {
       axios
-        .put(BASE_URL + "/stickynote/" + noteId, noteInfo, {
+        .put(BASE_URL + "/stickynote/user/" + userIdInfo, noteInfo, {
           cancelToken: source.token,
         })
         .then((res) => console.log(res.data));
@@ -49,13 +81,25 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
   }, 1000);
 
   return (
-    <div className={style.sticky_memo}>
+    <div
+      className={[
+        style.sticky_memo,
+        modeInfo === "light"
+          ? style_mode.sticky_memo_light
+          : style_mode.sticky_memo_dark,
+      ].join(" ")}
+    >
       <div className={style.title}>STICKY MEMO</div>
       <div className={style.sub_title}>
         <span>간단한 메모를 작성할 수 있습니다.</span>
       </div>
       <div
-        className={style.sticky_wrapper}
+        className={[
+          style.sticky_wrapper,
+          modeInfo === "light"
+            ? style_mode.sticky_wrapper_light
+            : style_mode.sticky_wrapper_dark,
+        ].join(" ")}
         onClick={(e: any) => {
           if (e.target.className === "StickyMemo_sticky_wrapper__Q7axL") {
             editor.current.focusAtEnd();
@@ -107,7 +151,7 @@ function StickyMemo({ userIdInfo }: UserIdType): JSX.Element {
             });
           }}
           onShowToast={(message, type) => window.alert(`${type}: ${message}`)}
-          dark={false}
+          dark={modeInfo === "dark" ? true : false}
         />
       </div>
     </div>

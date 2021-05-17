@@ -7,7 +7,10 @@ import {
 } from "../../../_types/scheduleTypes";
 import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_reducers";
 import style from "../styles/InputBoxStyle.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 
 interface ModalTypes {
   modalState: boolean;
@@ -20,6 +23,7 @@ export default function InputBox({
   addData,
   allData,
 }: ModalTypes & DataProps): JSX.Element {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const nextIndex = useRef<number>(2);
   const checkTimeCorrect = useRef<boolean>(false);
   const checkOverlap = useRef<boolean>(false);
@@ -197,41 +201,76 @@ export default function InputBox({
   return (
     <>
       {modalState ? (
-        <div className={style.input_wrapper}>
-          <button className={style.close_button} onClick={closeModalInside}>
-            ×
-          </button>
+        <div
+          className={[
+            style.blur_background,
+            modeInfo === "light"
+              ? style_mode.blur_background_light
+              : style_mode.blur_background_dark,
+          ].join(" ")}
+        >
+          <div
+            className={[
+              style.input_wrapper,
+              modeInfo === "light"
+                ? style_mode.input_wrapper_light
+                : style_mode.input_wrapper_dark,
+            ].join(" ")}
+          >
+            <button className={style.close_button} onClick={closeModalInside}>
+              ×
+            </button>
 
-          <div className={style.input_wrapper_sub}>
-            <div className={style.input_title}>
-              <h3>일정</h3>
-              <h3>장소</h3>
-              <h3>날짜/시간</h3>
-            </div>
+            <div className={style.input_wrapper_sub}>
+              <div
+                className={[
+                  style.input_title,
+                  modeInfo === "light"
+                    ? style_mode.input_title_light
+                    : style_mode.input_title_dark,
+                ].join(" ")}
+              >
+                <h3>일정</h3>
+                <h3>장소</h3>
+                <h3>날짜/시간</h3>
+              </div>
 
-            <div className={style.input_body}>
-              <InputText input={input} onChangeTxt={onChangeTxt} />
-
-              {schedule.map((schedule) => (
-                <InputDayTime
-                  key={schedule.index}
-                  onChangeTime={onChangeTime}
-                  schedule={schedule}
-                  index={schedule.index}
-                  removeDayTime={removeDayTime}
-                  ref={schedule.index === 1 ? resetDays : null}
+              <div className={style.input_body}>
+                <InputText
+                  input={input}
+                  onChangeTxt={onChangeTxt}
+                  modeInfo={modeInfo}
                 />
-              ))}
+
+                {schedule.map((schedule) => (
+                  <InputDayTime
+                    key={schedule.index}
+                    onChangeTime={onChangeTime}
+                    schedule={schedule}
+                    index={schedule.index}
+                    removeDayTime={removeDayTime}
+                    ref={schedule.index === 1 ? resetDays : null}
+                  />
+                ))}
+              </div>
             </div>
+
+            <button className={style.add_new_daytime} onClick={addNewDayTime}>
+              +
+            </button>
+
+            <button
+              className={[
+                style.input_box_button,
+                modeInfo === "light"
+                  ? style_mode.input_box_button_light
+                  : style_mode.input_box_button_dark,
+              ].join(" ")}
+              onClick={handleAddData}
+            >
+              추가하기
+            </button>
           </div>
-
-          <button className={style.add_new_daytime} onClick={addNewDayTime}>
-            +
-          </button>
-
-          <button className={style.input_box_button} onClick={handleAddData}>
-            추가하기
-          </button>
         </div>
       ) : null}
     </>

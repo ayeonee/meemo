@@ -1,6 +1,9 @@
 import { hourData, minData } from "../../../../_data/scheduleData";
 import { Schedule } from "../../../../_types/scheduleTypes";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../_reducers";
 import style from "../../styles/InputBoxStyle.module.scss";
+import style_mode from "../../styles/modeColor.module.scss";
 
 interface InputTimeListProps {
   handleChange: React.ChangeEventHandler;
@@ -11,9 +14,17 @@ export default function InputTimeList({
   handleChange,
   schedule,
 }: InputTimeListProps): JSX.Element {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const { startHour, startMin, endHour, endMin } = schedule;
   return (
-    <div className={style.select_wrapper}>
+    <div
+      className={[
+        style.select_wrapper,
+        modeInfo === "light"
+          ? style_mode.select_wrapper_light
+          : style_mode.select_wrapper_dark,
+      ].join(" ")}
+    >
       <select name="startHour" value={startHour} onChange={handleChange}>
         {hourData.map((data) => (
           <option value={data} key={data}>

@@ -16,7 +16,7 @@
     height: 40px;
     padding: 10px 0 10px 0;
     list-style: none;
-    border-bottom: 1px solid rgba(126, 126, 126, 0.397);
+    border-bottom: 1px solid $gray;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -34,19 +34,26 @@
     }
 
     .todo_true {
-      color: rgba(126, 126, 126, 0.603);
+      color: $gray_hover;
       text-decoration: line-through;
+    }
+
+    .todo_item_light {
+      color: $dark_text_b;
+    }
+    .todo_item_dark {
+      color: $dark_text_3;
     }
 
     .delete_todo {
       font-size: 24px;
       margin-right: 18px;
       height: fit-content;
-      color: rgba(126, 126, 126, 0.603);
+      color: $gray;
       cursor: pointer;
 
       &:hover {
-        color: rgb(126, 126, 126);
+        color: $gray_hover;
       }
     }
   }

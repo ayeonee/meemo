@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_reducers";
 import style from "../styles/RouteShow.module.scss";
-
+import style_mode from "../styles/modeColor.module.scss";
 import { Link } from "react-router-dom";
 
-import { ChromeReaderMode, Edit, Done, DoneOutline } from "@material-ui/icons";
+import { ChromeReaderMode, Edit, Done } from "@material-ui/icons";
 import LoaderSpinner from "./LoaderSpinner";
 
 type RouteShowProps = {
@@ -16,6 +18,7 @@ type RouteShowProps = {
 };
 
 export default function RouteShow(props: RouteShowProps) {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const {
     type,
     folderTitle,
@@ -32,29 +35,73 @@ export default function RouteShow(props: RouteShowProps) {
   };
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.route}>
-        <Link to="/folders" style={linkStyle}>{`모든 폴더`}</Link>
-        {type === "notelist" ? (
-          <span>&nbsp;&nbsp;»&nbsp;&nbsp;{folderTitle}</span>
-        ) : null}
-        {type === "editor" ? (
-          <>
-            <Link
-              to={{
-                pathname: `/folders/${folderTitle}`,
-                state: {
-                  folderTitle: folderTitle,
-                  folderId: folderId,
-                },
-              }}
-              style={linkStyle}
+    <div
+      className={[
+        style.top_bar,
+        modeInfo === "light"
+          ? style_mode.top_bar_light
+          : style_mode.top_bar_dark,
+      ].join(" ")}
+    >
+      <div className={style.wrapper}>
+        <div className={style.route}>
+          <Link to="/folders" style={linkStyle}>
+            <p
+              className={
+                modeInfo === "light"
+                  ? style_mode.text_light
+                  : style_mode.text_dark
+              }
+            >
+              모든 폴더
+            </p>
+          </Link>
+          {type === "notelist" ? (
+            <span
+              className={
+                modeInfo === "light"
+                  ? style_mode.text_light
+                  : style_mode.text_dark
+              }
             >
               &nbsp;&nbsp;»&nbsp;&nbsp;{folderTitle}
-            </Link>
-            <span>&nbsp;&nbsp;»&nbsp;&nbsp;{noteTitle}</span>
-          </>
-        ) : null}
+            </span>
+          ) : null}
+          {type === "editor" ? (
+            <>
+              <Link
+                to={{
+                  pathname: `/folders/${folderTitle}`,
+                  state: {
+                    folderTitle: folderTitle,
+                    folderId: folderId,
+                  },
+                }}
+                style={linkStyle}
+              >
+                <span
+                  className={
+                    modeInfo === "light"
+                      ? style_mode.text_light
+                      : style_mode.text_dark
+                  }
+                >
+                  {" "}
+                  &nbsp;&nbsp;»&nbsp;&nbsp;{folderTitle}
+                </span>
+              </Link>
+              <span
+                className={
+                  modeInfo === "light"
+                    ? style_mode.text_light
+                    : style_mode.text_dark
+                }
+              >
+                &nbsp;&nbsp;»&nbsp;&nbsp;{noteTitle}
+              </span>
+            </>
+          ) : null}
+        </div>
       </div>
       {type === "editor" ? (
         <div className={style.editDiv}>

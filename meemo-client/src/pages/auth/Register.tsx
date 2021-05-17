@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../_userActions/userAction";
+import { registerUser } from "../../_actions/userAction";
 import style from "./styles/Auth.module.scss";
 
 import { BASE_URL } from "../../_data/urlData";

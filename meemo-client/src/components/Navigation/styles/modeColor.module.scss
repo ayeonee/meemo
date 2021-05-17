@@ -1,0 +1,58 @@
+@import "../../../styles/_variables.module.scss";
+
+.nav_wrapper_dark {
+  background-color: rgb(35, 36, 39);
+
+  .nav_items_dark {
+    background-color: rgb(35, 36, 39);
+  }
+  .nav_menu_checked_dark {
+    color: $green_grade_4;
+  }
+
+  .nav_menu_dark {
+    color: $dark_text_1;
+    &:hover {
+      color: $dark_text_2;
+    }
+  }
+
+  .nav_username_dark {
+    color: $dark_text_3;
+  }
+  .logout_btn_dark {
+    color: $dark_text_2;
+
+    &:hover {
+      color: $dark_text_3;
+    }
+  }
+}
+
+.nav_wrapper_light {
+  background-color: white;
+
+  .nav_items_light {
+    background-color: white;
+  }
+  .nav_menu_checked_light {
+    color: $green_grade_5;
+  }
+
+  .nav_menu_light {
+    color: rgb(87, 87, 87);
+    &:hover {
+      color: rgb(138, 138, 138);
+    }
+  }
+
+  .nav_username_light {
+    color: rgb(44, 44, 44);
+  }
+  .logout_btn_light {
+    color: rgb(46, 46, 46);
+    &:hover {
+      color: rgb(100, 100, 100);
+    }
+  }
+}
