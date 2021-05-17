@@ -35,6 +35,7 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   const fetchUserId = () => {
     if (userIdInfo === "" || userIdInfo === undefined) {
       setGetUserId(!getUserId);
+      // 계속돌게되면 에러페이지로 가도록
     } else {
       setGotUserId(true);
       setUpdate(!update);
@@ -101,7 +102,11 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
             : style_mode.sticky_wrapper_dark,
         ].join(" ")}
         onClick={(e: any) => {
-          if (e.target.className === "StickyMemo_sticky_wrapper__Q7axL") {
+          if (
+            e.target.className === "StickyMemo_sticky_wrapper__Q7axL " ||
+            e.target.className ===
+              "StickyMemo_sticky_wrapper__Q7axL modeColor_sticky_wrapper_light__2QDKe"
+          ) {
             editor.current.focusAtEnd();
           }
         }}

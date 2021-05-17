@@ -176,7 +176,8 @@ export default function Editor(): JSX.Element {
               {/* need thorough study of each prop, such as image upload */}
               <RMDEditor
                 id="example"
-                readOnly={false}
+                ref={editor}
+                readOnly={isReadOnly}
                 readOnlyWriteCheckboxes
                 value={value}
                 defaultValue={value}

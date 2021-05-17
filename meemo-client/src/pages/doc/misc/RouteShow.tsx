@@ -46,7 +46,7 @@ export default function RouteShow(props: RouteShowProps) {
       <div className={style.wrapper}>
         <div className={style.route}>
           <Link to="/folders" style={linkStyle}>
-            <p
+            <span
               className={
                 modeInfo === "light"
                   ? style_mode.text_light
@@ -54,7 +54,7 @@ export default function RouteShow(props: RouteShowProps) {
               }
             >
               모든 폴더
-            </p>
+            </span>
           </Link>
           {type === "notelist" ? (
             <span
@@ -102,28 +102,28 @@ export default function RouteShow(props: RouteShowProps) {
             </>
           ) : null}
         </div>
+        {type === "editor" ? (
+          <div className={style.editDiv}>
+            <div className={style.isSavedDiv}>
+              {isSaving === null ? null : isSaving ? (
+                <LoaderSpinner type="routeshow" />
+              ) : (
+                <>
+                  <Done className={style.savedIcons} />
+                  <p className={style.savedText}>저장됨!</p>
+                </>
+              )}
+            </div>
+            <div className={style.editBtn} onClick={handleEdit}>
+              {isReadOnly ? (
+                <Edit className={style.editIcons} />
+              ) : (
+                <ChromeReaderMode className={style.editIcons} />
+              )}
+            </div>
+          </div>
+        ) : null}
       </div>
-      {type === "editor" ? (
-        <div className={style.editDiv}>
-          <div className={style.isSavedDiv}>
-            {isSaving === null ? null : isSaving ? (
-              <LoaderSpinner type="routeshow" />
-            ) : (
-              <>
-                <Done className={style.savedIcons} />
-                <p className={style.savedText}>저장됨!</p>
-              </>
-            )}
-          </div>
-          <div className={style.editBtn} onClick={handleEdit}>
-            {isReadOnly ? (
-              <Edit className={style.editIcons} />
-            ) : (
-              <ChromeReaderMode className={style.editIcons} />
-            )}
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }

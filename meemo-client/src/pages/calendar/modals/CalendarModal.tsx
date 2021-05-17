@@ -218,7 +218,12 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                 : style_mode.noteDiv_dark,
             ].join(" ")}
             onClick={(e: any) => {
-              if (e.target.className === "CalendarModal_noteDiv__1ezjn") {
+              if (
+                e.target.className ===
+                  "CalendarModal_noteDiv__1ezjn modeColor_noteDiv_light__3j0jB" ||
+                e.target.className ===
+                  "CalendarModal_noteDiv__1ezjn modeColor_noteDiv_dark__3YxuQ"
+              ) {
                 editor.current.focusAtEnd();
               }
             }}
@@ -226,6 +231,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
             <div className={style.modal_editor}>
               <RMDEditor
                 id="example"
+                ref={editor}
                 readOnly={false}
                 readOnlyWriteCheckboxes
                 // value={}

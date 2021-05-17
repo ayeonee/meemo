@@ -1,100 +1,98 @@
 @import "../../../styles/_variables.module.scss";
 
 .top_bar {
-  width: 100%;
   height: 40px;
   padding-bottom: 10px;
   top: 90px;
   z-index: 99;
   position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  width: 50%;
 
   .wrapper {
+    width: 100%;
     height: 30px;
     background-color: transparent;
 
-<<<<<<< HEAD
-  border-bottom: 1.5px solid $green_grade_4;
+    border-bottom: 1.5px solid $green_grade_4;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  .route {
-    padding: 10px 7px 10px 10px;
-    font-size: 12px;
-  }
-
-  .editDiv {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
-    .isSavedDiv {
-      display: flex;
-      .savedIcons {
-        color: $green_grade_4;
-        margin-top: 3px;
-      }
-      .savedText {
-        margin-top: 7px;
-        font-size: 15px;
-        color: $green_grade_4;
-      }
-    }
-
-    .editBtn {
-      width: 70px;
-      border-radius: 20px;
-      border: 1px solid $green_grade_4;
-
-      margin-left: 20px;
-
-      cursor: pointer;
-      .editIcons {
-        color: $green_grade_4;
-        margin-top: 1px;
-        margin-left: 23px;
-      }
-=======
     .route {
       padding: 10px 7px 10px 10px;
       font-size: 12px;
-      border-bottom: 1.5px solid $green_grade_4;
-      @include flex_row;
->>>>>>> c94edcd7011cc579794c341866d9e112528ff135
     }
-  }
 
-  @include min {
-    .wrapper {
-      width: 325px;
-    }
-  }
-  @include mobile {
-    .wrapper {
-      width: 80%;
-    }
-  }
+    .editDiv {
+      display: flex;
 
-  @include tablet {
-    .wrapper {
-      width: 80%;
+      .isSavedDiv {
+        display: flex;
+        .savedIcons {
+          color: $green_grade_4;
+          margin-top: 3px;
+        }
+        .savedText {
+          margin-top: 7px;
+          font-size: 15px;
+          color: $green_grade_4;
+        }
+      }
+
+      .editBtn {
+        width: 70px;
+        border-radius: 20px;
+        border: 1px solid $green_grade_4;
+
+        margin-left: 20px;
+
+        cursor: pointer;
+        .editIcons {
+          color: $green_grade_4;
+          margin-top: 1px;
+          margin-left: 23px;
+        }
+      }
     }
-  }
-  @include mdDesktop {
-    .wrapper {
-      width: 80%;
+
+    @include min {
+      .top_bar,
+      .wrapper {
+        width: 325px;
+      }
     }
-  }
-  @include lgDesktop {
-    .wrapper {
-      width: 55%;
+    @include mobile {
+      .top_bar,
+      .wrapper {
+        width: 80%;
+      }
     }
-  }
-  @include max {
-    .wrapper {
-      width: 55%;
+
+    @include tablet {
+      .top_bar,
+      .wrapper {
+        width: 80%;
+      }
+    }
+    @include mdDesktop {
+      .top_bar,
+      .wrapper {
+        width: 80%;
+      }
+    }
+    @include lgDesktop {
+      .top_bar,
+      .wrapper {
+        width: 55%;
+      }
+    }
+    @include max {
+      .top_bar,
+      .wrapper {
+        width: 55%;
+      }
     }
   }
 }
