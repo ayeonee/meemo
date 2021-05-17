@@ -70,6 +70,7 @@
 .fc-button {
   background-color: var(--green_grade_4) !important;
   border: none !important;
+  /* color: rgb(27, 27, 27) !important; */
 }
 .fc .fc-button:focus {
   box-shadow: none !important;

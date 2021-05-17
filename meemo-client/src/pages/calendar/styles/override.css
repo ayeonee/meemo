@@ -7,6 +7,7 @@
   --green_grade_5: #52a58e;
   --green_grade_6: #008357;
 
+  --gray_lighter: rgba(151, 151, 151, 0.726);
   --gray: rgba(48, 48, 48, 0.267);
   --gray_border: 1px solid $gray;
 }

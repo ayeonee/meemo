@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useTodoDispatch } from "../TodosContext";
 import style from "../styles/InputTodo.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 import { Mode } from "../../../_types/modeTypes";
 
 export default function InputTodo({ modeInfo }: Mode): JSX.Element {
@@ -34,7 +35,12 @@ export default function InputTodo({ modeInfo }: Mode): JSX.Element {
   return (
     <form className={style.todo_input_wrapper} onSubmit={addTodoData}>
       <input
-        className={style.todo_input}
+        className={[
+          style.todo_input,
+          modeInfo === "light"
+            ? style_mode.todo_input_light
+            : style_mode.todo_input_dark,
+        ].join(" ")}
         type="text"
         value={input}
         onChange={onChangeInput}
@@ -43,8 +49,8 @@ export default function InputTodo({ modeInfo }: Mode): JSX.Element {
         className={[
           style.todo_input_button,
           modeInfo === "light"
-            ? style.todo_input_button_light
-            : style.todo_input_button_dark,
+            ? style_mode.todo_input_button_light
+            : style_mode.todo_input_button_dark,
         ].join(" ")}
       >
         +

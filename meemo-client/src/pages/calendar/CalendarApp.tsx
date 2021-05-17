@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import FullCalendar, {
   DateSelectArg,
   EventClickArg,
@@ -14,6 +14,7 @@ import { RootState } from "../../_reducers";
 import moment from "moment";
 
 import style from "./styles/CalendarApp.module.scss";
+import style_mode from "./styles/modeColor.module.scss";
 
 import LoaderSpinner from "../doc/misc/LoaderSpinner";
 
@@ -22,15 +23,16 @@ import CalendarModal from "./modals/CalendarModal";
 import { BASE_URL } from "../../_data/urlData";
 
 export default function CalendarApp(): JSX.Element {
+  const userIdInfo = useSelector(
+    (state: RootState) => state.userReducer.userData.userId
+  );
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const [currentEvents, setCurrentEvents]: any[] = useState([]);
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
   const [selectInfo, setSelectInfo] = useState({});
   const [update, setUpdate] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const userIdInfo = useSelector(
-    (state: RootState) => state.userReducer.userData.userId
-  );
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   // const userId = useRef<string | null>(userIdInfo);
@@ -175,7 +177,14 @@ export default function CalendarApp(): JSX.Element {
   };
 
   return (
-    <div className={style.wrapper}>
+    <div
+      className={[
+        style.wrapper,
+        modeInfo === "light"
+          ? style_mode.wrapper_light
+          : style_mode.wrapper_dark,
+      ].join(" ")}
+    >
       {isLoading ? (
         <LoaderSpinner />
       ) : (

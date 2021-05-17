@@ -4,7 +4,8 @@ import { useRouteMatch, useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import style from "../styles/NoteList.module.scss";
-import { Add, Delete, Notes, Create } from "@material-ui/icons";
+import style_mode from "../styles/modeColor.module.scss";
+import { Delete, Notes, Create } from "@material-ui/icons";
 
 import AddRenameModal from "../modals/AddRenameModal";
 import DeleteModal from "../modals/DeleteModal";
@@ -26,25 +27,24 @@ const onlyLet = (str: string) => {
 };
 
 export default function NoteList() {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
+  const userIdInfo = useSelector(
+    (state: RootState) => state.userReducer.userData.userId
+  );
   const [notes, setNotes]: any = useState([]);
   const [selectedNote, setSelectedNote] = useState<string>("");
   const [delBtn, setDelBtn] = useState<boolean>(false);
   const [update, setUpdate] = useState<boolean>(false);
-
   const [noteTitle, setNoteTitle] = useState<string>("");
   const [folderId, setFolderId] = useState<string>("");
   const [gotFolderId, setGotFolderId] = useState<boolean>(false);
-
   const [popupType, setPopupType] = useState<string>("");
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelModal, setShowDelModal] = useState<boolean>(false);
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const userIdInfo = useSelector(
-    (state: RootState) => state.userReducer.userData.userId
-  );
-  const [userId, setUserId] = useState<string | null>(userIdInfo);
+  // const [userId, setUserId] = useState<string | null>(userIdInfo);
+  const userId = "testmeemo";
 
   let { url }: any = useRouteMatch();
   let { folderTitle }: any = useParams();
@@ -249,20 +249,44 @@ export default function NoteList() {
                   id={`noDeselect`}
                   className={
                     selectedNote === note._id
-                      ? style.notesSelected
-                      : style.notes
+                      ? [
+                          style.notesSelected,
+                          modeInfo === "light"
+                            ? style_mode.note_selected_light
+                            : style_mode.note_selected_dark,
+                        ].join(" ")
+                      : [
+                          style.notes,
+                          modeInfo === "light"
+                            ? style_mode.notes_light
+                            : style_mode.notes_dark,
+                        ].join(" ")
                   }
                   onClick={() => {
                     onSelect(note);
                   }}
                 >
                   <div className={style.iconDiv}>
-                    <Notes className={style.noteIcon} />
+                    <Notes
+                      className={[
+                        style.noteIcon,
+                        modeInfo === "light"
+                          ? style_mode.note_icon_light
+                          : style_mode.note_icon_dark,
+                      ].join(" ")}
+                    />
                   </div>
                   <div className={style.titleDiv}>{note.title}</div>
-                  <div className={style.timeDiv}>
+                  <div
+                    className={[
+                      style.timeDiv,
+                      modeInfo === "light"
+                        ? style_mode.timeDiv_light
+                        : style_mode.timeDiv_dark,
+                    ].join(" ")}
+                  >
+                    <p className={style.timeMent}>최근 수정 :&nbsp;</p>
                     <p>
-                      <div className={style.timeMent}>최근 수정 :&nbsp;</div>
                       {moment(note.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
                     </p>
                   </div>
@@ -272,7 +296,16 @@ export default function NoteList() {
           </div>
           <div className={style.toolDiv}>
             <div
-              className={delBtn ? style.renameBtn : style.hideRenameBtn}
+              className={
+                delBtn
+                  ? [
+                      style.renameBtn,
+                      modeInfo === "light"
+                        ? style_mode.btn_light
+                        : style_mode.btn_dark,
+                    ].join(" ")
+                  : style.hideRenameBtn
+              }
               id={`noDeselect`}
               onClick={() => {
                 setPopupType("rename");
@@ -282,17 +315,31 @@ export default function NoteList() {
               <Create className={style.renameIcon} />
             </div>
             <div
-              className={style.addBtn}
+              className={[
+                style.addBtn,
+                modeInfo === "light"
+                  ? style_mode.btn_light
+                  : style_mode.btn_dark,
+              ].join(" ")}
               id={`noDeselect`}
               onClick={() => {
                 setPopupType("notelist");
                 setShowPopup(!showPopup);
               }}
             >
-              <Add className={style.addIcon} />
+              <span> + </span>
             </div>
             <div
-              className={delBtn ? style.deleteBtn : style.hideDelBtn}
+              className={
+                delBtn
+                  ? [
+                      style.deleteBtn,
+                      modeInfo === "light"
+                        ? style_mode.btn_light
+                        : style_mode.btn_dark,
+                    ].join(" ")
+                  : style.hideDelBtn
+              }
               id={`noDeselect`}
               onClick={() => {
                 setShowDelModal(!showDelModal);

@@ -1,0 +1,111 @@
+@import "../../../styles/_variables.module.scss";
+
+.top_bar_dark {
+  background-color: rgb(53, 54, 58);
+}
+.top_bar_light {
+  background-color: white;
+}
+
+.text_light {
+  color: $dark_text_b;
+}
+.text_dark {
+  color: $dark_text_3;
+}
+
+.selected_light {
+  background-color: $green_grade_3;
+  color: white;
+  p {
+    color: white;
+  }
+  .folderIcon_light {
+    color: white;
+  }
+}
+.selected_dark {
+  background-color: $green_grade_4;
+  color: $dark_text_b;
+  p {
+    color: $dark_text_b;
+  }
+  .folderIcon_dark {
+    color: $dark_text_b;
+  }
+}
+
+.btn_dark {
+  color: $dark_text_b;
+  background-color: $green_grade_5;
+}
+.btn_light {
+  color: white;
+  background-color: $green_grade_4;
+}
+
+.notes_light {
+  color: $dark_text_b;
+  border-bottom: 1px solid $gray;
+  .timeDiv_light {
+    color: $dark_text_b;
+    p,
+    span,
+    b,
+    small {
+      color: $dark_text_b;
+    }
+  }
+}
+.notes_dark {
+  color: $dark_text_3;
+  border-bottom: 1px solid $gray;
+  .timeDiv_dark {
+    color: $dark_text_2;
+    p,
+    span,
+    b,
+    small {
+      color: $dark_text_3;
+    }
+  }
+}
+
+.note_selected_light {
+  background-color: $green_grade_3;
+  border-bottom: 1px solid $green_grade_3;
+
+  .note_icon_light {
+    color: white;
+  }
+
+  .timeDiv_light {
+    color: $dark_text_2;
+
+    p,
+    span,
+    b,
+    small {
+      color: $dark_text_2;
+    }
+  }
+}
+
+.note_selected_dark {
+  background-color: $green_grade_4;
+  border-bottom: 1px solid $green_grade_4;
+  .note_icon_dark {
+    color: $dark_text_b;
+  }
+
+  .timeDiv_dark {
+    color: $dark_text_b;
+
+    p,
+    span,
+    b,
+    small {
+      color: $dark_text_b;
+    }
+  }
+}

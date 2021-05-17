@@ -1,0 +1,9 @@
+@import "../../../styles/_variables.module.scss";
+
+.wrapper_dark {
+  color: $dark_text_3;
+  border: $gray;
+}
+.wrapper_light {
+  color: $dark_text_b;
+}

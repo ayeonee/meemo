@@ -162,8 +162,19 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
             </div>
           </div>
 
-          <div className={style.dark_mode_wraspper}>
+          <div className={style.dark_mode_wrapper}>
             <DarkMode pathname={pathname} />
+            <p
+              className={
+                modeInfo === "light"
+                  ? style.mode_toggle_light
+                  : style.mode_toggle_dark
+              }
+            >
+              {modeInfo === "light" ? "Dark" : "Light"}
+              <br />
+              Mode
+            </p>
           </div>
         </div>
       </nav>
