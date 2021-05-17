@@ -11,14 +11,7 @@ type PopupToggleProps = {
 };
 
 export default function AddRenameModal(props: PopupToggleProps) {
-  const {
-    prevTitle,
-    selectedId,
-    component,
-    togglePopup,
-    getTitle,
-    getRename,
-  } = props;
+  const { prevTitle, selectedId, component, togglePopup, getTitle, getRename } = props;
 
   const setType = () => {
     if (component === "notelist") {
@@ -32,12 +25,28 @@ export default function AddRenameModal(props: PopupToggleProps) {
 
   const btnLabel = component === "rename" ? "변경" : "생성";
 
-  const [inputVal, setInputVal] = useState(
-    component === "rename" ? prevTitle : `${setType()}`
-  );
+  const [inputVal, setInputVal] = useState(component === "rename" ? prevTitle : `${setType()}`);
 
   const handleSubmit = (val: string, id: string) => {
     component === "rename" ? getRename(id, val) : getTitle(val);
+  };
+
+  const getInputStringLength = (value: string) => {
+    let inputLength = 0;
+
+    for (let i = 0; i < value.length; i++) {
+      let currentChar = value.charCodeAt(i);
+      inputLength += currentChar >> 7 ? 2 : 1.1;
+    }
+    return inputLength;
+  };
+
+  const inputValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputVal(e.target.value);
+    const inputLength = getInputStringLength(e.target.value);
+    if (inputLength > 36) {
+      setInputVal(e.target.value.slice(0, e.target.value.length - 1));
+    }
   };
 
   // tried to link keyboard keys such as Enter and ESC to the onClicks;
@@ -70,8 +79,7 @@ export default function AddRenameModal(props: PopupToggleProps) {
               name="folder_title"
               id={`noDeselect`}
               value={inputVal}
-              onChange={(e: any) => setInputVal(e.target.value)}
-              maxLength={16}
+              onChange={inputValueHandler}
               autoFocus
             ></input>
           </div>

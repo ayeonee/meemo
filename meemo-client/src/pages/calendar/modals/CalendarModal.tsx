@@ -18,9 +18,7 @@ interface CalendarModalProps {
 export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const { modalType, toggleModal, selectInfo, submit, handleDelete } = props;
 
-  const [userId, setUserId] = useState<string | null>(
-    localStorage.getItem("meemo-user-id")
-  );
+  const [userId, setUserId] = useState<string | null>(localStorage.getItem("meemo-user-id"));
 
   const [title, setTitle] = useState<string>(selectInfo.title);
   const [allDay, setAllDay] = useState<boolean>(selectInfo.allDay);
@@ -42,9 +40,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   );
 
   const handleSubmit = () => {
-    const fixedEndDate = allDay
-      ? moment(endDate).add(1, "days").format("YYYY-MM-DD")
-      : endDate;
+    const fixedEndDate = allDay ? moment(endDate).add(1, "days").format("YYYY-MM-DD") : endDate;
     const calAdd = {
       type: "ADD",
       title: title,
@@ -74,6 +70,24 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
     }
   };
 
+  const getInputStringLength = (value: string) => {
+    let inputLength = 0;
+
+    for (let i = 0; i < value.length; i++) {
+      let currentChar = value.charCodeAt(i);
+      inputLength += currentChar >> 7 ? 2 : 1.1;
+    }
+    return inputLength;
+  };
+
+  const inputValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+    const inputLength = getInputStringLength(e.target.value);
+    if (inputLength > 52) {
+      setTitle(e.target.value.slice(0, e.target.value.length - 1));
+    }
+  };
+
   return (
     <div className={style.wrapper}>
       <div className={style.popupWrapper}>
@@ -84,9 +98,8 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               name="title"
               className="titleInput"
               placeholder="제목을 입력하세요"
-              maxLength={26}
               value={title}
-              onChange={(e: any) => setTitle(e.target.value)}
+              onChange={inputValueHandler}
               autoFocus
             />
           </div>
@@ -192,33 +205,25 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               onSave={(options) => console.log("Save triggered", options)}
               onCancel={() => console.log("Cancel triggered")}
               onChange={(value) => setEditorBody(value)}
-              onClickLink={(href, event) =>
-                console.log("Clicked link: ", href, event)
-              }
+              onClickLink={(href, event) => console.log("Clicked link: ", href, event)}
               onHoverLink={(event: any) => {
                 console.log("Hovered link: ", event.target.href);
                 return false;
               }}
-              onClickHashtag={(tag, event) =>
-                console.log("Clicked hashtag: ", tag, event)
-              }
+              onClickHashtag={(tag, event) => console.log("Clicked hashtag: ", tag, event)}
               onCreateLink={(title) => {
                 // Delay to simulate time taken for remote API request to complete
                 return new Promise((resolve, reject) => {
                   setTimeout(() => {
                     if (title !== "error") {
-                      return resolve(
-                        `/doc/${encodeURIComponent(title.toLowerCase())}`
-                      );
+                      return resolve(`/doc/${encodeURIComponent(title.toLowerCase())}`);
                     } else {
                       reject("500 error");
                     }
                   }, 1500);
                 });
               }}
-              onShowToast={(message, type) =>
-                window.alert(`${type}: ${message}`)
-              }
+              onShowToast={(message, type) => window.alert(`${type}: ${message}`)}
               dark={false}
             />
           </div>
