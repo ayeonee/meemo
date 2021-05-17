@@ -14,8 +14,19 @@
   color: $dark_text_3;
 }
 
+.folders_dark {
+  background-color: rgb(32, 33, 36);
+  border: solid 1px $gray;
+}
+
+.folders_light {
+  background-color: white;
+  border: solid 1px $green_grade_3;
+}
+
 .selected_light {
   background-color: $green_grade_3;
+  border: solid 1px $green_grade_3;
   color: white;
   p {
     color: white;
@@ -26,6 +37,7 @@
 }
 .selected_dark {
   background-color: $green_grade_4;
+  border: solid 1px $green_grade_4;
   color: $dark_text_b;
   p {
     color: $dark_text_b;
@@ -105,6 +117,42 @@
     span,
     b,
     small {
+      color: $dark_text_b;
+    }
+  }
+}
+
+.wrapper_light {
+  background-color: rgba(36, 36, 36, 0.144);
+
+  .popup_light {
+    background-color: white;
+    input {
+      background-color: transparent;
+      color: $dark_text_b;
+    }
+
+    button {
+      color: white;
+    }
+  }
+}
+.wrapper_dark {
+  background-color: rgba(0, 0, 0, 0.6);
+  .popup_dark {
+    background-color: $dark_default;
+
+    p,
+    b {
+      color: $dark_text_3;
+    }
+
+    input {
+      background-color: transparent;
+      color: $dark_text_3;
+    }
+
+    button {
       color: $dark_text_b;
     }
   }

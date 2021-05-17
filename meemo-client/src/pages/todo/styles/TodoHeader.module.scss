@@ -11,15 +11,14 @@
     @include flex_row;
 
     .todo_title {
-      margin-left: 14px;
-      font-size: 28px;
-      font-weight: 300;
+      margin-left: 15px;
+      font-size: 2rem;
+      font-weight: 500;
     }
 
     .todo_count {
-      margin: 12px 12px 0 12px;
-      font-size: 16px;
-      font-weight: 300;
+      margin: 16px 0 0 12px;
+      font-size: 0.9rem;
     }
   }
 

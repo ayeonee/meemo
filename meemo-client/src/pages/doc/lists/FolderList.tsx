@@ -33,8 +33,7 @@ export default function FolderList(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // const [userId, setUserId] = useState<string | null>(userIdInfo);
-  const userId = "testmeemo";
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url } = useRouteMatch();
   let history = useHistory();
@@ -224,7 +223,12 @@ export default function FolderList(): JSX.Element {
                             ? style_mode.selected_light
                             : style_mode.selected_dark,
                         ].join(" ")
-                      : style.folders
+                      : [
+                          style.folders,
+                          modeInfo === "light"
+                            ? style_mode.folders_light
+                            : style_mode.folders_dark,
+                        ].join(" ")
                   }
                   onClick={() => onSelect(folder)}
                 >

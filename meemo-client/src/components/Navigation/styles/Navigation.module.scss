@@ -237,14 +237,15 @@
 
         .dark_mode_wrapper {
           position: absolute;
-          @include flex_row;
-          align-items: center;
+          @include flex_col;
           width: 60%;
           bottom: 220px;
+          margin-left: 2px;
 
           p {
-            margin-left: 10px;
+            margin-top: 10px;
             font-size: 12px;
+            font-weight: bold;
           }
         }
       }

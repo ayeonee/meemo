@@ -5,7 +5,6 @@
   --green_grade_3: #88cdbf;
   --green_grade_4: #6cbea7;
   --green_grade_5: #52a58e;
-  --green_grade_6: #008357;
 
   --gray_lighter: rgba(151, 151, 151, 0.726);
   --gray: rgba(48, 48, 48, 0.267);
@@ -15,5 +14,5 @@
 /* mostly for calendar modal */
 
 .MuiInput-underline:after {
-  border-bottom: 2px solid var(--green_grade_6) !important;
+  border-bottom: 2px solid var(--green_grade_5) !important;
 }

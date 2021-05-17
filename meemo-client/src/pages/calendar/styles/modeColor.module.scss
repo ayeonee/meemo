@@ -1,9 +1,53 @@
 @import "../../../styles/_variables.module.scss";
 
 .wrapper_dark {
-  color: $dark_text_3;
-  border: $gray;
+  a {
+    color: white;
+  }
+  h2 {
+    color: $dark_text_2;
+  }
 }
 .wrapper_light {
-  color: $dark_text_b;
+  a {
+    color: $dark_text_b;
+  }
+}
+
+.blur_background_dark {
+  color: $dark_text_3;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  .popup_wrapper_dark {
+    background-color: $dark_default;
+
+    input {
+      color: $dark_text_3;
+    }
+
+    button {
+      color: $dark_text_b;
+    }
+
+    .noteDiv_dark {
+      background-color: $dark_bg;
+    }
+  }
+}
+.blur_background_light {
+  background-color: rgba(36, 36, 36, 0.144);
+  .popup_wrapper_light {
+    background-color: white;
+
+    input {
+      color: $dark_text_b;
+    }
+    button {
+      color: white;
+    }
+
+    .noteDiv_light {
+      background-color: white;
+    }
+  }
 }

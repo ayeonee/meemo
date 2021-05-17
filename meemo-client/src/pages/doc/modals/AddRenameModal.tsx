@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_reducers";
 import style from "../styles/AddRenameModal.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 
 type PopupToggleProps = {
   prevTitle: string;
@@ -11,6 +14,7 @@ type PopupToggleProps = {
 };
 
 export default function AddRenameModal(props: PopupToggleProps) {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const {
     prevTitle,
     selectedId,
@@ -57,8 +61,22 @@ export default function AddRenameModal(props: PopupToggleProps) {
   });
 
   return (
-    <div className={style.wrapper} id={`noDeselect`}>
-      <div className={style.popup} id={`noDeselect`}>
+    <div
+      className={[
+        style.wrapper,
+        modeInfo === "light"
+          ? style_mode.wrapper_light
+          : style_mode.wrapper_dark,
+      ].join(" ")}
+      id={`noDeselect`}
+    >
+      <div
+        className={[
+          style.popup,
+          modeInfo === "light" ? style_mode.popup_light : style_mode.popup_dark,
+        ].join(" ")}
+        id={`noDeselect`}
+      >
         <div className={style.innerPopup} id={`noDeselect`}>
           <div className={style.titleDiv} id={`noDeselect`}>
             <p id={`noDeselect`}>{setType()}</p>

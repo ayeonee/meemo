@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_reducers";
 import style from "../styles/CalendarModal.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 import RMDEditor from "rich-markdown-editor";
 
 import moment from "moment";
@@ -17,10 +20,12 @@ interface CalendarModalProps {
 
 export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const { modalType, toggleModal, selectInfo, submit, handleDelete } = props;
-
-  const [userId, setUserId] = useState<string | null>(
-    localStorage.getItem("meemo-user-id")
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
+  const userIdInfo = useSelector(
+    (state: RootState) => state.userReducer.userData.userId
   );
+
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   const [title, setTitle] = useState<string>(selectInfo.title);
   const [allDay, setAllDay] = useState<boolean>(selectInfo.allDay);
@@ -75,8 +80,22 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   };
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.popupWrapper}>
+    <div
+      className={[
+        style.wrapper,
+        modeInfo === "light"
+          ? style_mode.blur_background_light
+          : style_mode.blur_background_dark,
+      ].join(" ")}
+    >
+      <div
+        className={[
+          style.popupWrapper,
+          modeInfo === "light"
+            ? style_mode.popup_wrapper_light
+            : style_mode.popup_wrapper_dark,
+        ].join(" ")}
+      >
         <div className={style.popup}>
           <div className={style.titleDiv}>
             <input
@@ -172,55 +191,64 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               )}
             </div>
           </div>
-          <div className={style.noteDiv}>
-            <RMDEditor
-              id="example"
-              readOnly={false}
-              readOnlyWriteCheckboxes
-              // value={}
-              placeholder={"일정에 대한 메모를 적어보세요.."}
-              defaultValue={selectInfo.body}
-              scrollTo={window.location.hash}
-              handleDOMEvents={
-                {
-                  // focus: () => console.log("FOCUS"),
-                  // blur: () => console.log("BLUR"),
-                  // paste: () => console.log("PASTE"),
-                  // touchstart: () => console.log("TOUCH START"),
+          <div
+            className={[
+              style.noteDiv,
+              modeInfo === "light"
+                ? style_mode.noteDiv_light
+                : style_mode.noteDiv_dark,
+            ].join(" ")}
+          >
+            <div className={style.modal_editor}>
+              <RMDEditor
+                id="example"
+                readOnly={false}
+                readOnlyWriteCheckboxes
+                // value={}
+                placeholder={"일정에 대한 메모를 적어보세요.."}
+                defaultValue={selectInfo.body}
+                scrollTo={window.location.hash}
+                handleDOMEvents={
+                  {
+                    // focus: () => console.log("FOCUS"),
+                    // blur: () => console.log("BLUR"),
+                    // paste: () => console.log("PASTE"),
+                    // touchstart: () => console.log("TOUCH START"),
+                  }
                 }
-              }
-              onSave={(options) => console.log("Save triggered", options)}
-              onCancel={() => console.log("Cancel triggered")}
-              onChange={(value) => setEditorBody(value)}
-              onClickLink={(href, event) =>
-                console.log("Clicked link: ", href, event)
-              }
-              onHoverLink={(event: any) => {
-                console.log("Hovered link: ", event.target.href);
-                return false;
-              }}
-              onClickHashtag={(tag, event) =>
-                console.log("Clicked hashtag: ", tag, event)
-              }
-              onCreateLink={(title) => {
-                // Delay to simulate time taken for remote API request to complete
-                return new Promise((resolve, reject) => {
-                  setTimeout(() => {
-                    if (title !== "error") {
-                      return resolve(
-                        `/doc/${encodeURIComponent(title.toLowerCase())}`
-                      );
-                    } else {
-                      reject("500 error");
-                    }
-                  }, 1500);
-                });
-              }}
-              onShowToast={(message, type) =>
-                window.alert(`${type}: ${message}`)
-              }
-              dark={false}
-            />
+                onSave={(options) => console.log("Save triggered", options)}
+                onCancel={() => console.log("Cancel triggered")}
+                onChange={(value) => setEditorBody(value)}
+                onClickLink={(href, event) =>
+                  console.log("Clicked link: ", href, event)
+                }
+                onHoverLink={(event: any) => {
+                  console.log("Hovered link: ", event.target.href);
+                  return false;
+                }}
+                onClickHashtag={(tag, event) =>
+                  console.log("Clicked hashtag: ", tag, event)
+                }
+                onCreateLink={(title) => {
+                  // Delay to simulate time taken for remote API request to complete
+                  return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      if (title !== "error") {
+                        return resolve(
+                          `/doc/${encodeURIComponent(title.toLowerCase())}`
+                        );
+                      } else {
+                        reject("500 error");
+                      }
+                    }, 1500);
+                  });
+                }}
+                onShowToast={(message, type) =>
+                  window.alert(`${type}: ${message}`)
+                }
+                dark={modeInfo === "light" ? false : true}
+              />
+            </div>
           </div>
           <div className={style.btnDiv}>
             <button className={style.submit_button} onClick={handleSubmit}>

@@ -9,10 +9,17 @@
   position: absolute;
   top: 140px;
 
+  .editor_wrapper_dark {
+    background-color: $dark_bg;
+  }
   .editor_wrapper {
+    background-color: white;
+  }
+
+  .editor_wrapper,
+  .editor_wrapper_dark {
     border-radius: 3px;
     height: fit-content;
-    background-color: $dark_bg;
     justify-content: center;
     display: flex;
 
@@ -25,7 +32,8 @@
 }
 
 @include min {
-  .editor_wrapper {
+  .editor_wrapper,
+  .editor_wrapper_dark {
     width: 325px;
     .editor {
       width: 80%;
@@ -33,7 +41,8 @@
   }
 }
 @include mobile {
-  .editor_wrapper {
+  .editor_wrapper,
+  .editor_wrapper_dark {
     width: 80%;
     .editor {
       width: 85%;
@@ -42,7 +51,8 @@
 }
 
 @include tablet {
-  .editor_wrapper {
+  .editor_wrapper,
+  .editor_wrapper_dark {
     width: 80%;
     .editor {
       width: 90%;
@@ -50,7 +60,8 @@
   }
 }
 @include mdDesktop {
-  .editor_wrapper {
+  .editor_wrapper,
+  .editor_wrapper_dark {
     width: 80%;
     .editor {
       width: 90%;
@@ -58,7 +69,8 @@
   }
 }
 @include lgDesktop {
-  .editor_wrapper {
+  .editor_wrapper,
+  .editor_wrapper_dark {
     width: 55%;
     .editor {
       width: 90%;
@@ -66,7 +78,8 @@
   }
 }
 @include max {
-  .editor_wrapper {
+  .editor_wrapper,
+  .editor_wrapper_dark {
     width: 55%;
     .editor {
       width: 90%;

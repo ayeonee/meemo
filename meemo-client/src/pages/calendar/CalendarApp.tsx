@@ -44,6 +44,8 @@ export default function CalendarApp(): JSX.Element {
   let source = axios.CancelToken.source();
 
   // button text override
+  const prevBtn = document.getElementsByClassName("fc-prev-button");
+  const nextBtn = document.getElementsByClassName("fc-next-button");
   const todayBtn = document.getElementsByClassName("fc-today-button");
   const monthBtn = document.getElementsByClassName("fc-dayGridMonth-button");
   const weekBtn = document.getElementsByClassName("fc-timeGridWeek-button");
@@ -59,10 +61,23 @@ export default function CalendarApp(): JSX.Element {
     if (todayBtn[0] === undefined) {
       return;
     } else {
-      todayBtn[0].innerHTML = "오늘";
-      monthBtn[0].innerHTML = "월";
-      weekBtn[0].innerHTML = "주";
+      todayBtn[0].innerHTML = `<span style='color: ${
+        modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+      }; font-weight: bold;'>오늘</span>`;
+      monthBtn[0].innerHTML = `<span style='color: ${
+        modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+      }; font-weight: bold;'>월</span>`;
+      weekBtn[0].innerHTML = `<span style='color: ${
+        modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+      }; font-weight: bold;'>주</span>`;
     }
+
+    prevBtn[0].innerHTML = `<span style='color: ${
+      modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+    }; font-weight: bold;'> &#9664; </span>`;
+    nextBtn[0].innerHTML = `<span style='color: ${
+      modeInfo === "light" ? "white" : "rgb(27, 27, 27)"
+    }; font-weight: bold;'>	&#9654; </span>`;
   });
 
   const loadEvents = async (userId: string | null) => {

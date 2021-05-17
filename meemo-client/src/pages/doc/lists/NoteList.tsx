@@ -43,8 +43,7 @@ export default function NoteList() {
   const [showDelModal, setShowDelModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // const [userId, setUserId] = useState<string | null>(userIdInfo);
-  const userId = "testmeemo";
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url }: any = useRouteMatch();
   let { folderTitle }: any = useParams();

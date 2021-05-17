@@ -172,8 +172,7 @@ function Navigation({ location: { pathname } }: any): JSX.Element {
               }
             >
               {modeInfo === "light" ? "Dark" : "Light"}
-              <br />
-              Mode
+              -Mode
             </p>
           </div>
         </div>

@@ -28,7 +28,9 @@ const YoutubeEmbed: React.FC<any> = (props) => {
 
 export default function Editor(): JSX.Element {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
-
+  const userIdInfo = useSelector(
+    (state: RootState) => state.userReducer.userData.userId
+  );
   let { folderTitle, noteId }: any = useParams();
   const [update, setUpdate] = useState(false);
   const [value, setValue] = useState<string>("");
@@ -36,11 +38,7 @@ export default function Editor(): JSX.Element {
   const [folderId, setFolderId] = useState<string>("");
   const [gotFolderId, setGotFolderId] = useState<boolean>(false);
 
-  // const [userId, setUserId] = useState<string | null>(
-  //   localStorage.getItem("meemo-user-id")
-  // );
-
-  const userId = "testmeemo";
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -143,7 +141,13 @@ export default function Editor(): JSX.Element {
             folderTitle={folderTitle}
             noteTitle={noteTitle}
           />
-          <div className={style.editor_wrapper}>
+          <div
+            className={
+              modeInfo === "light"
+                ? style.editor_wrapper
+                : style.editor_wrapper_dark
+            }
+          >
             <div className={style.editor}>
               {/* need thorough study of each prop, such as image upload */}
               <RMDEditor

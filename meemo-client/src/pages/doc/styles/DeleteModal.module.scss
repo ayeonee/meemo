@@ -1,7 +1,6 @@
 @import "../../../styles/_variables.module.scss";
 
 .wrapper {
-  background-color: rgba(36, 36, 36, 0.144);
   transition: background-color ease-in-out 0.3s;
   position: fixed;
   z-index: 101;
@@ -14,20 +13,19 @@
   align-items: center;
 
   .popup {
-    background-color: white;
     height: 250px;
     border-radius: 4px;
     box-shadow: 0px 2px 12px 3px rgba(36, 36, 36, 0.26);
 
     .innerPopup {
-      height: 190px;
+      height: 180px;
       margin: 30px auto;
       display: flex;
       flex-direction: column;
 
       .titleDiv {
         width: 100%;
-        height: 30px;
+        height: 15px;
 
         p {
           font-size: 18px;
@@ -38,23 +36,24 @@
 
       .targetDiv {
         width: 100%;
-        height: 100px;
+        height: 140px;
         @include flex_col;
         justify-content: center;
         margin-top: 5px;
 
         p {
+          margin-left: 1px;
           margin-bottom: 5px;
           font-size: 13px;
         }
 
         .childTitleDiv {
-          height: 65px;
+          height: 80px;
           margin-top: 5px;
           @include flex_col;
           overflow: scroll;
           overflow-y: auto;
-          border: 1px solid $green_grade_3;
+          border: 1px solid $gray;
           border-radius: 3px;
 
           b {
@@ -71,7 +70,6 @@
 
         button {
           float: right;
-          color: white;
           height: 40px;
           width: 80px;
           border-radius: 5px;
@@ -85,6 +83,7 @@
           box-shadow: 0 0.5px 2px 0.5px rgba(10, 10, 10, 0.178);
           transition: box-shadow 0.3s ease-in-out,
             background-color 0.2s ease-in-out;
+
           &:hover {
             transform: translate(0, -1px);
             box-shadow: 0 1px 3px 0.5px rgba(10, 10, 10, 0.144);
@@ -95,7 +94,7 @@
           }
         }
         .cancel_button {
-          background-color: rgb(185, 185, 185);
+          background-color: rgba(152, 152, 155, 0.651);
         }
         .submit_button {
           background-color: $green_grade_4;

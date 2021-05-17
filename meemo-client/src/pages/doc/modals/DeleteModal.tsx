@@ -1,5 +1,8 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../_reducers";
 import style from "../styles/DeleteModal.module.scss";
+import style_mode from "../styles/modeColor.module.scss";
 
 type DeleteModalProps = {
   type: string;
@@ -11,6 +14,8 @@ type DeleteModalProps = {
 };
 
 export default function DeleteModal(props: DeleteModalProps): JSX.Element {
+  const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
+
   useEffect(() => {
     const listener = (event: any) => {
       if (event.which === 13) {
@@ -27,8 +32,22 @@ export default function DeleteModal(props: DeleteModalProps): JSX.Element {
   });
 
   return (
-    <div className={style.wrapper} id={`noDeselect`}>
-      <div className={style.popup} id={`noDeselect`}>
+    <div
+      className={[
+        style.wrapper,
+        modeInfo === "light"
+          ? style_mode.wrapper_light
+          : style_mode.wrapper_dark,
+      ].join(" ")}
+      id={`noDeselect`}
+    >
+      <div
+        className={[
+          style.popup,
+          modeInfo === "light" ? style_mode.popup_light : style_mode.popup_dark,
+        ].join(" ")}
+        id={`noDeselect`}
+      >
         <div className={style.innerPopup} id={`noDeselect`}>
           <div className={style.titleDiv} id={`noDeselect`}>
             <p id={`noDeselect`}>삭제</p>
@@ -48,7 +67,9 @@ export default function DeleteModal(props: DeleteModalProps): JSX.Element {
                 </p>
                 <div className={style.childTitleDiv} id={`noDeselect`}>
                   {props.childTitles.map((title: string, i: number) => (
-                    <b key={i} id={`noDeselect`}>{`${title}`}</b>
+                    <b key={i} id={`noDeselect`}>
+                      &#8231; {`${title}`}
+                    </b>
                   ))}
                 </div>
               </>
