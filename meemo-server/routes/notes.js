@@ -39,6 +39,16 @@ router.route("/userParent/:userId/:parentId").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/userParentTitle/:userId/:parentId/:title").get((req, res) => {
+  Note.find({
+    userId: req.params.userId,
+    parentId: req.params.parentId,
+    title: req.params.title,
+  })
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/:id").put((req, res) => {
   Note.findOneAndUpdate({ _id: req.params.id }, { title: req.body.title })
     .then(() => res.json("Note Updated!"))

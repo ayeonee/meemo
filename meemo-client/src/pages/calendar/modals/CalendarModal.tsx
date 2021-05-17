@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../_reducers";
@@ -39,6 +39,8 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
   const [startTime, setStartTime] = useState<string>(selectInfo.startTime);
   const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
   const [editorBody, setEditorBody] = useState<string>(selectInfo.body);
+
+  const editor: any = useRef();
 
   const removeSchedule = useConfirm(
     "일정을 삭제 하시겠습니까?",
@@ -215,6 +217,11 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                 ? style_mode.noteDiv_light
                 : style_mode.noteDiv_dark,
             ].join(" ")}
+            onClick={(e: any) => {
+              if (e.target.className === "CalendarModal_noteDiv__1ezjn") {
+                editor.current.focusAtEnd();
+              }
+            }}
           >
             <div className={style.modal_editor}>
               <RMDEditor

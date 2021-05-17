@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import RMDEditor from "rich-markdown-editor";
 import axios from "axios";
 import debounce from "lodash/debounce";
@@ -16,6 +16,10 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   const [getUserId, setGetUserId] = useState<boolean>(false);
   const [update, setUpdate] = useState<boolean>(false);
 
+  const editor: any = useRef();
+
+  let source = axios.CancelToken.source();
+
   useEffect(() => {
     fetchUserId();
   }, [getUserId]);
@@ -24,6 +28,7 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
     getBody(userIdInfo);
     return () => {
       setBody("");
+      source.cancel();
     };
   }, [update]);
 
@@ -60,7 +65,6 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   };
 
   const handleChange = debounce((value) => {
-    let source = axios.CancelToken.source();
     const noteInfo = {
       body: `${value()}`,
     };
@@ -96,9 +100,15 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
             ? style_mode.sticky_wrapper_light
             : style_mode.sticky_wrapper_dark,
         ].join(" ")}
+        onClick={(e: any) => {
+          if (e.target.className === "StickyMemo_sticky_wrapper__Q7axL") {
+            editor.current.focusAtEnd();
+          }
+        }}
       >
         <RMDEditor
-          id="example"
+          id="stickymemo"
+          ref={editor}
           readOnly={false}
           readOnlyWriteCheckboxes
           value={body}

@@ -111,18 +111,32 @@ export default function FolderList(): JSX.Element {
   };
 
   const addFolder = async (t: string) => {
+    let title = t;
+    let i = 1;
     try {
-      const folder = {
-        title: `${t}`,
-        userId: userId,
-      };
+      while (true) {
+        const res = await axios.get(
+          BASE_URL + `/folders/userTitle/${userId}/${title}`
+        );
 
-      axios
-        .post(BASE_URL + "/folders/create", folder)
-        .then(() => setUpdate(!update))
-        .then(() => console.log("New folder added!"))
-        .then(() => setShowPopup(!showPopup))
-        .then(() => setSelectedFolder(""));
+        if (res.data.length === 0) {
+          const folder = {
+            title: `${title}`,
+            userId: userId,
+          };
+          axios
+            .post(BASE_URL + "/folders/create", folder)
+            .then(() => setUpdate(!update))
+            .then(() => console.log("New folder added!"))
+            .then(() => setShowPopup(!showPopup))
+            .then(() => setSelectedFolder(""));
+
+          break;
+        } else {
+          title = `${t} ${i}`;
+          i = i + 1;
+        }
+      }
     } catch (err) {
       throw err;
     }
@@ -204,9 +218,17 @@ export default function FolderList(): JSX.Element {
 
   return (
     <div className={style.folderList}>
-      <RouteShow type="" folderId="" folderTitle="" noteTitle="" />
+      <RouteShow
+        type=""
+        folderId=""
+        folderTitle=""
+        noteTitle=""
+        isSaving={null}
+        handleEdit={null}
+        isReadOnly={null}
+      />
       {isLoading ? (
-        <LoaderSpinner />
+        <LoaderSpinner type="" />
       ) : (
         <>
           <div className={style.folderContainer}>
