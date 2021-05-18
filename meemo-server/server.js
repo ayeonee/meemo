@@ -90,9 +90,7 @@ app.post("/api/users/login", (req, res) => {
 });
 
 app.get("/api/users/auth", auth, (req, res) => {
-  //미들웨어를 거친 후 실행됨
   res.status(200).json({
-    //유저 정보를 json 형태로 전달
     _id: req.user._id,
     name: req.user.name,
     userId: req.user.userId,

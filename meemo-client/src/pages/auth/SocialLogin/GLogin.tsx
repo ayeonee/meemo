@@ -13,18 +13,26 @@ export default function GLogin(): JSX.Element {
       tokenId: response.tokenId,
     };
     dispatch(gLoginUser(body))
-      .then((res: any) => {
-        if (res.payload.loginSuccess) {
-          localStorage.setItem("meemo-user-name", res.payload.name);
-          localStorage.setItem("meemo-user-id", res.payload.userId);
-          history.push({
-            pathname: "/home",
-          });
-        } else {
-          alert(res.payload.loginSuccess);
+      .then(
+        (res: {
+          payload: {
+            loginSuccess: boolean;
+            userId: string;
+            name: string;
+          };
+        }) => {
+          if (res.payload.loginSuccess) {
+            localStorage.setItem("meemo-user-name", res.payload.name);
+            localStorage.setItem("meemo-user-id", res.payload.userId);
+            history.push({
+              pathname: "/home",
+            });
+          } else {
+            alert(res.payload.loginSuccess);
+          }
         }
-      })
-      .catch((err: any) => {
+      )
+      .catch((err: string) => {
         console.log(err);
       });
   };

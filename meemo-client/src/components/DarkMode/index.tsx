@@ -7,7 +7,11 @@ import style from "./darkmode.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../_reducers";
 
-export default function DarkMode({ pathname }: any): JSX.Element {
+export default function DarkMode({
+  pathname,
+}: {
+  pathname: string;
+}): JSX.Element {
   const dispatch = useDispatch<any>();
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const modeState = localStorage.getItem("meemo-mode");
