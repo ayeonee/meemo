@@ -40,8 +40,6 @@ export default function Editor(): JSX.Element {
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isSaving, setIsSaving] = useState<boolean | null>(null);
-  const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
 
   let history = useHistory<any>();
 
@@ -114,59 +112,24 @@ export default function Editor(): JSX.Element {
     }
   };
 
-  // readonly 용 prop 하나 만들고 routeshow에서 true false 값 구분할것
-  const handleReadEdit = () => {
-    setIsReadOnly(!isReadOnly);
-  };
-
-  //title update uses put; editor body uses post + update.
-  // const handleChange =
-
-  // const handleChange = debounce((value) => {
-  //   const noteInfo = {
-  //     body: `${value()}`,
-  //   };
-  //   try {
-  //     axios
-  //       .post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
-  //         cancelToken: source.token,
-  //       })
-  //       .then((res) => console.log(res.data))
-  //       .then(() => setIsSaving(false));
-  //   } catch (err) {
-  //     // Not sure that this is the right way to cancel the request. Might contain unknown problems.
-  //     // check if can fix the original error which is err
-  //     source.cancel();
-  //     console.log(err, "\nOperation canceled by the user.");
-  //   }
-  // }, 1000);
-
-  const handleChange = (value: () => string) => {
-    setIsSaving(true);
-    setTimeout(() => {
-      const noteInfo = {
-        body: `${value()}`,
-      };
-      try {
-        axios
-          .post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
-            cancelToken: source.token,
-          })
-          .then((res) => console.log(res.data))
-          .then(() => setIsSaving(false));
-      } catch (err) {
-        // Not sure that this is the right way to cancel the request. Might contain unknown problems.
-        // check if can fix the original error which is err
-        source.cancel();
-        console.log(err, "\nOperation canceled by the user.");
-      }
-    }, 1000);
-  };
+  const handleChange = debounce((value) => {
+    const noteInfo = {
+      body: `${value()}`,
+    };
+    try {
+      axios.post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
+        cancelToken: source.token,
+      });
+    } catch (err) {
+      source.cancel();
+      console.log(err, "\nOperation canceled by the user.");
+    }
+  }, 1000);
 
   return (
     <div className={style.wrapper}>
       {isLoading ? (
-        <LoaderSpinner type="" />
+        <LoaderSpinner />
       ) : (
         <>
           <RouteShow
@@ -174,9 +137,6 @@ export default function Editor(): JSX.Element {
             folderId={folderId}
             folderTitle={folderTitle}
             noteTitle={noteTitle}
-            isSaving={isSaving}
-            handleEdit={handleReadEdit}
-            isReadOnly={isReadOnly}
           />
           <div
             className={
@@ -197,7 +157,7 @@ export default function Editor(): JSX.Element {
               <RMDEditor
                 id="example"
                 ref={editor}
-                readOnly={isReadOnly}
+                readOnly={false}
                 readOnlyWriteCheckboxes
                 value={value}
                 defaultValue={value}

@@ -218,17 +218,9 @@ export default function FolderList(): JSX.Element {
 
   return (
     <div className={style.folderList}>
-      <RouteShow
-        type=""
-        folderId=""
-        folderTitle=""
-        noteTitle=""
-        isSaving={null}
-        handleEdit={null}
-        isReadOnly={null}
-      />
+      <RouteShow type="" folderId="" folderTitle="" noteTitle="" />
       {isLoading ? (
-        <LoaderSpinner type="" />
+        <LoaderSpinner />
       ) : (
         <>
           <div className={style.folderContainer}>

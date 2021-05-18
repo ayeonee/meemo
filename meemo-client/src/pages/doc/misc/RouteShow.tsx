@@ -12,22 +12,11 @@ type RouteShowProps = {
   folderTitle: string;
   folderId: string;
   noteTitle: string;
-  isSaving: boolean | null;
-  handleEdit: any; // () => void
-  isReadOnly: boolean | null; // 다시한번 테스트
 };
 
 export default function RouteShow(props: RouteShowProps) {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
-  const {
-    type,
-    folderTitle,
-    folderId,
-    noteTitle,
-    isSaving,
-    handleEdit,
-    isReadOnly,
-  } = props;
+  const { type, folderTitle, folderId, noteTitle } = props;
 
   const linkStyle = {
     textDecoration: "none",
@@ -102,27 +91,6 @@ export default function RouteShow(props: RouteShowProps) {
             </>
           ) : null}
         </div>
-        {type === "editor" ? (
-          <div className={style.editDiv}>
-            <div className={style.isSavedDiv}>
-              {isSaving === null ? null : isSaving ? (
-                <LoaderSpinner type="routeshow" />
-              ) : (
-                <>
-                  <Done className={style.savedIcons} />
-                  <p className={style.savedText}>저장됨!</p>
-                </>
-              )}
-            </div>
-            <div className={style.editBtn} onClick={handleEdit}>
-              {isReadOnly ? (
-                <Edit className={style.editIcons} />
-              ) : (
-                <ChromeReaderMode className={style.editIcons} />
-              )}
-            </div>
-          </div>
-        ) : null}
       </div>
     </div>
   );
