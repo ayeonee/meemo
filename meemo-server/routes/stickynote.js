@@ -40,11 +40,7 @@ router.route("/user/:userId").put((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-<<<<<<< HEAD
-//회원탈퇴 시 가져가세요
-=======
 //회원탈퇴
->>>>>>> c94edcd7011cc579794c341866d9e112528ff135
 router.route("/:id").delete((req, res) => {
   StickyNote.findByIdAndDelete(req.params.id)
     .then(() => res.json("Note deleted."))
