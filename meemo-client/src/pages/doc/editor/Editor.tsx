@@ -122,9 +122,28 @@ export default function Editor(): JSX.Element {
   //title update uses put; editor body uses post + update.
   // const handleChange =
 
+  // const handleChange = debounce((value) => {
+  //   const noteInfo = {
+  //     body: `${value()}`,
+  //   };
+  //   try {
+  //     axios
+  //       .post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
+  //         cancelToken: source.token,
+  //       })
+  //       .then((res) => console.log(res.data))
+  //       .then(() => setIsSaving(false));
+  //   } catch (err) {
+  //     // Not sure that this is the right way to cancel the request. Might contain unknown problems.
+  //     // check if can fix the original error which is err
+  //     source.cancel();
+  //     console.log(err, "\nOperation canceled by the user.");
+  //   }
+  // }, 1000);
+
   const handleChange = (value: () => string) => {
     setIsSaving(true);
-    debounce((value) => {
+    setTimeout(() => {
       const noteInfo = {
         body: `${value()}`,
       };
