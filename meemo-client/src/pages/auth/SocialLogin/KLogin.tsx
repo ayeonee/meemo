@@ -20,7 +20,7 @@ export default function KLogin(): JSX.Element {
           localStorage.setItem("meemo-user-name", res.payload.name);
           localStorage.setItem("meemo-user-id", res.payload.userId);
           history.push({
-            pathname: "/schedule",
+            pathname: "/home",
           });
         } else {
           alert(res.payload.loginSuccess);

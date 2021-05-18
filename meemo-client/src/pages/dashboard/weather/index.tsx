@@ -4,11 +4,13 @@ import style from "../styles/Weather.module.scss";
 import { Mode } from "../../../_types/modeTypes";
 import style_mode from "../styles/modeColor.module.scss";
 import Geocode from "react-geocode";
+import { CircularProgress } from "@material-ui/core";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY!;
 
 function Weather({ modeInfo }: Mode): JSX.Element {
+  const [loading, setLoading] = useState<boolean>(true);
   const [weatherInfo, setWeatherInfo] = useState({
     temperature: "",
     temp_max: "",
@@ -29,6 +31,7 @@ function Weather({ modeInfo }: Mode): JSX.Element {
         return response.json();
       })
       .then((jsonfile) => {
+        setLoading(false);
         setWeatherInfo({
           temperature: jsonfile.main.temp,
           temp_max: jsonfile.main.temp_max,
@@ -42,14 +45,12 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   };
 
   const getCurrentCity = (latitudeVar: string, longitudeVar: string) => {
-    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then(
-      (response) => {
-        getWeather(response.results[0].address_components[3].long_name);
-        setFullLocation(
-          `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
-        );
-      }
-    );
+    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
+      getWeather(response.results[0].address_components[3].long_name);
+      setFullLocation(
+        `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
+      );
+    });
     //getWeather("Seoul"); /* for test*/
   };
 
@@ -61,10 +62,7 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   };
 
   const askForCoords = () => {
-    navigator.geolocation.getCurrentPosition(
-      handleGeoTrue,
-      () => console.error
-    );
+    navigator.geolocation.getCurrentPosition(handleGeoTrue, () => console.error);
   };
 
   const weatherMessage = (weatherInfo: string) => {
@@ -106,53 +104,58 @@ function Weather({ modeInfo }: Mode): JSX.Element {
     <div
       className={[
         style.weather,
-        modeInfo === "light"
-          ? style_mode.weather_light
-          : style_mode.weather_dark,
+        modeInfo === "light" ? style_mode.weather_light : style_mode.weather_dark,
       ].join(" ")}
     >
       <div className={style.title}>WEATHER</div>
-      <div className={style.sub_title}>
-        <span>{weatherMessage(weatherInfo.weather)}</span>
-      </div>
-      <div className={style.weather_container}>
-        <div className={style.weather_line_one}>
-          <div className={style.weather_icon}>
-            <img
-              className={style.weather_icon}
-              src={`https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
-              alt="weather icon"
-            />
-          </div>
-
-          <div className={style.weather_info}>
-            <p className={style.temperature}>{weatherInfo.temperature}°</p>
-            <p className={style.explanation}>{weatherInfo.weather}</p>
-            <div className={style.location}>
-              <p>{fullLocation}</p>
+      <div className={style.weather_wrapper}>
+        {loading ? (
+          <CircularProgress className={style.spinner} size="40px" />
+        ) : (
+          <>
+            <div className={style.sub_title}>
+              <span>{weatherMessage(weatherInfo.weather)}</span>
             </div>
-          </div>
-        </div>
-        <div className={style.weather_line_two}>
-          <div className={style.temp_info}>
-            <div className={style.temp_line}>
-              <p className={style.temp_arrow}>↑</p>
-              <p>{weatherInfo.temp_max}°</p>
+            <div className={style.weather_container}>
+              <div className={style.weather_line_one}>
+                <div className={style.weather_icon}>
+                  <img
+                    className={style.weather_icon}
+                    src={`https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
+                    alt="weather icon"
+                  />
+                </div>
+                <div className={style.weather_info}>
+                  <p className={style.temperature}>{weatherInfo.temperature}°</p>
+                  <p className={style.explanation}>{weatherInfo.weather}</p>
+                  <div className={style.location}>
+                    <p>{fullLocation}</p>
+                  </div>
+                </div>
+              </div>
+              <div className={style.weather_line_two}>
+                <div className={style.temp_info}>
+                  <div className={style.temp_line}>
+                    <p className={style.temp_arrow}>↑</p>
+                    <p>{weatherInfo.temp_max}°</p>
+                  </div>
+                  <div className={style.temp_line}>
+                    <p className={style.temp_arrow}>↓</p>
+                    <p> {weatherInfo.temp_min}°</p>
+                  </div>
+                </div>
+                <div className={style.feels_like}>
+                  <h1>Sensory :</h1>
+                  <p>{weatherInfo.feelslike}°</p>
+                </div>
+                <div className={style.humidity}>
+                  <h1>Humidity :</h1>
+                  <p>{weatherInfo.humidity}%</p>
+                </div>
+              </div>
             </div>
-            <div className={style.temp_line}>
-              <p className={style.temp_arrow}>↓</p>
-              <p> {weatherInfo.temp_min}°</p>
-            </div>
-          </div>
-          <div className={style.feels_like}>
-            <h1>Sensory :</h1>
-            <p>{weatherInfo.feelslike}°</p>
-          </div>
-          <div className={style.humidity}>
-            <h1>Humidity :</h1>
-            <p>{weatherInfo.humidity}%</p>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </div>
   );
