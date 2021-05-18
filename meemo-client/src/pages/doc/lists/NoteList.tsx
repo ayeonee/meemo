@@ -180,38 +180,6 @@ export default function NoteList() {
     }
   };
 
-  // const addFolder = async (t: string) => {
-  //   let title = t;
-  //   let i = 1;
-  //   try {
-  //     while (true) {
-  //       const res = await axios.get(
-  //         BASE_URL + `/folders/userTitle/${userId}/${title}`
-  //       );
-
-  //       if (res.data.length === 0) {
-  //         const folder = {
-  //           title: `${title}`,
-  //           userId: userId,
-  //         };
-  //         axios
-  //           .post(BASE_URL + "/folders/create", folder)
-  //           .then(() => setUpdate(!update))
-  //           .then(() => console.log("New folder added!"))
-  //           .then(() => setShowPopup(!showPopup))
-  //           .then(() => setSelectedFolder(""));
-
-  //         break;
-  //       } else {
-  //         title = `${t} ${i}`;
-  //         i = i + 1;
-  //       }
-  //     }
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // };
-
   const deleteNote = (id: any) => {
     axios
       .delete(BASE_URL + "/notes/" + id)
@@ -275,7 +243,7 @@ export default function NoteList() {
   return (
     <div className={style.noteList}>
       {isLoading ? (
-        <LoaderSpinner type="" />
+        <LoaderSpinner />
       ) : (
         <>
           <RouteShow
@@ -283,9 +251,6 @@ export default function NoteList() {
             type="notelist"
             folderTitle={folderTitle}
             noteTitle=""
-            isSaving={null}
-            handleEdit={null}
-            isReadOnly={null}
           />
           <div className={style.noteContainer}>
             <div className={style.noteDiv}>
