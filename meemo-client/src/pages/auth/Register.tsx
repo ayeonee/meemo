@@ -120,7 +120,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
     };
 
     dispatch(registerUser(body))
-      .then((res: any) => {
+      .then((_: { success: boolean }) => {
         alert("회원가입이 완료되었습니다.");
         setRegisterInput({
           name: "",
@@ -131,7 +131,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
       })
       .then(() => axios.post(BASE_URL + "/stickynote/create", stickymemoInit))
       .then(() => toggleMenu())
-      .catch((err: any) => console.log(err));
+      .catch((err: string) => console.error(err));
   };
 
   return (

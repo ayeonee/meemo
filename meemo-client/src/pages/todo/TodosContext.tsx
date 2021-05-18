@@ -26,7 +26,7 @@ const saveTodo = (payloadData: Todo[] | null) => {
     },
   })
     .then((res) => res.data)
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 const todoReducer = (state: TodoState, action: Action) => {
@@ -44,8 +44,13 @@ const todoReducer = (state: TodoState, action: Action) => {
     case "REMOVE":
       const removedArray = state.filter((elem) => elem.id !== action.id);
 
-      saveTodo(removedArray);
-      return removedArray;
+      if (removedArray === null || removedArray.length === 0) {
+        saveTodo([]);
+        return [];
+      } else {
+        saveTodo(removedArray);
+        return removedArray;
+      }
 
     case "TOGGLE":
       const toggleArray = state.map((elem) =>
@@ -56,7 +61,7 @@ const todoReducer = (state: TodoState, action: Action) => {
       return toggleArray;
 
     case "RESET":
-      saveTodo(null);
+      saveTodo([]);
       return [];
 
     case "MOUNT":

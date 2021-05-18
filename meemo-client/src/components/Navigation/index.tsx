@@ -15,7 +15,13 @@ import style_mode from "./styles/modeColor.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../_reducers";
 
-function Navigation({ location: { pathname } }: any): JSX.Element {
+function Navigation({
+  location: { pathname },
+}: {
+  location: {
+    pathname: string;
+  };
+}): JSX.Element {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const userName = localStorage.getItem("meemo-user-name");
   const [media, setMedia] = useState<boolean>(false);

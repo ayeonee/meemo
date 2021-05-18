@@ -42,7 +42,7 @@ export default function TimeLine(): JSX.Element {
               >
                 {data < 10 ? `0${data}` : data}시
               </td>
-              {daysData.map((days, index) => (
+              {daysData.map((_, index) => (
                 <TimeTableGrid key={index} />
               ))}
             </tr>

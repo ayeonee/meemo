@@ -41,23 +41,32 @@ function Login(): JSX.Element {
     };
 
     dispatch(loginUser(body))
-      .then((res: any) => {
-        if (res.payload.loginSuccess) {
-          localStorage.setItem("meemo-user-name", res.payload.name);
-          localStorage.setItem("meemo-user-id", res.payload.userId);
-          history.push({
-            pathname: "/home",
-          });
-        } else {
-          alert(res.payload.message);
-          setLoginInput({
-            userId: "",
-            password: "",
-          });
+      .then(
+        (res: {
+          payload: {
+            loginSuccess: boolean;
+            userId: string;
+            name: string;
+            message: string;
+          };
+        }) => {
+          if (res.payload.loginSuccess) {
+            localStorage.setItem("meemo-user-name", res.payload.name);
+            localStorage.setItem("meemo-user-id", res.payload.userId);
+            history.push({
+              pathname: "/home",
+            });
+          } else {
+            alert(res.payload.message);
+            setLoginInput({
+              userId: "",
+              password: "",
+            });
+          }
         }
-      })
-      .catch((err: any) => {
-        console.log(err);
+      )
+      .catch((err: string) => {
+        console.error(err);
       });
   };
 
