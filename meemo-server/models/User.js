@@ -55,7 +55,6 @@ userSchema.statics.findByToken = function (token, cb) {
   const user = this;
 
   jwt.verify(token, "secretToken", function (err, decoded) {
-    //decoded = user id
     user.findOne({ _id: decoded, token: token }, function (err, user) {
       if (err) return cb(err);
       cb(null, user);
