@@ -54,6 +54,7 @@
     .input_wrapper_sub {
       @include flex_row;
       position: relative;
+      justify-content: center;
       top: 20px;
       padding: 20px 20px 30px 20px;
 
