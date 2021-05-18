@@ -39,6 +39,9 @@
       width: 80%;
     }
   }
+  iframe {
+    height: 150px;
+  }
 }
 @include mobile {
   .editor_wrapper,
@@ -47,6 +50,9 @@
     .editor {
       width: 85%;
     }
+  }
+  iframe {
+    height: 200px;
   }
 }
 
@@ -58,6 +64,9 @@
       width: 90%;
     }
   }
+  iframe {
+    height: 350px;
+  }
 }
 @include mdDesktop {
   .editor_wrapper,
@@ -66,6 +75,9 @@
     .editor {
       width: 90%;
     }
+  }
+  iframe {
+    height: 400px;
   }
 }
 @include lgDesktop {
@@ -76,6 +88,9 @@
       width: 90%;
     }
   }
+  iframe {
+    height: 400px;
+  }
 }
 @include max {
   .editor_wrapper,
@@ -84,5 +99,8 @@
     .editor {
       width: 90%;
     }
+  }
+  iframe {
+    height: 400px;
   }
 }

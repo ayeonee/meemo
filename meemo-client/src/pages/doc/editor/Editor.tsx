@@ -21,7 +21,6 @@ const YoutubeEmbed: React.FC<any> = (props) => {
       className={props.isSelected ? "ProseMirror-selectednode" : ""}
       src={`https://www.youtube.com/embed/${videoId}?modestbranding=1`}
       width="100%"
-      height="400px"
     />
   );
 };
@@ -160,7 +159,7 @@ export default function Editor(): JSX.Element {
         source.cancel();
         console.log(err, "\nOperation canceled by the user.");
       }
-    });
+    }, 1000);
   };
 
   return (
