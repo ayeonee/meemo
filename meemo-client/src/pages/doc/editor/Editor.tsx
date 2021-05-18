@@ -120,32 +120,14 @@ export default function Editor(): JSX.Element {
   };
 
   //title update uses put; editor body uses post + update.
-  // const handleChange = debounce((value) => {
-  //   let source = axios.CancelToken.source();
-  //   const noteInfo = {
-  //     body: `${value()}`,
-  //   };
-  //   try {
-  //     axios
-  //       .post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
-  //         cancelToken: source.token,
-  //       })
-  //       .then((res) => console.log(res.data))
-  //       .then(() => setIsSaving(false));
-  //   } catch (err) {
-  //     // Not sure that this is the right way to cancel the request. Might contain unknown problems.
-  //     // check if can fix the original error which is err
-  //     source.cancel();
-  //     console.log(err, "\nOperation canceled by the user.");
-  //   }
-  // }, 1000);
+  // const handleChange =
 
   const handleChange = (value: () => string) => {
-    const noteInfo = {
-      body: `${value()}`,
-    };
     setIsSaving(true);
-    setTimeout(() => {
+    debounce((value) => {
+      const noteInfo = {
+        body: `${value()}`,
+      };
       try {
         axios
           .post(BASE_URL + "/notes/update/" + noteId, noteInfo, {
