@@ -26,7 +26,7 @@ const saveTodo = (payloadData: Todo[] | null) => {
     },
   })
     .then((res) => res.data)
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 const todoReducer = (state: TodoState, action: Action) => {

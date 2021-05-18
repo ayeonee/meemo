@@ -16,20 +16,22 @@ function Auth(Component: React.FC, option: null | false | true | undefined) {
     const history = useHistory();
 
     useEffect(() => {
-      dispatch(authUser()).then((res: ResponseTypes) => {
-        if (!res.payload.isAuth) {
-          //로컬에 남아있는 유저정보 삭제
-          removeLocalStorage();
+      dispatch(authUser())
+        .then((res: ResponseTypes) => {
+          if (!res.payload.isAuth) {
+            //로컬에 남아있는 유저정보 삭제
+            removeLocalStorage();
 
-          if (option === true || option === undefined) {
-            document.location.href = "/auth";
+            if (option === true || option === undefined) {
+              document.location.href = "/auth";
+            }
+          } else {
+            if (option === false || option === undefined) {
+              history.push("/home");
+            }
           }
-        } else {
-          if (option === false || option === undefined) {
-            history.push("/home");
-          }
-        }
-      });
+        })
+        .catch((err: string) => console.error(err));
     }, []);
     return <Component />;
   };

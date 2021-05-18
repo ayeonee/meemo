@@ -27,7 +27,7 @@ function TodoList(): JSX.Element {
       },
     })
       .then((res) => setTodoList(res.data.payload))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {

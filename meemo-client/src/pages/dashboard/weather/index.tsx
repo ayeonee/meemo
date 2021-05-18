@@ -45,12 +45,14 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   };
 
   const getCurrentCity = (latitudeVar: string, longitudeVar: string) => {
-    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then((response) => {
-      getWeather(response.results[0].address_components[3].long_name);
-      setFullLocation(
-        `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
-      );
-    });
+    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then(
+      (response) => {
+        getWeather(response.results[0].address_components[3].long_name);
+        setFullLocation(
+          `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
+        );
+      }
+    );
     //getWeather("Seoul"); /* for test*/
   };
 
@@ -62,7 +64,10 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   };
 
   const askForCoords = () => {
-    navigator.geolocation.getCurrentPosition(handleGeoTrue, () => console.error);
+    navigator.geolocation.getCurrentPosition(
+      handleGeoTrue,
+      () => console.error
+    );
   };
 
   const weatherMessage = (weatherInfo: string) => {
@@ -104,7 +109,9 @@ function Weather({ modeInfo }: Mode): JSX.Element {
     <div
       className={[
         style.weather,
-        modeInfo === "light" ? style_mode.weather_light : style_mode.weather_dark,
+        modeInfo === "light"
+          ? style_mode.weather_light
+          : style_mode.weather_dark,
       ].join(" ")}
     >
       <div className={style.title}>WEATHER</div>
@@ -126,7 +133,9 @@ function Weather({ modeInfo }: Mode): JSX.Element {
                   />
                 </div>
                 <div className={style.weather_info}>
-                  <p className={style.temperature}>{weatherInfo.temperature}°</p>
+                  <p className={style.temperature}>
+                    {weatherInfo.temperature}°
+                  </p>
                   <p className={style.explanation}>{weatherInfo.weather}</p>
                   <div className={style.location}>
                     <p>{fullLocation}</p>

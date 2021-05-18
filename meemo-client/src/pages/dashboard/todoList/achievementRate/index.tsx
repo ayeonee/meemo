@@ -33,6 +33,22 @@ function AchievementRate({
     ],
   };
 
+  const nullPieData = {
+    datasets: [
+      {
+        data: [1, 0],
+        backgroundColor: [
+          "rgba(100, 100, 100, 0.267)",
+          "rgba(100, 100, 100, 0.267)",
+        ],
+        borderColor:
+          modeInfo === "dark"
+            ? ["rgb(24, 26, 27)", "rgb(24, 26, 27)"]
+            : ["white", "white"],
+      },
+    ],
+  };
+
   return (
     <div
       className={[
@@ -58,11 +74,16 @@ function AchievementRate({
               : `0%`}
           </h1>
         </div>
-        {todoList.length === 0 || todoList === null ? (
-          <div className={style.none_circle}></div>
-        ) : (
-          <Pie type="pie" data={todoBasedPieData} className={style.pie} />
-        )}
+
+        <Pie
+          type="pie"
+          data={
+            todoList.length === 0 || todoList === null
+              ? nullPieData
+              : todoBasedPieData
+          }
+          className={style.pie}
+        />
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ export default function SchedulePage(): JSX.Element {
       },
     })
       .then((res) => res.data)
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
   const getSchedule = async (userId: string | null) => {
@@ -48,7 +48,7 @@ export default function SchedulePage(): JSX.Element {
       .then((res) => {
         setAllData(res.data.payload);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {

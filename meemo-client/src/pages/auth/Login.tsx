@@ -56,8 +56,8 @@ function Login(): JSX.Element {
           });
         }
       })
-      .catch((err: any) => {
-        console.log(err);
+      .catch((err: string) => {
+        console.error(err);
       });
   };
 

@@ -131,7 +131,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
       })
       .then(() => axios.post(BASE_URL + "/stickynote/create", stickymemoInit))
       .then(() => toggleMenu())
-      .catch((err: any) => console.log(err));
+      .catch((err: string) => console.error(err));
   };
 
   return (
