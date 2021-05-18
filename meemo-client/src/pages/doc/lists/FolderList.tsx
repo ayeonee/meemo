@@ -33,7 +33,7 @@ export default function FolderList(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [userId, setUserId] = useState<string | null>("testmeemo");
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url } = useRouteMatch();
   let history = useHistory();
@@ -126,8 +126,8 @@ export default function FolderList(): JSX.Element {
             .post(BASE_URL + "/folders/create", folder)
             .then(() => setUpdate(!update))
             .then(() => setShowPopup(!showPopup))
-            .then(() => setSelectedFolder(""));
-
+            .then(() => setSelectedFolder(""))
+            .catch((err) => console.log(`error: ${err}`));
           break;
         } else {
           title = `${t} ${i}`;

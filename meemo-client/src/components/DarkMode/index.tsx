@@ -40,6 +40,7 @@ export default function DarkMode({
 
   return (
     <div
+      id={`noDeselect`}
       className={[
         style.dark_mode_toggle,
         modeInfo === "light" ? style.moon : style.sun,
@@ -47,6 +48,7 @@ export default function DarkMode({
       onClick={onClickSwitch}
     >
       <img
+        id={`noDeselect`}
         src={modeInfo === "dark" ? `${sun}` : `${moon}`}
         alt="dark mode icon"
       />

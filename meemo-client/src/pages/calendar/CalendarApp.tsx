@@ -147,7 +147,6 @@ export default function CalendarApp(): JSX.Element {
         axios
           .post(BASE_URL + "/calendar/create", calEvnt)
           .then(() => setUpdate(!update))
-          .then(() => console.log("New Calendar Event Added!"))
           .then(() => setShowAddModal(!showAddModal))
           .catch((err) => console.log(`error: ${err}`));
       } catch (err) {
@@ -158,7 +157,6 @@ export default function CalendarApp(): JSX.Element {
       try {
         axios
           .put(BASE_URL + "/calendar/" + calEvnt.id, evnt)
-          .then(() => console.log("Calendar Event Updated"))
           .then(() => setUpdate(!update))
           .then(() => setShowUpdateModal(false))
           .catch((err) => console.log(`error: ${err}`));
@@ -172,7 +170,6 @@ export default function CalendarApp(): JSX.Element {
     axios
       .delete(BASE_URL + "/calendar/" + id)
       .then(() => setUpdate(!update))
-      .then(() => console.log("Calendar Event Deleted"))
       .then(() => setShowUpdateModal(!showUpdateModal))
       .catch(() => {
         console.log("no event selected");

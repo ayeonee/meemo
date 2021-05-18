@@ -91,6 +91,10 @@
     color: white;
   }
 
+  p {
+    color: white;
+  }
+
   .timeDiv_light {
     color: $dark_text_2;
 
@@ -98,7 +102,7 @@
     span,
     b,
     small {
-      color: $dark_text_2;
+      color: white;
     }
   }
 }
@@ -107,7 +111,11 @@
   background-color: $green_grade_4;
   border-bottom: 1px solid $green_grade_4;
   .note_icon_dark {
-    color: $dark_text_b;
+    color: white;
+  }
+
+  p {
+    color: white;
   }
 
   .timeDiv_dark {
@@ -117,7 +125,7 @@
     span,
     b,
     small {
-      color: $dark_text_b;
+      color: white;
     }
   }
 }

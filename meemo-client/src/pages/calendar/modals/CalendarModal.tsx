@@ -239,7 +239,6 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                 scrollTo={window.location.hash}
                 onChange={(value) => setEditorBody(value)}
                 onCreateLink={(title) => {
-                  // Delay to simulate time taken for remote API request to complete
                   return new Promise((resolve, reject) => {
                     setTimeout(() => {
                       if (title !== "error") {

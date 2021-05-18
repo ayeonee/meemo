@@ -35,7 +35,6 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   const fetchUserId = () => {
     if (userIdInfo === "" || userIdInfo === undefined) {
       setGetUserId(!getUserId);
-      // 계속돌게되면 에러페이지로 가도록
     } else {
       setGotUserId(true);
       setUpdate(!update);
@@ -53,7 +52,8 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
           };
           axios
             .post(BASE_URL + "/stickynote/create", stickymemoInit)
-            .then((res) => console.log(res.data));
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log("Error: " + err));
         } else {
           res.data.forEach((note: any) => {
             setBody(note.body);
@@ -74,7 +74,8 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
         .put(BASE_URL + "/stickynote/user/" + userIdInfo, noteInfo, {
           cancelToken: source.token,
         })
-        .then((res) => console.log(res.data));
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log("Error: " + err));
     } catch (err) {
       source.cancel();
     }

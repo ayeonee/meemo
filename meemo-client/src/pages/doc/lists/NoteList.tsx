@@ -17,8 +17,6 @@ import { BASE_URL } from "../../../_data/urlData";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../_reducers";
 
-const removeMd = require("remove-markdown");
-
 export default function NoteList() {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const userIdInfo = useSelector(
@@ -36,7 +34,7 @@ export default function NoteList() {
   const [showDelModal, setShowDelModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [userId, setUserId] = useState<string | null>("testmeemo");
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let { url }: any = useRouteMatch();
   let { folderTitle }: any = useParams();
@@ -46,12 +44,10 @@ export default function NoteList() {
 
   useEffect(() => {
     document.onclick = (event: any) => {
-      setTimeout(() => {
-        if (event.target.id !== "noDeselect") {
-          setDelBtn(false);
-          setSelectedNote("");
-        }
-      }, 100);
+      if (event.target.id !== "noDeselect") {
+        setDelBtn(false);
+        setSelectedNote("");
+      }
     };
     return () => {
       clearTimeout();
@@ -148,8 +144,8 @@ export default function NoteList() {
             .post(BASE_URL + "/notes/create", note)
             .then(() => setUpdate(!update))
             .then(() => setShowPopup(!showPopup))
-            .then(() => setSelectedNote(""));
-
+            .then(() => setSelectedNote(""))
+            .catch((err) => console.log(`error: ${err}`));
           break;
         } else {
           title = `${t} ${i}`;
@@ -170,8 +166,6 @@ export default function NoteList() {
       .catch((err) => console.log(`error: ${err}`));
   };
 
-  //title update uses put; editor body uses post + update.
-  //to fix, add another prop in popup to get the body from the editor and feed in put.
   const updateNote = async (id: string, t: string) => {
     try {
       const title = await {
@@ -253,7 +247,7 @@ export default function NoteList() {
                     onSelect(note);
                   }}
                 >
-                  <div className={style.iconDiv}>
+                  <div className={style.iconDiv} id={`noDeselect`}>
                     <Notes
                       className={[
                         style.noteIcon,
@@ -261,9 +255,12 @@ export default function NoteList() {
                           ? style_mode.note_icon_light
                           : style_mode.note_icon_dark,
                       ].join(" ")}
+                      id={`noDeselect`}
                     />
                   </div>
-                  <div className={style.titleDiv}>{note.title}</div>
+                  <div className={style.titleDiv}>
+                    <p>{note.title}</p>
+                  </div>
                   <div
                     className={[
                       style.timeDiv,
@@ -281,7 +278,7 @@ export default function NoteList() {
               ))}
             </div>
           </div>
-          <div className={style.toolDiv}>
+          <div className={style.toolDiv} id={`noDeselect`}>
             <div
               className={
                 delBtn
@@ -299,7 +296,7 @@ export default function NoteList() {
                 setShowPopup(!showPopup);
               }}
             >
-              <Create className={style.renameIcon} />
+              <Create className={style.renameIcon} id={`noDeselect`} />
             </div>
             <div
               className={[
@@ -314,7 +311,7 @@ export default function NoteList() {
                 setShowPopup(!showPopup);
               }}
             >
-              <span> + </span>
+              <span id={`noDeselect`}> + </span>
             </div>
             <div
               className={
@@ -332,7 +329,7 @@ export default function NoteList() {
                 setShowDelModal(!showDelModal);
               }}
             >
-              <Delete className={style.deleteIcon} />
+              <Delete className={style.deleteIcon} id={`noDeselect`} />
             </div>
           </div>
         </>

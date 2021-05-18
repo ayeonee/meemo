@@ -37,7 +37,7 @@ export default function Editor(): JSX.Element {
   const [folderId, setFolderId] = useState<string>("");
   const [gotFolderId, setGotFolderId] = useState<boolean>(false);
 
-  const [userId, setUserId] = useState<string | null>("testmeemo");
+  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
