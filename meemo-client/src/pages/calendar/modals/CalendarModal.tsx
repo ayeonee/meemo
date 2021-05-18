@@ -234,31 +234,10 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                 ref={editor}
                 readOnly={false}
                 readOnlyWriteCheckboxes
-                // value={}
                 placeholder={"일정에 대한 메모를 적어보세요.."}
                 defaultValue={selectInfo.body}
                 scrollTo={window.location.hash}
-                handleDOMEvents={
-                  {
-                    // focus: () => console.log("FOCUS"),
-                    // blur: () => console.log("BLUR"),
-                    // paste: () => console.log("PASTE"),
-                    // touchstart: () => console.log("TOUCH START"),
-                  }
-                }
-                onSave={(options) => console.log("Save triggered", options)}
-                onCancel={() => console.log("Cancel triggered")}
                 onChange={(value) => setEditorBody(value)}
-                onClickLink={(href, event) =>
-                  console.log("Clicked link: ", href, event)
-                }
-                onHoverLink={(event: any) => {
-                  console.log("Hovered link: ", event.target.href);
-                  return false;
-                }}
-                onClickHashtag={(tag, event) =>
-                  console.log("Clicked hashtag: ", tag, event)
-                }
                 onCreateLink={(title) => {
                   // Delay to simulate time taken for remote API request to complete
                   return new Promise((resolve, reject) => {
@@ -270,7 +249,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                       } else {
                         reject("500 error");
                       }
-                    }, 1500);
+                    }, 1000);
                   });
                 }}
                 onShowToast={(message, type) =>

@@ -4,9 +4,6 @@ import style from "../styles/RouteShow.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 import { Link } from "react-router-dom";
 
-import { ChromeReaderMode, Edit, Done } from "@material-ui/icons";
-import LoaderSpinner from "./LoaderSpinner";
-
 type RouteShowProps = {
   type: string;
   folderTitle: string;

@@ -33,7 +33,7 @@ export default function FolderList(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [userId, setUserId] = useState<string | null>(userIdInfo);
+  const [userId, setUserId] = useState<string | null>("testmeemo");
 
   let { url } = useRouteMatch();
   let history = useHistory();
@@ -74,12 +74,10 @@ export default function FolderList(): JSX.Element {
         setFolders([]);
       } else {
         setFolders(res.data.map((folder: any) => folder));
-        console.log("Got the folders!");
         setIsLoading(false);
       }
     } catch (err) {
       if (axios.isCancel(err)) {
-        console.log("Caught a cancel.");
       } else {
         throw err;
       }
@@ -127,7 +125,6 @@ export default function FolderList(): JSX.Element {
           axios
             .post(BASE_URL + "/folders/create", folder)
             .then(() => setUpdate(!update))
-            .then(() => console.log("New folder added!"))
             .then(() => setShowPopup(!showPopup))
             .then(() => setSelectedFolder(""));
 
@@ -160,13 +157,10 @@ export default function FolderList(): JSX.Element {
     try {
       axios
         .delete(BASE_URL + "/folders/" + id)
-        .then(() => console.log("Folder deleted."))
         .then(() => setUpdate(!update))
         .then(() => setDelBtn(false))
         .then(() => setShowDelModal(!showDelModal))
-        .catch(() => {
-          console.log("no folder selected");
-        });
+        .catch((err) => console.log(`error: ${err}`));
     } catch (err) {
       throw err;
     }
@@ -180,7 +174,6 @@ export default function FolderList(): JSX.Element {
 
       axios
         .put(BASE_URL + "/folders/" + id, title)
-        .then(() => console.log("Folder Renamed"))
         .then(() => setDelBtn(false))
         .then(() => setUpdate(!update))
         .then(() => setShowPopup(false))
@@ -205,7 +198,6 @@ export default function FolderList(): JSX.Element {
     getTitle(folder._id);
     getChildren(folder._id);
     setDelBtn(true);
-    console.log(`folder ${folder._id} selected!`);
   };
 
   const togglePopup = () => {

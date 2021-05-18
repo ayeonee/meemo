@@ -9,9 +9,6 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useSelector } from "react-redux";
 import { RootState } from "../../_reducers";
-// import { INITIAL_EVENTS, createEventId } from "./event-utils";
-
-import moment from "moment";
 
 import style from "./styles/CalendarApp.module.scss";
 import style_mode from "./styles/modeColor.module.scss";
@@ -35,15 +32,8 @@ export default function CalendarApp(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [userId, setUserId] = useState<string | null>(userIdInfo);
 
-  // const userId = useRef<string | null>(userIdInfo);
-
-  // useEffect(() => {
-  //   setUserId(userIdInfo);
-  // }, []);
-
   let source = axios.CancelToken.source();
 
-  // button text override
   const prevBtn = document.getElementsByClassName("fc-prev-button");
   const nextBtn = document.getElementsByClassName("fc-next-button");
   const todayBtn = document.getElementsByClassName("fc-today-button");
@@ -90,12 +80,10 @@ export default function CalendarApp(): JSX.Element {
         setCurrentEvents([]);
       } else {
         setCurrentEvents(res.data.map((cal: any) => cal));
-        console.log("Got the Calendar Events!");
         setIsLoading(false);
       }
     } catch (err) {
       if (axios.isCancel(err)) {
-        console.log("Caught a cancel.");
       } else {
         throw err;
       }
@@ -153,7 +141,7 @@ export default function CalendarApp(): JSX.Element {
   };
 
   const handleSubmit = async (evnt: object) => {
-    const calEvnt: any = await evnt;
+    const calEvnt: any = evnt;
     if (calEvnt.type === "ADD") {
       try {
         axios
@@ -220,17 +208,8 @@ export default function CalendarApp(): JSX.Element {
               dayMaxEvents={true}
               weekends={true}
               events={currentEvents}
-              // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
               select={handleNewEvent}
-              //  select(dateOrObj: DateInput | any, endDate?: DateInput): void;
-              // eventContent={renderEventContent} // custom render function
               eventClick={handleEventClick}
-              // eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-              /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
             />
           </div>
         </>

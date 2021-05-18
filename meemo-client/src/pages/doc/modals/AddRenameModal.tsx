@@ -62,7 +62,6 @@ export default function AddRenameModal(props: PopupToggleProps) {
     }
   };
 
-  // tried to link keyboard keys such as Enter and ESC to the onClicks;
   useEffect(() => {
     const listener = (event: any) => {
       if (event.which === 13) {

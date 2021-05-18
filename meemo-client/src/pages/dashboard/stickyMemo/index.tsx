@@ -77,7 +77,6 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
         .then((res) => console.log(res.data));
     } catch (err) {
       source.cancel();
-      console.log(err, "\nOperation canceled by the user.");
     }
   }, 1000);
 
@@ -120,29 +119,9 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
           placeholder={"메모를 적어보세요.."}
           defaultValue={body}
           scrollTo={window.location.hash}
-          handleDOMEvents={
-            {
-              // focus: () => console.log("FOCUS"),
-              // blur: () => console.log("BLUR"),
-              // paste: () => console.log("PASTE"),
-              // touchstart: () => console.log("TOUCH START"),
-            }
-          }
-          onSave={(options) => console.log("Save triggered", options)}
           onCancel={() => console.log("Cancel triggered")}
           onChange={handleChange}
-          onClickLink={(href, event) =>
-            console.log("Clicked link: ", href, event)
-          }
-          onHoverLink={(event: any) => {
-            console.log("Hovered link: ", event.target.href);
-            return false;
-          }}
-          onClickHashtag={(tag, event) =>
-            console.log("Clicked hashtag: ", tag, event)
-          }
           onCreateLink={(title) => {
-            // Delay to simulate time taken for remote API request to complete
             return new Promise((resolve, reject) => {
               setTimeout(() => {
                 if (title !== "error") {
@@ -152,7 +131,7 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
                 } else {
                   reject("500 error");
                 }
-              }, 1500);
+              }, 1000);
             });
           }}
           onShowToast={(message, type) => window.alert(`${type}: ${message}`)}

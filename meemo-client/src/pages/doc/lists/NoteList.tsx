@@ -19,13 +19,6 @@ import { RootState } from "../../../_reducers";
 
 const removeMd = require("remove-markdown");
 
-// removing remaining md strings; maybe not needed
-const onlyLet = (str: string) => {
-  const rep = str.replace(/\\n|\\/g, "");
-  const rem = removeMd(rep);
-  return rem;
-};
-
 export default function NoteList() {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const userIdInfo = useSelector(
@@ -43,16 +36,14 @@ export default function NoteList() {
   const [showDelModal, setShowDelModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [userId, setUserId] = useState<string | null>(userIdInfo);
+  const [userId, setUserId] = useState<string | null>("testmeemo");
 
   let { url }: any = useRouteMatch();
   let { folderTitle }: any = useParams();
 
-  // passing note information into Editor component
   let history = useHistory<any>();
   let source = axios.CancelToken.source();
 
-  // if element doesnt have noDeselect as id, deselect upon click
   useEffect(() => {
     document.onclick = (event: any) => {
       setTimeout(() => {
@@ -92,20 +83,14 @@ export default function NoteList() {
       if (res.data.length === 0) {
         setNotes([]);
         setIsLoading(false);
-        console.log("Got the notes!");
       } else {
         setNotes(res.data.map((note: any) => note));
-        console.log("Got the notes!");
-        // setUpdate(false);
         setIsLoading(false);
       }
     } catch (err) {
       if (axios.isCancel(err)) {
         console.log("Caught a cancel.");
       } else {
-        // history.push({
-        //   pathname: "/error",
-        // });
       }
     }
   };
@@ -131,9 +116,6 @@ export default function NoteList() {
       if (axios.isCancel(err)) {
         console.log("Caught a cancel.");
       } else {
-        // history.push({
-        //   pathname: "/error",
-        // });
       }
     }
   };
@@ -165,7 +147,6 @@ export default function NoteList() {
           axios
             .post(BASE_URL + "/notes/create", note)
             .then(() => setUpdate(!update))
-            .then(() => console.log("New note added!"))
             .then(() => setShowPopup(!showPopup))
             .then(() => setSelectedNote(""));
 
@@ -183,13 +164,10 @@ export default function NoteList() {
   const deleteNote = (id: any) => {
     axios
       .delete(BASE_URL + "/notes/" + id)
-      .then(() => console.log("Note deleted."))
       .then(() => setShowDelModal(!showDelModal))
       .then(() => setDelBtn(false))
       .then(() => setUpdate(!update))
-      .catch(() => {
-        console.log("no note selected");
-      });
+      .catch((err) => console.log(`error: ${err}`));
   };
 
   //title update uses put; editor body uses post + update.
@@ -202,7 +180,6 @@ export default function NoteList() {
 
       axios
         .put(BASE_URL + "/notes/" + id, title)
-        .then(() => console.log("Note Renamed"))
         .then(() => setUpdate(!update))
         .then(() => setShowPopup(false))
         .then(() => setSelectedNote(""))
@@ -229,7 +206,6 @@ export default function NoteList() {
     setSelectedNote(note._id);
     getTitle(note._id);
     setDelBtn(true);
-    console.log(`note ${note._id} selected!`);
   };
 
   const togglePopup = () => {

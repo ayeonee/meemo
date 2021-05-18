@@ -4,13 +4,13 @@
   @include flex_col;
   align-items: center;
   width: 100%;
-  height: 80%;
+  height: 60vh;
   overflow: scroll;
   position: relative;
   top: 110px;
 
   .noteContainer {
-    height: fit-content;
+    height: 100%;
     margin-top: 30px;
 
     .noteDiv {
@@ -30,7 +30,7 @@
 
       .notes,
       .notesSelected {
-        margin: 2px 0;
+        padding: 1px 0;
         display: flex;
         align-items: center;
         width: 100%;

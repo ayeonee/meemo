@@ -37,7 +37,7 @@ export default function Editor(): JSX.Element {
   const [folderId, setFolderId] = useState<string>("");
   const [gotFolderId, setGotFolderId] = useState<boolean>(false);
 
-  const [userId, setUserId] = useState<string | null>(userIdInfo);
+  const [userId, setUserId] = useState<string | null>("testmeemo");
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -75,7 +75,6 @@ export default function Editor(): JSX.Element {
         setValue(res.data.body);
         setNoteTitle(res.data.title);
         setIsLoading(false);
-        console.log("Got the note!");
       }
     } catch {
       history.push({
@@ -105,9 +104,6 @@ export default function Editor(): JSX.Element {
       if (axios.isCancel(err)) {
         console.log("Caught a cancel.");
       } else {
-        // history.push({
-        //   pathname: "/error",
-        // });
       }
     }
   };
@@ -122,7 +118,6 @@ export default function Editor(): JSX.Element {
       });
     } catch (err) {
       source.cancel();
-      console.log(err, "\nOperation canceled by the user.");
     }
   }, 1000);
 
@@ -153,7 +148,6 @@ export default function Editor(): JSX.Element {
                 }
               }}
             >
-              {/* need thorough study of each prop, such as image upload */}
               <RMDEditor
                 id="example"
                 ref={editor}
@@ -163,27 +157,7 @@ export default function Editor(): JSX.Element {
                 defaultValue={value}
                 placeholder="문서를 작성해 보세요!"
                 scrollTo={window.location.hash}
-                handleDOMEvents={
-                  {
-                    // focus: () => console.log("FOCUS"),
-                    // blur: () => console.log("BLUR"),
-                    // paste: () => console.log("PASTE"),
-                    // touchstart: () => console.log("TOUCH START"),
-                  }
-                }
-                onSave={(options) => console.log("Save triggered", options)}
-                onCancel={() => console.log("Cancel triggered")}
                 onChange={handleChange}
-                onClickLink={(href, event) =>
-                  console.log("Clicked link: ", href, event)
-                }
-                onHoverLink={(event: any) => {
-                  console.log("Hovered link: ", event.target.href);
-                  return false;
-                }}
-                onClickHashtag={(tag, event) =>
-                  console.log("Clicked hashtag: ", tag, event)
-                }
                 onCreateLink={(title) => {
                   // Delay to simulate time taken for remote API request to complete
                   return new Promise((resolve, reject) => {
@@ -195,17 +169,13 @@ export default function Editor(): JSX.Element {
                       } else {
                         reject("500 error");
                       }
-                    }, 1500);
+                    }, 1000);
                   });
                 }}
                 onShowToast={(message, type) =>
                   window.alert(`${type}: ${message}`)
                 }
                 uploadImage={(file) => {
-                  // console.log("File upload triggered: ", file);
-
-                  // check if the file is an image, and reject if not;
-
                   const data = new FormData();
                   data.append("imgFile", file);
 
