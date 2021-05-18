@@ -264,7 +264,7 @@ export default function FolderList(): JSX.Element {
             </div>
           </div>
 
-          <div className={style.toolDiv}>
+          <div className={style.toolDiv} id={`noDeselect`}>
             <div
               className={
                 delBtn
@@ -282,7 +282,7 @@ export default function FolderList(): JSX.Element {
                 setShowPopup(!showPopup);
               }}
             >
-              <Create className={style.renameIcon} />
+              <Create className={style.renameIcon} id={`noDeselect`} />
             </div>
 
             <div
@@ -298,7 +298,7 @@ export default function FolderList(): JSX.Element {
                 setShowPopup(!showPopup);
               }}
             >
-              <span> + </span>
+              <span id={`noDeselect`}> + </span>
             </div>
             <div
               className={
@@ -316,7 +316,7 @@ export default function FolderList(): JSX.Element {
                 setShowDelModal(!showDelModal);
               }}
             >
-              <Delete className={style.deleteIcon} />
+              <Delete className={style.deleteIcon} id={`noDeselect`} />
             </div>
           </div>
         </>

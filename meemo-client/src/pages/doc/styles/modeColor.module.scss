@@ -111,11 +111,11 @@
   background-color: $green_grade_4;
   border-bottom: 1px solid $green_grade_4;
   .note_icon_dark {
-    color: white;
+    color: $dark_text_b;
   }
 
   p {
-    color: white;
+    color: $dark_text_b;
   }
 
   .timeDiv_dark {
@@ -125,7 +125,7 @@
     span,
     b,
     small {
-      color: white;
+      color: $dark_text_b;
     }
   }
 }
