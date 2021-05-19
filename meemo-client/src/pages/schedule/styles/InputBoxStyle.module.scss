@@ -40,6 +40,7 @@
       background-color: transparent;
       height: fit-content;
       width: fit-content;
+      padding: 3px;
       cursor: pointer;
 
       &:hover {
@@ -149,7 +150,8 @@
           top: 13px;
           left: 210px;
           width: fit-content;
-          height: 5px;
+          height: fit-content;
+          padding: 3px;
           text-align: right;
           color: $green_grade_5;
           font-size: 12px;
@@ -205,17 +207,18 @@
 
     .add_new_daytime {
       position: absolute;
-      bottom: 95px;
+      width: fit-content;
+      height: fit-content;
+      bottom: 75px;
       left: 50%;
-      margin-left: -6px;
+      transform: translate(-50%, 0);
+      padding: 0 10px;
 
       color: rgb(173, 169, 169);
       font-size: 25px;
       font-weight: 300;
       border-style: none;
       background-color: transparent;
-      height: 12px;
-      width: 12px;
       cursor: pointer;
 
       &:hover {
@@ -223,7 +226,7 @@
       }
 
       &:active {
-        transform: scale(0.95);
+        transform: translate(-50%, 0) scale(0.95);
       }
 
       &:focus {
