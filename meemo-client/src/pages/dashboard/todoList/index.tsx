@@ -17,7 +17,7 @@ function TodoList({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
     }[]
   >([]);
   const history = useHistory();
-  let count: number = 0; //todolist max값 위해
+  let count: number = 0;
 
   const goTodoPage = () => {
     history.push({
@@ -41,7 +41,7 @@ function TodoList({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   };
 
   useEffect(() => {
-    todoList.map((item) => {
+    todoList.forEach((item) => {
       if (item.checked) {
         setCheckedTodo((checkedTodo) => [
           ...checkedTodo,

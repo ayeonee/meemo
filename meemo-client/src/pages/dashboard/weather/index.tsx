@@ -41,7 +41,8 @@ function Weather({ modeInfo }: Mode): JSX.Element {
           humidity: jsonfile.main.humidity,
           icon: jsonfile.weather[0].icon,
         });
-      });
+      })
+      .catch((err)=>console.log(err));
   };
 
   const getCurrentCity = (latitudeVar: string, longitudeVar: string) => {
@@ -66,7 +67,7 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   const askForCoords = () => {
     navigator.geolocation.getCurrentPosition(
       handleGeoTrue,
-      () => console.error
+      (err) => console.log(err)
     );
   };
 

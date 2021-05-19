@@ -41,7 +41,7 @@ export default function KLogin(): JSX.Element {
 
   return (
     <KakaoLogin
-      token="d61079c156018c7a8055d9a015191dfa"
+      token={process.env.REACT_APP_KAKAO_LOGIN_KEY!}
       render={(renderProps) => (
         <button className={style.KakaoBtn} onClick={renderProps.onClick}>
           <span className={style.KakaoIcon}></span>
