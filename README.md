@@ -58,11 +58,11 @@
 
 ## 🔧 Development Stack
 #### Front-End
-- React
+- React, Typescript
 - Redux
 
 #### Back-End
-- Node.js, Express.js
+- Node.js, Express.js, Javascript
 - MongoDB, Mongoose
 - AWS EC2/S3
 - Json-Web-Token, Bcrypt 
