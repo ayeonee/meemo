@@ -51,7 +51,6 @@ export default function FolderList(): JSX.Element {
     };
 
     return () => {
-      console.log("Unmounting FolderList.");
       clearTimeout();
       setSelectedFolder("");
       setFolderTitle("");

@@ -259,7 +259,7 @@ export default function NoteList() {
                     />
                   </div>
                   <div className={style.titleDiv}>
-                    <p>{note.title}</p>
+                    <p className={style.title}>{note.title}</p>
                   </div>
                   <div
                     className={[
@@ -269,10 +269,8 @@ export default function NoteList() {
                         : style_mode.timeDiv_dark,
                     ].join(" ")}
                   >
-                    <p className={style.timeMent}>최근 수정 :&nbsp;</p>
-                    <p>
-                      {moment(note.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
-                    </p>
+                    <p className={style.timeMent}>최근 수정:&nbsp;</p>
+                    <p>{moment(note.updatedAt).format("YY-MM-DD HH:mm")}</p>
                   </div>
                 </div>
               ))}
