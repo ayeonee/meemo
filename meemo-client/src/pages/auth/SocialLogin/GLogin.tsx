@@ -39,7 +39,7 @@ export default function GLogin(): JSX.Element {
 
   return (
     <GoogleLogin
-      clientId="723578906212-p9e6ejvqm6rbbk4d2lo0djvks5j3k530.apps.googleusercontent.com"
+      clientId={process.env.REACT_APP_GOOGLE_LOGIN_KEY!}
       render={(renderProps) => (
         <button
           className={style.GoogleBtn}

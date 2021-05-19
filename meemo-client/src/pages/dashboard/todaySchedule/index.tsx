@@ -24,7 +24,7 @@ function TodaySchedule({
 }: UserIdType & Mode): JSX.Element {
   const history = useHistory();
   const date = new Date();
-  const today = date.getDay(); //일:0~토:6
+  const today = date.getDay();
   const [allData, setAllData] = useState<AllData>([]);
   const [scheduleInfo, setScheduleInfo] = useState<ScheduleInfo[]>([]);
 

@@ -1,7 +1,7 @@
 import style from "../../styles/TodoList.module.scss";
 import style_mode from "../../styles/modeColor.module.scss";
 import { Todo } from "../../../../_types/todoTypes";
-import { Pie } from "react-chartjs-2"; //chart 위한 라이브러리
+import { Pie } from "react-chartjs-2";
 
 interface AchievementRateProps {
   todoList: Todo[];
@@ -16,7 +16,6 @@ function AchievementRate({
   checkedTodo,
   modeInfo,
 }: AchievementRateProps): JSX.Element {
-  //그래프에 넣을 데이터
   const todoBasedPieData = {
     datasets: [
       {
