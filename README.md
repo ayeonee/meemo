@@ -104,4 +104,4 @@
 ## Team. SongAZi
 - [KIM AYEON](https://github.com/ayeonee) : Google/KaKao Login, Dashboard
 - [LEEJEEWON](https://github.com/leejiwon6315) : Authorization, Dashboard, Scheduler, To-Do List, Dark Mode, Design & Style
-- [Ben Jeong](https://github.com/benintheb) : Folders/Notes/WYSIWIG Editor, Sticky Memo, Calendar, AWS
+- [Ben Jeong](https://github.com/benintheb) : Folders/Notes/WYSIWIG Editor, Dashboard, Calendar, AWS
