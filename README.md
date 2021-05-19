@@ -58,9 +58,8 @@
 
 ## 🔧 Development Stack
 #### Front-End
-- React, Typescript
+- React
 - Redux
-- Sass, Material UI
 
 #### Back-End
 - Node.js, Express.js
