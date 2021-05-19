@@ -65,7 +65,7 @@
 #### Back-End
 - Node.js, Express.js
 - MongoDB, Mongoose
-- AWS EC2, S3
+- AWS EC2/S3
 - Json-Web-Token, Bcrypt 
 <br/>
 
