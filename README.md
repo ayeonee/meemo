@@ -18,7 +18,7 @@
 
 
 ## 🖥 WEB SITE
-&nbsp;[MEE:MO](https://meemo.kr)
+&nbsp;[ME:EMO](https://meemo.kr)
 <br/>
 <br/>
 
@@ -73,6 +73,7 @@
 #### External
 - Google Login API
 - Kakao Login API
+- Google Map Geocoding API
 - Weather API : https://api.openweathermap.org
 
 #### Internal
