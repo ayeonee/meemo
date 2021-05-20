@@ -91,7 +91,7 @@ export default function SchedulePage(): JSX.Element {
   };
 
   const removeData = useCallback(
-    (index: number, id: string) => {
+    (id: string, code: string) => {
       if (allData.length === 1 && allData[0].schedule.length === 1) {
         setAllData([]);
         saveSchedule([]);
@@ -103,7 +103,7 @@ export default function SchedulePage(): JSX.Element {
                 ? {
                     ...elem,
                     schedule: elem.schedule.filter(
-                      (scheduleItem) => scheduleItem.index !== index
+                      (scheduleItem) => scheduleItem.code !== code
                     ),
                   }
                 : elem

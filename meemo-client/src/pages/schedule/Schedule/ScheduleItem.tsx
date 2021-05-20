@@ -20,7 +20,7 @@ function ScheduleItem({
 }: ScheduleItemProps & Schedule): JSX.Element {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const { id, name, place } = data;
-  const { date, startHour, startMin, endHour, endMin } = scheduleItem;
+  const { date, startHour, startMin, endHour, endMin, code } = scheduleItem;
   const [delButtonState, setDelButtonState] = useState<boolean>(false);
   const scheduleTime = (endHour - startHour) * 60 + (endMin - startMin);
   const timeStart = 48 + 73 * (startHour - 8) + startMin * 1.2;
@@ -103,7 +103,7 @@ function ScheduleItem({
   }, [delButtonState]);
 
   const onClickDelButton = () => {
-    removeData(index, id);
+    removeData(id, code);
   };
 
   const confirmDelete = useConfirm(

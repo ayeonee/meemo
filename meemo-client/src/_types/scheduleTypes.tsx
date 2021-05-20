@@ -10,6 +10,7 @@ export type Schedule = {
   startMin: number;
   endHour: number;
   endMin: number;
+  code: string;
 };
 
 export type ScheduleArray = Array<Schedule>;
