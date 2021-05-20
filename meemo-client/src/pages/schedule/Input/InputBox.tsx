@@ -40,6 +40,7 @@ export default function InputBox({
       startMin: 0,
       endHour: 8,
       endMin: 0,
+      code: "default-code",
     },
   ]);
 
@@ -56,6 +57,7 @@ export default function InputBox({
         startMin: 0,
         endHour: 8,
         endMin: 0,
+        code: "default-code",
       },
     ]);
     nextIndex.current = 2;
@@ -73,6 +75,7 @@ export default function InputBox({
             ? {
                 ...schedule,
                 [name]: value,
+                code: `${Math.floor(Math.random() * 1001) + index}`,
               }
             : schedule
         )
@@ -179,6 +182,7 @@ export default function InputBox({
       startMin: 0,
       endHour: 8,
       endMin: 0,
+      code: "default-code",
     };
 
     setSchedule(schedule.concat(newData));

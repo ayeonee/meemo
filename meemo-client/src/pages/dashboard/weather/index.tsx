@@ -42,19 +42,25 @@ function Weather({ modeInfo }: Mode): JSX.Element {
           icon: jsonfile.weather[0].icon,
         });
       })
-      .catch((err)=>console.log(err));
+      .catch((err) => console.log(err));
   };
 
   const getCurrentCity = (latitudeVar: string, longitudeVar: string) => {
-    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY).then(
-      (response) => {
-        getWeather(response.results[0].address_components[3].long_name);
-        setFullLocation(
-          `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
-        );
-      }
-    );
-    //getWeather("Seoul"); /* for test*/
+    Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY)
+      .then((response) => {
+        if (response.results[0].address_components[3].long_name === "South Korea") {
+          getWeather(response.results[0].address_components[2].long_name);
+          setFullLocation(
+            `${response.results[0].address_components[2].long_name} ${response.results[0].address_components[1].long_name}`
+          );
+        } else {
+          getWeather(response.results[0].address_components[3].long_name);
+          setFullLocation(
+            `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
+          );
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleGeoTrue = (position: any) => {
@@ -65,10 +71,7 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   };
 
   const askForCoords = () => {
-    navigator.geolocation.getCurrentPosition(
-      handleGeoTrue,
-      (err) => console.log(err)
-    );
+    navigator.geolocation.getCurrentPosition(handleGeoTrue, (err) => console.log(err));
   };
 
   const weatherMessage = (weatherInfo: string) => {
@@ -104,15 +107,25 @@ function Weather({ modeInfo }: Mode): JSX.Element {
 
   useEffect(() => {
     askForCoords();
+
+    return () => {
+      setWeatherInfo({
+        temperature: "",
+        temp_max: "",
+        temp_min: "",
+        feelslike: "",
+        weather: "",
+        humidity: "",
+        icon: "",
+      });
+    };
   }, []);
 
   return (
     <div
       className={[
         style.weather,
-        modeInfo === "light"
-          ? style_mode.weather_light
-          : style_mode.weather_dark,
+        modeInfo === "light" ? style_mode.weather_light : style_mode.weather_dark,
       ].join(" ")}
     >
       <div className={style.title}>WEATHER</div>
@@ -134,9 +147,7 @@ function Weather({ modeInfo }: Mode): JSX.Element {
                   />
                 </div>
                 <div className={style.weather_info}>
-                  <p className={style.temperature}>
-                    {weatherInfo.temperature}°
-                  </p>
+                  <p className={style.temperature}>{weatherInfo.temperature}°</p>
                   <p className={style.explanation}>{weatherInfo.weather}</p>
                   <div className={style.location}>
                     <p>{fullLocation}</p>
@@ -155,11 +166,11 @@ function Weather({ modeInfo }: Mode): JSX.Element {
                   </div>
                 </div>
                 <div className={style.feels_like}>
-                  <h1>Sensory :</h1>
+                  <h1>Sensory</h1>
                   <p>{weatherInfo.feelslike}°</p>
                 </div>
                 <div className={style.humidity}>
-                  <h1>Humidity :</h1>
+                  <h1>Humidity</h1>
                   <p>{weatherInfo.humidity}%</p>
                 </div>
               </div>
