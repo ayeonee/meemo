@@ -166,11 +166,11 @@ function Weather({ modeInfo }: Mode): JSX.Element {
                   </div>
                 </div>
                 <div className={style.feels_like}>
-                  <h1>Sensory :</h1>
+                  <h1>Sensory</h1>
                   <p>{weatherInfo.feelslike}°</p>
                 </div>
                 <div className={style.humidity}>
-                  <h1>Humidity :</h1>
+                  <h1>Humidity</h1>
                   <p>{weatherInfo.humidity}%</p>
                 </div>
               </div>
