@@ -26,7 +26,7 @@ export default function UnkownPage(): JSX.Element {
           <Link to={`/home`} className={style.back_to_home}>
             홈으로 돌아가기
           </Link>
-          <div className={style.back_to_home} onClick={() => history.goBack()}>
+          <div className={style.back_to_home} onClick={() => history.go(-2)}>
             &nbsp;&nbsp;&nbsp;이전 페이지&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
         </div>

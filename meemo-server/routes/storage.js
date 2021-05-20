@@ -24,7 +24,7 @@ const upload = multer({
     },
     acl: "public-read",
   }),
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 20 * 1024 * 1024 },
 });
 
 router.post("/upload", upload.single("imgFile"), (req, res) => {
