@@ -38,8 +38,10 @@
       font-weight: 300;
       border-style: none;
       background-color: transparent;
-      height: 30px;
-      width: 30px;
+      width: fit-content;
+      height: fit-content;
+      padding: 5px;
+      z-index: 50;
       cursor: pointer;
 
       &:hover {
@@ -90,6 +92,7 @@
         .day_check_wrapper {
           @include flex_row;
           margin-top: 8px;
+          list-style-type: none;
 
           .day_check {
             background-color: $gray;
@@ -112,6 +115,7 @@
             margin: 0 2px 0 2px;
             text-align: center;
             border-radius: 50%;
+            list-style-type: none;
             cursor: pointer;
 
             &:hover {
@@ -150,7 +154,7 @@
           left: 210px;
           width: fit-content;
           height: fit-content;
-          padding: 3px;
+          padding: 5px;
           text-align: right;
           color: $green_grade_5;
           font-size: 12px;
@@ -206,12 +210,12 @@
 
     .add_new_daytime {
       position: absolute;
-      width: fit-content;
-      height: fit-content;
+      width: 30px;
+      height: 30px;
       bottom: 75px;
       left: 50%;
       transform: translate(-50%, 0);
-      padding: 0 10px;
+      padding: 5px;
 
       color: rgb(173, 169, 169);
       font-size: 25px;

@@ -135,7 +135,7 @@ function ScheduleItem({
           display: delButtonState ? "flex" : "none",
         }}
       >
-        <span onClick={confirmDelete}>×</span>
+        <span onClick={confirmDelete}> &#215;</span>
       </div>
       <div className={style.item_content}>
         <p className={style.item_name}>{name}</p>

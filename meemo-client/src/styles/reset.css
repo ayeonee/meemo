@@ -121,11 +121,6 @@ section {
 body {
   line-height: 1;
 }
-li,
-ol,
-ul {
-  list-style: none;
-}
 blockquote,
 q {
   quotes: none;

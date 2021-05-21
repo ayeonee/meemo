@@ -3,13 +3,12 @@
 .auth_nav_wrapper {
   @include flex_row;
   justify-content: space-between;
-
   width: 67%;
   height: 35px;
   margin-bottom: 40px;
 
   li {
-    text-decoration: none;
+    list-style-type: none;
     font-size: 18px;
     font-weight: 600;
     padding: 0 10px 0 10px;
