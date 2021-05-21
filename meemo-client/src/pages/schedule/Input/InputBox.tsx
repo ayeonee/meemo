@@ -222,7 +222,7 @@ export default function InputBox({
             ].join(" ")}
           >
             <button className={style.close_button} onClick={closeModalInside}>
-              ×
+              &#215;
             </button>
 
             <div className={style.input_wrapper_sub}>

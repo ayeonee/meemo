@@ -42,7 +42,7 @@ function TodoItem({ todo }: TodoItemProps): JSX.Element {
         {todo.schedule}
       </p>
       <p className={style.delete_todo} onClick={onRemoveItem}>
-        ×
+        &#215;
       </p>
     </li>
   );
