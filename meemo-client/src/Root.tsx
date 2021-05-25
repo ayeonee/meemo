@@ -50,8 +50,6 @@ function Root(): JSX.Element {
       <Navigation />
 
       <Switch>
-        {/*배포용*/}
-
         <Route component={Auth(AuthPage, false)} path="/auth" exact />
         <Route component={Auth(DashBoardPage, true)} path="/home" exact />
         <Route component={Auth(BlockPage, undefined)} path="/" exact />
@@ -70,27 +68,6 @@ function Root(): JSX.Element {
           exact
         />
         <Route component={Auth(UnkownPage, null)} path="*" />
-
-        {/*테스트용*/}
-
-        {/* <Route component={Auth(AuthPage, null)} path="/auth" exact />
-        <Route component={Auth(BlockPage, undefined)} path="/" exact />
-        <Route component={Auth(DashBoardPage, null)} path="/home" exact />
-        <Route component={Auth(CalendarPage, null)} path="/calendar" exact />
-        <Route component={Auth(SchedulePage, null)} path="/schedule" exact />
-        <Route component={Auth(TodoPage, null)} path="/todo" exact />
-        <Route component={Auth(FolderPage, null)} path="/folders" exact />
-        <Route
-          component={Auth(NoteList, null)}
-          path="/folders/:folderTitle"
-          exact
-        />
-        <Route
-          component={Auth(Editor, null)}
-          path="/folders/:folderTitle/:noteId"
-          exact
-        />
-        <Route component={Auth(UnkownPage, null)} path="*" /> */}
       </Switch>
     </BrowserRouter>
   );
