@@ -7,10 +7,8 @@
   <img src="https://user-images.githubusercontent.com/60544994/118817711-7afc1480-b8ee-11eb-8338-69af65085c1f.png"  width="320" />
   <br/>
   <br/>
-  <br/>
   <h3>
-    언택트 시대의 가장 효율적인<br/>
-    스케쥴 관리법, me:emo
+    대학생들을 위한 가장 효율적인 스케쥴 관리법, me:emo 
   </h3>
   <br/>
   <br/>
@@ -18,7 +16,7 @@
 
 ## 🖥 WEB SITE
 
-&nbsp;[ME:EMO](https://meemo.kr)
+&nbsp;[https://meemo.kr](https://meemo.kr)
 <br/>
 <br/>
 
@@ -114,6 +112,6 @@
 
 ## Team. SongAZi
 
-- [KIM AYEON](https://github.com/ayeonee) : Google/KaKao Login, Dashboard
-- [LEEJEEWON](https://github.com/leejiwon6315) : Authorization, Dashboard, Scheduler, To-Do List, Dark Mode, Design & Style
-- [Ben Jeong](https://github.com/benintheb) : Folders/Notes/WYSIWIG Editor, Dashboard, Calendar, AWS
+- [KIM AYEON](https://github.com/ayeonee) : Dashboard, Google/KaKao Login
+- [LEEJEEWON](https://github.com/leejiwon6315) : Dashboard, Authorization, Scheduler, To-Do List, Navigation, Dark Mode, Design & Style
+- [Ben Jeong](https://github.com/benintheb) : Dashboard, Folder/Note List, WYSIWIG Editor, Calendar, AWS
