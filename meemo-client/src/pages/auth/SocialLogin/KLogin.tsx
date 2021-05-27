@@ -7,7 +7,6 @@ import style from "../styles/Auth.module.scss";
 export default function KLogin(): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch<any>();
-  console.log(process.env.REACT_APP_KAKAO_LOGIN_KEY);
 
   const submitLogin = (response: any) => {
     const body = {
