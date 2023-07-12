@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AllData } from "../../../_types/scheduleTypes";
-import { BASE_URL } from "../../../_data/urlData";
+import { BASE_URL } from "../../../constants/url";
 import { UserIdType } from "../../../_types/authTypes";
 import { Mode } from "../../../_types/modeTypes";
 import axios from "axios";

@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useTodoDispatch } from "../TodosContext";
 import { Todo } from "../../../_types/todoTypes";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/TodoList.module.scss";
 
 interface TodoItemProps {

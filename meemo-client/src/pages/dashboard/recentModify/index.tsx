@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { BASE_URL } from "../../../_data/urlData";
+import { BASE_URL } from "../../../constants/url";
 import style_mode from "../styles/modeColor.module.scss";
 import style from "../styles/RecentModify.module.scss";
 import axios from "axios";

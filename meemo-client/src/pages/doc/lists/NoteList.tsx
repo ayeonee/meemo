@@ -12,10 +12,10 @@ import DeleteModal from "../modals/DeleteModal";
 import RouteShow from "../misc/RouteShow";
 import LoaderSpinner from "../misc/LoaderSpinner";
 
-import { BASE_URL } from "../../../_data/urlData";
+import { BASE_URL } from "../../../constants/url";
 
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 
 export default function NoteList() {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);

@@ -7,7 +7,7 @@ import AchievementRate from "./achievementRate";
 import { Todo } from "../../../_types/todoTypes";
 import { UserIdType } from "../../../_types/authTypes";
 import { Mode } from "../../../_types/modeTypes";
-import { BASE_URL } from "../../../_data/urlData";
+import { BASE_URL } from "../../../constants/url";
 
 function TodoList({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   const [todoList, setTodoList] = useState<Todo[]>([]);

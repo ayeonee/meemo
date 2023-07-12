@@ -13,7 +13,7 @@ import style_hidden from "../../styles/hidden.module.scss";
 import style_mode from "./styles/modeColor.module.scss";
 
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 
 function Navigation({
   location: { pathname },

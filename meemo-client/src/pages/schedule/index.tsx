@@ -8,9 +8,9 @@ import TimeTable from "./TimeTable";
 import style from "./styles/Schedule.module.scss";
 import reset from "../../img/reset-icon.svg";
 import resetDark from "../../img/reset-icon_dark.svg";
-import { BASE_URL } from "../../_data/urlData";
+import { BASE_URL } from "../../constants/url";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 
 export default function SchedulePage(): JSX.Element {
   const userIdInfo = useSelector(

@@ -8,7 +8,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 
 import style from "./styles/CalendarApp.module.scss";
 import style_mode from "./styles/modeColor.module.scss";
@@ -17,7 +17,7 @@ import LoaderSpinner from "../doc/misc/LoaderSpinner";
 
 import CalendarModal from "./modals/CalendarModal";
 
-import { BASE_URL } from "../../_data/urlData";
+import { BASE_URL } from "../../constants/url";
 
 export default function CalendarApp(): JSX.Element {
   const userIdInfo = useSelector(

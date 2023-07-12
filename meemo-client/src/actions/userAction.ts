@@ -6,7 +6,7 @@ import {
   KLOGIN_USER,
 } from "../_types/actionTypes";
 import axios from "axios";
-import { BASE_URL } from "../_data/urlData";
+import { BASE_URL } from "../constants/url";
 
 export const registerUser = async (dataToSubmit: {
   userId: string;

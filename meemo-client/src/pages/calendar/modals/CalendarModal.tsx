@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/CalendarModal.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 import RMDEditor from "rich-markdown-editor";

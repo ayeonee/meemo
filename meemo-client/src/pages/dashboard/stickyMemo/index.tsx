@@ -4,7 +4,7 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import { UserIdType } from "../../../_types/authTypes";
 import { Mode } from "../../../_types/modeTypes";
-import { BASE_URL } from "../../../_data/urlData";
+import { BASE_URL } from "../../../constants/url";
 import style from "../styles/StickyMemo.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 

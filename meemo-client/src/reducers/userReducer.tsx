@@ -1,3 +1,4 @@
+import { DEFAULT_USER_INFO } from "../constants/user";
 import {
   REGISTER_USER,
   LOGIN_USER,
@@ -25,20 +26,7 @@ type UserState = {
 };
 
 const userReducer = (
-  state: UserState = {
-    register: { success: false },
-    loginSuccess: {
-      loginSuccess: false,
-      userId: "",
-      name: "",
-    },
-    userData: {
-      _id: "",
-      name: "",
-      userId: "",
-      isAuth: false,
-    },
-  },
+  state: UserState = DEFAULT_USER_INFO,
   action: ResponseTypes
 ) => {
   switch (action.type) {
@@ -46,16 +34,12 @@ const userReducer = (
       return { ...state, register: action.payload };
 
     case LOGIN_USER:
+    case GLOGIN_USER:
+    case KLOGIN_USER:
       return { ...state, loginSuccess: action.payload };
 
     case AUTH_USER:
       return { ...state, userData: action.payload };
-
-    case GLOGIN_USER:
-      return { ...state, loginSuccess: action.payload };
-
-    case KLOGIN_USER:
-      return { ...state, loginSuccess: action.payload };
 
     default:
       return state;

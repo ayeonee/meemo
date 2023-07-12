@@ -4,7 +4,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { daysData } from "../../../../_data/scheduleData";
+import { daysData } from "../../../../constants/schedule";
 import { Schedule } from "../../../../_types/scheduleTypes";
 import InputDayList from "./InputDayList";
 import InputTimeList from "./InputTimeList";

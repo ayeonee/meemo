@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../_actions/userAction";
+import { registerUser } from "../../actions/userAction";
 import style from "./styles/Auth.module.scss";
 
-import { BASE_URL } from "../../_data/urlData";
+import { BASE_URL } from "../../constants/url";
 
 interface RegisterTypes {
   name: string;

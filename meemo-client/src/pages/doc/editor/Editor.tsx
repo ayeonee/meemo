@@ -4,13 +4,13 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import RMDEditor from "rich-markdown-editor";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/Editor.module.scss";
 
 import LoaderSpinner from "../misc/LoaderSpinner";
 import RouteShow from "../misc/RouteShow";
 
-import { BASE_URL } from "../../../_data/urlData";
+import { BASE_URL } from "../../../constants/url";
 
 const YoutubeEmbed: React.FC<any> = (props) => {
   const { attrs } = props;

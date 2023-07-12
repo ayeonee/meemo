@@ -1,7 +1,7 @@
 import { Dispatch, createContext, useReducer, useContext } from "react";
 import axios from "axios";
 import { Todo, TodoState } from "../../_types/todoTypes";
-import { BASE_URL } from "../../_data/urlData";
+import { BASE_URL } from "../../constants/url";
 
 const TodoStateContext = createContext<TodoState | undefined>(undefined);
 const TodoDispatchContext = createContext<TodoDispatch | undefined>(undefined);

@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
-import { colorCode } from "../../../_data/scheduleData";
+import { colorCode } from "../../../constants/schedule";
 import { Data, Schedule } from "../../../_types/scheduleTypes";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/ScheduleItem.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 
