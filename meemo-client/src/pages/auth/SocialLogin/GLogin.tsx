@@ -1,6 +1,6 @@
 import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
-import { gLoginUser } from "../../../_actions/userAction";
+import { googleLoginUser } from "../../../_actions/userAction";
 import { useHistory } from "react-router-dom";
 import style from "../styles/Auth.module.scss";
 
@@ -12,7 +12,7 @@ export default function GLogin(): JSX.Element {
     const body = {
       tokenId: response.tokenId,
     };
-    dispatch(gLoginUser(body))
+    dispatch(googleLoginUser(body))
       .then(
         (res: {
           payload: {

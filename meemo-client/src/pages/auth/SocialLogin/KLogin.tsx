@@ -1,6 +1,6 @@
 import KakaoLogin from "react-kakao-login";
 import { useDispatch } from "react-redux";
-import { kLoginUser } from "../../../_actions/userAction";
+import { kakaoLoginUser } from "../../../_actions/userAction";
 import { useHistory } from "react-router-dom";
 import style from "../styles/Auth.module.scss";
 
@@ -14,7 +14,7 @@ export default function KLogin(): JSX.Element {
       userId: response.profile.id,
       userName: response.profile.properties.nickname,
     };
-    dispatch(kLoginUser(body))
+    dispatch(kakaoLoginUser(body))
       .then(
         (res: {
           payload: {

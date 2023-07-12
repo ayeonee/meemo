@@ -8,92 +8,112 @@ import {
 import axios from "axios";
 import { BASE_URL } from "../_data/urlData";
 
-export const registerUser = (dataToSubmit: {
+export const registerUser = async (dataToSubmit: {
   userId: string;
   name: string;
   password: string;
 }) => {
-  const request = axios({
+  const request = await axios({
     method: "POST",
     baseURL: BASE_URL,
     url: "/users/register",
     data: dataToSubmit,
-  })
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+  });
+
+  const payload = request?.data;
+
+  if (!payload) {
+    return;
+  }
 
   return {
     type: REGISTER_USER,
-    payload: request,
+    payload,
   };
 };
 
-export const loginUser = (dataToSubmit: {
+export const loginUser = async (dataToSubmit: {
   userId: string;
   password: string;
 }) => {
-  const request = axios({
+  const request = await axios({
     method: "POST",
     baseURL: BASE_URL,
     url: "/users/login",
     data: dataToSubmit,
-  })
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+  });
+
+  const payload = request?.data;
+
+  if (!payload) {
+    return;
+  }
 
   return {
     type: LOGIN_USER,
-    payload: request,
+    payload,
   };
 };
 
-export const authUser = () => {
-  const request = axios({
+export const authUser = async () => {
+  const request = await axios({
     method: "GET",
     baseURL: BASE_URL,
     url: "/users/auth",
-  })
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+  });
+
+  const payload = request?.data;
+
+  if (!payload) {
+    return;
+  }
 
   return {
     type: AUTH_USER,
-    payload: request,
+    payload,
   };
 };
 
-export const gLoginUser = (dataToSubmit: { tokenId: string }) => {
-  const request = axios({
+export const googleLoginUser = async (dataToSubmit: { tokenId: string }) => {
+  const request = await axios({
     method: "POST",
     baseURL: BASE_URL,
     url: "/users/auth/google",
     data: dataToSubmit,
-  })
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+  });
+
+  const payload = request?.data;
+
+  if (!payload) {
+    return;
+  }
 
   return {
     type: GLOGIN_USER,
-    payload: request,
+    payload,
   };
 };
 
-export const kLoginUser = (dataToSubmit: {
+export const kakaoLoginUser = async (dataToSubmit: {
   tokenId: string;
   userId: string;
   userName: string;
 }) => {
-  const request = axios({
+  const request = await axios({
     method: "POST",
     baseURL: BASE_URL,
     url: "/users/auth/kakao",
     data: dataToSubmit,
-  })
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+  });
+
+  const payload = request?.data;
+
+  if (!payload) {
+    return;
+  }
 
   return {
     type: KLOGIN_USER,
-    payload: request,
+    payload,
   };
 };
