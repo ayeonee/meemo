@@ -12,3 +12,10 @@ export interface OAuthUserPayload {
   userId: string;
   name: string;
 }
+
+export interface LoginUserPayload {
+  loginSuccess: boolean;
+  userId: string;
+  name: string;
+  message: string;
+}
