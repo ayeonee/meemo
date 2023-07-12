@@ -1,5 +1,5 @@
 import { hourData, minData } from "../../../../constants/schedule";
-import { Schedule } from "../../../../_types/scheduleTypes";
+import { Schedule } from "../../../../_types/schedule";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../reducers";
 import style from "../../styles/InputBoxStyle.module.scss";

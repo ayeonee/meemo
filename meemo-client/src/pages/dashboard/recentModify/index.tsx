@@ -5,8 +5,8 @@ import style_mode from "../styles/modeColor.module.scss";
 import style from "../styles/RecentModify.module.scss";
 import axios from "axios";
 import moment from "moment";
-import { UserIdType } from "../../../_types/authTypes";
-import { Mode } from "../../../_types/modeTypes";
+import { UserIdInfo } from "../../../_types/auth";
+import { Mode } from "../../../_types/mode";
 import { Notes } from "@material-ui/icons";
 
 type NoteInfo = {
@@ -30,7 +30,7 @@ type FolderInfo = {
 function RecentModify({
   userIdInfo,
   modeInfo,
-}: UserIdType & Mode): JSX.Element {
+}: UserIdInfo & Mode): JSX.Element {
   const [notes, setNotes] = useState<NoteInfo[]>([]);
   const [folders, setFolders] = useState<FolderInfo[]>([]);
   const [rearrangedNotes, setRearrangedNotes] = useState<NoteInfo[]>([]);

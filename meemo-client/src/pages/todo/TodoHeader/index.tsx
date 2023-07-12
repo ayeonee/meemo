@@ -5,7 +5,7 @@ import reset from "../../../img/reset-icon.svg";
 import resetDark from "../../../img/reset-icon_dark.svg";
 import style from "../styles/TodoHeader.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
-import { Mode } from "../../../_types/modeTypes";
+import { Mode } from "../../../_types/mode";
 
 export default function TodoHeader({ modeInfo }: Mode): JSX.Element {
   const todos = useTodoState();

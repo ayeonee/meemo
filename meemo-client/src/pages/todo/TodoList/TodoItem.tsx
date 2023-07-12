@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useTodoDispatch } from "../TodosContext";
-import { Todo } from "../../../_types/todoTypes";
+import { Todo } from "../../../_types/todo";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 import style from "../styles/TodoList.module.scss";

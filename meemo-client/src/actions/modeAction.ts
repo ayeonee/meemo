@@ -1,4 +1,4 @@
-import { DARK, LIGHT } from "../_types/actionTypes";
+import { DARK, LIGHT } from "../_types/action";
 
 export const darkModeAction = () => {
   localStorage.setItem("meemo-mode", "dark");

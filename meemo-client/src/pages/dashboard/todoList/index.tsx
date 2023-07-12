@@ -4,12 +4,12 @@ import style from "../styles/TodoList.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 import axios from "axios";
 import AchievementRate from "./achievementRate";
-import { Todo } from "../../../_types/todoTypes";
-import { UserIdType } from "../../../_types/authTypes";
-import { Mode } from "../../../_types/modeTypes";
+import { Todo } from "../../../_types/todo";
+import { UserIdInfo } from "../../../_types/auth";
+import { Mode } from "../../../_types/mode";
 import { BASE_URL } from "../../../constants/url";
 
-function TodoList({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
+function TodoList({ userIdInfo, modeInfo }: UserIdInfo & Mode): JSX.Element {
   const [todoList, setTodoList] = useState<Todo[]>([]);
   const [checkedTodo, setCheckedTodo] = useState<
     {

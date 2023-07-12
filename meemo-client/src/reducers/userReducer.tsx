@@ -5,8 +5,8 @@ import {
   AUTH_USER,
   KLOGIN_USER,
   GLOGIN_USER,
-} from "../_types/actionTypes";
-import { ResponseTypes } from "../_types/authTypes";
+} from "../_types/action";
+import { Response } from "../_types/auth";
 
 type UserState = {
   loginSuccess: {
@@ -27,7 +27,7 @@ type UserState = {
 
 const userReducer = (
   state: UserState = DEFAULT_USER_INFO,
-  action: ResponseTypes
+  action: Response
 ) => {
   switch (action.type) {
     case REGISTER_USER:

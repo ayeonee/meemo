@@ -1,5 +1,5 @@
-import { DARK, LIGHT } from "../_types/actionTypes";
-import { ModeType } from "../_types/modeTypes";
+import { DARK, LIGHT } from "../_types/action";
+import { ModeType } from "../_types/mode";
 
 const modeReducer = (
   state = {

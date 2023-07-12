@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { authUser } from "../actions/userAction";
-import { ResponseTypes } from "../_types/authTypes";
+import { Response } from "../_types/auth";
 import removeLocalStorage from "../utils/removeLocalStorage";
 
 function Auth(Component: React.FC, option: null | false | true | undefined) {
@@ -17,7 +17,7 @@ function Auth(Component: React.FC, option: null | false | true | undefined) {
 
     useEffect(() => {
       dispatch(authUser())
-        .then((res: ResponseTypes) => {
+        .then((res: Response) => {
           if (!res.payload.isAuth) {
             removeLocalStorage();
 

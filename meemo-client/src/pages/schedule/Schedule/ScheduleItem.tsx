@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { colorCode } from "../../../constants/schedule";
-import { Data, Schedule } from "../../../_types/scheduleTypes";
+import { Data, Schedule } from "../../../_types/schedule";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 import style from "../styles/ScheduleItem.module.scss";

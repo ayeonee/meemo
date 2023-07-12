@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { weatherData } from "../../../constants/weather";
 import style from "../styles/Weather.module.scss";
-import { Mode } from "../../../_types/modeTypes";
+import { Mode } from "../../../_types/mode";
 import style_mode from "../styles/modeColor.module.scss";
 import Geocode from "react-geocode";
 import { CircularProgress } from "@material-ui/core";

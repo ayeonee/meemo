@@ -2,13 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import RMDEditor from "rich-markdown-editor";
 import axios from "axios";
 import debounce from "lodash/debounce";
-import { UserIdType } from "../../../_types/authTypes";
-import { Mode } from "../../../_types/modeTypes";
+import { UserIdInfo } from "../../../_types/auth";
+import { Mode } from "../../../_types/mode";
 import { BASE_URL } from "../../../constants/url";
 import style from "../styles/StickyMemo.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 
-function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
+function StickyMemo({ userIdInfo, modeInfo }: UserIdInfo & Mode): JSX.Element {
   const [body, setBody] = useState<string>("");
 
   const [gotUserId, setGotUserId] = useState<boolean>(false);

@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
-import { AllData, Data } from "../../_types/scheduleTypes";
+import { AllData, Data } from "../../_types/schedule";
 import useConfirm from "../../hooks/useConfirm";
 import axios from "axios";
 import InputButton from "./Input/InputButton";

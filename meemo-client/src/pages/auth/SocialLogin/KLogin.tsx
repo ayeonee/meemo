@@ -3,39 +3,40 @@ import { useDispatch } from "react-redux";
 import { kakaoLoginUser } from "../../../actions/userAction";
 import { useHistory } from "react-router-dom";
 import style from "../styles/Auth.module.scss";
+import { OAuthUserPayload } from "../../../_types/auth";
 
-export default function KLogin(): JSX.Element {
+export default function KLogin() {
   const history = useHistory();
   const dispatch = useDispatch<any>();
 
-  const submitLogin = (response: any) => {
+  const handleSubmitUserInfo = (response: any) => {
     const body = {
       tokenId: response.response.accessToken,
       userId: response.profile.id,
       userName: response.profile.properties.nickname,
     };
+
     dispatch(kakaoLoginUser(body))
-      .then(
-        (res: {
-          payload: {
-            loginSuccess: boolean;
-            userId: string;
-            name: string;
-          };
-        }) => {
-          if (res.payload.loginSuccess) {
-            localStorage.setItem("meemo-user-name", res.payload.name);
-            localStorage.setItem("meemo-user-id", res.payload.userId);
-            history.push({
-              pathname: "/home",
-            });
-          } else {
-            alert(res.payload.loginSuccess);
-          }
+      .then((res: { payload: OAuthUserPayload }) => {
+        const kakaoLoginData = res.payload;
+
+        if (kakaoLoginData.loginSuccess) {
+          localStorage.setItem("meemo-user-name", kakaoLoginData.name);
+          localStorage.setItem("meemo-user-id", kakaoLoginData.userId);
+
+          history.push({
+            pathname: "/home",
+          });
+
+          return;
         }
-      )
+
+        alert(kakaoLoginData.loginSuccess);
+      })
       .catch((err: string) => {
         console.log(err);
+
+        alert("로그인에 실패했습니다.");
       });
   };
 
@@ -48,7 +49,7 @@ export default function KLogin(): JSX.Element {
           <span className={style.KakaoText}>카카오로 로그인하기</span>
         </button>
       )}
-      onSuccess={submitLogin}
+      onSuccess={handleSubmitUserInfo}
       onFail={console.error}
     />
   );

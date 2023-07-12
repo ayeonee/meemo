@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { AllData } from "../../../_types/scheduleTypes";
+import { AllData } from "../../../_types/schedule";
 import { BASE_URL } from "../../../constants/url";
-import { UserIdType } from "../../../_types/authTypes";
-import { Mode } from "../../../_types/modeTypes";
+import { UserIdInfo } from "../../../_types/auth";
+import { Mode } from "../../../_types/mode";
 import axios from "axios";
 import style from "../styles/TodaySchedule.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
@@ -21,7 +21,7 @@ type ScheduleInfo = {
 function TodaySchedule({
   userIdInfo,
   modeInfo,
-}: UserIdType & Mode): JSX.Element {
+}: UserIdInfo & Mode): JSX.Element {
   const history = useHistory();
   const date = new Date();
   const today = date.getDay();

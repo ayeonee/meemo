@@ -4,7 +4,7 @@ import {
   ScheduleArray,
   Data,
   Input,
-} from "../../../_types/scheduleTypes";
+} from "../../../_types/schedule";
 import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
 import { useSelector } from "react-redux";
