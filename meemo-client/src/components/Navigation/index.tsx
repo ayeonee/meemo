@@ -7,7 +7,7 @@ import logo from "../../img/logo.svg";
 import logoDark from "../../img/logo_dark.svg";
 import logout from "../../img/logout.svg";
 import logoutDark from "../../img/logout_dark.svg";
-import removeLocalStorage from "../../hooks/removeLocalStorage";
+import removeLocalStorage from "../../utils/removeLocalStorage";
 import style from "./styles/Navigation.module.scss";
 import style_hidden from "../../styles/hidden.module.scss";
 import style_mode from "./styles/modeColor.module.scss";

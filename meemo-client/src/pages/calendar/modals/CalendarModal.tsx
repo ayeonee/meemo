@@ -42,10 +42,8 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
 
   const editor: any = useRef();
 
-  const removeSchedule = useConfirm(
-    "일정을 삭제 하시겠습니까?",
-    () => handleDelete(selectInfo.id),
-    () => null
+  const removeSchedule = useConfirm("일정을 삭제 하시겠습니까?", () =>
+    handleDelete(selectInfo.id)
   );
 
   const handleSubmit = () => {

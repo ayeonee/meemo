@@ -124,8 +124,7 @@ export default function SchedulePage(): JSX.Element {
 
   const resetAllSchedule = useConfirm(
     "시간표를 초기화 하시겠습니까?",
-    resetAllData,
-    () => null
+    resetAllData
   );
 
   return (

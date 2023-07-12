@@ -18,8 +18,7 @@ export default function TodoHeader({ modeInfo }: Mode): JSX.Element {
 
   const onClickReset = useConfirm(
     "To-Do List를 초기화 하시겠습니까?",
-    resetTodo,
-    () => null
+    resetTodo
   );
 
   useEffect(() => {
