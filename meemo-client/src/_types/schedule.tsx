@@ -1,9 +1,9 @@
-export type Input = {
+export interface Input {
   name: string;
   place: string;
-};
+}
 
-export type Schedule = {
+export interface Schedule {
   index: number;
   date: number;
   startHour: number;
@@ -11,7 +11,7 @@ export type Schedule = {
   endHour: number;
   endMin: number;
   code: string;
-};
+}
 
 export type ScheduleArray = Array<Schedule>;
 
@@ -24,7 +24,7 @@ export type Data = {
 
 export type AllData = Array<Data>;
 
-export type DataProps = {
+export interface DataProps {
   addData: Function;
   allData: AllData;
-};
+}

@@ -3,11 +3,11 @@ import TodoItem from "./TodoItem";
 import axios from "axios";
 import { useTodoState } from "../TodosContext";
 import { useTodoDispatch } from "../TodosContext";
-import { Todo } from "../../../_types/todoTypes";
+import { Todo } from "../../../_types/todo";
 import style from "../styles/TodoList.module.scss";
-import { BASE_URL } from "../../../_data/urlData";
+import { BASE_URL } from "../../../constants/url";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 
 function TodoList(): JSX.Element {
   const todos = useTodoState();

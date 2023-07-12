@@ -6,17 +6,15 @@ import logo from "../../img/logo.svg";
 import style from "./styles/Auth.module.scss";
 
 export default function AuthPage(): JSX.Element {
-  const [loginTxt, setLoginTxt] = useState<boolean>(true);
-  const [registerTxt, setRegisterText] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(true);
 
-  const onClickMenu = useCallback((e: React.MouseEvent) => {
+  const handleClickMenu = useCallback((e: React.MouseEvent) => {
     const text = (e.target as HTMLElement).innerText;
+
     if (text === "Login") {
-      setLoginTxt(true);
-      setRegisterText(false);
+      setIsLogin(true);
     } else {
-      setLoginTxt(false);
-      setRegisterText(true);
+      setIsLogin(false);
     }
   }, []);
 
@@ -25,18 +23,11 @@ export default function AuthPage(): JSX.Element {
       <div className={style.auth_box_wrapper}>
         <div className={style.auth_box}>
           <AuthNav
-            onClickMenu={onClickMenu}
-            loginTxt={loginTxt}
-            registerTxt={registerTxt}
+            onClickMenu={handleClickMenu}
+            loginTxt={isLogin}
+            registerTxt={!isLogin}
           />
-          {loginTxt ? (
-            <Login />
-          ) : (
-            <Register
-              setLoginTxt={setLoginTxt}
-              setRegisterText={setRegisterText}
-            />
-          )}
+          {isLogin ? <Login /> : <Register setLoginTxt={setIsLogin} />}
         </div>
 
         <div className={style.auth_background}>

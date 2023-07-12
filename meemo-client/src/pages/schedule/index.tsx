@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
-import { AllData, Data } from "../../_types/scheduleTypes";
+import { AllData, Data } from "../../_types/schedule";
 import useConfirm from "../../hooks/useConfirm";
 import axios from "axios";
 import InputButton from "./Input/InputButton";
@@ -8,9 +8,9 @@ import TimeTable from "./TimeTable";
 import style from "./styles/Schedule.module.scss";
 import reset from "../../img/reset-icon.svg";
 import resetDark from "../../img/reset-icon_dark.svg";
-import { BASE_URL } from "../../_data/urlData";
+import { BASE_URL } from "../../constants/url";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 
 export default function SchedulePage(): JSX.Element {
   const userIdInfo = useSelector(
@@ -124,8 +124,7 @@ export default function SchedulePage(): JSX.Element {
 
   const resetAllSchedule = useConfirm(
     "시간표를 초기화 하시겠습니까?",
-    resetAllData,
-    () => null
+    resetAllData
   );
 
   return (

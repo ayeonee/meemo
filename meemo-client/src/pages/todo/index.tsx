@@ -3,7 +3,7 @@ import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 import { TodoContextProvider } from "./TodosContext";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 import style from "./styles/TodoPage.module.scss";
 
 export default function TodoPage(): JSX.Element {

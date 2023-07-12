@@ -1,7 +1,7 @@
-import { daysData, hourData } from "../../../_data/scheduleData";
+import { daysData, hourData } from "../../../constants/schedule";
 import TimeTableGrid from "./TimeTableGrid";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/TimeTableStyle.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 

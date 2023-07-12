@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
 import useConfirm from "../../../hooks/useConfirm";
-import { colorCode } from "../../../_data/scheduleData";
-import { Data, Schedule } from "../../../_types/scheduleTypes";
+import { colorCode } from "../../../constants/schedule";
+import { Data, Schedule } from "../../../_types/schedule";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/ScheduleItem.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 
@@ -108,8 +108,7 @@ function ScheduleItem({
 
   const confirmDelete = useConfirm(
     "해당시간표를 삭제하시겠습니까?",
-    onClickDelButton,
-    () => null
+    onClickDelButton
   );
 
   return (

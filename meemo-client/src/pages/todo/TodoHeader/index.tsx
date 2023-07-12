@@ -5,7 +5,7 @@ import reset from "../../../img/reset-icon.svg";
 import resetDark from "../../../img/reset-icon_dark.svg";
 import style from "../styles/TodoHeader.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
-import { Mode } from "../../../_types/modeTypes";
+import { Mode } from "../../../_types/mode";
 
 export default function TodoHeader({ modeInfo }: Mode): JSX.Element {
   const todos = useTodoState();
@@ -18,8 +18,7 @@ export default function TodoHeader({ modeInfo }: Mode): JSX.Element {
 
   const onClickReset = useConfirm(
     "To-Do List를 초기화 하시겠습니까?",
-    resetTodo,
-    () => null
+    resetTodo
   );
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../_reducers";
+import { RootState } from "../../../../reducers";
 import style from "../../styles/InputBoxStyle.module.scss";
 import style_mode from "../../styles/modeColor.module.scss";
 interface InputDayListProps {

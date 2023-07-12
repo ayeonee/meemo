@@ -1,8 +1,8 @@
 import { useState, useCallback } from "react";
-import { DataProps } from "../../../_types/scheduleTypes";
+import { DataProps } from "../../../_types/schedule";
 import InputBox from "./InputBox";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style_mode from "../styles/modeColor.module.scss";
 import style from "../styles/InputButtonStyle.module.scss";
 

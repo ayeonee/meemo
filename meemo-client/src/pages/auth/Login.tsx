@@ -1,85 +1,81 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { loginUser } from "../../_actions/userAction";
+import { loginUser } from "../../actions/userAction";
 import style from "./styles/Auth.module.scss";
 import GLogin from "./SocialLogin/GLogin";
 import KLogin from "./SocialLogin/KLogin";
+import { LoginUserPayload } from "../../_types/auth";
 
 interface LoginTypes {
   userId: string;
   password: string;
 }
 
-function Login(): JSX.Element {
-  const [loginInput, setLoginInput] = useState<LoginTypes>({
-    userId: "",
-    password: "",
-  });
+const DEFAULT_LOGIN_DATA = {
+  userId: "",
+  password: "",
+};
+
+function Login() {
   const history = useHistory();
   const dispatch = useDispatch<any>();
 
-  const onChangeLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [loginInput, setLoginInput] = useState<LoginTypes>(DEFAULT_LOGIN_DATA);
+
+  const handleChangeLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setLoginInput({
       ...loginInput,
       [name]: value,
     });
   };
 
-  const checkButtonEnable = () => {
-    if (loginInput.password && loginInput.userId) return false;
-    else return true;
-  };
-
-  const onSubmitHandler = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const { userId, password } = loginInput;
     const body = {
-      userId: loginInput.userId,
-      password: loginInput.password,
+      userId,
+      password,
     };
 
     dispatch(loginUser(body))
-      .then(
-        (res: {
-          payload: {
-            loginSuccess: boolean;
-            userId: string;
-            name: string;
-            message: string;
-          };
-        }) => {
-          if (res.payload.loginSuccess) {
-            localStorage.setItem("meemo-user-name", res.payload.name);
-            localStorage.setItem("meemo-user-id", res.payload.userId);
-            history.push({
-              pathname: "/home",
-            });
-          } else {
-            alert(res.payload.message);
-            setLoginInput({
-              userId: "",
-              password: "",
-            });
-          }
+      .then((res: { payload: LoginUserPayload }) => {
+        const payload = res.payload;
+
+        if (payload.loginSuccess) {
+          localStorage.setItem("meemo-user-name", payload.name);
+          localStorage.setItem("meemo-user-id", payload.userId);
+
+          history.push({
+            pathname: "/home",
+          });
+
+          return;
         }
-      )
+
+        alert(payload.message);
+        setLoginInput(DEFAULT_LOGIN_DATA);
+      })
       .catch((err: string) => {
         console.error(err);
+
+        alert("로그인에 실패했습니다.");
       });
   };
 
   return (
     <>
-      <form className={style.input_wrapper} onSubmit={onSubmitHandler}>
+      <form className={style.input_wrapper} onSubmit={handleSubmit}>
         <div className={style.animated_div}>
           <input
             type="text"
             name="userId"
             placeholder="User ID"
             value={loginInput.userId}
-            onChange={onChangeLoginInput}
+            onChange={handleChangeLoginInput}
           />
           <label className={style.animated_label}>User ID</label>
         </div>
@@ -89,7 +85,7 @@ function Login(): JSX.Element {
             name="password"
             placeholder="Password"
             value={loginInput.password}
-            onChange={onChangeLoginInput}
+            onChange={handleChangeLoginInput}
           />
           <label className={style.animated_label}>Password</label>
         </div>
@@ -97,7 +93,7 @@ function Login(): JSX.Element {
         <div className={style.button_wrapper}>
           <button
             className={style.login_btn}
-            disabled={checkButtonEnable()}
+            disabled={!!(loginInput.password && loginInput.userId)}
             type="submit"
           >
             로그인

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { darkModeAction, lightModeAction } from "../../_actions/modeAction";
+import { darkModeAction, lightModeAction } from "../../actions/modeAction";
 import moon from "../../img/moon.svg";
 import sun from "../../img/sun.svg";
 import style from "./darkmode.module.scss";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 
 export default function DarkMode({
   pathname,

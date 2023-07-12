@@ -1,11 +1,12 @@
+import { DEFAULT_USER_INFO } from "../constants/user";
 import {
   REGISTER_USER,
   LOGIN_USER,
   AUTH_USER,
   KLOGIN_USER,
   GLOGIN_USER,
-} from "../_types/actionTypes";
-import { ResponseTypes } from "../_types/authTypes";
+} from "../_types/action";
+import { Response } from "../_types/auth";
 
 type UserState = {
   loginSuccess: {
@@ -25,37 +26,20 @@ type UserState = {
 };
 
 const userReducer = (
-  state: UserState = {
-    register: { success: false },
-    loginSuccess: {
-      loginSuccess: false,
-      userId: "",
-      name: "",
-    },
-    userData: {
-      _id: "",
-      name: "",
-      userId: "",
-      isAuth: false,
-    },
-  },
-  action: ResponseTypes
+  state: UserState = DEFAULT_USER_INFO,
+  action: Response
 ) => {
   switch (action.type) {
     case REGISTER_USER:
       return { ...state, register: action.payload };
 
     case LOGIN_USER:
+    case GLOGIN_USER:
+    case KLOGIN_USER:
       return { ...state, loginSuccess: action.payload };
 
     case AUTH_USER:
       return { ...state, userData: action.payload };
-
-    case GLOGIN_USER:
-      return { ...state, loginSuccess: action.payload };
-
-    case KLOGIN_USER:
-      return { ...state, loginSuccess: action.payload };
 
     default:
       return state;

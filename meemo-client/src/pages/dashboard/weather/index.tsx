@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { weatherData } from "../../../_data/weatherData";
+import { weatherData } from "../../../constants/weather";
 import style from "../styles/Weather.module.scss";
-import { Mode } from "../../../_types/modeTypes";
+import { Mode } from "../../../_types/mode";
 import style_mode from "../styles/modeColor.module.scss";
 import Geocode from "react-geocode";
 import { CircularProgress } from "@material-ui/core";
@@ -48,7 +48,9 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   const getCurrentCity = (latitudeVar: string, longitudeVar: string) => {
     Geocode.fromLatLng(latitudeVar, longitudeVar, GOOGLE_API_KEY)
       .then((response) => {
-        if (response.results[0].address_components[3].long_name === "South Korea") {
+        if (
+          response.results[0].address_components[3].long_name === "South Korea"
+        ) {
           getWeather(response.results[0].address_components[2].long_name);
           setFullLocation(
             `${response.results[0].address_components[2].long_name} ${response.results[0].address_components[1].long_name}`
@@ -71,7 +73,9 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   };
 
   const askForCoords = () => {
-    navigator.geolocation.getCurrentPosition(handleGeoTrue, (err) => console.log(err));
+    navigator.geolocation.getCurrentPosition(handleGeoTrue, (err) =>
+      console.log(err)
+    );
   };
 
   const weatherMessage = (weatherInfo: string) => {
@@ -125,7 +129,9 @@ function Weather({ modeInfo }: Mode): JSX.Element {
     <div
       className={[
         style.weather,
-        modeInfo === "light" ? style_mode.weather_light : style_mode.weather_dark,
+        modeInfo === "light"
+          ? style_mode.weather_light
+          : style_mode.weather_dark,
       ].join(" ")}
     >
       <div className={style.title}>WEATHER</div>
@@ -147,7 +153,9 @@ function Weather({ modeInfo }: Mode): JSX.Element {
                   />
                 </div>
                 <div className={style.weather_info}>
-                  <p className={style.temperature}>{weatherInfo.temperature}°</p>
+                  <p className={style.temperature}>
+                    {weatherInfo.temperature}°
+                  </p>
                   <p className={style.explanation}>{weatherInfo.weather}</p>
                   <div className={style.location}>
                     <p>{fullLocation}</p>

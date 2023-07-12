@@ -5,7 +5,7 @@ import TodaySchedule from "./todaySchedule";
 import RecentModify from "./recentModify";
 import TodoList from "./todoList";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 
 export default function DashBoardPage(): JSX.Element {
   const userIdInfo = useSelector(

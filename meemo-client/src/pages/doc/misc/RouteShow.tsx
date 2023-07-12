@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/RouteShow.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 import { Link } from "react-router-dom";
