@@ -14,7 +14,7 @@ interface InputDayListProps {
 export default function InputDayList({
   data,
   handleToggle,
-}: InputDayListProps): JSX.Element {
+}: InputDayListProps) {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const { name, id, checked } = data;
 

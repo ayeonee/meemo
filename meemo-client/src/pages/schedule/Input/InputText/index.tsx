@@ -8,11 +8,7 @@ type InputTextProps = {
   onChangeTxt: React.ChangeEventHandler;
 };
 
-function InputText({
-  input,
-  onChangeTxt,
-  modeInfo,
-}: InputTextProps & Mode): JSX.Element {
+function InputText({ input, onChangeTxt, modeInfo }: InputTextProps & Mode) {
   return (
     <>
       <input

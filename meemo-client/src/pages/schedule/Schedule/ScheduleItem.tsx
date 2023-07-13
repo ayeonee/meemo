@@ -17,7 +17,7 @@ function ScheduleItem({
   index,
   removeData,
   ...scheduleItem
-}: ScheduleItemProps & Schedule): JSX.Element {
+}: ScheduleItemProps & Schedule) {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const { id, name, place } = data;
   const { date, startHour, startMin, endHour, endMin, code } = scheduleItem;
@@ -97,9 +97,10 @@ function ScheduleItem({
   const showDelButton = useCallback(() => {
     if (!delButtonState) {
       setDelButtonState(true);
-    } else {
-      setDelButtonState(false);
+      return;
     }
+
+    setDelButtonState(false);
   }, [delButtonState]);
 
   const onClickDelButton = () => {
@@ -138,15 +139,15 @@ function ScheduleItem({
       </div>
       <div className={style.item_content}>
         <p className={style.item_name}>{name}</p>
-        <p className={style.item_place}>{timeLength >= 54 ? place : null}</p>
-        {timeLength >= 54 ? (
+        <p className={style.item_place}>{timeLength >= 54 ? place : ""}</p>
+        {timeLength >= 54 && (
           <p className={style.item_time}>
             {startHour < 10 ? `0${startHour}` : startHour}:
             {startMin < 10 ? `0${startMin}` : startMin}&nbsp;~&nbsp;
             {endHour < 10 ? `0${endHour}` : endHour}:
             {endMin < 10 ? `0${endMin}` : endMin}
           </p>
-        ) : null}
+        )}
       </div>
     </div>
   );

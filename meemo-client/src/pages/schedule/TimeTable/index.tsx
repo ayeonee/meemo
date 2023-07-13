@@ -5,7 +5,7 @@ import { RootState } from "../../../reducers";
 import style from "../styles/TimeTableStyle.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 
-export default function TimeLine(): JSX.Element {
+export default function TimeLine() {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
 
   return (

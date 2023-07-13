@@ -1,6 +1,6 @@
 import style from "../styles/TimeTableStyle.module.scss";
 
-export default function TimeLineGrid(): JSX.Element {
+export default function TimeLineGrid() {
   return (
     <td className={style.cols}>
       <div className={style.grid_top}></div>

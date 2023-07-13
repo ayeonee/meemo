@@ -13,7 +13,7 @@ interface InputTimeListProps {
 export default function InputTimeList({
   handleChange,
   schedule,
-}: InputTimeListProps): JSX.Element {
+}: InputTimeListProps) {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const { startHour, startMin, endHour, endMin } = schedule;
   return (
