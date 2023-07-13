@@ -1,7 +1,7 @@
 const useConfirm = (
   message: string = "",
-  onConfirm: Function,
-  onCancel: Function
+  onConfirm: () => void,
+  onCancel?: () => void
 ) => {
   if (onConfirm && typeof onConfirm !== "function") {
     return;
@@ -14,7 +14,10 @@ const useConfirm = (
   const confirmAction = () => {
     if (window.confirm(message)) {
       onConfirm();
-    } else onCancel();
+      return;
+    }
+
+    onCancel?.();
   };
 
   return confirmAction;

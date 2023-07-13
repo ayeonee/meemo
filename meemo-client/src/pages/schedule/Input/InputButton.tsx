@@ -1,15 +1,12 @@
 import { useState, useCallback } from "react";
-import { DataProps } from "../../../_types/scheduleTypes";
+import { DataProps } from "../../../_types/schedule";
 import InputBox from "./InputBox";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style_mode from "../styles/modeColor.module.scss";
 import style from "../styles/InputButtonStyle.module.scss";
 
-export default function InputButton({
-  addData,
-  allData,
-}: DataProps): JSX.Element {
+export default function InputButton({ addData, allData }: DataProps) {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const [modalState, setModalState] = useState<boolean>(false);
 

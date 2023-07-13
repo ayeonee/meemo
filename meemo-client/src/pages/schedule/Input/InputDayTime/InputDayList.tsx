@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../_reducers";
+import { RootState } from "../../../../reducers";
 import style from "../../styles/InputBoxStyle.module.scss";
 import style_mode from "../../styles/modeColor.module.scss";
 interface InputDayListProps {
@@ -14,7 +14,7 @@ interface InputDayListProps {
 export default function InputDayList({
   data,
   handleToggle,
-}: InputDayListProps): JSX.Element {
+}: InputDayListProps) {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const { name, id, checked } = data;
 
