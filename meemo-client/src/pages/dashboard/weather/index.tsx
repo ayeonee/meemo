@@ -8,18 +8,19 @@ import { CircularProgress } from "@material-ui/core";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY!;
+const DEFAULT_WEATHER_INFO = {
+  temperature: "",
+  temp_max: "",
+  temp_min: "",
+  feelslike: "",
+  weather: "",
+  humidity: "",
+  icon: "",
+};
 
-function Weather({ modeInfo }: Mode): JSX.Element {
+function Weather({ modeInfo }: Mode) {
   const [loading, setLoading] = useState<boolean>(true);
-  const [weatherInfo, setWeatherInfo] = useState({
-    temperature: "",
-    temp_max: "",
-    temp_min: "",
-    feelslike: "",
-    weather: "",
-    humidity: "",
-    icon: "",
-  });
+  const [weatherInfo, setWeatherInfo] = useState(DEFAULT_WEATHER_INFO);
 
   const [fullLocation, setFullLocation] = useState<string>("");
 
@@ -55,12 +56,14 @@ function Weather({ modeInfo }: Mode): JSX.Element {
           setFullLocation(
             `${response.results[0].address_components[2].long_name} ${response.results[0].address_components[1].long_name}`
           );
-        } else {
-          getWeather(response.results[0].address_components[3].long_name);
-          setFullLocation(
-            `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
-          );
+
+          return;
         }
+
+        getWeather(response.results[0].address_components[3].long_name);
+        setFullLocation(
+          `${response.results[0].address_components[3].long_name} ${response.results[0].address_components[2].long_name}`
+        );
       })
       .catch((err) => console.log(err));
   };
@@ -79,33 +82,44 @@ function Weather({ modeInfo }: Mode): JSX.Element {
   };
 
   const weatherMessage = (weatherInfo: string) => {
-    if (weatherInfo === "Thunderstorm") {
-      return weatherData[0];
-    } else if (weatherInfo === "Rain" || weatherInfo === "Squall") {
-      return weatherData[1];
-    } else if (weatherInfo === "Snow") {
-      return weatherData[2];
-    } else if (
-      weatherInfo === "Mist" ||
-      weatherInfo === "Smoke" ||
-      weatherInfo === "Haze" ||
-      weatherInfo === "Fog"
-    ) {
-      return weatherData[3];
-    } else if (weatherInfo === "Dust") {
-      return weatherData[4];
-    } else if (weatherInfo === "Sand") {
-      return weatherData[5];
-    } else if (weatherInfo === "Ash") {
-      return weatherData[6];
-    } else if (weatherInfo === "Tornado") {
-      return weatherData[7];
-    } else if (weatherInfo === "Clear") {
-      return weatherData[8];
-    } else if (weatherInfo === "Clouds") {
-      return weatherData[9];
-    } else {
-      return "공부하기 좋은날!";
+    switch (weatherInfo) {
+      case "Thunderstorm": {
+        return weatherData[0];
+      }
+      case "Squall":
+      case "Rain": {
+        return weatherData[1];
+      }
+      case "Snow": {
+        return weatherData[2];
+      }
+      case "Smoke":
+      case "Haze":
+      case "Fog":
+      case "Mist": {
+        return weatherData[3];
+      }
+      case "Dust": {
+        return weatherData[4];
+      }
+      case "Sand": {
+        return weatherData[5];
+      }
+      case "Ash": {
+        return weatherData[6];
+      }
+      case "Tornado": {
+        return weatherData[7];
+      }
+      case "Clear": {
+        return weatherData[8];
+      }
+      case "Clouds": {
+        return weatherData[9];
+      }
+      default: {
+        return "공부하기 좋은날!";
+      }
     }
   };
 
@@ -113,15 +127,7 @@ function Weather({ modeInfo }: Mode): JSX.Element {
     askForCoords();
 
     return () => {
-      setWeatherInfo({
-        temperature: "",
-        temp_max: "",
-        temp_min: "",
-        feelslike: "",
-        weather: "",
-        humidity: "",
-        icon: "",
-      });
+      setWeatherInfo(DEFAULT_WEATHER_INFO);
     };
   }, []);
 

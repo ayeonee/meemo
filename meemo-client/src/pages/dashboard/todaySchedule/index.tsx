@@ -8,7 +8,7 @@ import axios from "axios";
 import style from "../styles/TodaySchedule.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 
-type ScheduleInfo = {
+interface ScheduleInfo {
   id: string;
   name: string;
   place: string;
@@ -16,12 +16,11 @@ type ScheduleInfo = {
   startMin: number;
   endHour: number;
   endMin: number;
-};
+}
 
-function TodaySchedule({
-  userIdInfo,
-  modeInfo,
-}: UserIdInfo & Mode): JSX.Element {
+const DATE = ["일", "월", "화", "수", "목", "금", "토"];
+
+function TodaySchedule({ userIdInfo, modeInfo }: UserIdInfo & Mode) {
   const history = useHistory();
   const date = new Date();
   const today = date.getDay();
@@ -29,18 +28,20 @@ function TodaySchedule({
   const [scheduleInfo, setScheduleInfo] = useState<ScheduleInfo[]>([]);
 
   const getSchedule = async (userId: string | null) => {
-    await axios({
+    const res = await axios({
       method: "POST",
       baseURL: BASE_URL,
       url: "/get/schedule",
       data: {
         userId: userId,
       },
-    })
-      .then((res) => {
-        setAllData(res.data.payload);
-      })
-      .catch((err) => console.log(err));
+    });
+
+    if (!res.data || !res.data.payload) {
+      return;
+    }
+
+    setAllData(res.data.payload);
   };
 
   const goSchedulePage = () => {
@@ -97,21 +98,7 @@ function TodaySchedule({
               : style_mode.today_info_dark,
           ].join(" ")}
         >
-          {date.getMonth() + 1}월 {date.getDate()}일{" "}
-          {today === 1
-            ? "월"
-            : today === 2
-            ? "화"
-            : today === 3
-            ? "수"
-            : today === 4
-            ? "목"
-            : today === 5
-            ? "금"
-            : today === 6
-            ? "토"
-            : "일"}
-          요일
+          {date.getMonth() + 1}월 {date.getDate()}일 {DATE[today] ?? "일"}요일
         </div>
       </div>
       <div

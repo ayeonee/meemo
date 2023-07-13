@@ -15,7 +15,7 @@ function AchievementRate({
   todoList,
   checkedTodo,
   modeInfo,
-}: AchievementRateProps): JSX.Element {
+}: AchievementRateProps) {
   const todoBasedPieData = {
     datasets: [
       {

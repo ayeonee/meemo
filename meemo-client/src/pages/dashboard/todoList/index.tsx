@@ -9,15 +9,14 @@ import { UserIdInfo } from "../../../_types/auth";
 import { Mode } from "../../../_types/mode";
 import { BASE_URL } from "../../../constants/url";
 
-function TodoList({ userIdInfo, modeInfo }: UserIdInfo & Mode): JSX.Element {
+interface Check {
+  checked: boolean;
+}
+
+function TodoList({ userIdInfo, modeInfo }: UserIdInfo & Mode) {
   const [todoList, setTodoList] = useState<Todo[]>([]);
-  const [checkedTodo, setCheckedTodo] = useState<
-    {
-      checked: boolean;
-    }[]
-  >([]);
+  const [checkedTodo, setCheckedTodo] = useState<Check[]>([]);
   const history = useHistory();
-  let count: number = 0;
 
   const goTodoPage = () => {
     history.push({
@@ -26,32 +25,27 @@ function TodoList({ userIdInfo, modeInfo }: UserIdInfo & Mode): JSX.Element {
   };
 
   const getTodo = async (userId: string | null) => {
-    await axios({
+    const res = await axios({
       method: "POST",
       baseURL: BASE_URL,
       url: "/get/todo",
       data: {
         userId: userId,
       },
-    })
-      .then((res) => {
-        setTodoList(res.data.payload);
-      })
-      .catch((err) => console.log(err));
+    });
+
+    if (!res.data || !res.data.payload) {
+      setTodoList(res.data.payload);
+    }
   };
 
   useEffect(() => {
-    todoList.forEach((item) => {
-      if (item.checked) {
-        setCheckedTodo((checkedTodo) => [
-          ...checkedTodo,
-          {
-            checked: item.checked,
-          },
-        ]);
-      } else {
-      }
-    });
+    setCheckedTodo((checkedTodo) => [
+      ...checkedTodo,
+      ...todoList
+        .filter((list) => list.checked)
+        .map(({ checked }) => ({ checked })),
+    ]);
   }, [todoList]);
 
   useEffect(() => {
@@ -96,7 +90,7 @@ function TodoList({ userIdInfo, modeInfo }: UserIdInfo & Mode): JSX.Element {
               </h2>
             ) : (
               <>
-                {todoList === null || todoList.length === 0 ? (
+                {!todoList || todoList.length === 0 ? (
                   <div className={style.todo_info}>
                     <div className={style.todo_div}>
                       <div
@@ -112,9 +106,10 @@ function TodoList({ userIdInfo, modeInfo }: UserIdInfo & Mode): JSX.Element {
                     </div>
                   </div>
                 ) : (
-                  todoList.map((item) => {
-                    if (!item.checked && count < 3) {
-                      count++;
+                  todoList
+                    .filter(({ checked }) => !checked)
+                    .slice(0, 3)
+                    .map((item) => {
                       return (
                         <div
                           key={item.id}
@@ -139,10 +134,7 @@ function TodoList({ userIdInfo, modeInfo }: UserIdInfo & Mode): JSX.Element {
                           </div>
                         </div>
                       );
-                    } else {
-                      return null;
-                    }
-                  })
+                    })
                 )}
               </>
             )}
