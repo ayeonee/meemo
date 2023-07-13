@@ -4,11 +4,11 @@ import {
   ScheduleArray,
   Data,
   Input,
-} from "../../../_types/scheduleTypes";
+} from "../../../_types/schedule";
 import InputText from "./InputText";
 import InputDayTime from "./InputDayTime";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/InputBoxStyle.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 
@@ -17,12 +17,24 @@ interface ModalTypes {
   closeModal: Function;
 }
 
+const DEFAULT_SCHEDULE = [
+  {
+    index: 1,
+    date: 1,
+    startHour: 8,
+    startMin: 0,
+    endHour: 8,
+    endMin: 0,
+    code: "default-code",
+  },
+];
+
 export default function InputBox({
   modalState,
   closeModal,
   addData,
   allData,
-}: ModalTypes & DataProps): JSX.Element {
+}: ModalTypes & DataProps) {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const nextIndex = useRef<number>(2);
   const checkTimeCorrect = useRef<boolean>(false);
@@ -32,34 +44,14 @@ export default function InputBox({
     name: "",
     place: "",
   });
-  const [schedule, setSchedule] = useState<ScheduleArray>([
-    {
-      index: 1,
-      date: 1,
-      startHour: 8,
-      startMin: 0,
-      endHour: 8,
-      endMin: 0,
-      code: "default-code",
-    },
-  ]);
+  const [schedule, setSchedule] = useState<ScheduleArray>(DEFAULT_SCHEDULE);
 
   const resetData = () => {
     setInput({
       name: "",
       place: "",
     });
-    setSchedule([
-      {
-        index: 1,
-        date: 1,
-        startHour: 8,
-        startMin: 0,
-        endHour: 8,
-        endMin: 0,
-        code: "default-code",
-      },
-    ]);
+    setSchedule(DEFAULT_SCHEDULE);
     nextIndex.current = 2;
   };
 
@@ -101,14 +93,14 @@ export default function InputBox({
       schedule.forEach((scheduleElem) => {
         if (date === scheduleElem.date) {
           if (
-            endHour == scheduleElem.startHour &&
+            endHour === scheduleElem.startHour &&
             scheduleElem.startMin - endMin >= 0
           ) {
             checkOverlap.current = false;
           } else if (scheduleElem.startHour - endHour >= 1) {
             checkOverlap.current = false;
           } else if (
-            startHour == scheduleElem.endHour &&
+            startHour === scheduleElem.endHour &&
             startMin - scheduleElem.endMin >= 0
           ) {
             checkOverlap.current = false;

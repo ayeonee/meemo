@@ -1,5 +1,5 @@
 import React from "react";
-import { AllData } from "../../../_types/scheduleTypes";
+import { AllData } from "../../../_types/schedule";
 import ScheduleItem from "./ScheduleItem";
 import style from "../styles/Schedule.module.scss";
 
@@ -8,7 +8,7 @@ interface ScheduleListProps {
   removeData: Function;
 }
 
-function ScheduleList({ allData, removeData }: ScheduleListProps): JSX.Element {
+function ScheduleList({ allData, removeData }: ScheduleListProps) {
   return (
     <div className={style.schedule_list}>
       {allData.map((item) =>

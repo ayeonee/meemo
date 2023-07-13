@@ -2,9 +2,9 @@ import React, { useCallback, useState } from "react";
 import { useTodoDispatch } from "../TodosContext";
 import style from "../styles/InputTodo.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
-import { Mode } from "../../../_types/modeTypes";
+import { Mode } from "../../../_types/mode";
 
-export default function InputTodo({ modeInfo }: Mode): JSX.Element {
+export default function InputTodo({ modeInfo }: Mode) {
   const [input, setInput] = useState<string>("");
   const dispatch = useTodoDispatch();
 

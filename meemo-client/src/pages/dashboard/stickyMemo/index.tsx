@@ -2,23 +2,20 @@ import { useState, useEffect, useRef } from "react";
 import RMDEditor from "rich-markdown-editor";
 import axios from "axios";
 import debounce from "lodash/debounce";
-import { UserIdType } from "../../../_types/authTypes";
-import { Mode } from "../../../_types/modeTypes";
-import { BASE_URL } from "../../../_data/urlData";
+import { UserIdInfo } from "../../../_types/auth";
+import { Mode } from "../../../_types/mode";
+import { BASE_URL } from "../../../constants/url";
 import style from "../styles/StickyMemo.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 
-function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
+function StickyMemo({ userIdInfo, modeInfo }: UserIdInfo & Mode) {
   const [body, setBody] = useState<string>("");
-
   const [gotUserId, setGotUserId] = useState<boolean>(false);
-
   const [getUserId, setGetUserId] = useState<boolean>(false);
   const [update, setUpdate] = useState<boolean>(false);
 
   const editor: any = useRef();
-
-  let source = axios.CancelToken.source();
+  const source = axios.CancelToken.source();
 
   useEffect(() => {
     fetchUserId();
@@ -26,6 +23,7 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
 
   useEffect(() => {
     getBody(userIdInfo);
+
     return () => {
       setBody("");
       source.cancel();
@@ -35,47 +33,49 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
   const fetchUserId = () => {
     if (userIdInfo === "" || userIdInfo === undefined) {
       setGetUserId(!getUserId);
-    } else {
-      setGotUserId(true);
-      setUpdate(!update);
+
+      return;
     }
+
+    setGotUserId(true);
+    setUpdate(!update);
   };
 
   const getBody = async (userId: string | null) => {
-    if (gotUserId === true) {
-      try {
-        const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
-        if (res.data.length === 0) {
-          const stickymemoInit = {
-            body: "",
-            userId: userIdInfo,
-          };
-          axios
-            .post(BASE_URL + "/stickynote/create", stickymemoInit)
-            .then((res) => console.log(res.data))
-            .catch((err) => console.log("Error: " + err));
-        } else {
-          res.data.forEach((note: any) => {
-            setBody(note.body);
-          });
-        }
-      } catch (err) {
-        throw err;
-      }
+    if (!gotUserId) {
+      return;
     }
+
+    const res = await axios.get(BASE_URL + "/stickynote/user/" + userId);
+
+    if (!res.data) {
+      return;
+    }
+
+    if (res.data.length === 0) {
+      const stickymemoInit = {
+        body: "",
+        userId: userIdInfo,
+      };
+
+      await axios.post(BASE_URL + "/stickynote/create", stickymemoInit);
+      return;
+    }
+
+    res.data.forEach((note: any) => {
+      setBody(note.body);
+    });
   };
 
   const handleChange = debounce((value) => {
     const noteInfo = {
       body: `${value()}`,
     };
+
     try {
-      axios
-        .put(BASE_URL + "/stickynote/user/" + userIdInfo, noteInfo, {
-          cancelToken: source.token,
-        })
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log("Error: " + err));
+      axios.put(BASE_URL + "/stickynote/user/" + userIdInfo, noteInfo, {
+        cancelToken: source.token,
+      });
     } catch (err) {
       source.cancel();
     }
@@ -129,9 +129,9 @@ function StickyMemo({ userIdInfo, modeInfo }: UserIdType & Mode): JSX.Element {
                   return resolve(
                     `/doc/${encodeURIComponent(title.toLowerCase())}`
                   );
-                } else {
-                  reject("500 error");
                 }
+
+                reject("500 error");
               }, 1000);
             });
           }}

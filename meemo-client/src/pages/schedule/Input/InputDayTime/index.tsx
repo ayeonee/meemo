@@ -4,8 +4,8 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { daysData } from "../../../../_data/scheduleData";
-import { Schedule } from "../../../../_types/scheduleTypes";
+import { daysData } from "../../../../constants/schedule";
+import { Schedule } from "../../../../_types/schedule";
 import InputDayList from "./InputDayList";
 import InputTimeList from "./InputTimeList";
 import style from "../../styles/InputBoxStyle.module.scss";
@@ -64,11 +64,11 @@ const InputDayTime: React.FC<InputDayTimeProps> = forwardRef(
 
     return (
       <>
-        {index > 1 ? (
+        {index > 1 && (
           <button className={style.daytime_delete} onClick={remove}>
             삭제
           </button>
-        ) : null}
+        )}
         <ol className={style.day_check_wrapper} onClick={handleClick}>
           {daysArray.map((data) => (
             <InputDayList

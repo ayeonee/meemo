@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
-import { AllData, Data } from "../../_types/scheduleTypes";
+import { AllData, Data } from "../../_types/schedule";
 import useConfirm from "../../hooks/useConfirm";
 import axios from "axios";
 import InputButton from "./Input/InputButton";
@@ -8,9 +8,9 @@ import TimeTable from "./TimeTable";
 import style from "./styles/Schedule.module.scss";
 import reset from "../../img/reset-icon.svg";
 import resetDark from "../../img/reset-icon_dark.svg";
-import { BASE_URL } from "../../_data/urlData";
+import { BASE_URL } from "../../constants/url";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 
 export default function SchedulePage(): JSX.Element {
   const userIdInfo = useSelector(
@@ -31,24 +31,22 @@ export default function SchedulePage(): JSX.Element {
         userId: userIdInfo,
         payload: payloadData,
       },
-    })
-      .then((res) => res.data)
-      .catch((err) => console.error(err));
+    });
   };
 
   const getSchedule = async (userId: string | null) => {
-    await axios({
+    const res = await axios({
       method: "POST",
       baseURL: BASE_URL,
       url: "/get/schedule",
       data: {
         userId: userId,
       },
-    })
-      .then((res) => {
-        setAllData(res.data.payload);
-      })
-      .catch((err) => console.error(err));
+    });
+
+    if (!res.data || !res.data.payload) {
+      setAllData(res.data.payload);
+    }
   };
 
   useEffect(() => {
@@ -95,24 +93,26 @@ export default function SchedulePage(): JSX.Element {
       if (allData.length === 1 && allData[0].schedule.length === 1) {
         setAllData([]);
         saveSchedule([]);
-      } else {
-        setAllData(
-          allData
-            .map((elem) =>
-              elem.id === id
-                ? {
-                    ...elem,
-                    schedule: elem.schedule.filter(
-                      (scheduleItem) => scheduleItem.code !== code
-                    ),
-                  }
-                : elem
-            )
-            .filter((elem) => elem.schedule.length > 0)
-        );
 
-        setDeleteDataCheck(true);
+        return;
       }
+
+      setAllData(
+        allData
+          .map((elem) =>
+            elem.id === id
+              ? {
+                  ...elem,
+                  schedule: elem.schedule.filter(
+                    (scheduleItem) => scheduleItem.code !== code
+                  ),
+                }
+              : elem
+          )
+          .filter((elem) => elem.schedule.length > 0)
+      );
+
+      setDeleteDataCheck(true);
     },
     [allData]
   );
@@ -124,8 +124,7 @@ export default function SchedulePage(): JSX.Element {
 
   const resetAllSchedule = useConfirm(
     "시간표를 초기화 하시겠습니까?",
-    resetAllData,
-    () => null
+    resetAllData
   );
 
   return (

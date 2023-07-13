@@ -8,7 +8,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useSelector } from "react-redux";
-import { RootState } from "../../_reducers";
+import { RootState } from "../../reducers";
 
 import style from "./styles/CalendarApp.module.scss";
 import style_mode from "./styles/modeColor.module.scss";
@@ -17,7 +17,7 @@ import LoaderSpinner from "../doc/misc/LoaderSpinner";
 
 import CalendarModal from "./modals/CalendarModal";
 
-import { BASE_URL } from "../../_data/urlData";
+import { BASE_URL } from "../../constants/url";
 
 export default function CalendarApp(): JSX.Element {
   const userIdInfo = useSelector(
@@ -30,7 +30,6 @@ export default function CalendarApp(): JSX.Element {
   const [selectInfo, setSelectInfo] = useState({});
   const [update, setUpdate] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [userId, setUserId] = useState<string | null>(userIdInfo);
 
   let source = axios.CancelToken.source();
 
@@ -41,7 +40,7 @@ export default function CalendarApp(): JSX.Element {
   const weekBtn = document.getElementsByClassName("fc-timeGridWeek-button");
 
   useEffect(() => {
-    loadEvents(userId);
+    loadEvents(userIdInfo ?? "");
     return () => {
       source.cancel();
     };
@@ -71,30 +70,30 @@ export default function CalendarApp(): JSX.Element {
   });
 
   const loadEvents = async (userId: string | null) => {
-    try {
-      const res = await axios.get(BASE_URL + "/calendar/user/" + userId, {
-        cancelToken: source.token,
-      });
-      if (res.data.length === 0) {
-        setIsLoading(false);
-        setCurrentEvents([]);
-      } else {
-        setCurrentEvents(res.data.map((cal: any) => cal));
-        setIsLoading(false);
-      }
-    } catch (err) {
-      if (axios.isCancel(err)) {
-      } else {
-        throw err;
-      }
+    const res = await axios.get(BASE_URL + "/calendar/user/" + userId, {
+      cancelToken: source.token,
+    });
+
+    if (!res.data) {
+      return;
     }
+
+    if (res.data.length === 0) {
+      setIsLoading(false);
+      setCurrentEvents([]);
+
+      return;
+    }
+
+    setCurrentEvents(res.data.map((cal: any) => cal));
+    setIsLoading(false);
   };
 
-  const toggleModal = () => {
-    if (showAddModal === true) {
+  const handleToggleModal = () => {
+    if (showAddModal) {
       setShowAddModal(!showAddModal);
     }
-    if (showUpdateModal === true) {
+    if (showUpdateModal) {
       setShowUpdateModal(!showUpdateModal);
     }
   };
@@ -142,35 +141,41 @@ export default function CalendarApp(): JSX.Element {
 
   const handleSubmit = async (evnt: object) => {
     const calEvnt: any = evnt;
+
     if (calEvnt.type === "ADD") {
-      try {
-        axios
-          .post(BASE_URL + "/calendar/create", calEvnt)
-          .then(() => setUpdate(!update))
-          .then(() => setShowAddModal(!showAddModal))
-          .catch((err) => console.log(`error: ${err}`));
-      } catch (err) {
-        throw err;
+      const res = await axios.post(BASE_URL + "/calendar/create", calEvnt);
+
+      if (!res.data) {
+        alert("error");
+        return;
       }
+
+      setUpdate(!update);
+      setShowAddModal(!showAddModal);
+
+      return;
     }
+
     if (calEvnt.type === "UPDATE") {
-      try {
-        axios
-          .put(BASE_URL + "/calendar/" + calEvnt.id, evnt)
-          .then(() => setUpdate(!update))
-          .then(() => setShowUpdateModal(false))
-          .catch((err) => console.log(`error: ${err}`));
-      } catch (err) {
-        throw err;
+      const res = await axios.put(BASE_URL + "/calendar/" + calEvnt.id, evnt);
+
+      if (!res.data) {
+        alert("error");
+        return;
       }
+
+      setUpdate(!update);
+      setShowUpdateModal(false);
     }
   };
 
   const handleDelete = (id: string) => {
     axios
       .delete(BASE_URL + "/calendar/" + id)
-      .then(() => setUpdate(!update))
-      .then(() => setShowUpdateModal(!showUpdateModal))
+      .then(() => {
+        setUpdate(!update);
+        setShowUpdateModal(!showUpdateModal);
+      })
       .catch(() => {
         console.log("no event selected");
       });
@@ -214,7 +219,7 @@ export default function CalendarApp(): JSX.Element {
       {showAddModal ? (
         <CalendarModal
           modalType="ADD"
-          toggleModal={toggleModal}
+          toggleModal={handleToggleModal}
           selectInfo={selectInfo}
           submit={handleSubmit}
           handleDelete={handleDelete}
@@ -223,7 +228,7 @@ export default function CalendarApp(): JSX.Element {
       {showUpdateModal ? (
         <CalendarModal
           modalType="UPDATE"
-          toggleModal={toggleModal}
+          toggleModal={handleToggleModal}
           selectInfo={selectInfo}
           submit={handleSubmit}
           handleDelete={handleDelete}

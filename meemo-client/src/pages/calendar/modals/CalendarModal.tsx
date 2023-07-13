@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import useConfirm from "../../../hooks/useConfirm";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/CalendarModal.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 import RMDEditor from "rich-markdown-editor";
@@ -18,65 +18,67 @@ interface CalendarModalProps {
   handleDelete: (id: string) => void;
 }
 
-export default function CalendarModal(props: CalendarModalProps): JSX.Element {
+export default function CalendarModal({
+  modalType,
+  toggleModal,
+  selectInfo,
+  submit,
+  handleDelete,
+}: CalendarModalProps): JSX.Element {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const userIdInfo = useSelector(
     (state: RootState) => state.userReducer.userData.userId
   );
-  const { modalType, toggleModal, selectInfo, submit, handleDelete } = props;
 
-  const [userId, setUserId] = useState<string | null>(userIdInfo);
+  const { title: selectedTitle, allDay: selectedAllday, startStr, endStr } =
+    selectInfo ?? {};
 
-  const [title, setTitle] = useState<string>(selectInfo.title);
-  const [allDay, setAllDay] = useState<boolean>(selectInfo.allDay);
-  const [startDate, setStartDate] = useState<string>(selectInfo.startStr);
+  const [title, setTitle] = useState<string>(selectedTitle);
+  const [allDay, setAllDay] = useState<boolean>(selectedAllday);
+  const [startDate, setStartDate] = useState<string>(startStr);
   const [endDate, setEndDate] = useState<string>(
-    selectInfo.allDay
-      ? moment(selectInfo.endStr).subtract(1, "days").format("YYYY-MM-DD")
-      : selectInfo.endStr
+    allDay ? moment(endStr).subtract(1, "days").format("YYYY-MM-DD") : endStr
   );
 
   const [startTime, setStartTime] = useState<string>(selectInfo.startTime);
   const [endTime, setEndTime] = useState<string>(selectInfo.endTime);
   const [editorBody, setEditorBody] = useState<string>(selectInfo.body);
+  const editor: any = useRef(null);
 
-  const editor: any = useRef();
-
-  const removeSchedule = useConfirm(
-    "일정을 삭제 하시겠습니까?",
-    () => handleDelete(selectInfo.id),
-    () => null
+  const removeSchedule = useConfirm("일정을 삭제 하시겠습니까?", () =>
+    handleDelete(selectInfo.id)
   );
 
   const handleSubmit = () => {
     const fixedEndDate = allDay
       ? moment(endDate).add(1, "days").format("YYYY-MM-DD")
       : endDate;
-    const calAdd = {
-      type: "ADD",
-      title: title,
-      allDay: allDay,
-      start: `${startDate}T${startTime}:00`,
-      end: `${fixedEndDate}T${endTime}:00`,
-      body: editorBody,
-      userId: userId,
-    };
-
-    const calUpdate = {
-      type: "UPDATE",
-      id: selectInfo.id,
-      title: title,
-      allDay: allDay,
-      start: `${startDate}T${startTime}:00`,
-      end: `${fixedEndDate}T${endTime}:00`,
-      body: editorBody,
-      userId: userId,
-    };
 
     if (modalType === "ADD") {
+      const calAdd = {
+        type: "ADD",
+        title,
+        allDay,
+        start: `${startDate}T${startTime}:00`,
+        end: `${fixedEndDate}T${endTime}:00`,
+        body: editorBody,
+        userId: userIdInfo,
+      };
+
       submit(calAdd);
     }
     if (modalType === "UPDATE") {
+      const calUpdate = {
+        type: "UPDATE",
+        id: selectInfo.id,
+        title,
+        allDay,
+        start: `${startDate}T${startTime}:00`,
+        end: `${fixedEndDate}T${endTime}:00`,
+        body: editorBody,
+        userId: userIdInfo,
+      };
+
       submit(calUpdate);
     }
   };
@@ -91,9 +93,11 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
     return inputLength;
   };
 
-  const inputValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
+
     const inputLength = getInputStringLength(e.target.value);
+
     if (inputLength > 52) {
       setTitle(e.target.value.slice(0, e.target.value.length - 1));
     }
@@ -124,7 +128,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
               className="titleInput"
               placeholder="제목을 입력하세요"
               value={title}
-              onChange={inputValueHandler}
+              onChange={handleInputValue}
               autoFocus
             />
           </div>
@@ -224,7 +228,7 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                 e.target.className ===
                   "CalendarModal_noteDiv__1ezjn modeColor_noteDiv_dark__3YxuQ"
               ) {
-                editor.current.focusAtEnd();
+                editor?.current?.focusAtEnd();
               }
             }}
           >
@@ -245,9 +249,9 @@ export default function CalendarModal(props: CalendarModalProps): JSX.Element {
                         return resolve(
                           `/doc/${encodeURIComponent(title.toLowerCase())}`
                         );
-                      } else {
-                        reject("500 error");
                       }
+
+                      reject("500 error");
                     }, 1000);
                   });
                 }}
