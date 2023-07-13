@@ -31,24 +31,22 @@ export default function SchedulePage(): JSX.Element {
         userId: userIdInfo,
         payload: payloadData,
       },
-    })
-      .then((res) => res.data)
-      .catch((err) => console.error(err));
+    });
   };
 
   const getSchedule = async (userId: string | null) => {
-    await axios({
+    const res = await axios({
       method: "POST",
       baseURL: BASE_URL,
       url: "/get/schedule",
       data: {
         userId: userId,
       },
-    })
-      .then((res) => {
-        setAllData(res.data.payload);
-      })
-      .catch((err) => console.error(err));
+    });
+
+    if (!res.data || !res.data.payload) {
+      setAllData(res.data.payload);
+    }
   };
 
   useEffect(() => {
@@ -95,24 +93,26 @@ export default function SchedulePage(): JSX.Element {
       if (allData.length === 1 && allData[0].schedule.length === 1) {
         setAllData([]);
         saveSchedule([]);
-      } else {
-        setAllData(
-          allData
-            .map((elem) =>
-              elem.id === id
-                ? {
-                    ...elem,
-                    schedule: elem.schedule.filter(
-                      (scheduleItem) => scheduleItem.code !== code
-                    ),
-                  }
-                : elem
-            )
-            .filter((elem) => elem.schedule.length > 0)
-        );
 
-        setDeleteDataCheck(true);
+        return;
       }
+
+      setAllData(
+        allData
+          .map((elem) =>
+            elem.id === id
+              ? {
+                  ...elem,
+                  schedule: elem.schedule.filter(
+                    (scheduleItem) => scheduleItem.code !== code
+                  ),
+                }
+              : elem
+          )
+          .filter((elem) => elem.schedule.length > 0)
+      );
+
+      setDeleteDataCheck(true);
     },
     [allData]
   );

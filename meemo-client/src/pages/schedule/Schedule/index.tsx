@@ -8,7 +8,7 @@ interface ScheduleListProps {
   removeData: Function;
 }
 
-function ScheduleList({ allData, removeData }: ScheduleListProps): JSX.Element {
+function ScheduleList({ allData, removeData }: ScheduleListProps) {
   return (
     <div className={style.schedule_list}>
       {allData.map((item) =>

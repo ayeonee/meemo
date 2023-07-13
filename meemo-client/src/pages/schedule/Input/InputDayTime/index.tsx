@@ -64,11 +64,11 @@ const InputDayTime: React.FC<InputDayTimeProps> = forwardRef(
 
     return (
       <>
-        {index > 1 ? (
+        {index > 1 && (
           <button className={style.daytime_delete} onClick={remove}>
             삭제
           </button>
-        ) : null}
+        )}
         <ol className={style.day_check_wrapper} onClick={handleClick}>
           {daysArray.map((data) => (
             <InputDayList
