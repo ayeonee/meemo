@@ -7,7 +7,7 @@ import TodoList from "./todoList";
 import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 
-export default function DashBoardPage(): JSX.Element {
+export default function DashBoardPage() {
   const userIdInfo = useSelector(
     (state: RootState) => state.userReducer.userData.userId
   );

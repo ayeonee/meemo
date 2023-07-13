@@ -8,7 +8,7 @@ import {
 } from "../_types/action";
 import { Response } from "../_types/auth";
 
-type UserState = {
+interface User {
   loginSuccess: {
     loginSuccess: boolean;
     userId: string;
@@ -23,12 +23,9 @@ type UserState = {
     userId: string;
     isAuth: boolean;
   };
-};
+}
 
-const userReducer = (
-  state: UserState = DEFAULT_USER_INFO,
-  action: Response
-) => {
+const userReducer = (state: User = DEFAULT_USER_INFO, action: Response) => {
   switch (action.type) {
     case REGISTER_USER:
       return { ...state, register: action.payload };

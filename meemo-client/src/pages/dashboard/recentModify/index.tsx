@@ -9,7 +9,7 @@ import { UserIdInfo } from "../../../_types/auth";
 import { Mode } from "../../../_types/mode";
 import { Notes } from "@material-ui/icons";
 
-type NoteInfo = {
+interface NoteInfo {
   _id: string;
   title: string;
   body: string;
@@ -17,15 +17,15 @@ type NoteInfo = {
   userId: string;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-type FolderInfo = {
+interface FolderInfo {
   _id: string;
   title: string;
   userId: string;
   updatedAt: string;
   createdAt: string;
-};
+}
 
 function RecentModify({
   userIdInfo,
@@ -37,37 +37,36 @@ function RecentModify({
 
   const history = useHistory();
 
-  const getNoteData = async (userId: string | null) => {
-    await axios({
+  const getNoteData = async (_userId: string | null) => {
+    const noteData = await axios({
       method: "GET",
       baseURL: BASE_URL,
       url: "/notes",
-    })
-      .then((res) => {
-        res.data.forEach((item: NoteInfo) => {
-          if (item.userId === userId) {
-            setNotes(notes.concat(item));
-          }
-        });
-      })
-      .catch((err) => console.log(err));
+    });
+
+    if (!noteData.data) {
+      return;
+    }
+
+    setNotes(
+      noteData.data.filter(({ userId }: NoteInfo) => userId === _userId)
+    );
   };
 
-  const getFolderData = async (userId: string | null) => {
-    await axios({
+  const getFolderData = async (_userId: string | null) => {
+    const folderData = await axios({
       method: "GET",
       baseURL: BASE_URL,
       url: "/folders",
-    })
-      .then((res) => {
-        res.data.forEach((item: FolderInfo) => {
-          if (item.userId === userId) {
-            setFolders(folders.concat(item));
-          }
-        });
-        setFolders(res.data);
-      })
-      .catch((err) => console.log(err));
+    });
+
+    if (!folderData.data) {
+      return;
+    }
+
+    setFolders(
+      folderData.data.filter(({ userId }: NoteInfo) => userId === _userId)
+    );
   };
 
   const sortNoteItems = () => {
@@ -83,32 +82,28 @@ function RecentModify({
   };
 
   const arrangeNoteItems = () => {
-    notes.forEach((item) => {
-      setRearrangedNotes((rearrangedNotes) =>
-        rearrangedNotes.concat({
-          ...rearrangedNotes,
-          _id: item._id,
-          title: item.title,
-          body: item.body,
-          parentId: item.parentId,
-          createdAt: item.createdAt,
-          //최근 업데이트 시간 비교 위해 변환
-          updatedAt: moment(item.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
-        })
-      );
-    });
+    const newNotes = notes.map((item) => ({
+      _id: item._id,
+      title: item.title,
+      body: item.body,
+      parentId: item.parentId,
+      userId: item.userId,
+      createdAt: item.createdAt,
+      //최근 업데이트 시간 비교 위해 변환
+      updatedAt: moment(item.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+    }));
 
+    setRearrangedNotes(newNotes);
     sortNoteItems();
   };
 
   const goSelectedNotePage = (parentId: string, noteId: string) => {
-    for (let i = 0; i < folders.length; i++) {
-      if (folders[i]._id === parentId) {
-        history.push({
-          pathname: `folders/${folders[i].title}/${noteId}`,
-        });
-        break;
-      }
+    const selectedFolder = folders.find(({ _id }) => _id === parentId);
+
+    if (selectedFolder) {
+      history.push({
+        pathname: `folders/${selectedFolder.title}/${noteId}`,
+      });
     }
   };
 
@@ -146,29 +141,23 @@ function RecentModify({
       ) : (
         <div className={style.note_wrapper}>
           <div className={style.visible_notes}>
-            {rearrangedNotes.map((item, index) => {
-              if (index < 4) {
-                return (
-                  <div key={index} className={style.note_container}>
-                    <div
-                      className={style.note_div}
-                      onClick={() =>
-                        goSelectedNotePage(item.parentId, item._id)
-                      }
-                    >
-                      <div className={style.icon_div}>
-                        <Notes className={style.note_icon} />
-                      </div>
-                      <p className={style.title_div}>{item.title}</p>
-                      <p className={style.time_div}>
-                        {item.updatedAt.substring(0, 16)}
-                      </p>
+            {rearrangedNotes.slice(0, 4).map((item, index) => {
+              return (
+                <div key={item._id} className={style.note_container}>
+                  <div
+                    className={style.note_div}
+                    onClick={() => goSelectedNotePage(item.parentId, item._id)}
+                  >
+                    <div className={style.icon_div}>
+                      <Notes className={style.note_icon} />
                     </div>
+                    <p className={style.title_div}>{item.title}</p>
+                    <p className={style.time_div}>
+                      {item.updatedAt.substring(0, 16)}
+                    </p>
                   </div>
-                );
-              } else {
-                return null;
-              }
+                </div>
+              );
             })}
           </div>
         </div>

@@ -9,8 +9,6 @@ const modeReducer = (
 ) => {
   switch (action.type) {
     case DARK:
-      return { mode: action.mode };
-
     case LIGHT:
       return { mode: action.mode };
 
