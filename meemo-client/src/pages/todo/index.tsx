@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../reducers";
 import style from "./styles/TodoPage.module.scss";
 
-export default function TodoPage(): JSX.Element {
+export default function TodoPage() {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
 
   return (

@@ -7,7 +7,7 @@ import style from "../styles/TodoHeader.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 import { Mode } from "../../../_types/mode";
 
-export default function TodoHeader({ modeInfo }: Mode): JSX.Element {
+export default function TodoHeader({ modeInfo }: Mode) {
   const todos = useTodoState();
   const dispatch = useTodoDispatch();
   const [checkedTodo, setCheckedTodo] = useState(todos);

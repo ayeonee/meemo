@@ -9,7 +9,7 @@ import { BASE_URL } from "../../../constants/url";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../reducers";
 
-function TodoList(): JSX.Element {
+function TodoList() {
   const todos = useTodoState();
   const dispatch = useTodoDispatch();
   const [todoList, setTodoList] = useState<Todo[]>([]);
@@ -18,16 +18,20 @@ function TodoList(): JSX.Element {
   );
 
   const getTodo = async (userId: string | null) => {
-    await axios({
+    const res = await axios({
       method: "POST",
       baseURL: BASE_URL,
       url: "/get/todo",
       data: {
         userId: userId,
       },
-    })
-      .then((res) => setTodoList(res.data.payload))
-      .catch((err) => console.error(err));
+    });
+
+    if (!res.data || !res.data.payload) {
+      return;
+    }
+
+    setTodoList(res.data.payload);
   };
 
   useEffect(() => {
