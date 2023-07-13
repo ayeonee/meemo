@@ -1,6 +1,7 @@
 import style from "./styles/Block.module.scss";
 import block from "../../img/block.svg";
-export default function BlockPage(): JSX.Element {
+
+export default function BlockPage() {
   return (
     <div className={style.block_wrapper}>
       <h1 className={style.block_title}>LOGIN FIRST!</h1>

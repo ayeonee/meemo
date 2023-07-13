@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { authUser } from "../_actions/userAction";
-import { ResponseTypes } from "../_types/authTypes";
-import removeLocalStorage from "../hooks/removeLocalStorage";
+import { authUser } from "../actions/userAction";
+import { Response } from "../_types/auth";
+import removeLocalStorage from "../utils/removeLocalStorage";
 
 function Auth(Component: React.FC, option: null | false | true | undefined) {
   // null => 아무나 출입가능
@@ -17,18 +17,21 @@ function Auth(Component: React.FC, option: null | false | true | undefined) {
 
     useEffect(() => {
       dispatch(authUser())
-        .then((res: ResponseTypes) => {
+        .then((res: Response) => {
           if (!res.payload.isAuth) {
-            //로컬에 남아있는 유저정보 삭제
             removeLocalStorage();
 
             if (option === true || option === undefined) {
               document.location.href = "/auth";
             }
-          } else {
-            if (option === false || option === undefined) {
-              history.push("/home");
-            }
+
+            return;
+          }
+
+          if (option === false || option === undefined) {
+            history.push("/home");
+
+            return;
           }
         })
         .catch((err: string) => console.error(err));

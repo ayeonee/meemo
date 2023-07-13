@@ -1,5 +1,5 @@
-import { Mode } from "../../../../_types/modeTypes";
-import { Input } from "../../../../_types/scheduleTypes";
+import { Mode } from "../../../../_types/mode";
+import { Input } from "../../../../_types/schedule";
 import style from "../../styles/InputBoxStyle.module.scss";
 import style_mode from "../../styles/modeColor.module.scss";
 
@@ -8,11 +8,7 @@ type InputTextProps = {
   onChangeTxt: React.ChangeEventHandler;
 };
 
-function InputText({
-  input,
-  onChangeTxt,
-  modeInfo,
-}: InputTextProps & Mode): JSX.Element {
+function InputText({ input, onChangeTxt, modeInfo }: InputTextProps & Mode) {
   return (
     <>
       <input

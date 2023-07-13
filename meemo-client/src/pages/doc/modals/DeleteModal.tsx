@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 import style from "../styles/DeleteModal.module.scss";
 import style_mode from "../styles/modeColor.module.scss";
 

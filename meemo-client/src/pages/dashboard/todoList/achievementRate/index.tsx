@@ -1,6 +1,6 @@
 import style from "../../styles/TodoList.module.scss";
 import style_mode from "../../styles/modeColor.module.scss";
-import { Todo } from "../../../../_types/todoTypes";
+import { Todo } from "../../../../_types/todo";
 import { Pie } from "react-chartjs-2";
 
 interface AchievementRateProps {
@@ -15,7 +15,7 @@ function AchievementRate({
   todoList,
   checkedTodo,
   modeInfo,
-}: AchievementRateProps): JSX.Element {
+}: AchievementRateProps) {
   const todoBasedPieData = {
     datasets: [
       {

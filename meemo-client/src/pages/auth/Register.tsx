@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../_actions/userAction";
+import { registerUser } from "../../actions/userAction";
 import style from "./styles/Auth.module.scss";
 
-import { BASE_URL } from "../../_data/urlData";
+import { BASE_URL } from "../../constants/url";
 
 interface RegisterTypes {
   name: string;
@@ -14,82 +14,97 @@ interface RegisterTypes {
 }
 
 interface RegisterProps {
-  setLoginTxt: React.Dispatch<React.SetStateAction<boolean>>;
-  setRegisterText: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoginTxt: Dispatch<SetStateAction<boolean>>;
 }
 
-function Register({ ...props }: RegisterProps): JSX.Element {
-  const toggleMenu = () => {
-    const { setLoginTxt, setRegisterText } = props;
+const DEFAULT_REGISTER_DATA = {
+  name: "",
+  userId: "",
+  password: "",
+  confirmPassword: "",
+};
+const DEFAULT_PASSWORD_ERROR = " * 대소문자, 숫자, 특수문자 포함 8자리 이상";
+const DEFAULT_PASSWORD_CONFIRM_ERROR =
+  " * 대소문자, 숫자, 특수문자 포함 8자리 이상";
 
-    setLoginTxt(true);
-    setRegisterText(false);
-  };
-  const [registerInput, setRegisterInput] = useState<RegisterTypes>({
-    name: "",
-    userId: "",
-    password: "",
-    confirmPassword: "",
-  });
+const PASSWORD_REGEXP = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}/;
+
+function Register({ setLoginTxt }: RegisterProps) {
   const dispatch = useDispatch<any>();
+
+  const [registerInput, setRegisterInput] = useState<RegisterTypes>(
+    DEFAULT_REGISTER_DATA
+  );
   const [errorMessage, setErrorMessage] = useState<String>(
-    " * 대소문자, 숫자, 특수문자 포함 8자리 이상"
+    DEFAULT_PASSWORD_ERROR
   );
   const [secondErrorMessage, setSecondErrorMessage] = useState<String>(
-    " * 비밀번호와 동일하게 입력해주세요"
+    DEFAULT_PASSWORD_CONFIRM_ERROR
   );
   const [rightPassword, setRightPassword] = useState<Boolean>(false);
   const [rightConfirmPassword, setRightConfirmPassword] = useState<Boolean>(
     false
   );
 
-  const onChangeRegisterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleToggleMenu = () => {
+    setLoginTxt(true);
+  };
+
+  const handleChangeRegisterInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setRegisterInput({
       ...registerInput,
       [name]: value,
     });
   };
 
-  const onChangePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setRegisterInput({
       ...registerInput,
       [name]: value,
     });
+
     checkPassword(e.target.value);
   };
 
-  const onChangeConfirmPasswordInput = (
-    e: React.ChangeEvent<HTMLInputElement>
+  const handleChangeConfirmPasswordInput = (
+    e: ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = e.target;
+
     setRegisterInput({
       ...registerInput,
       [name]: value,
     });
+
     checkSamePassword(e.target.value);
   };
 
   const checkPassword = (value: string) => {
-    const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}/;
-    if (reg.test(value)) {
+    if (PASSWORD_REGEXP.test(value)) {
       setErrorMessage(" * 사용가능한 비밀번호입니다");
       setRightPassword(true);
-    } else {
-      setRightPassword(false);
-      setErrorMessage(" * 대소문자, 숫자, 특수문자 포함 8자리 이상");
+
+      return;
     }
+
+    setRightPassword(false);
+    setErrorMessage(" * 대소문자, 숫자, 특수문자 포함 8자리 이상");
   };
 
   const checkSamePassword = (value: string) => {
     if (registerInput.password === value) {
       setSecondErrorMessage(" * 확인 완료");
       setRightConfirmPassword(true);
-    } else {
-      setRightConfirmPassword(false);
-      setSecondErrorMessage(" * 비밀번호와 동일하게 입력해주세요");
+
+      return;
     }
+
+    setRightConfirmPassword(false);
+    setSecondErrorMessage(" * 비밀번호와 동일하게 입력해주세요");
   };
 
   const checkButtonEnable = () => {
@@ -98,51 +113,53 @@ function Register({ ...props }: RegisterProps): JSX.Element {
       rightPassword &&
       registerInput.userId &&
       registerInput.name
-    )
+    ) {
       return false;
-    else return true;
+    }
+
+    return true;
   };
 
-  const onSubmitHandler = (e: React.FormEvent) => {
+  const handleCreateStickynote = (userId: string) => {
+    const stickymemoInitData = {
+      body: "",
+      userId: userId,
+    };
+
+    axios.post(BASE_URL + "/stickynote/create", stickymemoInitData);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const { name, userId, password } = registerInput;
-
     const body = {
-      userId: userId,
-      name: name,
-      password: password,
-    };
-
-    const stickymemoInit = {
-      body: "",
-      userId: userId,
+      userId,
+      name,
+      password,
     };
 
     dispatch(registerUser(body))
       .then((_: { success: boolean }) => {
         alert("회원가입이 완료되었습니다.");
-        setRegisterInput({
-          name: "",
-          userId: "",
-          password: "",
-          confirmPassword: "",
-        });
+
+        handleCreateStickynote(userId);
+        handleToggleMenu();
+
+        setRegisterInput(DEFAULT_REGISTER_DATA);
       })
-      .then(() => axios.post(BASE_URL + "/stickynote/create", stickymemoInit))
-      .then(() => toggleMenu())
       .catch((err: string) => console.error(err));
   };
 
   return (
-    <form className={style.input_wrapper} onSubmit={onSubmitHandler}>
+    <form className={style.input_wrapper} onSubmit={handleSubmit}>
       <div className={style.animated_div}>
         <input
           type="text"
           name="name"
           placeholder="User Name"
           value={registerInput.name}
-          onChange={onChangeRegisterInput}
+          onChange={handleChangeRegisterInput}
         />
         <label className={style.animated_label}>User Name</label>
       </div>
@@ -152,7 +169,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
           name="userId"
           placeholder="User ID"
           value={registerInput.userId}
-          onChange={onChangeRegisterInput}
+          onChange={handleChangeRegisterInput}
         />
         <label className={style.animated_label}>User ID</label>
       </div>
@@ -162,7 +179,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
           name="password"
           placeholder="Password"
           value={registerInput.password}
-          onChange={onChangePasswordInput}
+          onChange={handleChangePasswordInput}
         />
         <p
           className={
@@ -179,7 +196,7 @@ function Register({ ...props }: RegisterProps): JSX.Element {
           name="confirmPassword"
           placeholder="Confirm Password"
           value={registerInput.confirmPassword}
-          onChange={onChangeConfirmPasswordInput}
+          onChange={handleChangeConfirmPasswordInput}
         />
         <p
           className={

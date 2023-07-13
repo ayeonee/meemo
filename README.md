@@ -16,7 +16,7 @@
 
 ## 🖥 WEB SITE
 
-&nbsp;[https://meemo.kr](https://meemo.kr)
+meemo.kr(현재 미사용)
 <br/>
 <br/>
 

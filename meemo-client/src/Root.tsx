@@ -13,9 +13,9 @@ import UnkownPage from "./pages/unknown";
 import BlockPage from "./pages/block";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "./_reducers";
-import { authUser } from "./_actions/userAction";
-import { lightModeAction, darkModeAction } from "./_actions/modeAction";
+import { RootState } from "./reducers";
+import { authUser } from "./actions/userAction";
+import { lightModeAction, darkModeAction } from "./actions/modeAction";
 import { useDispatch } from "react-redux";
 
 // hoc rule

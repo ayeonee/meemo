@@ -1,7 +1,7 @@
-import { hourData, minData } from "../../../../_data/scheduleData";
-import { Schedule } from "../../../../_types/scheduleTypes";
+import { hourData, minData } from "../../../../constants/schedule";
+import { Schedule } from "../../../../_types/schedule";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../_reducers";
+import { RootState } from "../../../../reducers";
 import style from "../../styles/InputBoxStyle.module.scss";
 import style_mode from "../../styles/modeColor.module.scss";
 
@@ -13,7 +13,7 @@ interface InputTimeListProps {
 export default function InputTimeList({
   handleChange,
   schedule,
-}: InputTimeListProps): JSX.Element {
+}: InputTimeListProps) {
   const modeInfo = useSelector((state: RootState) => state.modeReducer.mode);
   const { startHour, startMin, endHour, endMin } = schedule;
   return (

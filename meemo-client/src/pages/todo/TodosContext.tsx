@@ -1,7 +1,7 @@
 import { Dispatch, createContext, useReducer, useContext } from "react";
 import axios from "axios";
-import { Todo, TodoState } from "../../_types/todoTypes";
-import { BASE_URL } from "../../_data/urlData";
+import { Todo, TodoState } from "../../_types/todo";
+import { BASE_URL } from "../../constants/url";
 
 const TodoStateContext = createContext<TodoState | undefined>(undefined);
 const TodoDispatchContext = createContext<TodoDispatch | undefined>(undefined);
@@ -24,9 +24,7 @@ const saveTodo = (payloadData: Todo[] | null) => {
       userId: localStorage.getItem("meemo-user-id"),
       payload: payloadData,
     },
-  })
-    .then((res) => res.data)
-    .catch((err) => console.error(err));
+  });
 };
 
 const todoReducer = (state: TodoState, action: Action) => {
@@ -47,10 +45,10 @@ const todoReducer = (state: TodoState, action: Action) => {
       if (removedArray === null || removedArray.length === 0) {
         saveTodo([]);
         return [];
-      } else {
-        saveTodo(removedArray);
-        return removedArray;
       }
+
+      saveTodo(removedArray);
+      return removedArray;
 
     case "TOGGLE":
       const toggleArray = state.map((elem) =>
@@ -90,12 +88,14 @@ export const TodoContextProvider = ({
 
 export const useTodoState = () => {
   const state = useContext(TodoStateContext);
+
   if (!state) throw new Error("TodosProvider not found");
   return state;
 };
 
 export const useTodoDispatch = () => {
   const dispatch = useContext(TodoDispatchContext);
+
   if (!dispatch) throw new Error("TodoDispatchContext not found");
   return dispatch;
 };

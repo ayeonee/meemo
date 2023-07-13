@@ -3,13 +3,13 @@ import TodoItem from "./TodoItem";
 import axios from "axios";
 import { useTodoState } from "../TodosContext";
 import { useTodoDispatch } from "../TodosContext";
-import { Todo } from "../../../_types/todoTypes";
+import { Todo } from "../../../_types/todo";
 import style from "../styles/TodoList.module.scss";
-import { BASE_URL } from "../../../_data/urlData";
+import { BASE_URL } from "../../../constants/url";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../_reducers";
+import { RootState } from "../../../reducers";
 
-function TodoList(): JSX.Element {
+function TodoList() {
   const todos = useTodoState();
   const dispatch = useTodoDispatch();
   const [todoList, setTodoList] = useState<Todo[]>([]);
@@ -18,16 +18,20 @@ function TodoList(): JSX.Element {
   );
 
   const getTodo = async (userId: string | null) => {
-    await axios({
+    const res = await axios({
       method: "POST",
       baseURL: BASE_URL,
       url: "/get/todo",
       data: {
         userId: userId,
       },
-    })
-      .then((res) => setTodoList(res.data.payload))
-      .catch((err) => console.error(err));
+    });
+
+    if (!res.data || !res.data.payload) {
+      return;
+    }
+
+    setTodoList(res.data.payload);
   };
 
   useEffect(() => {

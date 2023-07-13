@@ -3,7 +3,7 @@ import style from "./styles/error.module.scss";
 import { Link } from "react-router-dom";
 import unknown from "../../img/unknown.svg";
 
-export default function UnkownPage(): JSX.Element {
+export default function UnkownPage() {
   let history = useHistory();
   return (
     <div className={style.error_page}>
